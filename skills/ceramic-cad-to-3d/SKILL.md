@@ -1,11 +1,11 @@
 ---
-name: jomul-project-assets
+name: ceramic-cad-to-3d
 description: "Run or resume a JOMUL sketch-to-CAD project with reviewed rotational or handled-vessel guide inputs, verify CAD sheets, review handled-vessel axis motion, and manage local revisions. Does not produce a finished 3D page."
 ---
 
 # JOMUL project assets
 
-Read the [pipeline and decision status](references/pipeline.md) and [current verification status](references/verification-status.md) before starting or extending a project. This is a living skill: move adopted decisions into its active profile and consuming generator with a meaningful output check; keep rejected experiments out of the active path. The documented 00–11 pipeline is the target workflow, while the commands below are the currently supported subset. Do not infer implementation from a checklist or a passing PoC alone.
+Read the [pipeline and decision status](references/pipeline.md) before starting or extending a project. This is a living skill: move adopted decisions into its active profile and consuming generator with a meaningful output check; keep rejected experiments out of the active path. The documented 00–11 pipeline is the target workflow, while the commands below are the currently supported subset. Do not infer implementation from a checklist or a passing PoC alone.
 
 Use a Python environment with [requirements.txt](requirements.txt) installed for P1 `--intake`/`--answer`; existing manual CAD commands can use `python3`. Run `scripts/jomul-project-assets.py` from this repository for `new`, `resume`, `revise`, `verify`, and `rollback`. Read [input contract](references/input.md) before preparing a P1 intake, answer, or manual CAD config. The entrypoint stores each project under `.poc/jomul-project-assets-workspaces/<NN>-<slug>/` with a state file and review log; snapshots are separate per project.
 
@@ -26,5 +26,7 @@ An isolated [full-page assembly PoC](../../docs/make-skill/08-scroll-page/101-fu
 When a full project-page renderer is added, use the accepted moon page axis hierarchy and the [08 motion gap record](../../docs/make-skill/08-scroll-page/97-mug-axis-rotation-gap.md): the vessel and its CAD-sourced wire turn together around the vessel axis while that tilted axis changes azimuth through 360°. Camera-only 180° orbit belongs to side/rear shape inspection, not the project motion. The moon right 14° and 390° body turn are comparison values until the new project’s direction, angle, and pacing are reviewed. Verify the handle stays in frame at intermediate angles on desktop and mobile. This v0 executor still does not build that page.
 
 For the provisional mug review, the user-shared `/.poc/mug-provisional-handoff-study/` URL must run the axis-motion viewer. Camera-only 180° side/rear inspection lives at `/.poc/mug-shape-inspection-study/`. Rebuild the registered current URL and its browser gate after a motion fix; a separate comparison URL alone does not update what the user is viewing.
+
+Run `python3 scripts/jomul-preflight.py --full-page-fixture` to verify the current local assembled PoC and `python3 scripts/jomul-preflight.py --release` before calling this a distributable finished-page skill. The release command must pass; a local fixture pass alone is insufficient.
 
 Before modifying renderer or page code, follow the repository `AGENTS.md`, including preflight and preserved page baselines. The live approved pages and selected comparison artifacts must stay available for review.
