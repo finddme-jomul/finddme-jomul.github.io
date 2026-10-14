@@ -1,12 +1,22 @@
-// Expand the world-space ring with the item count, then fit the CSS perspective
-// projection to the viewport. No WebGL or changes to the sunlight are involved.
-export function getCssOrbitLayout({ count, width, height, stageHeight, headerHeight, perspective = 1500 }) {
-  const baseRadius = Math.min(width * .32, height * .34, 390);
-  const size = Math.min(baseRadius * .65, 220) * 1.1;
-  const growth = count > 6 ? Math.sin(Math.PI / 6) / Math.sin(Math.PI / count) : 1;
+// Expand the world-space ring with the item count, then scale its CSS perspective
+// projection for the viewport. Far-side cards may extend beyond the visible stage.
+export function getCssOrbitLayout({ count, width, height, stageHeight, headerHeight, perspective = 1500, mobileComposition = 'balanced' }) {
+  const mobile = width <= 700;
+  const immersive = mobileComposition === 'immersive';
+  const baseRadius = mobile
+    ? Math.min(width * (immersive ? .47 : .46), height * .24, 190)
+    : Math.min(width * .32, height * .34, 390);
+  const size = mobile
+    ? baseRadius * (immersive ? .91 : .87) * 1.3
+    : Math.min(baseRadius * .65, 220) * 1.1 * 1.3;
+  // Expand the 12-position ring moderately; outer cards may pass beyond the
+  // viewport, while the larger cards remain readable as the ring rotates.
+  const growth = 1 + Math.min(Math.max(count - 6, 0) * .07, .42);
   const radius = baseRadius * growth;
-  const centerY = height * .5 - headerHeight;
-  const horizontalRoom = Math.max(1, width / 2 - 10);
+  const centerY = height * .5 - headerHeight - (mobile ? 12 : 0);
+  // On a phone, let the outer edge slip beyond the frame while preserving
+  // the vertical bounds and the continuous rotation.
+  const horizontalRoom = Math.max(1, mobile ? width * (immersive ? .82 : .78) : width * .68);
   const topRoom = Math.max(1, centerY - 10);
   const bottomRoom = Math.max(1, stageHeight - centerY - 10);
   const tilt = -20 * Math.PI / 180;
@@ -33,5 +43,11 @@ export function getCssOrbitLayout({ count, width, height, stageHeight, headerHei
     for (let i = 0; i < 22; i++) { const middle = (low + high) / 2; if (fits(middle)) low = middle; else high = middle; }
     fit = low;
   }
-  return { radius, size, fit, perspective, centerSize: Math.min(210, baseRadius * .65) / fit };
+  // Keep the desktop cards visibly larger even when a full revolution would
+  // otherwise shrink the ring. Outer cards may pass through the stage edge.
+  if (!mobile) fit = Math.max(fit, .92);
+  const centerSize = .84 * (mobile
+    ? Math.min(immersive ? 195 : 190, width * (immersive ? .5 : .48)) / fit
+    : Math.min(300, baseRadius * .98) / fit);
+  return { radius, size, fit, perspective, centerSize };
 }
