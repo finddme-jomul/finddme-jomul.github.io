@@ -125,7 +125,7 @@ def main() -> None:
                 raise SystemExit(f'Current mug review URL reverted to a non-motion {name}')
         if not (output.parent / 'motion-config.json').is_file() or not (output.parent / 'browser-review/report.json').is_file():
             raise SystemExit('Current mug review URL lacks axis settings or browser gate report')
-    print(f"JOMUL_BUILD_OK {profile['profileId']} / {args.target} / {target['coverage']} / {output}")
+    print(f"JOMUL_POC_BUILD_OK {profile['profileId']} / {args.target} / {target['coverage']} / {output}")
 
 
 if __name__ == '__main__':

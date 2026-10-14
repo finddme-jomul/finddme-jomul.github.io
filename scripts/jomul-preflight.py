@@ -80,9 +80,126 @@ def check_accepted_cad(profile: dict) -> None:
             raise ValueError(f'Accepted CAD artifact changed: {relative}')
 
 
+def digest(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def check_full_page_fixture(profile: dict) -> None:
+    """Check the published local fixture against its current sources and browser report."""
+    base = ROOT / '.poc/full-page-study'
+    manifest = json.loads((base / 'manifest.json').read_text())
+    report_path = base / 'browser-review/report.json'
+    report = json.loads(report_path.read_text())
+    expected_names = {'single-one': ('single', 1), 'single-three': ('single', 3),
+                      'multiple-zero': ('multiple', 0), 'multiple-one': ('multiple', 1)}
+    layouts = {'desktop', 'short', 'mobile', 'mobile-short'}
+    expected_cases = {(name, layout) for name in expected_names for layout in layouts}
+    actual_cases = {(case['name'], case['layout']) for case in report['cases']}
+    if (manifest.get('scope') != 'full-page-assembly-poc'
+            or report.get('status') != 'passed'
+            or report.get('scope') != 'full-page-assembly-poc'
+            or actual_cases != expected_cases or len(report['cases']) != 16
+            or manifest.get('browserReportSha256') != digest(report_path)):
+        raise ValueError('Full-page browser evidence missing, incomplete, or changed')
+    for case in report['cases']:
+        if len(case['states']) != 6 or [state['stage'] for state in case['states']] != [
+                'cad', 'wire', 'clay', 'glaze', 'exit', 'final']:
+            raise ValueError('Full-page stage evidence incomplete')
+        name = case['name']
+        if case['mode'] != expected_names[name][0] or case['photoCount'] != expected_names[name][1]:
+            raise ValueError('Full-page browser case differs from fixture contract')
+    sources = {
+        'single-one': ('moon-jar-skill-handoff.json', 'moon-jar'),
+        'single-three': ('moon-jar-multi-photo-study.json', 'moon-jar'),
+        'multiple-zero': ('bowl-set-skill-no-photo.json', 'bowl-set'),
+        'multiple-one': ('bowl-set-skill-handoff.json', 'bowl-set'),
+    }
+    case_manifests = {item['case']: item for item in manifest['cases']}
+    if set(case_manifests) != set(expected_names):
+        raise ValueError('Full-page fixture cases differ from manifest')
+    for name, (mode, photo_count) in expected_names.items():
+        page = base / name
+        record = json.loads((page / 'page-manifest.json').read_text())
+        scene_path = page / 'assets/scene.json'
+        scene = json.loads(scene_path.read_text())
+        page_profile_path = page / 'assets/page-profile.json'
+        page_profile = json.loads(page_profile_path.read_text())
+        config_name, sheet_name = sources[name]
+        source_config = ROOT / 'docs/artifacts/configured-scroll-poc/configs' / config_name
+        sheet_manifest = base / '_sheets' / sheet_name / 'manifest.json'
+        if (record['sourceConfigSha256'] != digest(source_config)
+                or record['commonSheetSha256'] != digest(sheet_manifest)
+                or any(digest(page / item['publicPath']) != item['publicSha256']
+                       for item in record['photos'])):
+            raise ValueError(f'{name}: source config, CAD sheet, or photo changed')
+        if (record != case_manifests[name] or record['mode'] != mode
+                or record['photoCount'] != photo_count
+                or record['sceneSha256'] != digest(scene_path)
+                or record['pageProfileSha256'] != digest(page_profile_path)
+                or page_profile['sourceProfileSha256'] != digest(PROFILE)
+                or digest(page / 'viewer.js') != digest(ROOT / 'docs/artifacts/full-page-study/viewer.js')):
+            raise ValueError(f'{name}: generated page differs from its recorded source')
+        if mode == 'single' and scene['motion'].get('singleFraming') != profile['motion']['singleFraming']:
+            raise ValueError(f'{name}: selected moon framing is not consumed')
+    print('CERAMIC_FIXTURE_OK 16 cases / local full-page-study')
+
+
+def check_release_readiness(profile: dict) -> None:
+    """Fail closed until distributable code and explicit visual approval exist."""
+    import subprocess
+    tracked = set(subprocess.check_output(['git', 'ls-files'], cwd=ROOT, text=True).splitlines())
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("jomul_build", ROOT / "scripts/jomul-build.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    required = {target['command'][0] for target in module.TARGETS.values()}
+    required.update({
+        'docs/artifacts/cad-style/shared_sheet_poc.py',
+        'docs/artifacts/cad-style/check_shared_sheet_poc.py',
+        'docs/artifacts/axis-motion-shared-study/build_project.py',
+        'docs/artifacts/full-page-study/viewer.js',
+    })
+    missing = sorted(required - tracked)
+    reasons = []
+    skill = ROOT / 'skills/ceramic-cad-to-3d/SKILL.md'
+    if ('skills/ceramic-cad-to-3d/SKILL.md' not in tracked
+            or not skill.is_file()
+            or not skill.read_text().startswith('---\nname: ceramic-cad-to-3d\n')):
+        reasons.append('named skill entrypoint is missing, unversioned, or misnamed')
+    if missing:
+        reasons.append(f'{len(missing)} executable sources are not versioned (first: {missing[0]})')
+    report_sha = digest(ROOT / '.poc/full-page-study/browser-review/report.json')
+    for filename, label in (
+            ('full-page-visual-approved.json', 'matched-point full-page visual approval'),
+            ('multi-photo-layout-approved.json', 'varied-size multi-photo layout approval'),
+            ('new-project-e2e-approved.json', 'new-project end-to-end approval')):
+        relative = f'scripts/baselines/{filename}'
+        evidence = ROOT / relative
+        if not evidence.is_file() or relative not in tracked:
+            reasons.append(f'{label} evidence is missing or not versioned')
+            continue
+        try:
+            decision = json.loads(evidence.read_text())
+        except (OSError, json.JSONDecodeError):
+            reasons.append(f'{label} evidence is unreadable')
+            continue
+        if (decision.get('status') != 'adopted'
+                or decision.get('profileSha256') != digest(PROFILE)
+                or decision.get('browserReportSha256') != report_sha
+                or not decision.get('decisionSource')):
+            reasons.append(f'{label} evidence lacks current hashes or decision provenance')
+    if "sub.add_parser('page')" not in (ROOT / 'scripts/jomul-project-assets.py').read_text():
+        reasons.append('project CLI has no finished-page command')
+    if reasons:
+        raise SystemExit('CERAMIC_RELEASE_BLOCKED: ' + '; '.join(reasons))
+    print('CERAMIC_RELEASE_READY')
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument('--baseline', action='append', default=[], help='Baseline ID to require')
+    parser.add_argument('--full-page-fixture', action='store_true', help='verify the published local full-page PoC')
+    parser.add_argument('--release', action='store_true', help='fail unless the skill is reproducible and approved')
     args = parser.parse_args()
     profile = load_profile()
     check_baselines(profile, args.baseline or list(profile['baselines']))
@@ -90,6 +207,10 @@ def main() -> None:
     from jomul_common_cad_baseline import verify_reference
     verify_reference(profile)
     print(f"JOMUL_PREFLIGHT_OK {profile['profileId']}: {','.join(args.baseline or profile['baselines'])}")
+    if args.full_page_fixture or args.release:
+        check_full_page_fixture(profile)
+    if args.release:
+        check_release_readiness(profile)
 
 
 if __name__ == '__main__':
