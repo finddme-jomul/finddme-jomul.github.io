@@ -1,0 +1,35 @@
+# JOMUL sketch-to-page pipeline and decision status
+
+Use this as the maintained skill contract for the whole intended workflow. The current CLI implements only the supported subset below. Local design evidence lives in `docs/make-skill/`; that directory is excluded from Git, so this reference must carry the decisions needed to run and extend the skill without silently substituting an old PoC.
+
+## Decision rule
+
+- Resolve inputs in this order: the user's current explicit instruction, that project's confirmed answer or approved presentation, cross-project adopted defaults, then labeled PoC assumptions. Keep physical manufacturing facts separate from visual approval.
+- Mark each new design result `candidate`, `fixture-verified`, `adopted`, or `rejected`, with its project scope, evidence, and source. Passing a technical fixture does not make a visual choice adopted. Do not load rejected values as defaults. Keep rejected rationale in the local study record, outside the active execution profile.
+- When a decision is adopted, update the project input or `scripts/jomul-design-profile.json`, the generator that consumes it, and a browser/asset check of the affected output in the same change. Preserve the previous selected fixture. If the generator still uses a different rule, report the stage as incomplete.
+- Begin at the earliest stage invalidated by a changed input. Snapshot before replacing accepted output; regenerate only downstream outputs. Verify at the actual URL the user opens, including reverse scroll and relevant desktop/mobile sizes. A new comparison URL does not update an existing review URL.
+
+## Stage contract
+
+| Stage | Input → output | Current execution boundary |
+| --- | --- | --- |
+| 00 Start/resume | Project ID, original files, hashes → workspace and stage state | `new`, `resume`, `verify`, `revise`, `rollback` exist; general dependency router and full `pipeline-state.json` remain incomplete. |
+| 01 Sketch intake | Sketch/source regions → P1 observations, uncertainty, targeted questions | Agent-reviewed extraction and evidence-backed answers are supported. Unsupervised sketch interpretation is not. |
+| 02 Specification | Confirmed answers, clay/firing/shrinkage evidence, presentation choices → dimensions/material/motion with provenance | Do not invent missing size, shrinkage, glaze color, or production claims. Preserve ranges until selected. |
+| 03 CAD shape | Confirmed geometry → STEP/mesh/profile from one source | Rotational one/two-part sheet inputs and a reviewed provisional handled solid have PoCs. General asymmetric and 3+ part production is unsupported. |
+| 04 Drawing and wire | Same CAD/profile → one technical sheet, part `frontBox`, CAD-sourced 3D wire | Adopted style: white, borderless, technical dense, front/plan/section/isometric/details/dimensions; English except clay/glaze names. `multiple` parts share one sheet and retain stable IDs. Do not use raw GLB tessellation as the intended wire drawing. |
+| 05 Material | Verified clay/glaze evidence and CAD mesh → expected material/render | Separate clay and glaze states; unknown fired color or gloss stays provisional. Reusing a GLB does not prove material parity. |
+| 06 Web 3D | Same shape/material → GLB and load/units/bounds check | CAD mm becomes web metres; inspect side/rear/handle joins. The current skill CLI has a single handled-vessel motion preview, not a general finished page. |
+| 07 Real photos | `actual[]`, `process[]`, target association, order → metadata-safe web copies and role/order manifest | Keep cover, final-fired, and process roles distinct. A process photo may appear in the last gallery. Never duplicate one source as distinct final photos to claim real multi-photo validation. |
+| 08 Page assembly | Reviewed sheet, wire, GLB, motion, photos, selected visual profile → CAD→wire→clay→glaze→final gallery | First CAD sheet fills the viewport within its bounds. No visible page narration, title, caption, badge, progress line, or footer. Photo exists only in the final 100vh gallery after 3D exits; no photo-only scroll segment. Single moon sizing consumes `motion.singleFraming`. The multi-photo equal grid is a candidate, not an adopted layout. |
+| 09 Verify | Generated outputs and the same selected contract → hashes, geometry checks, browser captures and visual review | Compare the same scroll progress and viewport with the selected moon/bowl baseline; check object occupancy as well as clipping. Automated passing is not user visual approval. |
+| 10 Feedback | User correction, prior state → minimal affected rebuild and exact rollback path | Record adopted feedback in the input/profile and consumer first, then regenerate and verify. Do not reverse-engineer a rollback from remembered values. |
+| 11 Package/E2E | All stages and new project input → reusable skill release | Still incomplete. Moon is development, mug is single validation, bowls are multiple validation; reserve chess for final evaluation. |
+
+`single` and `multiple` use one workflow selected by the number of finished vessel instances. A handle is a subcomponent of one vessel, not another `part`. Each independent part keeps its own evidence, CAD, material, and ID; instances can reuse a model. Do not copy one part's uncertain values or one photograph to another.
+
+## Selected visual baselines and current limits
+
+`python3 scripts/jomul-preflight.py` checks the selected moon and bowl files and CAD reference artifacts named in `scripts/jomul-design-profile.json`. Use `python3 scripts/jomul-build.py <target>` for registered PoCs. The accepted moon full-page baseline is `/.poc/moon-jar-gallery-type-study/`; the bowl photo handoff baseline is `/.poc/bowl-set-configured-photo-handoff/`. Both are local reference fixtures, not new-project E2E output.
+
+The registered `full-page-study` joins existing reviewed assets for single/multiple with 0/1/3 photo cases. Its single-moon wire size now uses model-bound camera fitting and a browser occupancy gate. Full scene parity for rotation, lighting, material, and gallery composition remains unapproved. Its equal multi-photo grid is an unapproved candidate; the user's reference shows varied size and asymmetric positions, but the exact placement rule remains to be selected. The CLI does not yet take a new sketch all the way to a finished page.
