@@ -1,0 +1,142 @@
+{
+  "moon": {
+    "sources": {
+      "docs/artifacts/generic-vessel-poc/outputs/moon-jar/generated/outer-profile.json": "d9f77a8042c340c47e98cb6f0130c9b41fe48bf6019617e50fe9d04ecc1b6c17",
+      "docs/artifacts/generic-vessel-poc/outputs/moon-jar/generated/shrinkage.json": "095d3951e7b74765444ccec2f6f3c12cc21c01a8aee9a5840210e3378384653f",
+      "docs/artifacts/generic-vessel-poc/outputs/moon-jar/generated/material.json": "97ef9fb558b80ed95cc3db4a3a7403c1489090b681083396ec48e5d832cb154d"
+    },
+    "stationsMm": [
+      [
+        0.0,
+        54.99998
+      ],
+      [
+        75.0,
+        139.76633944717128
+      ],
+      [
+        150,
+        45.000060000000005
+      ]
+    ],
+    "frontBox": {
+      "cx": 0.32016806722689073,
+      "cy": 0.510688836104513,
+      "width": 0.4,
+      "height": 0.6057007125890737
+    },
+    "provisional": [
+      "inner wall",
+      "base thickness",
+      "shrinkage"
+    ]
+  },
+  "bowl": {
+    "frontBoxes": {
+      "rice-bowl": {
+        "frontBox": {
+          "cx": 0.415625,
+          "cy": 0.5685714285714286,
+          "width": 0.145,
+          "height": 0.14285714285714285
+        },
+        "frontBoxMobile": {
+          "cx": 0.5,
+          "cy": 0.36041666666666666,
+          "width": 0.29,
+          "height": 0.1125
+        },
+        "frontBoxMobileTall": {
+          "cx": 0.5,
+          "cy": 0.3092105263157895,
+          "width": 0.38666666666666666,
+          "height": 0.11842105263157894
+        },
+        "frontBoxCompact": {
+          "cx": 0.384375,
+          "cy": 0.5041666666666667,
+          "width": 0.145,
+          "height": 0.20833333333333334
+        }
+      },
+      "soup-bowl": {
+        "frontBox": {
+          "cx": 0.584375,
+          "cy": 0.559047619047619,
+          "width": 0.15,
+          "height": 0.1619047619047619
+        },
+        "frontBoxMobile": {
+          "cx": 0.5,
+          "cy": 0.7495833333333334,
+          "width": 0.3,
+          "height": 0.1275
+        },
+        "frontBoxMobileTall": {
+          "cx": 0.5,
+          "cy": 0.7118421052631579,
+          "width": 0.4,
+          "height": 0.13421052631578947
+        },
+        "frontBoxCompact": {
+          "cx": 0.615625,
+          "cy": 0.49027777777777776,
+          "width": 0.15,
+          "height": 0.2361111111111111
+        }
+      }
+    },
+    "parts": {
+      "rice-bowl": {
+        "sources": {
+          "docs/artifacts/bowl-set-validation/output/rice-bowl/outer-profile.json": "0b94eb0c1ab2fe7f5c28270ecebea95080fe81df99d3506bcec94fced65242eb",
+          "docs/artifacts/bowl-set-validation/output/rice-bowl/dimensions.json": "3c25e84020b04cf99d18d55fad46f83d1a272699f4d3cb578c67130de37d5235"
+        },
+        "stationsMm": [
+          [
+            0.0,
+            47.999988
+          ],
+          [
+            37.5,
+            107.13983234470635
+          ],
+          [
+            75.0,
+            110.000016
+          ]
+        ]
+      },
+      "soup-bowl": {
+        "sources": {
+          "docs/artifacts/bowl-set-validation/output/soup-bowl/outer-profile.json": "565a9e6cf241e051f8b33bfa9760d113f33164f9acfde0153ee2adf3447a38fb",
+          "docs/artifacts/bowl-set-validation/output/soup-bowl/dimensions.json": "a06ae868afe1e2f92a97aa91e709e93daa4271b6582debbd688b506fa67a5508"
+        },
+        "stationsMm": [
+          [
+            0.0,
+            54.0
+          ],
+          [
+            42.5,
+            91.6950638194424
+          ],
+          [
+            85.0,
+            119.99999999999999
+          ]
+        ]
+      }
+    },
+    "layouts": {
+      "desktop": "combined-cad-sheet.svg",
+      "short": "combined-cad-sheet-compact.svg",
+      "mobile": "combined-cad-sheet-mobile-tall.svg",
+      "mobile-short": "combined-cad-sheet-mobile.svg"
+    },
+    "provisional": [
+      "profile-derived station diameters",
+      "inner detail offset"
+    ]
+  }
+}
