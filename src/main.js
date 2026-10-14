@@ -1,5 +1,5 @@
 import './style.css';
-import { projects } from './projects.js';
+import { projects } from './projects/index.js';
 import { bindOrbitInput } from './orbit-input.js';
 import { mountAsciiCenter } from './ascii-center.js';
 import { getCssOrbitLayout } from './css-orbit-layout.js';
@@ -7,24 +7,35 @@ import { getCssOrbitLayout } from './css-orbit-layout.js';
 const $ = (selector) => document.querySelector(selector);
 const section = $('.gallery-section');
 const stage = $('.orbit-stage');
-const asciiCenter = mountAsciiCenter($('.orbit-center'));
+const asciiButton = $('.orbit-center');
+const asciiCenter = mountAsciiCenter(asciiButton);
+asciiButton.addEventListener('click', () => {
+  const colorized = asciiButton.classList.toggle('is-colorized');
+  asciiButton.setAttribute('aria-pressed', String(colorized));
+  asciiButton.setAttribute('aria-label', colorized ? '석류 ASCII 흑백으로 보기' : '석류 ASCII 색상 보기');
+  if (layout) asciiCenter.render(-angle * Math.PI * 2 / count, layout.centerSize);
+});
 const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
 let grid = motion.matches;
 let angle = 0;
 let target = 0;
 let raf = 0;
 let lastFocus;
-const count = projects.length;
+const orbitProjects = projects.slice(0, 12);
+const count = orbitProjects.length;
+const mobileComposition = import.meta.env.DEV && new URLSearchParams(location.search).get('orbit-preview') === 'immersive'
+  ? 'immersive'
+  : 'balanced';
 let layoutKey;
 let layout;
-const cards = projects.map((project, index) => {
+const cards = orbitProjects.map((project, index) => {
   const link = document.createElement('a');
   link.className = 'work-card';
   link.href = `#project/${project.id}`;
   link.style.setProperty('--tone', project.tone);
-  link.setAttribute('aria-label', `${project.title}, 임시 형태 스터디 보기`);
-  link.style.setProperty('--tile-image', `url("${project.image}")`);
-  link.innerHTML = `<span class="tile-edge edge-one" aria-hidden="true"></span><span class="tile-edge edge-two" aria-hidden="true"></span><span class="tile-edge edge-three" aria-hidden="true"></span><div class="sheet-art"><span class="sun-spark" aria-hidden="true"></span><img src="${project.image}" alt="${project.name} 도자기 형태의 3D 렌더" width="512" height="640"></div><span class="tile-back" aria-hidden="true"><span class="sun-spark"></span></span>`;
+  link.setAttribute('aria-label', `${project.title} 프로젝트 보기`);
+  link.style.setProperty('--tile-image', `url("${project.cover}")`);
+  link.innerHTML = `<span class="tile-edge edge-one" aria-hidden="true"></span><span class="tile-edge edge-two" aria-hidden="true"></span><span class="tile-edge edge-three" aria-hidden="true"></span><div class="sheet-art"><span class="sun-spark" aria-hidden="true"></span><img src="${project.cover}" alt="${project.coverAlt || project.assets?.photo?.[0]?.alt || `${project.title} 대표 이미지`}" width="512" height="640"></div><span class="tile-back" aria-hidden="true"><span class="sun-spark"></span></span>`;
   link.addEventListener('focus', () => {
     if (!grid) {
       const nearest = target + ((((index - target) % count) + count + count / 2) % count - count / 2);
@@ -59,7 +70,7 @@ function render() {
   const key = `${count}:${stage.clientWidth}:${stage.clientHeight}:${innerHeight}:${innerWidth}`;
   if (layoutKey !== key) {
     layoutKey = key;
-    layout = getCssOrbitLayout({count, width: stage.clientWidth, height: innerHeight, stageHeight: stage.clientHeight, headerHeight: innerWidth <= 700 ? 70 : 88, perspective: innerWidth <= 700 ? 950 : 1500});
+    layout = getCssOrbitLayout({count, width: stage.clientWidth, height: innerHeight, stageHeight: stage.clientHeight, headerHeight: innerWidth <= 700 ? 110 : 150, perspective: innerWidth <= 700 ? 950 : 1500, mobileComposition});
   }
   const { radius, size, fit, centerSize } = layout;
   section.style.setProperty('--orbit-fit', fit);
@@ -78,6 +89,8 @@ function render() {
     // A nearly edge-on card otherwise reads as a pole through the centerpiece.
     const edgeT = grid ? 1 : Math.max(0, Math.min(1, (Math.abs(Math.sin(theta)) - .10) / .14));
     card.style.setProperty('--edge-on-visibility', edgeT * edgeT * (3 - 2 * edgeT));
+    // Fully edge-on cards are invisible but could still intercept the centre button.
+    card.style.pointerEvents = !grid && edgeT < .05 ? 'none' : '';
     card.style.transform = grid ? '' : `translate(-50%, -50%) translate3d(${x}px, 0, ${z}px) rotateY(${yaw}deg)`;
     // World-space upper-left light; transform it into each face's local frame.
     // This is a restrained CSS reflection approximation, not optical ray tracing.
@@ -109,12 +122,8 @@ function setView(value) {
   document.documentElement.classList.toggle('orbit-mode', !grid);
   window.scrollTo({ top: 0, behavior: 'instant' });
   section.classList.toggle('is-grid', grid);
-  $('#orbit-view').setAttribute('aria-pressed', String(!grid));
-  $('#grid-view').setAttribute('aria-pressed', String(grid));
   updateTarget();
 }
-$('#orbit-view').addEventListener('click', () => setView(false));
-$('#grid-view').addEventListener('click', () => setView(true));
 function step(delta) { target += delta; updateTarget(); }
 $('#previous').addEventListener('click', () => step(-1));
 $('#next').addEventListener('click', () => step(1));
@@ -142,9 +151,13 @@ function syncProject() {
   }
   $('#project-title').textContent = project.title;
   $('#project-description').textContent = project.description;
-  $('#project-image').src = project.image;
-  $('#project-image').alt = `${project.name} 임시 기물 렌더`;
+  $('#project-image').src = project.cover;
+  $('#project-image').alt = project.coverAlt || project.assets?.photo?.[0]?.alt || `${project.title} 대표 이미지`;
   $('.project-image').style.background = project.tone;
+  for (const label of dialog.querySelectorAll('[data-asset]')) {
+    const kind = label.dataset.asset;
+    label.textContent = project.assets[kind]?.length ? '등록됨' : kind === 'actual' ? '확인 전' : '미등록';
+  }
   if (!dialog.open) { lastFocus = document.activeElement; dialog.showModal(); }
   document.body.classList.add('modal-open');
 }
