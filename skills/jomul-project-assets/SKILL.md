@@ -5,7 +5,7 @@ description: "Run or resume a JOMUL sketch-to-CAD project with reviewed rotation
 
 # JOMUL project assets
 
-Read the [pipeline and decision status](references/pipeline.md) before starting or extending a project. This is a living skill: move adopted decisions into its active profile and consuming generator with a meaningful output check; keep rejected experiments out of the active path. The documented 00–11 pipeline is the target workflow, while the commands below are the currently supported subset. Do not infer implementation from a checklist or a passing PoC alone.
+Read the [pipeline and decision status](references/pipeline.md) and [current verification status](references/verification-status.md) before starting or extending a project. This is a living skill: move adopted decisions into its active profile and consuming generator with a meaningful output check; keep rejected experiments out of the active path. The documented 00–11 pipeline is the target workflow, while the commands below are the currently supported subset. Do not infer implementation from a checklist or a passing PoC alone.
 
 Use a Python environment with [requirements.txt](requirements.txt) installed for P1 `--intake`/`--answer`; existing manual CAD commands can use `python3`. Run `scripts/jomul-project-assets.py` from this repository for `new`, `resume`, `revise`, `verify`, and `rollback`. Read [input contract](references/input.md) before preparing a P1 intake, answer, or manual CAD config. The entrypoint stores each project under `.poc/jomul-project-assets-workspaces/<NN>-<slug>/` with a state file and review log; snapshots are separate per project.
 
