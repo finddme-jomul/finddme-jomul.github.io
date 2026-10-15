@@ -375,7 +375,7 @@
     {
       "id": "execution-stage-state",
       "state": "implemented-supported-stage-boundaries",
-      "rule": "Read-only fresh stage status; preserve legacy state and exact rollback; gallery preparation independent of CAD; report transitive change scope without claiming full-page scheduling. Separate geometry/material/drawing/runtime inputs; reuse intact unchanged outputs and handled solid bytes for material/drawing-only changes; retain reviewed motion input on invalidation.",
+      "rule": "Read-only fresh stage status; preserve legacy state and exact rollback; gallery preparation independent of CAD; report transitive change scope without claiming full-page scheduling. Separate geometry/material/drawing/runtime inputs; reuse intact unchanged outputs and handled solid bytes for material/drawing-only changes; retain reviewed motion input on invalidation. Automatically rebuild existing reviewed motion after CAD changes, publish only after browser verification, and retain CAD/input for explicit resume retry after failure.",
       "consumer": [
         "scripts/stages.py",
         "scripts/project.py",

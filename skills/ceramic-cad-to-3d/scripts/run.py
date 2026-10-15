@@ -31,5 +31,5 @@ def main():
 if __name__ == '__main__':
     try:
         main()
-    except (ValueError, FileNotFoundError, KeyError, subprocess.CalledProcessError) as error:
+    except (ValueError, RuntimeError, OSError, KeyError, subprocess.CalledProcessError) as error:
         raise SystemExit('CERAMIC_ERROR ' + str(error))

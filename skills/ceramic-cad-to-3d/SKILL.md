@@ -29,4 +29,4 @@ For maintenance, update the existing selection entry and consumer together, revi
 
 Use `status PROJECT [--changed cad|motion|gallery]` to inspect current stage readiness and downstream impact without mutating the workspace. Read the execution-state contract in [pipeline](references/pipeline.md#execution-state-contract). Gallery preparation can run before CAD is ready.
 
-Before applying reviewed CAD changes, `status PROJECT --config FILE` shows the selective rebuild plan. `resume/revise --config` uses that plan; legacy projects rebuild once to record fingerprints. Invalidated motion needs a new browser-gated preview; its reviewed input remains in project state.
+Before applying reviewed CAD changes, `status PROJECT --config FILE` shows the selective rebuild plan. `resume/revise --config` uses that plan; legacy projects rebuild once to record fingerprints. After CAD changes, previously reviewed motion is automatically rebuilt and browser-gated. A failed motion job preserves CAD and input; `resume PROJECT` retries once. Projects without reviewed motion input still require `motion-preview --motion FILE`.

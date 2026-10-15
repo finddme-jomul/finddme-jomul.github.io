@@ -231,6 +231,65 @@ def verify(project: Path, state: dict) -> None:
     print(f'JOMUL_PROJECT_VERIFY_OK {project.name}')
 
 
+def build_motion(project: Path, state: dict, motion_data: dict) -> None:
+    """Publish only after the browser gate; retain reviewed input on failure."""
+    import motion
+    old_entry = state.get('motionPreview')
+    verify(project, state)
+    state['reviewedMotionInput'] = motion_data
+    state['motionJob'] = {'status': 'running'}
+    save(project / 'pipeline-state.json', state)
+    stage = project / 'motion-preview.building'
+    output = project / 'motion-preview'
+    previous = project / 'motion-preview.previous'
+    if stage.exists(): shutil.rmtree(stage)
+    try:
+        motion.motion_input(motion_data)
+        motion.build(project, stage, motion_data)
+        motion.browser_check(stage)
+        if previous.exists():
+            raise ValueError('Unresolved previous motion publication exists')
+        if output.exists(): output.rename(previous)
+        try:
+            stage.rename(output)
+            state['motionPreview'] = {
+                'manifest': (output / 'motion-preview-manifest.json').relative_to(ROOT).as_posix(),
+                'filesSha256': tree_hashes(output),
+                'cadManifestSha256': digest(project / 'cad/manifest.json')}
+            state['motionJob'] = {'status': 'complete'}
+            save(project / 'pipeline-state.json', state)
+        except Exception:
+            if output.exists(): shutil.rmtree(output)
+            if previous.exists(): previous.rename(output)
+            raise
+        if previous.exists(): shutil.rmtree(previous)
+        record(project, 'Motion rebuilt and passed four-viewport browser gate.')
+    except Exception as error:
+        if old_entry is None:
+            state.pop('motionPreview', None)
+        else:
+            state['motionPreview'] = old_entry
+        state['motionJob'] = {'status': 'failed', 'error': str(error),
+                              'retry': f'resume {project.name}'}
+        save(project / 'pipeline-state.json', state)
+        record(project, f'Motion failed; CAD retained and reviewed input saved: {error}')
+        raise
+    finally:
+        if stage.exists(): shutil.rmtree(stage)
+    print(f'JOMUL_MOTION_PREVIEW_READY {project.name} {output / "index.html"}')
+
+
+def resume_motion(project: Path, state: dict) -> None:
+    if not state.get('reviewedMotionInput'):
+        return  # Never invent motion parameters for a new project.
+    from stages import describe
+    job = state.get('motionJob', {})
+    if describe(project, state)['motion']['status'] == 'complete' and job.get('status') not in ('failed', 'running'):
+        return
+    snapshot(project)
+    build_motion(project, state, state['reviewedMotionInput'])
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest='action', required=True)
@@ -319,6 +378,8 @@ def main() -> None:
             return
         if args.action == 'verify':
             verify(project, state)
+            if state.get('motionJob', {}).get('status') in ('failed', 'running'):
+                raise ValueError('Motion browser gate is incomplete; use resume to retry')
             if state.get('gallery'):
                 if tree_hashes(project / 'gallery') != state['gallery']['filesSha256']:
                     raise ValueError('Gallery output drift')
@@ -356,32 +417,10 @@ def main() -> None:
             print(f'CERAMIC_GALLERY_COMPONENT_READY {project.name}')
             return
         if args.action == 'motion-preview':
-            verify(project, state)
-            import importlib.util
-            builder=SCRIPTS / 'motion.py'
-            spec=importlib.util.spec_from_file_location('jomul_motion_builder',builder)
-            module=importlib.util.module_from_spec(spec)
-            assert spec.loader
-            spec.loader.exec_module(module)
-            motion_data=module.motion_input(json.loads(args.motion.expanduser().resolve(strict=True).read_text()))
+            import motion
+            motion_data = motion.motion_input(json.loads(args.motion.expanduser().resolve(strict=True).read_text()))
             snapshot(project)
-            stage=project / 'motion-preview.building'
-            if stage.exists(): shutil.rmtree(stage)
-            try:
-                module.build(project,stage,motion_data)
-                module.browser_check(stage)
-                output=project / 'motion-preview'
-                if output.exists(): shutil.rmtree(output)
-                stage.rename(output)
-                state['reviewedMotionInput'] = motion_data
-                state['motionPreview']={'manifest':(output / 'motion-preview-manifest.json').relative_to(ROOT).as_posix(),
-                                        'filesSha256':tree_hashes(output),'cadManifestSha256':digest(project / 'cad/manifest.json')}
-                state['unsupportedStages']=['glaze and photo scene assembly','multi-part or rotational GLB page assembly','publication']
-                save(project / 'pipeline-state.json',state)
-                record(project,'Built reviewed CAD-to-wire-to-clay axis motion preview; full page remains unsupported.')
-            finally:
-                if stage.exists(): shutil.rmtree(stage)
-            print(f'JOMUL_MOTION_PREVIEW_READY {project.name} {output / "index.html"}')
+            build_motion(project, state, motion_data)
             return
         if args.action == 'rollback':
             source = (SNAP / args.project / args.snapshot).resolve()
@@ -474,6 +513,7 @@ def main() -> None:
             raise ValueError('Revised CAD config is required for this resume')
         elif state['status'] == 'cad-ready':
             verify(project, state)
+            resume_motion(project, state)
             return
         elif (project / 'intake/manifest.json').is_file():
             intake = jomul_intake.progress(project)
@@ -491,6 +531,8 @@ def main() -> None:
             save(project / 'pipeline-state.json', state)
             record(project, f'CAD build stopped after intake or config update: {error}')
             raise
+    if state.get('status') == 'cad-ready':
+        resume_motion(project, state)
     final = state_for(project)
     print(f'JOMUL_PROJECT_{final["status"].upper().replace("-", "_")} {args.project} {project}')
 

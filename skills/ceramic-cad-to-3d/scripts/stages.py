@@ -42,6 +42,8 @@ def describe(project, state):
                                 reason='Recorded artifacts match' if valid else 'CAD dependency or motion output changed')
     else:
         result['motion'].update(status='blocked', reason='Needs supported handled CAD and reviewed motion input')
+    if state.get('motionJob', {}).get('status') in ('failed', 'running'):
+        result['motion'].update(status=state['motionJob']['status'], reason=state['motionJob'].get('error', 'Browser gate is pending'))
     gallery = state.get('gallery')
     if gallery:
         valid = hashes(project/'gallery') == gallery['filesSha256']
@@ -54,7 +56,8 @@ def describe(project, state):
             reason = str(error)
         result['gallery'].update(status='complete' if valid else 'stale',
                                  reason=reason if valid or reason != 'Recorded artifacts match' else 'Gallery output changed')
-    if not motion and state.get('reviewedMotionInput'):
+    if (not motion and state.get('reviewedMotionInput')
+            and state.get('motionJob', {}).get('status') not in ('failed', 'running')):
         result['motion']['reason'] = 'CAD changed; reviewedMotionInput is preserved; rebuild motion-preview and pass its browser gate'
     result['page'].update(status='unsupported', reason='Full-page renderer and visual parity remain pending')
     return result

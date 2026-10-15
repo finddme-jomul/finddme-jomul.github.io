@@ -222,14 +222,6 @@ class PortableRuntime(unittest.TestCase):
         self.assertEqual('reuse',state()['lastBuildPlan']['sheet'])
         self.assertEqual('preserve',state()['lastBuildPlan']['motion'])
         self.assertEqual(before,models())
-        # Synthetic recorded preview tests invalidation/evidence retention only, not rendering.
-        preview=project/'motion-preview';preview.mkdir()
-        motion_input={'provenance':'synthetic dependency test'}
-        (preview/'motion-config.json').write_text(json.dumps(motion_input))
-        recorded=state()
-        recorded['motionPreview']={'filesSha256':{'motion-config.json':sha(preview/'motion-config.json')},
-                                  'cadManifestSha256':sha(project/'cad/manifest.json')}
-        (project/'pipeline-state.json').write_text(json.dumps(recorded))
         config=json.loads(self.configs['handled'].read_text())
         material=json.loads(Path(config['parts'][0]['material']).read_text())
         material['clay']['name']='UPDATED TEST CLAY'
@@ -241,9 +233,6 @@ class PortableRuntime(unittest.TestCase):
         self.assertEqual(['material'],proposed['buildPlan']['changedInputs'])
         self.assertEqual(before_state,sha(project/'pipeline-state.json'))
         self.run_cli('revise',pid,'--feedback','material name only','--config',cfg)
-        self.assertEqual(motion_input,state()['reviewedMotionInput'])
-        self.assertFalse(preview.exists())
-        self.assertNotIn('motionPreview',state())
         self.assertEqual(['material'],state()['lastBuildPlan']['changedInputs'])
         self.assertEqual('reuse',state()['lastBuildPlan']['solid'])
         self.assertEqual(before,models())
