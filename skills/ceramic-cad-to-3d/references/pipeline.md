@@ -4,6 +4,8 @@ Use this as the maintained skill contract for the whole intended workflow. The c
 
 ## Decision rule
 
+- Package one maintained generation path inside this skill, with shared modules and input-driven single/multiple behavior. Select adopted behavior from the PoCs; do not bulk-import historical builders or rejected variants. The PoC target registry is not the skill dependency list. Keep historical evidence outside the active runtime.
+
 - Resolve inputs in this order: the user's current explicit instruction, that project's confirmed answer or approved presentation, cross-project adopted defaults, then labeled PoC assumptions. Keep physical manufacturing facts separate from visual approval.
 - Mark each new design result `candidate`, `fixture-verified`, `adopted`, or `rejected`, with its project scope, evidence, and source. Passing a technical fixture does not make a visual choice adopted. Do not load rejected values as defaults. Keep rejected rationale in the local study record, outside the active execution profile.
 - When a decision is adopted, update the project input or `scripts/jomul-design-profile.json`, the generator that consumes it, and a browser/asset check of the affected output in the same change. Preserve the previous selected fixture. If the generator still uses a different rule, report the stage as incomplete.

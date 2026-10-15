@@ -148,19 +148,18 @@ def check_release_readiness(profile: dict) -> None:
     """Fail closed until distributable code and explicit visual approval exist."""
     import subprocess
     tracked = set(subprocess.check_output(['git', 'ls-files'], cwd=ROOT, text=True).splitlines())
-    import importlib.util
-    spec = importlib.util.spec_from_file_location("jomul_build", ROOT / "scripts/jomul-build.py")
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    required = {target['command'][0] for target in module.TARGETS.values()}
-    required.update({
+    # Historical PoC targets are comparison tools, not release dependencies.
+    # These are direct dependencies of the current project CLI; consolidation
+    # must replace this local route with the selected skill-owned runtime.
+    required = {
         'docs/artifacts/cad-style/shared_sheet_poc.py',
         'docs/artifacts/cad-style/check_shared_sheet_poc.py',
         'docs/artifacts/axis-motion-shared-study/build_project.py',
-        'docs/artifacts/full-page-study/viewer.js',
-    })
+    }
     missing = sorted(required - tracked)
     reasons = []
+    if not (ROOT / 'skills/ceramic-cad-to-3d/scripts/jomul-project-assets.py').is_file():
+        reasons.append('selected project runtime is not consolidated inside the skill')
     skill = ROOT / 'skills/ceramic-cad-to-3d/SKILL.md'
     if ('skills/ceramic-cad-to-3d/SKILL.md' not in tracked
             or not skill.is_file()
