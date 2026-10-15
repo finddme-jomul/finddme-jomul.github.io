@@ -55,15 +55,21 @@ The current executable stages are CAD (including supported handled solids), hand
 - Motion changes affect motion → future page.
 - Photo changes affect gallery → future page. Gallery generation no longer requires CAD readiness and never invokes the CAD builder. Empty reviewed photo input is a completed omitted gallery, distinct from missing photo input.
 - `status PROJECT --changed cad|motion|gallery` reports that transitive scope without regenerating or deleting anything. Stale inputs/outputs and blocked inputs are reported separately from unsupported page assembly.
-- Exact snapshots/rollback remain unchanged. Full automatic scheduling, finer separation of CAD geometry versus sheet/material changes, and full-page dependency execution remain future work.
+- Exact snapshots/rollback remain unchanged. Geometry/material/drawing changes use the selective scheduler below. Full-page dependency execution remains future work.
 
 ### Selective CAD rebuild
 
 `status PROJECT --config FILE` previews the build plan without importing inputs. `resume --config` and `revise --config` execute that same plan. Recorded `cad.buildInputs` separates geometry source hashes (profile/dimensions/handle), material source hashes, drawing configuration, and runtime version. `lastBuildPlan` records the actions taken.
 
 - Identical inputs and intact outputs: verify and reuse CAD; preserve motion and gallery.
-- Material/drawing-only change: rebuild technical sheets, reuse handled STEP/GLB bytes, recompute CAD-to-wire placement metadata. Motion is invalidated because it embeds the sheet/material. Preserve its reviewed input in state for a new browser-gated build.
+- Material/drawing-only change: rebuild technical sheets, reuse handled STEP/GLB bytes, recompute CAD-to-wire placement metadata. Motion is invalidated because it embeds the sheet/material. Preserve its reviewed input in state and automatically run a new browser-gated build.
 - Geometry/runtime change or changed CAD outputs: rebuild the sheet and supported solids. Legacy projects without fingerprints get one conservative full build.
 - Photo updates remain independent. Changed reviewed provenance in geometry files conservatively rebuilds geometry, even if dimensions look unchanged.
 
-This scheduler handles supported CAD consumers. It does not yet automatically run the browser-gated motion command or assemble a full page; it must not claim downstream completion after invalidation. A material update can affect drawing labels as well as appearance, so it cannot skip the sheet.
+This scheduler handles supported CAD consumers and automatically rebuilds an existing reviewed motion preview after invalidation. Full-page assembly remains unsupported. A material update can affect drawing labels as well as appearance, so it cannot skip the sheet.
+
+### Automatic motion and recovery
+
+After a CAD build, the router reuses `reviewedMotionInput` only when it already exists. Missing motion input is never invented. Both explicit `motion-preview` and automatic rebuild use `build_motion`: build in staging, run the existing four-viewport/24-scene browser gate, then publish. A completed unchanged preview is not regenerated.
+
+`motionJob` records running/complete/failed independently of CAD readiness. On failure, the reviewed input and valid CAD remain available; the command exits with an error and `verify` rejects an incomplete motion job. `resume PROJECT` retries once per invocation without rebuilding unchanged CAD. An explicit replacement keeps the previous preview until the new browser gate passes. `status` reports the latest requested job failure even when an older preview survives. Snapshots preserve the state before automatic motion work. These gates establish technical preview validity, not user visual approval.
