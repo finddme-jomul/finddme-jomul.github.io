@@ -168,5 +168,102 @@ class PortableRuntime(unittest.TestCase):
         self.assertIn('already confirmed',self.run_cli('resume',pid,'--answer',repeat,ok=False))
         self.run_cli('verify',pid)
 
+    def test_08_stage_dependencies_and_independent_photos(self):
+        pid='97-stages'
+        self.run_cli('new',pid,'--sketch',self.sketch)
+        project=self.project(pid)
+        photos=self.workspace/'empty-stage-photos.json'; photos.write_text('[]')
+        self.run_cli('gallery',pid,'--photos',photos)
+        state_path=project/'pipeline-state.json'
+        initial=sha(state_path)
+        report=json.loads(self.run_cli('status',pid,'--changed','gallery'))
+        self.assertEqual(initial,sha(state_path), 'Status must not mutate projects')
+        self.assertEqual('blocked',report['stages']['cad']['status'])
+        self.assertEqual('complete',report['stages']['gallery']['status'])
+        self.assertEqual(['gallery','page'],report['affectedStages'])
+        self.assertFalse((project/'cad').exists())
+        gallery_before={p.relative_to(project/'gallery').as_posix():sha(p)
+                        for p in (project/'gallery').rglob('*') if p.is_file()}
+        self.run_cli('resume',pid,'--config',self.configs['single'])
+        self.assertEqual(gallery_before,{p.relative_to(project/'gallery').as_posix():sha(p)
+                        for p in (project/'gallery').rglob('*') if p.is_file()})
+        cad_before=sha(project/'cad/manifest.json')
+        self.run_cli('gallery',pid,'--photos',photos)
+        self.assertEqual(cad_before,sha(project/'cad/manifest.json'))
+        self.run_cli('verify',pid)
+        # Legacy projects remain readable without an eager state migration.
+        legacy=json.loads(state_path.read_text())
+        legacy.pop('stages');legacy.pop('stageContractVersion')
+        state_path.write_text(json.dumps(legacy))
+        initial=sha(state_path)
+        report=json.loads(self.run_cli('status',pid,'--changed','cad'))
+        self.assertEqual(initial,sha(state_path))
+        self.assertEqual(['cad','motion','page'],report['affectedStages'])
+        self.assertEqual('complete',report['stages']['cad']['status'])
+        # An edited input must not retain the recorded complete status.
+        config=project/'input/config.json'
+        config.write_text(config.read_text()+'\n')
+        report=json.loads(self.run_cli('status',pid))
+        self.assertEqual('stale',report['stages']['cad']['status'])
+        self.assertEqual('complete',report['stages']['gallery']['status'])
+        self.assertEqual('unsupported',report['stages']['page']['status'])
+        self.assertIn('drift',self.run_cli('verify',pid,ok=False))
+
+    def test_09_selective_cad_rebuild(self):
+        pid='98-selective';project=self.new(pid,'handled')
+        def state():
+            return json.loads((project/'pipeline-state.json').read_text())
+        def models():
+            return {p.relative_to(project/'cad').as_posix():sha(p)
+                    for p in (project/'cad/solid').rglob('model.*')}
+        before=models()
+        sheet=sha(project/'cad/sheet-desktop.svg')
+        self.run_cli('revise',pid,'--feedback','same reviewed input','--config',self.configs['handled'])
+        self.assertEqual('reuse',state()['lastBuildPlan']['sheet'])
+        self.assertEqual('preserve',state()['lastBuildPlan']['motion'])
+        self.assertEqual(before,models())
+        # Synthetic recorded preview tests invalidation/evidence retention only, not rendering.
+        preview=project/'motion-preview';preview.mkdir()
+        motion_input={'provenance':'synthetic dependency test'}
+        (preview/'motion-config.json').write_text(json.dumps(motion_input))
+        recorded=state()
+        recorded['motionPreview']={'filesSha256':{'motion-config.json':sha(preview/'motion-config.json')},
+                                  'cadManifestSha256':sha(project/'cad/manifest.json')}
+        (project/'pipeline-state.json').write_text(json.dumps(recorded))
+        config=json.loads(self.configs['handled'].read_text())
+        material=json.loads(Path(config['parts'][0]['material']).read_text())
+        material['clay']['name']='UPDATED TEST CLAY'
+        changed=self.workspace/'changed-material.json';changed.write_text(json.dumps(material))
+        config['parts'][0]['material']=str(changed)
+        cfg=self.workspace/'changed-handled.json';cfg.write_text(json.dumps(config))
+        before_state=sha(project/'pipeline-state.json')
+        proposed=json.loads(self.run_cli('status',pid,'--config',cfg))
+        self.assertEqual(['material'],proposed['buildPlan']['changedInputs'])
+        self.assertEqual(before_state,sha(project/'pipeline-state.json'))
+        self.run_cli('revise',pid,'--feedback','material name only','--config',cfg)
+        self.assertEqual(motion_input,state()['reviewedMotionInput'])
+        self.assertFalse(preview.exists())
+        self.assertNotIn('motionPreview',state())
+        self.assertEqual(['material'],state()['lastBuildPlan']['changedInputs'])
+        self.assertEqual('reuse',state()['lastBuildPlan']['solid'])
+        self.assertEqual(before,models())
+        self.assertNotEqual(sheet,sha(project/'cad/sheet-desktop.svg'))
+        self.run_cli('verify',pid)
+        config['name']='Updated drawing project name'
+        cfg.write_text(json.dumps(config))
+        self.run_cli('revise',pid,'--feedback','drawing metadata only','--config',cfg)
+        self.assertEqual(['drawing'],state()['lastBuildPlan']['changedInputs'])
+        self.assertEqual(before,models())
+        self.run_cli('verify',pid)
+        dims=json.loads(Path(config['parts'][0]['dimensions']).read_text())
+        dims['valuesMm']['wallThickness']=5
+        changed=self.workspace/'changed-dimensions.json';changed.write_text(json.dumps(dims))
+        config['parts'][0]['dimensions']=str(changed);cfg.write_text(json.dumps(config))
+        self.run_cli('revise',pid,'--feedback','wall thickness change','--config',cfg)
+        self.assertEqual(['geometry'],state()['lastBuildPlan']['changedInputs'])
+        self.assertEqual('build',state()['lastBuildPlan']['solid'])
+        self.assertNotEqual(before,models())
+        self.run_cli('verify',pid)
+
 if __name__=='__main__':
     unittest.main()

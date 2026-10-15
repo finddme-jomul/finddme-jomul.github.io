@@ -184,6 +184,27 @@ def build(config_path: Path, sheet_manifest_path: Path, out: Path) -> dict:
     return report
 
 
+def refresh_placement(config_path: Path, sheet_manifest_path: Path, out: Path) -> None:
+    """Keep checked STEP/GLB bytes while updating sheet-dependent placement metadata."""
+    config = json.loads(config_path.read_text())
+    sheet = json.loads(sheet_manifest_path.read_text())
+    report = json.loads((out / 'manifest.json').read_text())
+    for row in report['parts']:
+        raw = next(part for part in config['parts'] if part['id'] == row['id'])
+        paths = {kind: ROOT / raw[kind] for kind in ('profile', 'dimensions', 'handle')}
+        if row['sourceSha256'] != {kind: sha(path) for kind, path in paths.items()}:
+            raise ValueError('Cannot reuse solid with changed geometry evidence')
+        dest = out / row['id']
+        if sha(dest / 'model.step') != row['stepSha256'] or sha(dest / 'model.glb') != row['glbSha256']:
+            raise ValueError('Cannot reuse changed solid output')
+        dims = json.loads(paths['dimensions'].read_text())[raw.get('dimensionsKey', 'valuesMm')]
+        row['wirePlacement'] = {key: placement(layout, row['glbBoundsMm'], dims)
+                                for key, layout in sheet['layouts'].items()}
+        (dest / 'solid-report.json').write_text(json.dumps(row, indent=2) + '\n')
+    report['project'] = config['name']
+    (out / 'manifest.json').write_text(json.dumps(report, indent=2) + '\n')
+
+
 def verify(config_path: Path, sheet_manifest_path: Path, out: Path) -> None:
     config = json.loads(config_path.read_text())
     sheet = json.loads(sheet_manifest_path.read_text())

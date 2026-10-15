@@ -1,0 +1,68 @@
+"""Operational stage contract, derived from recorded artifacts; no silent rebuilds."""
+import hashlib
+
+CONTRACT = {
+    'cad': {'dependsOn': [], 'inputs': ['input/config.json', 'input/*', 'intake/*'],
+            'outputs': ['cad/*'], 'completion': 'recorded input/output hashes; CAD geometry gate at build/verify'},
+    'motion': {'dependsOn': ['cad'], 'inputs': ['cad/*', 'reviewed motion JSON'],
+               'outputs': ['motion-preview/*'], 'completion': 'CAD dependency, output hashes; four-viewport gate at build'},
+    'gallery': {'dependsOn': [], 'inputs': ['reviewed photo list and source images'],
+                'outputs': ['gallery/*'], 'completion': 'source roles/hashes and exported output hashes'},
+    'page': {'dependsOn': ['cad', 'motion', 'gallery'], 'inputs': ['reviewed scene and stage outputs'],
+             'outputs': [], 'completion': 'not implemented; full-page visual parity required'},
+}
+
+
+def hashes(path):
+    return {p.relative_to(path).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
+            for p in sorted(path.rglob('*')) if p.is_file()}
+
+
+def describe(project, state):
+    """Read-only compatibility view for old states as well as newly saved states."""
+    result = {name: dict(contract, status='pending', reason='No recorded output')
+              for name, contract in CONTRACT.items()}
+    cad = state.get('cad')
+    if cad:
+        valid = (hashes(project/'input') == cad['inputSha256']
+                 and hashes(project/'cad') == cad['filesSha256']
+                 and ('intakeSha256' not in cad or hashes(project/'intake') == cad['intakeSha256']))
+        ready = valid and state['status'] == 'cad-ready'
+        result['cad'].update(status='complete' if ready else 'stale',
+                             reason='Recorded artifacts match' if ready else 'CAD inputs/output changed or revision awaits input')
+    else:
+        result['cad'].update(status='blocked', reason=str(state.get('nextInput') or state['status']))
+    motion = state.get('motionPreview')
+    if motion:
+        manifest = project/'cad/manifest.json'
+        valid = (result['cad']['status'] == 'complete' and manifest.is_file()
+                 and hashlib.sha256(manifest.read_bytes()).hexdigest() == motion['cadManifestSha256']
+                 and hashes(project/'motion-preview') == motion['filesSha256'])
+        result['motion'].update(status='complete' if valid else 'stale',
+                                reason='Recorded artifacts match' if valid else 'CAD dependency or motion output changed')
+    else:
+        result['motion'].update(status='blocked', reason='Needs supported handled CAD and reviewed motion input')
+    gallery = state.get('gallery')
+    if gallery:
+        valid = hashes(project/'gallery') == gallery['filesSha256']
+        reason = 'Recorded artifacts match'
+        try:
+            from photos import verify_sources
+            verify_sources(project/'gallery')
+        except (ValueError, OSError, KeyError, TypeError) as error:
+            valid = False
+            reason = str(error)
+        result['gallery'].update(status='complete' if valid else 'stale',
+                                 reason=reason if valid or reason != 'Recorded artifacts match' else 'Gallery output changed')
+    if not motion and state.get('reviewedMotionInput'):
+        result['motion']['reason'] = 'CAD changed; reviewedMotionInput is preserved; rebuild motion-preview and pass its browser gate'
+    result['page'].update(status='unsupported', reason='Full-page renderer and visual parity remain pending')
+    return result
+
+
+def affected(stage):
+    """Transitive consumers, used by status planning and future stage builders."""
+    found = {stage}
+    for _ in CONTRACT:
+        found.update(name for name, spec in CONTRACT.items() if found.intersection(spec['dependsOn']))
+    return [name for name in CONTRACT if name in found]
