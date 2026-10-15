@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import { backgroundAt, MOON_JAR_BACKGROUND } from '../assets/scene/background-transition.mjs';
+const at = q => backgroundAt(q / 1200, MOON_JAR_BACKGROUND);
+assert.deepEqual(at(0), {color:'#ffffff',darkText:true});
+assert.equal(at(680).color,'#ffffff');
+assert.equal(at(800).color,'#b6b6b6');
+assert.equal(at(800).darkText,false);
+assert.equal(at(920).color,'#202023');
+assert.equal(at(1020).color,'#202023');
+assert.equal(at(1090).color,'#c2bfbb');
+assert.equal(at(1090).darkText,true);
+assert.equal(at(1130).color,'#f2eee9');
+assert.equal(at(1200).color,'#f2eee9');
+console.log('MOON_BACKGROUND_TIMELINE_OK');

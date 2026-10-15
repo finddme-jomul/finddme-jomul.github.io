@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "profileId": "jomul-poc-accepted-2026-10-13",
+  "scope": "Selected moon/bowl CAD visual fixtures and existing gallery baselines; common CAD supports rotational single/two-part inputs, not a full project pipeline",
+  "baselines": {
+    "moonGalleryHtml": {
+      "path": "assets/baselines/pages/moonGalleryHtml.html",
+      "sha256": "1c166fc2e6a963d7109e18de2e18dca06cd89567297f6593704443f1819696da",
+      "localReferencePath": ".poc/moon-jar-gallery-type-study/index.html"
+    },
+    "moonGalleryJs": {
+      "path": "assets/baselines/pages/moonGalleryJs.js",
+      "sha256": "ecda921f15920507fb2b15455d2ba08ca39d00ba1137dd639f37f1550297cf9c",
+      "localReferencePath": ".poc/moon-jar-gallery-type-study/viewer.js"
+    },
+    "bowlHandoffHtml": {
+      "path": "assets/baselines/pages/bowlHandoffHtml.html",
+      "sha256": "31ee30798c3a3a75328e40212d6b8d7dc518a51accba92a2fa076f2585946ac2",
+      "localReferencePath": ".poc/bowl-set-configured-photo-handoff/index.html"
+    },
+    "bowlHandoffJs": {
+      "path": "assets/baselines/pages/bowlHandoffJs.js",
+      "sha256": "850b8567b6b5e8afc2e6e2c22e96c309d56d33a40d2cda47df3b9f8c6a8c2313",
+      "localReferencePath": ".poc/bowl-set-configured-photo-handoff/preview.js"
+    }
+  },
+  "cad": {
+    "style": "technical-dense",
+    "acceptedDensityStudy": {
+      "selection": "cad-density-accepted-2026-10-13",
+      "manifest": "assets/baselines/cad-density-accepted.json",
+      "sha256": "bcf11c6339fc35cdbf23b941ce3b5b16d4a3e5c447979ab278a33083af24a2eb",
+      "role": "fixed-reference-artifacts-only"
+    },
+    "background": "#ffffff",
+    "outerBorder": false,
+    "sheetComposition": {
+      "single": "one-sheet",
+      "multiple": "all-parts-one-sheet"
+    },
+    "requiredViews": [
+      "front-elevation",
+      "plan",
+      "hatched-section",
+      "profile-isometric",
+      "rim-detail",
+      "foot-detail"
+    ],
+    "isometricRingFractions": [
+      0,
+      0.06,
+      0.22,
+      0.41,
+      0.61,
+      0.79,
+      0.94,
+      1
+    ],
+    "labelLanguage": "en-except-clay-glaze-names",
+    "responsiveFit": "contain-entire-sheet",
+    "acceptedCommonSheet": {
+      "selection": "cad-common-accepted-2026-10-14",
+      "manifest": "assets/baselines/cad-common-accepted.json",
+      "sha256": "5b61aba85d0749da4e5a759d46956916696c1f33359dc4050e7c3b221cf0a351",
+      "role": "fixed-reference-fixtures-only",
+      "supportedShape": "rotational-profile",
+      "singleAndMultiple": "one-or-two-parts",
+      "renderer": "scripts/shared_sheet_poc.py",
+      "reuseShortLandscape": true
+    }
+  },
+  "gallery": {
+    "source": "moonGalleryHtml",
+    "lastSectionHeightVh": 100,
+    "photoOnlyScrollVh": 0,
+    "visibleHeading": false,
+    "visibleCaption": false,
+    "heroMaxWidthPx": 540,
+    "heroMaxHeightVh": 68,
+    "mobileHeroMaxHeightVh": 54,
+    "photoArriveSeconds": 0.55,
+    "pointerRadiusPx": 450,
+    "pointerMaxExtraScale": 0.34,
+    "pointerEaseMs": 85,
+    "openOnClick": true,
+    "contentAfterGallery": false
+  },
+  "motion": {
+    "photoHandoff": "scene-exit-then-gallery-enter",
+    "backgroundBaseline": "moon-jar",
+    "glazeDirection": "foot-to-rim",
+    "glazeRotation": "continue-through-all-layers",
+    "axisContinuity": "drop-through-glaze",
+    "axisRig": {
+      "order": "body-spin-under-tilt-under-axis-precession",
+      "rotationCenter": "vessel-axis",
+      "minimumBodyAndAxisTurnDegrees": 360,
+      "framing": "transformed-mesh-bounds",
+      "browserLayouts": [
+        "desktop",
+        "short",
+        "mobile",
+        "mobile-short"
+      ],
+      "scope": "new handled motion previews; rotational and full-page assembly pending"
+    },
+    "singleFraming": {
+      "sourceBaseline": "moonGalleryJs",
+      "method": "transformed-mesh-bounds",
+      "viewportFraction": 0.72,
+      "minimumWireHeightFraction": {
+        "desktop": 0.5,
+        "short": 0.5,
+        "mobile": 0.3,
+        "mobile-short": 0.32
+      },
+      "decision": "approved-moon-model-relative-camera;full-scene-parity-pending"
+    }
+  },
+  "page": {
+    "cadSheetFit": "contain-entire-sheet-at-viewport-maximum",
+    "visibleNarration": false,
+    "visibleBadge": false,
+    "visibleHeader": false,
+    "visibleFooter": false,
+    "preserveCadInternalAnnotations": true,
+    "source": "accepted-moon-jar-page-and-user-bowl-feedback-2026-10-14"
+  }
+}

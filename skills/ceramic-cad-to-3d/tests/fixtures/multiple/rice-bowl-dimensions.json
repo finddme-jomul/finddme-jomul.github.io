@@ -1,0 +1,19 @@
+{
+  "valuesMm": {
+    "height": 75.0,
+    "maxDiameter": 116.0,
+    "openingDiameter": 110.0,
+    "footDiameter": 48.0,
+    "wallThickness": 2.0,
+    "baseThickness": 6.0
+  },
+  "sources": {
+    "height": "user-confirmed",
+    "maxDiameter": "visual-assumption",
+    "openingDiameter": "sketch-observed",
+    "footDiameter": "visual-assumption",
+    "wallThickness": "user-confirmed",
+    "baseThickness": "visual-assumption"
+  },
+  "status": "provisional-visual-draft-not-for-making"
+}
