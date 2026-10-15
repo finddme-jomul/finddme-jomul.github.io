@@ -144,54 +144,6 @@ def check_full_page_fixture(profile: dict) -> None:
     print('CERAMIC_FIXTURE_OK 16 cases / local full-page-study')
 
 
-def check_release_readiness(profile: dict) -> None:
-    """Fail closed until distributable code and explicit visual approval exist."""
-    import subprocess
-    tracked = set(subprocess.check_output(['git', 'ls-files'], cwd=ROOT, text=True).splitlines())
-    # Historical PoC targets are comparison tools, not release dependencies.
-    # These are direct dependencies of the current project CLI; consolidation
-    # must replace this local route with the selected skill-owned runtime.
-    required = {
-        'docs/artifacts/cad-style/shared_sheet_poc.py',
-        'docs/artifacts/cad-style/check_shared_sheet_poc.py',
-        'docs/artifacts/axis-motion-shared-study/build_project.py',
-    }
-    missing = sorted(required - tracked)
-    reasons = []
-    if not (ROOT / 'skills/ceramic-cad-to-3d/scripts/jomul-project-assets.py').is_file():
-        reasons.append('selected project runtime is not consolidated inside the skill')
-    skill = ROOT / 'skills/ceramic-cad-to-3d/SKILL.md'
-    if ('skills/ceramic-cad-to-3d/SKILL.md' not in tracked
-            or not skill.is_file()
-            or not skill.read_text().startswith('---\nname: ceramic-cad-to-3d\n')):
-        reasons.append('named skill entrypoint is missing, unversioned, or misnamed')
-    if missing:
-        reasons.append(f'{len(missing)} executable sources are not versioned (first: {missing[0]})')
-    report_sha = digest(ROOT / '.poc/full-page-study/browser-review/report.json')
-    for filename, label in (
-            ('full-page-visual-approved.json', 'matched-point full-page visual approval'),
-            ('multi-photo-layout-approved.json', 'varied-size multi-photo layout approval'),
-            ('new-project-e2e-approved.json', 'new-project end-to-end approval')):
-        relative = f'scripts/baselines/{filename}'
-        evidence = ROOT / relative
-        if not evidence.is_file() or relative not in tracked:
-            reasons.append(f'{label} evidence is missing or not versioned')
-            continue
-        try:
-            decision = json.loads(evidence.read_text())
-        except (OSError, json.JSONDecodeError):
-            reasons.append(f'{label} evidence is unreadable')
-            continue
-        if (decision.get('status') != 'adopted'
-                or decision.get('profileSha256') != digest(PROFILE)
-                or decision.get('browserReportSha256') != report_sha
-                or not decision.get('decisionSource')):
-            reasons.append(f'{label} evidence lacks current hashes or decision provenance')
-    if "sub.add_parser('page')" not in (ROOT / 'scripts/jomul-project-assets.py').read_text():
-        reasons.append('project CLI has no finished-page command')
-    if reasons:
-        raise SystemExit('CERAMIC_RELEASE_BLOCKED: ' + '; '.join(reasons))
-    print('CERAMIC_RELEASE_READY')
 
 
 def main() -> None:
@@ -200,6 +152,12 @@ def main() -> None:
     parser.add_argument('--full-page-fixture', action='store_true', help='verify the published local full-page PoC')
     parser.add_argument('--release', action='store_true', help='fail unless the skill is reproducible and approved')
     args = parser.parse_args()
+    if args.release:
+        import subprocess
+        import sys
+        result = subprocess.run([sys.executable, str(ROOT / 'skills/ceramic-cad-to-3d/scripts/run.py'),
+                        '--workspace', str(ROOT), 'preflight', '--release'])
+        raise SystemExit(result.returncode)
     profile = load_profile()
     check_baselines(profile, args.baseline or list(profile['baselines']))
     check_accepted_cad(profile)
@@ -208,8 +166,6 @@ def main() -> None:
     print(f"JOMUL_PREFLIGHT_OK {profile['profileId']}: {','.join(args.baseline or profile['baselines'])}")
     if args.full_page_fixture or args.release:
         check_full_page_fixture(profile)
-    if args.release:
-        check_release_readiness(profile)
 
 
 if __name__ == '__main__':

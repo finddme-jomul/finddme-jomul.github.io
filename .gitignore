@@ -1,5 +1,7 @@
 # Local planning, references and verification artifacts
 /docs/
+/.poc/
+/poc/
 /node_modules/
 /dist/
 .env
