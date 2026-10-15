@@ -371,6 +371,16 @@
       "id": "evaluation",
       "state": "preserved",
       "rule": "Moon development, mug single validation, bowls multiple validation; chess reserved for final E2E."
+    },
+    {
+      "id": "execution-stage-state",
+      "state": "implemented-supported-stage-boundaries",
+      "rule": "Read-only fresh stage status; preserve legacy state and exact rollback; gallery preparation independent of CAD; report transitive change scope without claiming full-page scheduling. Separate geometry/material/drawing/runtime inputs; reuse intact unchanged outputs and handled solid bytes for material/drawing-only changes; retain reviewed motion input on invalidation.",
+      "consumer": [
+        "scripts/stages.py",
+        "scripts/project.py",
+        "scripts/rebuild.py"
+      ]
     }
   ],
   "sourceRepositoryCommit": "c84daff",

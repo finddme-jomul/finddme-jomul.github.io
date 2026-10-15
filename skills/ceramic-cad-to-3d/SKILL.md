@@ -26,3 +26,7 @@ Use the same entrypoint for `preflight`, `shrinkage --input SPEC.json`, and `gal
 Run `python3 /path/to/ceramic-cad-to-3d/scripts/run.py --workspace /path/to/project preflight` for package integrity. Run the skill's `tests/test_runtime.py` with requirements installed to verify copied-package execution, selected single/multiple CAD output, exact rollback, gallery rules and handled solids. Browser motion requires a Vite server for the workspace, Three.js, Docker/Puppeteer and its Chrome cache. Do not claim complete page parity from package or component checks.
 
 For maintenance, update the existing selection entry and consumer together, review the diff, refresh the lock with `python3 tests/update_lock.py --write` from the skill directory, and run affected tests. Do not add another PoC viewer as a fallback or silently refresh a drifted lock.
+
+Use `status PROJECT [--changed cad|motion|gallery]` to inspect current stage readiness and downstream impact without mutating the workspace. Read the execution-state contract in [pipeline](references/pipeline.md#execution-state-contract). Gallery preparation can run before CAD is ready.
+
+Before applying reviewed CAD changes, `status PROJECT --config FILE` shows the selective rebuild plan. `resume/revise --config` uses that plan; legacy projects rebuild once to record fingerprints. Invalidated motion needs a new browser-gated preview; its reviewed input remains in project state.

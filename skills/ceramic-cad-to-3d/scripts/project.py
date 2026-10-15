@@ -29,7 +29,13 @@ def tree_hashes(path: Path) -> dict[str, str]:
 
 
 def save(path: Path, data: dict) -> None:
-    path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n')
+    if path.name == 'pipeline-state.json':
+        from stages import describe
+        data['stageContractVersion'] = 1
+        data['stages'] = describe(path.parent, data)
+    temporary = path.with_name(path.name + '.writing')
+    temporary.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n')
+    temporary.replace(path)
 
 
 def stamp() -> str:
@@ -131,6 +137,24 @@ def build(project: Path, state: dict) -> None:
         save(project / 'pipeline-state.json', state)
         return
     subprocess.run([sys.executable, str(SCRIPTS / 'preflight.py')], cwd=ROOT, check=True)
+    from rebuild import inputs, plan
+    current_inputs = inputs(config)
+    previous_cad = state.get('cad') or {}
+    handled = any(part.get('shapeKind') == 'handled-vessel'
+                  for part in json.loads(config.read_text())['parts'])
+    schedule = plan(previous_cad.get('buildInputs'), current_inputs,
+                    bool(previous_cad) and tree_hashes(project / 'cad') == previous_cad.get('filesSha256'), handled)
+    state['lastBuildPlan'] = schedule
+    if schedule['sheet'] == 'reuse':
+        state['status'] = 'cad-ready'
+        state['nextInput'] = None
+        state['cad']['inputSha256'] = tree_hashes(project / 'input')
+        if (project / 'intake').exists():
+            state['cad']['intakeSha256'] = tree_hashes(project / 'intake')
+        verify(project, state)
+        save(project / 'pipeline-state.json', state)
+        record(project, 'Unchanged generation inputs: reused CAD and preserved downstream artifacts.')
+        return
     stage = project / 'cad.building'
     if stage.exists():
         shutil.rmtree(stage)
@@ -140,20 +164,32 @@ def build(project: Path, state: dict) -> None:
         handled = any(part.get('shapeKind') == 'handled-vessel'
                       for part in json.loads(config.read_text())['parts'])
         if handled:
-            subprocess.run([sys.executable, str(SCRIPTS / 'jomul_handled_solid.py'),
-                            str(config), str(stage / 'manifest.json'), str(stage / 'solid')],
-                           cwd=ROOT, check=True)
+            if schedule['solid'] == 'reuse':
+                from jomul_handled_solid import refresh_placement
+                shutil.copytree(project / 'cad/solid', stage / 'solid')
+                refresh_placement(config, stage / 'manifest.json', stage / 'solid')
+            else:
+                subprocess.run([sys.executable, str(SCRIPTS / 'jomul_handled_solid.py'),
+                                str(config), str(stage / 'manifest.json'), str(stage / 'solid')],
+                               cwd=ROOT, check=True)
         output = project / 'cad'
         if output.exists():
             shutil.rmtree(output)
         stage.rename(output)
         # A new CAD/GLB invalidates any motion preview built from the prior geometry.
         old_motion = project / 'motion-preview'
+        # Keep reviewed motion evidence available after downstream invalidation.
+        old_entry = state.get('motionPreview')
+        old_input = old_motion / 'motion-config.json'
+        if (old_entry and old_input.is_file()
+                and tree_hashes(old_motion) == old_entry['filesSha256']):
+            state['reviewedMotionInput'] = json.loads(old_input.read_text())
         if old_motion.exists(): shutil.rmtree(old_motion)
         state.pop('motionPreview', None)
         state['status'] = 'cad-ready'
         state['cad'] = {'manifest': (output / 'manifest.json').relative_to(ROOT).as_posix(),
-                        'filesSha256': tree_hashes(output), 'inputSha256': tree_hashes(project / 'input')}
+                        'filesSha256': tree_hashes(output), 'inputSha256': tree_hashes(project / 'input'),
+                        'buildInputs': current_inputs}
         if (project / 'intake').exists():
             state['cad']['intakeSha256'] = tree_hashes(project / 'intake')
         state['nextInput'] = None
@@ -210,6 +246,9 @@ def main() -> None:
     revise.add_argument('--config', type=Path)
     motion = sub.add_parser('motion-preview'); motion.add_argument('project'); motion.add_argument('--motion', required=True, type=Path)
     gallery = sub.add_parser('gallery'); gallery.add_argument('project'); gallery.add_argument('--photos', required=True, type=Path)
+    status = sub.add_parser('status'); status.add_argument('project')
+    status.add_argument('--config', type=Path, help='inspect a proposed CAD config without importing it')
+    status.add_argument('--changed', choices=('cad', 'motion', 'gallery'))
     check = sub.add_parser('verify'); check.add_argument('project')
     rollback = sub.add_parser('rollback'); rollback.add_argument('project'); rollback.add_argument('snapshot')
     args = parser.parse_args()
@@ -263,6 +302,21 @@ def main() -> None:
             raise
     else:
         state = state_for(project)
+        if args.action == 'status':
+            from stages import describe, affected
+            report = {'projectId': args.project, 'stageContractVersion': 1,
+                      'stages': describe(project, state),
+                      'affectedStages': affected(args.changed) if args.changed else []}
+            if args.config:
+                from rebuild import inputs, plan
+                proposed = args.config.expanduser().resolve(strict=True)
+                previous = state.get('cad') or {}
+                handled = any(p.get('shapeKind') == 'handled-vessel'
+                              for p in json.loads(proposed.read_text())['parts'])
+                report['buildPlan'] = plan(previous.get('buildInputs'), inputs(proposed),
+                    bool(previous) and tree_hashes(project / 'cad') == previous.get('filesSha256'), handled)
+            print(json.dumps(report, ensure_ascii=False, indent=2))
+            return
         if args.action == 'verify':
             verify(project, state)
             if state.get('gallery'):
@@ -280,7 +334,7 @@ def main() -> None:
                 print(f'JOMUL_MOTION_PREVIEW_VERIFY_OK {project.name}')
             return
         if args.action == 'gallery':
-            verify(project, state)
+            # Photo preparation is independent of CAD readiness and does not rebuild CAD.
             from photos import build_gallery
             source = args.photos.expanduser().resolve(strict=True)
             stage = project / 'gallery.building'
@@ -319,6 +373,7 @@ def main() -> None:
                 output=project / 'motion-preview'
                 if output.exists(): shutil.rmtree(output)
                 stage.rename(output)
+                state['reviewedMotionInput'] = motion_data
                 state['motionPreview']={'manifest':(output / 'motion-preview-manifest.json').relative_to(ROOT).as_posix(),
                                         'filesSha256':tree_hashes(output),'cadManifestSha256':digest(project / 'cad/manifest.json')}
                 state['unsupportedStages']=['glaze and photo scene assembly','multi-part or rotational GLB page assembly','publication']

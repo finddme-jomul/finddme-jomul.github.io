@@ -44,3 +44,26 @@ The selected hero plus smaller process-photo composition is supported by the int
 - Internal handled motion regeneration matches all 12 selected output files byte-for-byte; its browser gate passes four viewports at six progress points.
 - The selected actual/process gallery component matches the reference screenshots pixel-for-pixel on desktop/mobile; pointer enlargement and lightbox/Escape pass. These checks establish component preservation, not full-page approval.
 - Local comparison reports: `.poc/ceramic-integration-motion/browser-review/report.json` and `.poc/ceramic-integration-gallery/browser-parity/report.json`. Tests live in this skill; local reports and source studies remain ignored.
+
+## Execution state contract
+
+The current executable stages are CAD (including supported handled solids), handled motion preview, and the gallery component. They retain their existing generators. Page assembly is explicitly unsupported. These coarse execution boundaries do not claim implementation of every design stage 00–11.
+
+`pipeline-state.json` keeps its existing schema version and evidence fields, with additive `stageContractVersion: 1` and `stages` fields on the next normal write. Each stage declares inputs, outputs, dependencies, completion conditions and a status/reason. `status PROJECT` derives fresh status from recorded and current hashes without writing files; old projects need no eager migration. Stored stage status is a snapshot, not a substitute for this check. `complete` means recorded stage artifacts match, not user visual approval or a freshly repeated geometry/browser test; use `verify` for the existing geometry checks.
+
+- CAD changes affect CAD → motion → future page. The existing CAD builder invalidates the old motion preview; the independent gallery remains intact.
+- Motion changes affect motion → future page.
+- Photo changes affect gallery → future page. Gallery generation no longer requires CAD readiness and never invokes the CAD builder. Empty reviewed photo input is a completed omitted gallery, distinct from missing photo input.
+- `status PROJECT --changed cad|motion|gallery` reports that transitive scope without regenerating or deleting anything. Stale inputs/outputs and blocked inputs are reported separately from unsupported page assembly.
+- Exact snapshots/rollback remain unchanged. Full automatic scheduling, finer separation of CAD geometry versus sheet/material changes, and full-page dependency execution remain future work.
+
+### Selective CAD rebuild
+
+`status PROJECT --config FILE` previews the build plan without importing inputs. `resume --config` and `revise --config` execute that same plan. Recorded `cad.buildInputs` separates geometry source hashes (profile/dimensions/handle), material source hashes, drawing configuration, and runtime version. `lastBuildPlan` records the actions taken.
+
+- Identical inputs and intact outputs: verify and reuse CAD; preserve motion and gallery.
+- Material/drawing-only change: rebuild technical sheets, reuse handled STEP/GLB bytes, recompute CAD-to-wire placement metadata. Motion is invalidated because it embeds the sheet/material. Preserve its reviewed input in state for a new browser-gated build.
+- Geometry/runtime change or changed CAD outputs: rebuild the sheet and supported solids. Legacy projects without fingerprints get one conservative full build.
+- Photo updates remain independent. Changed reviewed provenance in geometry files conservatively rebuilds geometry, even if dimensions look unchanged.
+
+This scheduler handles supported CAD consumers. It does not yet automatically run the browser-gated motion command or assemble a full page; it must not claim downstream completion after invalidation. A material update can affect drawing labels as well as appearance, so it cannot skip the sheet.
