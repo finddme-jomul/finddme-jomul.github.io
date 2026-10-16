@@ -7,16 +7,17 @@ from pathlib import Path
 import subprocess
 import sys
 from ceramic_paths import SKILL, ROOT
+from browser_environment import node_command
 
 SUITES = {
     'gallery-layout': [sys.executable, str(SKILL/'tests/test_gallery_layout.py')],
     'gate-contract': [sys.executable, str(SKILL/'tests/test_decision_checks.py')],
     'runtime': [sys.executable, str(SKILL/'tests/test_runtime.py')],
     'motion-recovery': [sys.executable, str(SKILL/'tests/test_motion_scheduler.py')],
-    'axis': ['node', str(SKILL/'tests/test-axis-motion.mjs')],
-    'background': ['node', str(SKILL/'tests/test-background.mjs')],
-    'glaze': ['node', str(SKILL/'tests/test-glaze-motion.mjs')],
-    'shrinkage': ['node', '--test', str(SKILL/'tests/clay-shrinkage.test.mjs')],
+    'axis': node_command(SKILL/'tests/test-axis-motion.mjs'),
+    'background': node_command(SKILL/'tests/test-background.mjs'),
+    'glaze': node_command(SKILL/'tests/test-glaze-motion.mjs'),
+    'shrinkage': node_command(SKILL/'tests/clay-shrinkage.test.mjs'),
 }
 
 

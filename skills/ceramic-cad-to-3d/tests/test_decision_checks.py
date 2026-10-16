@@ -10,6 +10,7 @@ import unittest
 K=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(K/'scripts'))
 from decision_checks import validate, decision_results, SUITES
+from browser_environment import node_command
 
 class DecisionChecks(unittest.TestCase):
     def test_missing_mapping_and_failed_suite_cannot_pass(self):
@@ -30,7 +31,7 @@ class DecisionChecks(unittest.TestCase):
             source=(K/'assets/motion/axis-motion.mjs').read_text()
             self.assertIn('spin.rotation.y=pose.bodyY;',source)
             (root/'assets/motion/axis-motion.mjs').write_text(source.replace('spin.rotation.y=pose.bodyY;','spin.rotation.y=0;'))
-            result=subprocess.run(['node',str(root/'tests/test-axis-motion.mjs')],capture_output=True,text=True)
+            result=subprocess.run(node_command(root/'tests/test-axis-motion.mjs', workspace=root),capture_output=True,text=True)
             self.assertNotEqual(0,result.returncode,'Frozen body spin must fail even without a hash gate')
             self.assertIn('AssertionError',result.stderr)
 

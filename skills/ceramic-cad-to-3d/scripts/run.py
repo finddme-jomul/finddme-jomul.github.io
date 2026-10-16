@@ -19,6 +19,11 @@ def main():
         return
     import preflight
     preflight.verify_package()
+    if remaining and remaining[0] == 'environment':
+        sys.argv.pop(1)
+        import environment_check
+        environment_check.main()
+        return
     if remaining and remaining[0] == 'check-decisions':
         sys.argv.pop(1)
         import decision_checks
@@ -26,7 +31,8 @@ def main():
         return
     if remaining and remaining[0] == 'shrinkage':
         script = Path(__file__).with_name('clay-shrinkage.mjs')
-        subprocess.run(['node', str(script), *remaining[1:]], cwd=options.workspace, check=True)
+        from browser_environment import node_command
+        subprocess.run(node_command(script, remaining[1:]), cwd=options.workspace, check=True)
         return
     if remaining and remaining[0] == 'page':
         raise SystemExit('CERAMIC_PAGE_PENDING: selected full-scene parity is not established; no candidate viewer will be substituted')

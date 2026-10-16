@@ -77,7 +77,7 @@ def check_runtime() -> None:
     lock = json.loads((SKILL / 'runtime-lock.json').read_text())
     actual = {p.relative_to(SKILL).as_posix() for base in (SCRIPTS, ASSETS)
               for p in base.rglob('*') if p.is_file() and '__pycache__' not in p.parts}
-    actual.update({'selection.json', 'requirements.txt', 'package.json'})
+    actual.update({'selection.json', 'requirements.txt', 'requirements-lock.txt', 'package.json', 'package-lock.json', 'environment.json'})
     if actual != set(lock['files']):
         raise ValueError('Runtime files added or missing; review selection before updating its lock')
     for relative, expected in lock['files'].items():

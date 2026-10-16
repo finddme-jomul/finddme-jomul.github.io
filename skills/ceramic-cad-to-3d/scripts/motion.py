@@ -65,51 +65,20 @@ def build(project: Path, output: Path, data: dict) -> None:
 
 def browser_check(output: Path) -> Path:
     """Gate a generated preview on four actual browser viewport/scroll reviews."""
-    import os
-    import subprocess
-    import time
-    import urllib.request
-    if shutil.which('docker') is None:
-        raise RuntimeError('Docker/Puppeteer is required for the motion browser gate')
+    from browser_environment import run_browser
     if not output.is_relative_to(ROOT):
-        raise ValueError('Motion output must stay inside the project repository')
-    url='http://127.0.0.1:5173/'+output.relative_to(ROOT).as_posix()+'/index.html'
-    server=None
-    try:
-        try:
-            urllib.request.urlopen(url,timeout=2).close()
-        except Exception:
-            vite=ROOT/'node_modules/.bin/vite'
-            if not vite.is_file():
-                raise RuntimeError('Vite is required to serve the motion browser gate')
-            server=subprocess.Popen([str(vite),'--host','127.0.0.1','--port','5173','--strictPort'],cwd=ROOT,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
-            for _ in range(40):
-                if server.poll() is not None: raise RuntimeError('Vite exited before browser check')
-                try:
-                    urllib.request.urlopen(url,timeout=1).close()
-                    break
-                except Exception:
-                    time.sleep(.25)
-            else: raise RuntimeError('Vite did not serve the motion preview')
-        review=output/'browser-review'
-        if review.exists(): shutil.rmtree(review)
-        repo_mount=f'{ROOT}:/workspace'
-        cache=Path.home()/'.cache/puppeteer'
-        if not cache.is_dir(): raise RuntimeError('Puppeteer Chrome cache is unavailable')
-        command=['docker','run','--rm','--network','host','--user',f'{os.getuid()}:{os.getgid()}',
-                 '--entrypoint','node','-e',f'JOMUL_MOTION_BASE={url}',
-                 '-e',f'JOMUL_MOTION_OUTPUT=/workspace/{review.relative_to(ROOT).as_posix()}',
-                 '-e',f'JOMUL_MOTION_INPUT=/workspace/{(output/"review-input.json").relative_to(ROOT).as_posix()}',
-                 '-v',repo_mount,'-v',f'{SKILL}:/ceramic-skill:ro','-v',f'{cache}:/browser:ro','ghcr.io/puppeteer/puppeteer:latest',
-                 '/ceramic-skill/scripts/check-motion.cjs']
-        subprocess.run(command,cwd=ROOT,check=True)
-        report=review/'report.json'
-        data=json.loads(report.read_text())
-        if len(data.get('cases',[]))!=4 or sum(len(c.get('results',[])) for c in data['cases'])!=24:
-            raise RuntimeError('Motion browser report lacks four viewports and 24 scenes')
-        return report
-    finally:
-        if server:
-            server.terminate()
-            try: server.wait(timeout=5)
-            except subprocess.TimeoutExpired: server.kill()
+        raise ValueError('Motion output must stay inside the workspace')
+    review=output/'browser-review'
+    if review.exists(): shutil.rmtree(review)
+    run_browser('scripts/check-motion.cjs', {
+        'JOMUL_MOTION_BASE':'http://127.0.0.1:5173/'+output.relative_to(ROOT).as_posix()+'/index.html',
+        'JOMUL_MOTION_OUTPUT':'/workspace/'+review.relative_to(ROOT).as_posix(),
+        'JOMUL_MOTION_INPUT':'/workspace/'+(output/'review-input.json').relative_to(ROOT).as_posix(),
+    })
+    report=review/'report.json'
+    data=json.loads(report.read_text())
+    if len(data.get('cases',[]))!=4 or sum(len(c.get('results',[])) for c in data['cases'])!=24:
+        raise RuntimeError('Motion browser report lacks four viewports and 24 scenes')
+    data['environment']=json.loads((SKILL/'environment.json').read_text())
+    report.write_text(json.dumps(data,indent=2)+'\n')
+    return report

@@ -11,7 +11,7 @@ const points=[['sheet',0],['handoff',.43],['wire',.56],['quarter',.685],['half',
 (async()=>{
   fs.mkdirSync(output,{recursive:true});
   const browser=await puppeteer.launch({
-    headless:true,executablePath:'/browser/chrome/linux-152.0.7977.54/chrome-linux64/chrome',
+    headless:true,executablePath:process.env.CERAMIC_CHROME||await puppeteer.executablePath(),
     args:['--no-sandbox','--disable-setuid-sandbox','--disable-dev-shm-usage',
           '--enable-webgl','--use-gl=angle','--use-angle=swiftshader']
   });
