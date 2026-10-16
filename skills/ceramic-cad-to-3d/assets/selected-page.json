@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "status": "user-selected-entire-page",
+  "confirmed": "2026-10-17",
+  "referenceUrl": "http://localhost:5173/.poc/ceramic-integration-gallery/index.html#gallery",
+  "scope": "CAD, wire, clay, glaze, scene exit and final gallery; exact reviewed input replay, not new CAD generation",
+  "files": {
+    "index.html": "41fe3fc890d29e37828adeac0b040a2647b9e65debb49c4f26d28bea87e99417",
+    "viewer.js": "cca21999202b62508da49121a6a94b9184f3ff0500b9cc47a2b24271df2d7b3c",
+    "gallery.css": "52993d3e19ec1e049e3f728c284cc165202c3b15db59653645f1015dcefbbffa",
+    "gallery.js": "d64da585e8c08260d0c47a3f9d10d50ff41314cd13de9d35f87a8e07439f2eb1",
+    "gallery-config.js": "1cc5413cac75a2ae765204a1448c88d2d5d61d560ac6f77058b9e9d06d714445",
+    "assets/project.json": "607b0e0697d500a0aa7c5dac64fc9f1acd0f87565e79b9081f90009b86688f46",
+    "assets/front-view.svg": "38eb57eebccecf00948476d501d0b977b2a70f5258f8466be7a71d0c1049951f",
+    "assets/model.glb": "ab65191db93e78bad5a40e89725f695fc9ada544b62cdb3ef6dc46f14fcc621e",
+    "assets/cad-sheet.png": "8aca196e98a0fdf8d8235a555402bd8d191e3e2b9bfe796eeac691dbc49825cb",
+    "assets/outer-profile.json": "d9f77a8042c340c47e98cb6f0130c9b41fe48bf6019617e50fe9d04ecc1b6c17",
+    "assets/actual-photo.webp": "0a555c1cedb8cb6aba3918d16a2115af6855818893a239339b143f5824772479",
+    "assets/process-photo.webp": "0a9e06388e7cac3c9a84c8c30ccc18aa1c9c9f0e5e4de72cf3a0c8f2b672419d"
+  }
+}
