@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Build a reviewed body+handle solid and CAD-front to GLB-wire placement data.
+"""Build source-derived rotational/handled solids and CAD-front placement data.
 
-This consumes an existing handled-vessel CAD config; it never guesses missing
+This consumes an existing reviewed CAD config; it never guesses missing
 real sketch dimensions or modifies a P1 answer archive.
 """
 from __future__ import annotations
@@ -98,6 +98,59 @@ def make_solid(profile: list, dims: dict, handle: dict) -> tuple[Solid, dict]:
                    'joinedSolidCount': len(fused.solids())}
 
 
+def make_rotational_solid(profile: list, dims: dict) -> tuple[Solid, dict]:
+    """Revolve the reviewed polyline; radial wall offset is a preview model."""
+    required = ('height', 'maxDiameter', 'openingDiameter', 'footDiameter',
+                'wallThickness', 'baseThickness')
+    if any(isinstance(dims.get(k), bool) or not isinstance(dims.get(k), (int, float))
+           or not math.isfinite(dims[k]) or dims[k] <= 0 for k in required):
+        raise ValueError('Rotational solid requires explicit positive dimensions including baseThickness')
+    if (len(profile) < 2 or any(len(p) != 2 or any(not math.isfinite(v) for v in p) for p in profile)
+            or any(b[1] <= a[1] for a, b in zip(profile, profile[1:]))):
+        raise ValueError('Rotational solid requires a finite strictly ascending radius/height profile')
+    height, wall, floor = (dims[k] for k in ('height', 'wallThickness', 'baseThickness'))
+    if not 0 < floor < height or wall >= min(p[0] for p in profile):
+        raise ValueError('Rotational wall or floor thickness exceeds body')
+    if any(abs(a-b) > .05 for a,b in (
+            (profile[0][1], 0), (profile[-1][1], height),
+            (profile[0][0]*2, dims['footDiameter']),
+            (profile[-1][0]*2, dims['openingDiameter']),
+            (max(p[0] for p in profile)*2, dims['maxDiameter']))):
+        raise ValueError('Rotational profile and dimensions disagree')
+    a,b = next((a,b) for a,b in zip(profile, profile[1:]) if a[1] <= floor <= b[1])
+    floor_radius = a[0] + (b[0]-a[0])*(floor-a[1])/(b[1]-a[1]) - wall
+    outer = [(r,0,z) for r,z in profile]
+    inner = [(r-wall,0,z) for r,z in reversed(profile) if z > floor]
+    section = Face(Wire.make_polygon([(0,0,0)] + outer + inner +
+                                    [(floor_radius,0,floor),(0,0,floor)], close=True))
+    solid = Solid.revolve(section, 360, Axis.Z)
+    if not solid.is_valid or len(solid.solids()) != 1 or solid.volume <= 0:
+        raise ValueError('Rotational profile did not produce one valid hollow solid')
+    return solid, {'joinedVolumeMm3': solid.volume, 'joinedSolidCount': 1,
+                   'floorHeightMm': floor, 'radialWallMm': wall}
+
+
+def source_paths(raw):
+    kinds = ('profile', 'dimensions', 'handle') if raw.get('shapeKind') == 'handled-vessel' else ('profile', 'dimensions')
+    return {kind: ROOT / raw[kind] for kind in kinds}
+
+
+def source_solid(raw):
+    if raw.get('shapeKind', 'rotational-profile') not in ('rotational-profile', 'handled-vessel'):
+        raise ValueError('Unsupported solid shape kind')
+    paths = source_paths(raw)
+    profile = json.loads(paths['profile'].read_text())
+    dims = json.loads(paths['dimensions'].read_text())[raw.get('dimensionsKey', 'valuesMm')]
+    if 'handle' in paths:
+        handle = json.loads(paths['handle'].read_text())
+        solid, checks = make_solid(profile, dims, handle)
+        status = handle['status']
+    else:
+        solid, checks = make_rotational_solid(profile, dims)
+        status = 'provisional-geometry-preview-not-for-making'
+    return paths, dims, solid, checks, status
+
+
 def glb_bounds_mm(path: Path) -> dict:
     gltf = GLTF2().load(path)
     if len(gltf.nodes) != 1 or gltf.nodes[0].translation or gltf.nodes[0].scale or gltf.nodes[0].matrix:
@@ -112,9 +165,9 @@ def glb_bounds_mm(path: Path) -> dict:
                     (low[0], low[1], low[2], high[0], high[1], high[2])))
 
 
-def placement(layout: dict, solid_bounds: dict, dims: dict) -> dict:
+def placement(layout: dict, solid_bounds: dict, dims: dict, part_id=None) -> dict:
     width, height = layout['pagePx']
-    box = next(iter(layout['frontBoxes'].values()))
+    box = layout['frontBoxes'][part_id] if part_id else next(iter(layout['frontBoxes'].values()))
     scale = box['height'] * height / dims['height']
     cad_left = (box['cx'] - box['width'] / 2) * width
     cad_top = (box['cy'] - box['height'] / 2) * height
@@ -140,15 +193,8 @@ def build(config_path: Path, sheet_manifest_path: Path, out: Path) -> dict:
     sheet = json.loads(sheet_manifest_path.read_text())
     rows = []
     for raw in config['parts']:
-        if raw.get('shapeKind') != 'handled-vessel':
-            continue
         pid = raw['id']
-        p = ROOT / raw['profile']; d = ROOT / raw['dimensions']; h = ROOT / raw['handle']
-        profile = json.loads(p.read_text())
-        record = json.loads(d.read_text())
-        dims = record[raw.get('dimensionsKey', 'valuesMm')]
-        handle = json.loads(h.read_text())
-        solid, checks = make_solid(profile, dims, handle)
+        paths, dims, solid, checks, status = source_solid(raw)
         dest = out / pid
         dest.mkdir(parents=True, exist_ok=True)
         step, glb = dest / 'model.step', dest / 'model.glb'
@@ -168,17 +214,17 @@ def build(config_path: Path, sheet_manifest_path: Path, out: Path) -> dict:
         mesh_bounds = glb_bounds_mm(glb)
         if any(abs(mesh_bounds[k] - step_bounds[k]) > .5 for k in step_bounds):
             raise ValueError('GLB mesh bounds differ from STEP by more than 0.5 mm')
-        positions = {key: placement(layout, mesh_bounds, dims)
+        positions = {key: placement(layout, mesh_bounds, dims, pid)
                      for key, layout in sheet['layouts'].items()}
-        row = {'id': pid, 'unit': 'mm', 'glbUnit': 'm', 'axis': 'Z-up', 'status': handle['status'],
-               'sourceSha256': {'profile': sha(p), 'dimensions': sha(d), 'handle': sha(h)},
+        row = {'id': pid, 'unit': 'mm', 'glbUnit': 'm', 'axis': 'Z-up', 'status': status,
+               'sourceSha256': {kind: sha(path) for kind, path in paths.items()},
                'stepSha256': sha(step), 'glbSha256': sha(glb),
                'boundsMm': step_bounds, 'glbBoundsMm': mesh_bounds, 'checks': checks, 'wirePlacement': positions,
                'stepRoundTrip': True}
         (dest / 'solid-report.json').write_text(json.dumps(row, indent=2) + '\n')
         rows.append(row)
     if not rows:
-        raise ValueError('no handled-vessel part in config')
+        raise ValueError('no supported part in config')
     report = {'schemaVersion': 1, 'project': config['name'], 'parts': rows}
     (out / 'manifest.json').write_text(json.dumps(report, indent=2) + '\n')
     return report
@@ -191,14 +237,14 @@ def refresh_placement(config_path: Path, sheet_manifest_path: Path, out: Path) -
     report = json.loads((out / 'manifest.json').read_text())
     for row in report['parts']:
         raw = next(part for part in config['parts'] if part['id'] == row['id'])
-        paths = {kind: ROOT / raw[kind] for kind in ('profile', 'dimensions', 'handle')}
+        paths = source_paths(raw)
         if row['sourceSha256'] != {kind: sha(path) for kind, path in paths.items()}:
             raise ValueError('Cannot reuse solid with changed geometry evidence')
         dest = out / row['id']
         if sha(dest / 'model.step') != row['stepSha256'] or sha(dest / 'model.glb') != row['glbSha256']:
             raise ValueError('Cannot reuse changed solid output')
         dims = json.loads(paths['dimensions'].read_text())[raw.get('dimensionsKey', 'valuesMm')]
-        row['wirePlacement'] = {key: placement(layout, row['glbBoundsMm'], dims)
+        row['wirePlacement'] = {key: placement(layout, row['glbBoundsMm'], dims, row['id'])
                                 for key, layout in sheet['layouts'].items()}
         (dest / 'solid-report.json').write_text(json.dumps(row, indent=2) + '\n')
     report['project'] = config['name']
@@ -209,23 +255,16 @@ def verify(config_path: Path, sheet_manifest_path: Path, out: Path) -> None:
     config = json.loads(config_path.read_text())
     sheet = json.loads(sheet_manifest_path.read_text())
     report = json.loads((out / 'manifest.json').read_text())
-    expected_ids = {part['id'] for part in config['parts']
-                    if part.get('shapeKind') == 'handled-vessel'}
+    expected_ids = {part['id'] for part in config['parts']}
     if {row['id'] for row in report['parts']} != expected_ids:
-        raise ValueError('solid report parts differ from handled input parts')
+        raise ValueError('solid report parts differ from input parts')
     for raw in config['parts']:
-        if raw.get('shapeKind') != 'handled-vessel':
-            continue
         pid = raw['id']
         row = next(row for row in report['parts'] if row['id'] == pid)
-        paths = {kind: ROOT / raw[kind] for kind in ('profile', 'dimensions', 'handle')}
+        paths = source_paths(raw)
         if row['sourceSha256'] != {kind: sha(path) for kind, path in paths.items()}:
             raise ValueError('solid source input hash drift')
-        profile = json.loads(paths['profile'].read_text())
-        record = json.loads(paths['dimensions'].read_text())
-        dims = record[raw.get('dimensionsKey', 'valuesMm')]
-        handle = json.loads(paths['handle'].read_text())
-        recreated, checks = make_solid(profile, dims, handle)
+        _, dims, recreated, checks, _ = source_solid(raw)
         dest = out / pid
         step, glb = dest / 'model.step', dest / 'model.glb'
         if row['stepSha256'] != sha(step) or row['glbSha256'] != sha(glb):
@@ -233,22 +272,22 @@ def verify(config_path: Path, sheet_manifest_path: Path, out: Path) -> None:
         imported = import_step(step)
         if not imported.is_valid or len(imported.solids()) != 1:
             raise ValueError('STEP is not one valid solid')
+        if abs(imported.volume - recreated.volume) > max(.1, recreated.volume*.0001):
+            raise ValueError('STEP volume differs from regenerated solid')
         actual_bounds = bounds(imported)
         expected_bounds = bounds(recreated)
         if any(abs(actual_bounds[k] - expected_bounds[k]) > .1 for k in actual_bounds):
             raise ValueError('STEP differs from regenerated source solid')
         if any(abs(actual_bounds[k] - row['boundsMm'][k]) > .1 for k in actual_bounds):
             raise ValueError('solid report STEP bounds drift')
-        if any(abs(checks[k] - row['checks'][k]) > .1 for k in
-               ('jointOverlapMm3', 'upperJointOverlapMm3', 'lowerJointOverlapMm3',
-                'innerCavityIntrusionMm3', 'joinedVolumeMm3')):
+        if any(abs(checks[k] - row['checks'][k]) > .1 for k in checks):
             raise ValueError('joint or cavity report drift')
         mesh_bounds = glb_bounds_mm(glb)
         if any(abs(mesh_bounds[k] - actual_bounds[k]) > .5 for k in actual_bounds):
             raise ValueError('GLB mesh differs from STEP')
         if any(abs(mesh_bounds[k] - row['glbBoundsMm'][k]) > .1 for k in mesh_bounds):
             raise ValueError('solid report GLB bounds drift')
-        positions = {key: placement(layout, mesh_bounds, dims)
+        positions = {key: placement(layout, mesh_bounds, dims, pid)
                      for key, layout in sheet['layouts'].items()}
         for layout_name, placement_data in positions.items():
             saved = row['wirePlacement'][layout_name]

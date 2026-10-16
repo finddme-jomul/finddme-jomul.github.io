@@ -18,7 +18,7 @@ Use this as the maintained skill contract for the whole intended workflow. The c
 | 00 Start/resume | Project ID, original files, hashes → workspace and stage state | `new`, `resume`, `verify`, `revise`, `rollback` exist; general dependency router and full `pipeline-state.json` remain incomplete. |
 | 01 Sketch intake | Sketch/source regions → P1 observations, uncertainty, targeted questions | Agent-reviewed extraction and evidence-backed answers are supported. Unsupervised sketch interpretation is not. |
 | 02 Specification | Confirmed answers, clay/firing/shrinkage evidence, presentation choices → dimensions/material/motion with provenance | Do not invent missing size, shrinkage, glaze color, or production claims. Preserve ranges until selected. |
-| 03 CAD shape | Confirmed geometry → STEP/mesh/profile from one source | Rotational one/two-part sheet inputs and a reviewed provisional handled solid have PoCs. General asymmetric and 3+ part production is unsupported. |
+| 03 CAD shape | Confirmed geometry → STEP/mesh/profile from one source | Rotational one/two-part and handled CAD inputs generate source-derived STEP/GLB with roundtrip/bounds checks. General asymmetric and 3+ part production is unsupported. |
 | 04 Drawing and wire | Same CAD/profile → one technical sheet, part `frontBox`, CAD-sourced 3D wire | Adopted style: white, borderless, technical dense, front/plan/section/isometric/details/dimensions; English except clay/glaze names. `multiple` parts share one sheet and retain stable IDs. Do not use raw GLB tessellation as the intended wire drawing. |
 | 05 Material | Verified clay/glaze evidence and CAD mesh → expected material/render | Separate clay and glaze states; unknown fired color or gloss stays provisional. Reusing a GLB does not prove material parity. |
 | 06 Web 3D | Same shape/material → GLB and load/units/bounds check | CAD mm becomes web metres; inspect side/rear/handle joins. The current skill CLI has a single handled-vessel motion preview, not a general finished page. |
@@ -47,7 +47,7 @@ The selected hero plus smaller process-photo composition is supported by the int
 
 ## Execution state contract
 
-The current executable stages are CAD (including supported handled solids), handled motion preview, and the gallery component. They retain their existing generators. Page assembly is explicitly unsupported. These coarse execution boundaries do not claim implementation of every design stage 00–11.
+The current executable stages are CAD (including rotational and handled solids), handled motion preview, and the gallery component. They retain their existing generators. Page assembly is explicitly unsupported. These coarse execution boundaries do not claim implementation of every design stage 00–11.
 
 `pipeline-state.json` keeps its existing schema version and evidence fields, with additive `stageContractVersion: 1` and `stages` fields on the next normal write. Each stage declares inputs, outputs, dependencies, completion conditions and a status/reason. `status PROJECT` derives fresh status from recorded and current hashes without writing files; old projects need no eager migration. Stored stage status is a snapshot, not a substitute for this check. `complete` means recorded stage artifacts match, not user visual approval or a freshly repeated geometry/browser test; use `verify` for the existing geometry checks.
 
@@ -62,7 +62,7 @@ The current executable stages are CAD (including supported handled solids), hand
 `status PROJECT --config FILE` previews the build plan without importing inputs. `resume --config` and `revise --config` execute that same plan. Recorded `cad.buildInputs` separates geometry source hashes (profile/dimensions/handle), material source hashes, drawing configuration, and runtime version. `lastBuildPlan` records the actions taken.
 
 - Identical inputs and intact outputs: verify and reuse CAD; preserve motion and gallery.
-- Material/drawing-only change: rebuild technical sheets, reuse handled STEP/GLB bytes, recompute CAD-to-wire placement metadata. Motion is invalidated because it embeds the sheet/material. Preserve its reviewed input in state and automatically run a new browser-gated build.
+- Material/drawing-only change: rebuild technical sheets, reuse rotational/handled STEP/GLB bytes, recompute CAD-to-wire placement metadata. Motion is invalidated because it embeds the sheet/material. Preserve its reviewed input in state and automatically run a new browser-gated build.
 - Geometry/runtime change or changed CAD outputs: rebuild the sheet and supported solids. Legacy projects without fingerprints get one conservative full build.
 - Photo updates remain independent. Changed reviewed provenance in geometry files conservatively rebuilds geometry, even if dimensions look unchanged.
 
@@ -76,7 +76,7 @@ After a CAD build, the router reuses `reviewedMotionInput` only when it already 
 
 ## Decision-linked verification
 
-Every selection decision carries `verification.suites` and `verification.scope`. Missing mappings, unknown suites and missing consumers fail validation. Decisions without automated coverage must give a pending reason. `run.py check-decisions` runs seven suites and writes `.poc/decision-verification/report.json` by default. Use the locked Python environment and Docker; JavaScript suites use the image-pinned Node. The report records implementation state separately from test results, exact test/runtime-lock hashes, suite logs, and unverified scope. Checks changing during a run invalidate that run.
+Every selection decision carries `verification.suites` and `verification.scope`. Missing mappings, unknown suites and missing consumers fail validation. Decisions without automated coverage must give a pending reason. `run.py check-decisions` runs nine suites and writes `.poc/decision-verification/report.json` by default. Use the locked Python environment and Docker; JavaScript suites use the image-pinned Node. The report records implementation state separately from test results, exact test/runtime-lock hashes, suite logs, and unverified scope. Checks changing during a run invalidate that run.
 
 The suite covers generated CAD fixture equality and contracts, P1 evidence, solid roundtrip, rollback, stage/rebuild behavior, motion recovery, source-photo EXIF removal, axis pose/group rotations, background/glaze functions and shrinkage. A deliberately frozen body-spin implementation must fail the behavioral axis test even without a hash check. This is representative regression detection, not proof against every possible defect.
 
@@ -95,3 +95,9 @@ From the skill directory, run `python3 scripts/run.py environment --setup` with 
 Browser checks mount the workspace and the skill, start Vite inside the same container as Chrome, use a private loopback port, and put caches/configuration in container `/tmp`. The skill is mounted read-only. Existing host port 5173, repository node_modules and host Chrome cache are not used. The browser runner checks its Node/Puppeteer/Chrome versions before inspecting a page. Motion reports record the exact environment. JS behavior suites and the shrinkage CLI also use the pinned image's Node.
 
 `tests/check_portable_browser.py --preview <generated-motion-folder> --report <local-report.json>` copies the skill and a motion output outside the repository, performs fresh `npm ci` there, and runs the same browser gate without host services. Python portability is exercised by `check-decisions` in a separate fresh virtual environment. This tests folder/environment independence on the supported platform, not cross-platform rendering equivalence. Do not regenerate visual baselines just because tooling changes.
+
+## Full-page prerequisite: source-derived rotational solids
+
+`new/resume/revise` now generate rotational STEP/GLB under `cad/solid/<part-id>/` from the same profile/dimension input as the sheet. The existing solid exporter also continues handling the mug; no historical publisher or prebuilt GLB is required. Each part uses its own `frontBox`, including multiple projects. `verify` re-creates source geometry and checks STEP volume/bounds, GLB bounds, hashes and per-part placement. Drawing/material-only rebuilds retain the model bytes. Older CAD-only snapshots remain verifiable; their next rebuild adds solids.
+
+The rotational model uses the reviewed piecewise linear outer profile, radial wall offset and a flat cavity floor exactly at explicit `baseThickness` (interpolated between profile samples). Missing/invalid thickness fails. Source uncertainty remains attached by hashes; output is `provisional-geometry-preview-not-for-making`. This does not adopt new surface appearance or replace selected moon/bowl scene assets. Whole-page motion, wire rendering, material and visual parity remain pending. The next integration must consume these generated solids and current gallery output, preserving the selected framing and handoff gates.

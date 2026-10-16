@@ -272,16 +272,18 @@
     {
       "id": "composition",
       "state": "implemented",
-      "rule": "One vessel including its handle is one part; single/multiple share one CAD generator; support one or two rotational parts and one handled solid.",
+      "rule": "One vessel including its handle is one part; single/multiple share one CAD generator and source-derived STEP/GLB export. One/two rotational parts and handled geometry remain provisional previews, not manufacturing approval.",
       "consumer": [
         "scripts/project.py",
-        "scripts/shared_sheet_poc.py"
+        "scripts/shared_sheet_poc.py",
+        "scripts/jomul_handled_solid.py"
       ],
       "verification": {
         "suites": [
-          "runtime"
+          "runtime",
+          "rotational-solid"
         ],
-        "scope": "One/two-part CAD fixtures and handled vessel fixture"
+        "scope": "One/two-part unchanged CAD sheets, source-derived STEP/GLB bounds and roundtrip, per-part placement, solid reuse on drawing changes, analytic cavity/floor checks; full-page framing pending"
       }
     },
     {

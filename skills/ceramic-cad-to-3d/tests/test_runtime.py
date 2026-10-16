@@ -68,6 +68,22 @@ class PortableRuntime(unittest.TestCase):
         for name,pid,reference in [('single','91-single','moon-jar'),('multiple','92-multiple','bowl-set')]:
             project=self.new(pid,name)
             self.run_cli('verify',pid)
+            solid=json.loads((project/'cad/solid/manifest.json').read_text())
+            self.assertEqual({p['id'] for p in json.loads(self.configs[name].read_text())['parts']},
+                             {p['id'] for p in solid['parts']})
+            for part in solid['parts']:
+                self.assertTrue(part['stepRoundTrip'])
+                self.assertEqual('provisional-geometry-preview-not-for-making',part['status'])
+                self.assertEqual(1,part['checks']['joinedSolidCount'])
+                self.assertTrue(all(v['maxEdgeErrorMm']<1 for v in part['wirePlacement'].values()))
+            models={p.relative_to(project).as_posix():sha(p) for p in (project/'cad/solid').rglob('model.*')}
+            config=json.loads(self.configs[name].read_text());config['name']+=' drawing revision'
+            revised=self.workspace/f'{name}-drawing.json';revised.write_text(json.dumps(config))
+            self.run_cli('revise',pid,'--feedback','drawing-only test','--config',revised)
+            self.assertEqual('reuse',json.loads((project/'pipeline-state.json').read_text())['lastBuildPlan']['solid'])
+            self.assertEqual(models,{p.relative_to(project).as_posix():sha(p) for p in (project/'cad/solid').rglob('model.*')})
+            self.run_cli('verify',pid)
+            self.run_cli('revise',pid,'--feedback','restore original drawing metadata','--config',self.configs[name])
             for layout in ('desktop','mobile','mobile-short'):
                 filename=f'sheet-{layout}.svg'
                 self.assertEqual(sha(project/'cad'/filename),
