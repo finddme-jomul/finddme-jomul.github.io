@@ -5,6 +5,7 @@
     "three": "0.186.1"
   },
   "devDependencies": {
-    "vite": "7.3.0"
+    "vite": "7.3.0",
+    "animejs": "4.5.0"
   }
 }

@@ -21,7 +21,7 @@ class PortableRuntime(unittest.TestCase):
         cls.tmp = tempfile.TemporaryDirectory(prefix='ceramic-package-')
         cls.base = Path(cls.tmp.name)
         cls.skill = cls.base / 'skill'
-        shutil.copytree(SOURCE, cls.skill, ignore=shutil.ignore_patterns('__pycache__'))
+        shutil.copytree(SOURCE, cls.skill, ignore=shutil.ignore_patterns('__pycache__', 'node_modules', '.venv'))
         cls.workspace = cls.base / 'workspace'
         cls.workspace.mkdir()
         cls.cli = cls.skill / 'scripts/run.py'

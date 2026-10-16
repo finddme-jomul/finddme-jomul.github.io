@@ -5,7 +5,7 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
 (async()=>{
  const base=process.env.CERAMIC_SCATTER_URL,out=process.env.CERAMIC_REPORT;
  assert(base&&out);fs.mkdirSync(out,{recursive:true});
- const browser=await puppeteer.launch({headless:true,executablePath:'/browser/chrome/linux-152.0.7977.54/chrome-linux64/chrome',args:['--no-sandbox','--disable-dev-shm-usage']});
+ const browser=await puppeteer.launch({headless:true,executablePath:process.env.CERAMIC_CHROME||await puppeteer.executablePath(),args:['--no-sandbox','--disable-dev-shm-usage']});
  const cases=[];
  try{
   for(const [name,width,height] of [['desktop',1440,900],['short',1440,600],['mobile',390,844],['mobile-short',390,600]]){

@@ -6,7 +6,7 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
  const {CERAMIC_BASELINE,CERAMIC_CANDIDATE,CERAMIC_REPORT}=process.env;
  assert(CERAMIC_BASELINE&&CERAMIC_CANDIDATE&&CERAMIC_REPORT);
  fs.mkdirSync(CERAMIC_REPORT,{recursive:true});
- const browser=await puppeteer.launch({headless:true,executablePath:'/browser/chrome/linux-152.0.7977.54/chrome-linux64/chrome',
+ const browser=await puppeteer.launch({headless:true,executablePath:process.env.CERAMIC_CHROME||await puppeteer.executablePath(),
  args:['--no-sandbox','--disable-dev-shm-usage','--enable-webgl','--use-gl=angle','--use-angle=swiftshader']});
  const results=[];
  try{
