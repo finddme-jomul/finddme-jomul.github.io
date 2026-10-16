@@ -449,8 +449,13 @@
       "verification": {
         "suites": [],
         "scope": "Assembled page 3D exit, gallery entry and reverse scroll",
-        "pendingReason": "Not covered by this runner; full-page/new-project implementation or browser evidence required."
-      }
+        "pendingReason": "Not covered by this runner; full-page/new-project implementation or browser evidence required.",
+        "browserCheck": "tests/check-page.cjs (rotational review candidate; not baseline parity or visual adoption)"
+      },
+      "consumer": [
+        "scripts/page.py",
+        "assets/page/viewer.js"
+      ]
     },
     {
       "id": "revision",
@@ -484,18 +489,21 @@
       "consumer": [
         "scripts/stages.py",
         "scripts/project.py",
-        "scripts/rebuild.py"
+        "scripts/rebuild.py",
+        "scripts/page.py",
+        "assets/page/viewer.js"
       ],
       "verification": {
         "suites": [
           "runtime",
           "motion-recovery"
         ],
-        "scope": "Stage readiness/dependency changes, read-only planning, independent photos, motion retry"
+        "scope": "Stage readiness/dependency changes, read-only planning, independent photos, motion retry",
+        "browserCheck": "tests/check-page.cjs (rotational review candidate; not baseline parity or visual adoption)"
       }
     }
   ],
   "sourceRepositoryCommit": "c84daff",
   "integrationDate": "2026-10-15",
-  "scope": "Selected reusable runtime/components; full scene assembly remains explicitly pending"
+  "scope": "Selected reusable runtime plus explicit rotational page review; full-scene parity, handled page and new-project E2E remain pending"
 }

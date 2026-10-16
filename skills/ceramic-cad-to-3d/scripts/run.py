@@ -34,7 +34,7 @@ def main():
         from browser_environment import node_command
         subprocess.run(node_command(script, remaining[1:]), cwd=options.workspace, check=True)
         return
-    if remaining and remaining[0] == 'page':
+    if remaining == ['page']:
         raise SystemExit('CERAMIC_PAGE_PENDING: selected full-scene parity is not established; no candidate viewer will be substituted')
     import project
     project.main()

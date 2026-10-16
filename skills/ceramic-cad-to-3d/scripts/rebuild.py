@@ -38,4 +38,4 @@ def plan(previous, current, artifacts_match):
     return {'changedInputs': changed, 'sheet': 'build' if rebuild_sheet else 'reuse',
             'solid': 'build' if rebuild_solid else 'reuse',
             'motion': 'invalidate' if rebuild_sheet else 'preserve', 'gallery': 'preserve',
-            'page': 'unsupported'}
+            'page': 'invalidate' if rebuild_sheet else 'preserve'}
