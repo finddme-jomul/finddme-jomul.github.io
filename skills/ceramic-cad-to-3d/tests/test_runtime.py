@@ -257,5 +257,33 @@ class PortableRuntime(unittest.TestCase):
         self.assertNotEqual(before,models())
         self.run_cli('verify',pid)
 
+    def test_10_explicit_scatter_preserves_roles_and_repeats(self):
+        pid='99-scatter'
+        self.run_cli('new',pid,'--sketch',self.sketch)
+        photos=[]
+        for i,role in enumerate(['actual','actual','process']):
+            source=self.workspace/f'scatter-{i}.jpg'
+            Image.new('RGB',[(400,600),(700,400),(400,400)][i],['red','green','blue'][i]).save(source)
+            photos.append({'source':str(source),'sha256':sha(source),'role':role,
+                           'status':'user-confirmed-final-fired' if role=='actual' else 'user-confirmed-process',
+                           'alt':f'Synthetic layout test {i}'})
+        manifest=self.workspace/'scatter.json'
+        data={'photos':photos,'layout':{'mode':'scatter','seed':'review-1'}}
+        manifest.write_text(json.dumps(data))
+        self.run_cli('gallery',pid,'--photos',manifest)
+        out=self.project(pid)/'gallery'
+        before={p.name:sha(p) for p in out.iterdir() if p.is_file()}
+        result=json.loads((out/'manifest.json').read_text())
+        self.assertEqual('candidate-not-visually-adopted',result['layout']['status'])
+        self.assertEqual(['actual','actual','process'],[p['role'] for p in result['photos']])
+        self.assertEqual(3,(out/'gallery.html').read_text().count('gallery-photo--scatter'))
+        self.run_cli('gallery',pid,'--photos',manifest)
+        self.assertEqual(before,{p.name:sha(p) for p in out.iterdir() if p.is_file()})
+        data['layout']['seed']='review-2';manifest.write_text(json.dumps(data))
+        self.run_cli('gallery',pid,'--photos',manifest)
+        self.assertNotEqual(before['gallery.html'],sha(out/'gallery.html'))
+        data['photos'][1]=data['photos'][0];manifest.write_text(json.dumps(data))
+        self.assertIn('Duplicate',self.run_cli('gallery',pid,'--photos',manifest,ok=False))
+
 if __name__=='__main__':
     unittest.main()

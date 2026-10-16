@@ -24,3 +24,8 @@
 .gallery-photo--process img{max-width:28vw;max-height:17vh}
 }
 @media(prefers-reduced-motion:reduce){.gallery,.gallery *{transition-duration:0s!important;animation-duration:0s!important}}
+
+/* Explicit scatter candidate; selected hero/process selectors remain unchanged. */
+.gallery-photo--scatter{position:absolute;left:var(--d-x);top:var(--d-y);width:var(--d-w);height:var(--d-h);justify-content:center}
+.gallery-photo--scatter img{max-width:100%;max-height:100%;border-width:6px}
+@media(max-width:700px){.gallery-photo--scatter{left:var(--m-x);top:var(--m-y);width:var(--m-w);height:var(--m-h)}.gallery-photo--scatter img{border-width:4px}}

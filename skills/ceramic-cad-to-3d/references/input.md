@@ -56,3 +56,9 @@ Use `motion-preview PROJECT --motion FILE` after CAD verification. The JSON cont
 `gallery PROJECT --photos FILE` consumes an ordered JSON list. Each photo has `source` (absolute or workspace-relative), `sha256`, `role: actual|process`, `status: user-confirmed-final-fired|user-confirmed-process` matching its role, and `alt`. Empty input omits the gallery. One photo uses the selected hero frame. The selected two-photo composition is an actual hero followed by a distinct smaller process photo. Other multiple-photo layouts remain pending. The component manifest and all outputs are recorded in project state and checked by `verify`; this command does not assemble a finished page.
 
 Test fixture JSON paths are fixture-directory-relative for portability. Resolve them to absolute paths before sending a fixture through the project CLI; normal project config paths are workspace-relative or absolute.
+
+### Explicit scatter review input
+
+The existing ordered photo list keeps the selected hero/process behavior. For a separate 2–8 photo review candidate, supply an object with `photos` (the same role/status/source/hash/alt records) and `layout: {"mode":"scatter", "seed":"project-review-1"}`. Photo order remains DOM/keyboard order; role does not control size or position. The stable seed and `bounded-scatter-v1` algorithm produce distinct bounded sizes/positions for desktop/mobile, recorded in `manifest.json`. Reusing the same input reproduces the layout; changing seed intentionally proposes another layout. Over eight photos is currently rejected, never silently dropped.
+
+The generated `gallery/index.html` is a standalone component review, not a finished CAD-to-photo page. The scatter manifest is `candidate-not-visually-adopted`. Keep selected layout as default until a visual choice is adopted. Multiple image files can be crops of one source photograph: retain this provenance; do not count them as independent captures.
