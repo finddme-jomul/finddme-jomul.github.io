@@ -6,6 +6,7 @@
     "scripts/check-motion.cjs": "0d3614e4b8ac76734921c8234537f2292fe4db534399c958f8a4403a86bb5a46",
     "scripts/check_shared_sheet_poc.py": "92317c5b3e400853df715e34455724e55127c237ae32dcca3be7106af6e6c037",
     "scripts/clay-shrinkage.mjs": "4ba0d8705badc3c3b84aa7070d9a51e5e4f44dff3d282a85c46d8d59b51f8bb7",
+    "scripts/decision_checks.py": "88e3dda09d769b8e5ae04cde74dffdc99f887629230c9f9e3c30abb6e4fc8f46",
     "scripts/gallery_markup.py": "bd319e625e4d0b5f46c1707208cd1ff266b2f2acaf826c289d9448eb1c3207e2",
     "scripts/gallery_profile.py": "4326e0fbb62882e72598d42d377b1a4ebeead3f5f92ce734ca699721e371a53e",
     "scripts/handled_geometry.py": "f2b4e12dba72a5a2bea0d40bfd33a8acd086f324b4469709375b053345100138",
@@ -19,7 +20,7 @@
     "scripts/prepare_handled.py": "dc549abf1617ddcbf436a881dc9a990d1ca7b6d81765660999eb5d5562e6b839",
     "scripts/project.py": "176b153824331f6b1cb617bfad8a98fef1be123b1546c21f80193298b3ca7ddb",
     "scripts/rebuild.py": "9a4e9ec05aaa4c6e4d42e258270fdb964e36ad485756f15993710f9e64b750fc",
-    "scripts/run.py": "9b26e5551aa2575144936c1ea6a22fa3dc89b8da53a1b57d7f1fde5224ec0c2a",
+    "scripts/run.py": "5888c34b60611d51ff7e01698bb6c7065647434fa460fa2157a0c0df27727633",
     "scripts/shared_sheet_poc.py": "b1f3833d8ec0b10440d0b8f17ccee97a0e9892fce1fd30540dcccda961c07ff4",
     "scripts/spec_handoff.py": "6b3a0d5fdb29bc05a8564aa37c17f4180bbf5e8aee24e34db5693f9425561904",
     "scripts/stages.py": "afc24d56b89ac8a96df1cdbbdf330fb78d50297f286e119193524f60ed8f8be2",
@@ -61,7 +62,7 @@
     "assets/scene/background-transition.mjs": "7023122b744c7b5897df30207c14472c84dae90fb5e501cb3a54da651fad9fb4",
     "assets/scene/composition-framing.mjs": "c168b28f84dbd27a7ab75d0248d27b315911b5f31a40a1584117ab5163984736",
     "assets/scene/glaze-motion.mjs": "b2379233ee4a35f28c2d772130238e1bfbd81462af9ff6fc2a4ca7cd855eadae",
-    "selection.json": "9927f6369ee7e7b9337ce39b812b26fa58d124b445f395c6dbb064954e2ac885",
+    "selection.json": "01b58b6163a8ccda0926eecf2c80df82a66a71788164a5f06263c2e9ec5b7705",
     "requirements.txt": "5ac161d57f7654c3ed20501e44ba4411be209a58db09bb4b23faf542c962f66f",
     "package.json": "145e89fdbfff879393e0a8743437858baf3ced4fb98835fd08fe66606a3bad5a"
   }
