@@ -19,6 +19,11 @@ def main():
         return
     import preflight
     preflight.verify_package()
+    if remaining and remaining[0] == 'selected-page':
+        sys.argv.pop(1)
+        import selected_page
+        selected_page.main()
+        return
     if remaining and remaining[0] == 'environment':
         sys.argv.pop(1)
         import environment_check

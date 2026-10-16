@@ -450,11 +450,10 @@
         "suites": [],
         "scope": "Assembled page 3D exit, gallery entry and reverse scroll",
         "pendingReason": "Not covered by this runner; full-page/new-project implementation or browser evidence required.",
-        "browserCheck": "tests/check-page.cjs (rotational review candidate; not baseline parity or visual adoption)"
+        "browserCheck": "Withdrawn candidate evidence; selected whole-page replay is checked by tests/check-selected-page.cjs"
       },
       "consumer": [
-        "scripts/page.py",
-        "assets/page/viewer.js"
+        "scripts/page.py"
       ]
     },
     {
@@ -490,8 +489,7 @@
         "scripts/stages.py",
         "scripts/project.py",
         "scripts/rebuild.py",
-        "scripts/page.py",
-        "assets/page/viewer.js"
+        "scripts/page.py"
       ],
       "verification": {
         "suites": [
@@ -499,11 +497,28 @@
           "motion-recovery"
         ],
         "scope": "Stage readiness/dependency changes, read-only planning, independent photos, motion retry",
-        "browserCheck": "tests/check-page.cjs (rotational review candidate; not baseline parity or visual adoption)"
+        "browserCheck": "Withdrawn candidate evidence; selected whole-page replay is checked by tests/check-selected-page.cjs"
+      }
+    },
+    {
+      "id": "selected-whole-page",
+      "state": "user-selected-exact-input-replay",
+      "rule": "The entire ceramic-integration-gallery page is authoritative, not only its final gallery. Preserve CAD display, camera sizing, dense wire, timing, 390-degree body / 360-degree axis turns, lighting, GLB material and clipped glaze. Reject the previous full-page-study-derived renderer. Exact replay does not establish new-CAD generation.",
+      "consumer": [
+        "scripts/selected_page.py",
+        "assets/selected-page/viewer.js",
+        "scripts/page.py"
+      ],
+      "verification": {
+        "suites": [
+          "runtime"
+        ],
+        "scope": "Reject unselected candidate generation; exact source manifest verification and full-scene browser parity are separate checks",
+        "browserCheck": "tests/check-selected-page.cjs: four viewports, 12 timeline positions including reverse scroll; exact pixels and scene state"
       }
     }
   ],
   "sourceRepositoryCommit": "c84daff",
   "integrationDate": "2026-10-15",
-  "scope": "Selected reusable runtime plus explicit rotational page review; full-scene parity, handled page and new-project E2E remain pending"
+  "scope": "Selected whole-page restoration and supported CAD/components; new-CAD page rendering blocked until selected-scene parity is implemented"
 }

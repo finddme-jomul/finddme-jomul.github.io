@@ -124,6 +124,11 @@
     "visibleHeader": false,
     "visibleFooter": false,
     "preserveCadInternalAnnotations": true,
-    "source": "accepted-moon-jar-page-and-user-bowl-feedback-2026-10-14"
+    "source": "accepted-moon-jar-page-and-user-bowl-feedback-2026-10-14",
+    "authoritativeWholePage": {
+      "manifest": "assets/selected-page.json",
+      "priority": "User-confirmed entire scene supersedes earlier candidate page framing, sheet display, wire and material settings",
+      "scope": "selected moon reference; general CAD-to-selected-renderer adaptation pending"
+    }
   }
 }

@@ -301,7 +301,7 @@ class PortableRuntime(unittest.TestCase):
         data['photos'][1]=data['photos'][0];manifest.write_text(json.dumps(data))
         self.assertIn('Duplicate',self.run_cli('gallery',pid,'--photos',manifest,ok=False))
 
-    def test_11_page_build_uses_project_assets_without_repository(self):
+    def test_11_reject_unselected_page_renderer(self):
         for kind,pid in [('single','81-page-single'),('multiple','82-page-multiple')]:
             project=self.new(pid,kind)
             photos=self.workspace/'empty-photos.json';photos.write_text('[]')
@@ -311,13 +311,9 @@ class PortableRuntime(unittest.TestCase):
             env=dict(os.environ,CERAMIC_WORKSPACE=str(self.workspace))
             out=project/'page-assets-test'
             r=subprocess.run([sys.executable,'-c',code,str(self.skill/'scripts'),str(project),str(out),str(scene)],env=env,capture_output=True,text=True)
-            self.assertEqual(0,r.returncode,r.stderr)
-            manifest=json.loads((out/'page-manifest.json').read_text())
-            self.assertEqual('candidate',manifest['status'])
-            self.assertEqual(0,manifest['photoCount'])
-            for part in json.loads(self.configs[kind].read_text())['parts']:
-                self.assertEqual(sha(project/'cad/solid'/part['id']/'model.glb'),sha(out/'assets'/part['id']/'model.glb'))
-                self.assertTrue((out/'assets'/part['id']/'wire-guide.json').is_file())
+            self.assertNotEqual(0,r.returncode)
+            self.assertIn('CERAMIC_PAGE_BASELINE_REQUIRED',r.stderr)
+            self.assertFalse(out.exists())
             data=json.loads(scene.read_text());data['parts'][0]['motion']['orbitTurns']=0
             bad=self.workspace/'bad-scene.json';bad.write_text(json.dumps(data))
             self.assertIn('full turn',self.run_cli('page',pid,'--scene',bad,ok=False))
