@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "status": "reviewed-provisional",
+  "provenance": "Explicit regression fixture only; historical scene tuning is not user-adopted presentation",
+  "motion": {
+    "storyHeightVh": 760,
+    "timing": {
+      "cadEnd": 0.24,
+      "sheetFadeStart": 0.1,
+      "sheetFadeDuration": 0.14,
+      "frontMoveStart": 0.1,
+      "frontMoveDuration": 0.16,
+      "frontFadeStart": 0.215,
+      "frontFadeDuration": 0.065,
+      "wireFadeStart": 0.2,
+      "wireFadeDuration": 0.065,
+      "axisFadeStart": 0.25,
+      "axisFadeDuration": 0.08,
+      "dropStart": 0.045,
+      "dropDuration": 0.36,
+      "clayStart": 0.36,
+      "clayDuration": 0.16,
+      "baseGlazeStart": 0.59,
+      "baseGlazeDuration": 0.1,
+      "accentGlazeStart": null,
+      "accentGlazeDuration": null,
+      "settleStart": 0.42,
+      "settleDuration": 0.12,
+      "cameraFocusStart": 0.42,
+      "cameraFocusDuration": 0.17,
+      "photoStart": 0.9,
+      "photoDuration": 0.09,
+      "surfaceSweepWidth": 0.04
+    },
+    "camera": {
+      "fov": 32,
+      "y": 0.095,
+      "lookAtY": 0.043,
+      "desktopStartZ": 1.05,
+      "mobileStartZ": 1.4,
+      "desktopFocusDeltaZ": -0.18,
+      "mobileFocusDeltaZ": -0.14
+    },
+    "layout": {
+      "desktopEntryY": 0.11,
+      "mobileEntryY": 0.2,
+      "entryZ": -0.23,
+      "dropBounceY": 0.007,
+      "photoScaleStart": 0.94,
+      "photoTopPercent": 48
+    },
+    "provenance": {
+      "timing": "poc-tuned-not-user-confirmed",
+      "camera": "poc-tuned-not-user-confirmed",
+      "layout": "poc-tuned-not-user-confirmed"
+    },
+    "framing": {
+      "enabled": false,
+      "desktopWidthFraction": 0.78,
+      "mobileWidthFraction": 0.88,
+      "desktopHeightFraction": 0.62,
+      "mobileHeightFraction": 0.52,
+      "minDistance": 0.32,
+      "provenance": "screen-occupancy-poc-assumption;bounds-derived"
+    },
+    "photoHandoff": {
+      "sequence": "scene-exit-then-photo-enter",
+      "sceneExitScrollVh": 40,
+      "transitionScrollVh": 80,
+      "holdScrollVh": 80,
+      "provenance": "user-approved-order;distances-reproduce-bowl-poc-not-general-default"
+    }
+  },
+  "parts": [
+    {
+      "id": "moon-jar",
+      "glazePreview": {
+        "clayHex": "#BDB9B1",
+        "baseHex": "#E7E6E1",
+        "baseWarmHex": "#E7E6E1",
+        "accentHex": "#E7E6E1",
+        "accentWarmHex": "#E7E6E1",
+        "accentWarmMix": 0
+      },
+      "accentCenterAngle": 0,
+      "accentWidthScale": 1,
+      "accentEnabled": false,
+      "provenance": "photo-guided-preview-not-measured",
+      "motion": {
+        "dropDelay": 0,
+        "entryXDesktop": 0,
+        "entryXMobile": 0,
+        "finalXDesktop": 0,
+        "finalXMobile": 0,
+        "axisTiltDegrees": -14,
+        "axisDriftZDegrees": 0,
+        "axisDriftXDegrees": 0,
+        "turns": 1,
+        "provenance": {
+          "axis": "poc-assumption-not-user-confirmed",
+          "entryAndFinalPositions": "poc-visual-assumption",
+          "cadToWireScale": "study-only-no-zoom",
+          "orbitTurns": "candidate enforcing selected minimum full axis turn; not visual adoption",
+          "settledScale": "study-only"
+        },
+        "cadToWireScale": 1.0,
+        "cadToWireScaleMobile": 1.0,
+        "orbitTurns": 1,
+        "settledScale": 1
+      }
+    }
+  ]
+}

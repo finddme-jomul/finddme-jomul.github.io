@@ -34,7 +34,7 @@ Use this as the maintained skill contract for the whole intended workflow. The c
 
 `python3 /path/to/ceramic-cad-to-3d/scripts/run.py preflight` checks the selected moon and bowl files and CAD reference artifacts named in `assets/accepted-profile.json`. The skill executes only `scripts/run.py`; the old repository PoC dispatcher is historical development tooling. The accepted moon full-page baseline is `/.poc/moon-jar-gallery-type-study/`; the bowl photo handoff baseline is `/.poc/bowl-set-configured-photo-handoff/`. Both are local reference fixtures, not new-project E2E output.
 
-The registered `full-page-study` joins existing reviewed assets for single/multiple with 0/1/3 photo cases. Its single-moon wire size now uses model-bound camera fitting and a browser occupancy gate. Full scene parity for rotation, lighting, material, and gallery composition remains unapproved. Its equal multi-photo grid is an unapproved candidate; the user's reference shows varied size and asymmetric positions, but the exact placement rule remains to be selected. The CLI does not yet take a new sketch all the way to a finished page. The selected runtime is now packaged inside the skill and can run without docs/artifacts. `run.py preflight --release` still blocks on pending full-page parity, general multi-photo layout and E2E; the historical full-page-study remains comparison evidence only.
+The registered `full-page-study` joins existing reviewed assets for single/multiple with 0/1/3 photo cases. Its single-moon wire size now uses model-bound camera fitting and a browser occupancy gate. Full scene parity for rotation, lighting, material, and gallery composition remains unapproved. Its equal multi-photo grid is an unapproved candidate; the user's reference shows varied size and asymmetric positions, but the exact placement rule remains to be selected. The CLI can assemble an explicit rotational page candidate; new-sketch finished-page validation remains pending. The selected runtime is now packaged inside the skill and can run without docs/artifacts. `run.py preflight --release` still blocks on pending full-page parity, general multi-photo layout and E2E; the historical full-page-study remains comparison evidence only.
 
 The selected hero plus smaller process-photo composition is supported by the internal gallery component; general multiple-photo placement is a separate pending decision. `selection.json` maps each adopted requirement to its active consumer or explicit pending stage. Runtime code and selected values are locked together by `runtime-lock.json`.
 
@@ -47,7 +47,7 @@ The selected hero plus smaller process-photo composition is supported by the int
 
 ## Execution state contract
 
-The current executable stages are CAD (including rotational and handled solids), handled motion preview, and the gallery component. They retain their existing generators. Page assembly is explicitly unsupported. These coarse execution boundaries do not claim implementation of every design stage 00–11.
+The current executable stages are CAD (including rotational and handled solids), handled motion preview, and the gallery component. They retain their existing generators. Rotational page assembly is available as an explicit browser-gated candidate; see the page review section below. These coarse execution boundaries do not claim implementation of every design stage 00–11.
 
 `pipeline-state.json` keeps its existing schema version and evidence fields, with additive `stageContractVersion: 1` and `stages` fields on the next normal write. Each stage declares inputs, outputs, dependencies, completion conditions and a status/reason. `status PROJECT` derives fresh status from recorded and current hashes without writing files; old projects need no eager migration. Stored stage status is a snapshot, not a substitute for this check. `complete` means recorded stage artifacts match, not user visual approval or a freshly repeated geometry/browser test; use `verify` for the existing geometry checks.
 
@@ -55,7 +55,7 @@ The current executable stages are CAD (including rotational and handled solids),
 - Motion changes affect motion → future page.
 - Photo changes affect gallery → future page. Gallery generation no longer requires CAD readiness and never invokes the CAD builder. Empty reviewed photo input is a completed omitted gallery, distinct from missing photo input.
 - `status PROJECT --changed cad|motion|gallery` reports that transitive scope without regenerating or deleting anything. Stale inputs/outputs and blocked inputs are reported separately from unsupported page assembly.
-- Exact snapshots/rollback remain unchanged. Geometry/material/drawing changes use the selective scheduler below. Full-page dependency execution remains future work.
+- Exact snapshots/rollback remain unchanged. Geometry/material/drawing changes use the selective scheduler below. Page dependency drift is detected; automatic page rebuilding remains future work.
 
 ### Selective CAD rebuild
 
@@ -66,7 +66,7 @@ The current executable stages are CAD (including rotational and handled solids),
 - Geometry/runtime change or changed CAD outputs: rebuild the sheet and supported solids. Legacy projects without fingerprints get one conservative full build.
 - Photo updates remain independent. Changed reviewed provenance in geometry files conservatively rebuilds geometry, even if dimensions look unchanged.
 
-This scheduler handles supported CAD consumers and automatically rebuilds an existing reviewed motion preview after invalidation. Full-page assembly remains unsupported. A material update can affect drawing labels as well as appearance, so it cannot skip the sheet.
+This scheduler handles supported CAD consumers and automatically rebuilds an existing reviewed motion preview after invalidation. Rotational page assembly is an explicit candidate command; automatic page scheduling remains pending. A material update can affect drawing labels as well as appearance, so it cannot skip the sheet.
 
 ### Automatic motion and recovery
 
@@ -101,3 +101,13 @@ Browser checks mount the workspace and the skill, start Vite inside the same con
 `new/resume/revise` now generate rotational STEP/GLB under `cad/solid/<part-id>/` from the same profile/dimension input as the sheet. The existing solid exporter also continues handling the mug; no historical publisher or prebuilt GLB is required. Each part uses its own `frontBox`, including multiple projects. `verify` re-creates source geometry and checks STEP volume/bounds, GLB bounds, hashes and per-part placement. Drawing/material-only rebuilds retain the model bytes. Older CAD-only snapshots remain verifiable; their next rebuild adds solids.
 
 The rotational model uses the reviewed piecewise linear outer profile, radial wall offset and a flat cavity floor exactly at explicit `baseThickness` (interpolated between profile samples). Missing/invalid thickness fails. Source uncertainty remains attached by hashes; output is `provisional-geometry-preview-not-for-making`. This does not adopt new surface appearance or replace selected moon/bowl scene assets. Whole-page motion, wire rendering, material and visual parity remain pending. The next integration must consume these generated solids and current gallery output, preserving the selected framing and handoff gates.
+
+## Rotational page review
+
+`page PROJECT --scene FILE` connects CAD → CAD-derived wire → clay → glaze → the existing gallery component for one/two rotational parts. It reads the project's generated GLB and CAD source profiles, not historical model assets. The internal page renderer is a candidate adapted from the assembly study; historical camera, axis and appearance tuning are not adopted defaults. The accepted single framing, common axis/glaze functions and existing gallery markup are consumed directly. The selected baseline pages remain unchanged.
+
+Scene JSON requires `schemaVersion: 1`, `status: reviewed-provisional`, `provenance`, a complete `motion` object and ordered `parts` matching CAD IDs. Each part has explicit `motion` (including provenance, at least one body and axis turn) and `glazePreview` colours, accent settings and appearance provenance. See `tests/fixtures/single/scene.json` and `multiple/scene.json` for **test-only** examples, not default project values. Unknown colours remain provisional. Page photo count/layout come exclusively from the project's gallery output; explicit scatter keeps its candidate status.
+
+The command checks current CAD/gallery, snapshots, generates in staging, runs four browser layouts, and only then publishes `page-review/`. Failed requests retain the previous output and record `pageJob: failed`; rerun `page --scene` after correction. Page state tracks CAD/gallery/runtime/output hashes and preserves the explicit scene input. `status` reports stale output when dependencies change; `verify` rejects it. Full-page motion input is independent of the handled `motion-preview` stage. Automatic downstream page rebuild, handled-page integration, reduced-motion/loading-failure behavior, comparison with adopted full-scene baselines and new-project E2E are still pending.
+
+The browser gate checks CAD containment, minimum single wire occupancy, 3D clipping, glaze progress, last-gallery entry after scene exit, image loading, lightbox/Escape and reverse scroll. This is technical candidate evidence, not visual adoption or release approval.

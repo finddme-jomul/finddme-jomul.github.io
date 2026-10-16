@@ -298,6 +298,7 @@ def main() -> None:
     revise = sub.add_parser('revise'); revise.add_argument('project'); revise.add_argument('--feedback', required=True)
     revise.add_argument('--config', type=Path)
     motion = sub.add_parser('motion-preview'); motion.add_argument('project'); motion.add_argument('--motion', required=True, type=Path)
+    page = sub.add_parser('page'); page.add_argument('project'); page.add_argument('--scene', required=True, type=Path)
     gallery = sub.add_parser('gallery'); gallery.add_argument('project'); gallery.add_argument('--photos', required=True, type=Path)
     status = sub.add_parser('status'); status.add_argument('project')
     status.add_argument('--config', type=Path, help='inspect a proposed CAD config without importing it')
@@ -355,6 +356,45 @@ def main() -> None:
             raise
     else:
         state = state_for(project)
+        if args.action == 'page':
+            import page as page_builder
+            data=json.loads(args.scene.expanduser().resolve(strict=True).read_text())
+            verify(project,state)
+            snapshot(project)
+            stage=project/'page-review.building';out=project/'page-review';previous=project/'page-review.previous'
+            if previous.exists(): raise ValueError('Unresolved previous page publication')
+            if stage.exists(): shutil.rmtree(stage)
+            state['pageJob']={'status':'running'}
+            state['reviewedPageInput']=data
+            save(project/'pipeline-state.json',state)
+            old_entry=state.get('pageReview')
+            try:
+                page_builder.build(project,stage,data)
+                page_builder.browser_check(stage)
+                entry={'filesSha256':tree_hashes(stage),'cadSha256':tree_hashes(project/'cad'),
+                       'gallerySha256':tree_hashes(project/'gallery'),'runtimeSha256':digest(SKILL/'runtime-lock.json'),
+                       'reviewedInput':data,'status':'candidate'}
+                if out.exists(): out.rename(previous)
+                try:
+                    stage.rename(out)
+                    state['pageReview']=entry
+                    state['pageJob']={'status':'complete'}
+                    save(project/'pipeline-state.json',state)
+                except Exception:
+                    if out.exists(): shutil.rmtree(out)
+                    if previous.exists(): previous.rename(out)
+                    raise
+                if previous.exists(): shutil.rmtree(previous)
+                print('CERAMIC_PAGE_REVIEW_OK',out)
+            except Exception as error:
+                if old_entry is None: state.pop('pageReview',None)
+                else: state['pageReview']=old_entry
+                state['pageJob']={'status':'failed','error':str(error)}
+                save(project/'pipeline-state.json',state)
+                raise
+            finally:
+                if stage.exists(): shutil.rmtree(stage)
+            return
         if args.action == 'status':
             from stages import describe, affected
             report = {'projectId': args.project, 'stageContractVersion': 1,
@@ -370,6 +410,10 @@ def main() -> None:
             return
         if args.action == 'verify':
             verify(project, state)
+            if state.get('pageReview') or state.get('pageJob'):
+                from stages import describe
+                if describe(project,state)['page']['status']!='complete':
+                    raise ValueError('Page review is stale; rebuild with page --scene')
             if state.get('motionJob', {}).get('status') in ('failed', 'running'):
                 raise ValueError('Motion browser gate is incomplete; use resume to retry')
             if state.get('gallery'):

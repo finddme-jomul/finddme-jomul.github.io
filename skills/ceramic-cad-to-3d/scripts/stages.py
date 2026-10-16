@@ -8,8 +8,8 @@ CONTRACT = {
                'outputs': ['motion-preview/*'], 'completion': 'CAD dependency, output hashes; four-viewport gate at build'},
     'gallery': {'dependsOn': [], 'inputs': ['reviewed photo list and source images'],
                 'outputs': ['gallery/*'], 'completion': 'source roles/hashes and exported output hashes'},
-    'page': {'dependsOn': ['cad', 'motion', 'gallery'], 'inputs': ['reviewed scene and stage outputs'],
-             'outputs': [], 'completion': 'not implemented; full-page visual parity required'},
+    'page': {'dependsOn': ['cad', 'gallery'], 'inputs': ['reviewed scene and stage outputs'],
+             'outputs': ['page-review/*'], 'completion': 'browser-gated rotational candidate; visual parity pending'},
 }
 
 
@@ -59,7 +59,18 @@ def describe(project, state):
     if (not motion and state.get('reviewedMotionInput')
             and state.get('motionJob', {}).get('status') not in ('failed', 'running')):
         result['motion']['reason'] = 'CAD changed; reviewedMotionInput is preserved; rebuild motion-preview and pass its browser gate'
-    result['page'].update(status='unsupported', reason='Full-page renderer and visual parity remain pending')
+    result['page'].update(status='pending', reason='Needs explicit page --scene and current CAD/gallery; rotational candidate only')
+    page=state.get('pageReview')
+    if page:
+        from ceramic_paths import SKILL
+        valid=(result['cad']['status']=='complete' and result['gallery']['status']=='complete'
+               and hashes(project/'cad')==page['cadSha256']
+               and hashes(project/'gallery')==page['gallerySha256']
+               and hashes(project/'page-review')==page['filesSha256']
+               and hashlib.sha256((SKILL/'runtime-lock.json').read_bytes()).hexdigest()==page['runtimeSha256'])
+        result['page'].update(status='complete' if valid else 'stale',reason='Browser-gated candidate, visual adoption pending' if valid else 'Page dependency/runtime/output changed; rebuild page --scene')
+    if state.get('pageJob',{}).get('status') in ('failed','running'):
+        result['page'].update(status=state['pageJob']['status'],reason=state['pageJob'].get('error','Browser gate pending'))
     return result
 
 

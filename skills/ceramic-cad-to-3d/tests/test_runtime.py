@@ -225,7 +225,7 @@ class PortableRuntime(unittest.TestCase):
         report=json.loads(self.run_cli('status',pid))
         self.assertEqual('stale',report['stages']['cad']['status'])
         self.assertEqual('complete',report['stages']['gallery']['status'])
-        self.assertEqual('unsupported',report['stages']['page']['status'])
+        self.assertEqual('pending',report['stages']['page']['status'])
         self.assertIn('drift',self.run_cli('verify',pid,ok=False))
 
     def test_09_selective_cad_rebuild(self):
@@ -300,6 +300,30 @@ class PortableRuntime(unittest.TestCase):
         self.assertNotEqual(before['gallery.html'],sha(out/'gallery.html'))
         data['photos'][1]=data['photos'][0];manifest.write_text(json.dumps(data))
         self.assertIn('Duplicate',self.run_cli('gallery',pid,'--photos',manifest,ok=False))
+
+    def test_11_page_build_uses_project_assets_without_repository(self):
+        for kind,pid in [('single','81-page-single'),('multiple','82-page-multiple')]:
+            project=self.new(pid,kind)
+            photos=self.workspace/'empty-photos.json';photos.write_text('[]')
+            self.run_cli('gallery',pid,'--photos',photos)
+            scene=self.skill/'tests/fixtures'/kind/'scene.json'
+            code="import json,sys;from pathlib import Path;sys.path.insert(0,sys.argv[1]);import page;page.build(Path(sys.argv[2]),Path(sys.argv[3]),json.loads(Path(sys.argv[4]).read_text()))"
+            env=dict(os.environ,CERAMIC_WORKSPACE=str(self.workspace))
+            out=project/'page-assets-test'
+            r=subprocess.run([sys.executable,'-c',code,str(self.skill/'scripts'),str(project),str(out),str(scene)],env=env,capture_output=True,text=True)
+            self.assertEqual(0,r.returncode,r.stderr)
+            manifest=json.loads((out/'page-manifest.json').read_text())
+            self.assertEqual('candidate',manifest['status'])
+            self.assertEqual(0,manifest['photoCount'])
+            for part in json.loads(self.configs[kind].read_text())['parts']:
+                self.assertEqual(sha(project/'cad/solid'/part['id']/'model.glb'),sha(out/'assets'/part['id']/'model.glb'))
+                self.assertTrue((out/'assets'/part['id']/'wire-guide.json').is_file())
+            data=json.loads(scene.read_text());data['parts'][0]['motion']['orbitTurns']=0
+            bad=self.workspace/'bad-scene.json';bad.write_text(json.dumps(data))
+            self.assertIn('full turn',self.run_cli('page',pid,'--scene',bad,ok=False))
+            self.assertFalse((project/'page-review').exists())
+            self.assertEqual('failed',json.loads(self.run_cli('status',pid))['stages']['page']['status'])
+            self.assertIn('stale',self.run_cli('verify',pid,ok=False))
 
 if __name__=='__main__':
     unittest.main()
