@@ -423,13 +423,21 @@
     },
     {
       "id": "gallery-general-multiple",
-      "state": "pending",
-      "rule": "Varied sizes/asymmetric placement required; equal grid excluded; exact general placement rule is not adopted. Approved actual+process pair remains supported.",
+      "state": "implemented-candidate-visual-adoption-pending",
+      "rule": "Explicit scatter candidate for 2–8 photos: distinct bounded sizes/asymmetric placement, stable seed and responsive placements stored in output manifest; photo role does not select placement. Default selected hero/process pair remains unchanged. Visual adoption pending.",
       "verification": {
-        "suites": [],
-        "scope": "General varied-size asymmetric layout",
-        "pendingReason": "Not covered by this runner; full-page/new-project implementation or browser evidence required."
-      }
+        "suites": [
+          "gallery-layout",
+          "runtime"
+        ],
+        "scope": "2–8 placement bounds/nonoverlap/determinism and role independence; three-photo component generation/repeat/source validation",
+        "browserCheck": "tests/check-scatter.cjs (review candidate; separate browser run, not visual adoption)"
+      },
+      "consumer": [
+        "scripts/gallery_layout.py",
+        "scripts/gallery_markup.py",
+        "scripts/photos.py"
+      ]
     },
     {
       "id": "photo-handoff",

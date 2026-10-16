@@ -6,15 +6,14 @@ from __future__ import annotations
 
 from html import escape
 from pathlib import PurePosixPath
+from gallery_layout import layout_for
 
 
-def render_gallery(photos: list[dict], *, label: str) -> str:
+def render_gallery(photos: list[dict], *, label: str, layout=None) -> str:
     """Return no section for zero photos; otherwise keep all photos in one viewport."""
     if not isinstance(photos, list):
         raise ValueError('photos must be a list')
-    selected_pair = len(photos) == 2 and [p.get('role') for p in photos] == ['actual', 'process']
-    if len(photos) > 1 and not selected_pair:
-        raise ValueError('MULTI_PHOTO_LAYOUT_PENDING: varied sizes/asymmetric placement is required; equal grid is not adopted')
+    presentation = layout_for(photos, layout)
     if not photos:
         return ''
     if not label or not isinstance(label, str):
@@ -34,9 +33,16 @@ def render_gallery(photos: list[dict], *, label: str) -> str:
         if len(source_hash) != 64 or any(char not in '0123456789abcdef' for char in source_hash):
             raise ValueError(f'photo {index} has invalid source hash')
         kind = 'gallery-photo--hero' if index == 0 else 'gallery-photo--process'
+        style = ''
+        if presentation['mode'] == 'scatter':
+            kind = 'gallery-photo--scatter'
+            placement = presentation['placements'][index]
+            values = ';'.join(f'--{prefix}-{key}:{value}%' for view,prefix in [('desktop','d'),('mobile','m')]
+                              for key,value in placement[view].items())
+            style = f' style="{values}"'
         button_label = '사진 확대'
         buttons.append(
-            f'<button class="gallery-photo {kind}" type="button" aria-label="{button_label}">'
+            f'<button class="gallery-photo {kind}"{style} type="button" aria-label="{button_label}">'
             f'<img src="{escape(path, quote=True)}" alt="{escape(alt, quote=True)}"></button>'
         )
     return (
