@@ -87,13 +87,16 @@ class PortableRuntime(unittest.TestCase):
     def test_04_gallery_roles_and_unadopted_layout(self):
         pid='94-gallery';project=self.new(pid,'single')
         photo=self.workspace/'synthetic-photo.jpg'
-        Image.new('RGB',(600,400),'blue').save(photo)
+        exif=Image.Exif();exif[315]='synthetic private metadata'
+        Image.new('RGB',(600,400),'blue').save(photo,exif=exif)
         photos=self.workspace/'photos.json'
         item={'source':str(photo),'sha256':sha(photo),'role':'actual',
               'status':'user-confirmed-final-fired','alt':'Synthetic test photograph'}
         photos.write_text(json.dumps([item]))
         self.run_cli('gallery',pid,'--photos',photos)
         self.run_cli('verify',pid)
+        with Image.open(project/'gallery/assets/photo-1.webp') as exported:
+            self.assertFalse(exported.getexif(), 'Public photo leaked source EXIF')
         markup=(project/'gallery/gallery.html').read_text()
         self.assertIn('gallery-photo--hero',markup)
         self.assertNotIn('gallery-first--multiple',markup)

@@ -19,6 +19,20 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
     await page.evaluate(()=>scrollTo(0,document.documentElement.scrollHeight));
     await page.waitForFunction(()=>document.querySelector('#gallery').classList.contains('gallery-active'));
     await new Promise(r=>setTimeout(r,1800));
+    const metrics=await page.evaluate(async()=>{
+     const {galleryProfile:p}=await import('./gallery-config.js');
+     const rect=selector=>{const r=document.querySelector(selector).getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height}};
+     return {p,hero:rect('.gallery-photo--hero img'),process:rect('.gallery-photo--process img'),gallery:rect('#gallery'),
+       loaded:[...document.querySelectorAll('.gallery-photo img')].every(i=>i.complete&&i.naturalWidth>0),
+       overflow:document.documentElement.scrollWidth>innerWidth};
+    });
+    assert(metrics.loaded,'Gallery image failed to load');assert(!metrics.overflow,'Gallery overflows horizontally');
+    assert(Math.abs(metrics.gallery.h-height)<1,'Gallery must occupy the final viewport');
+    const hmax=width<=700?metrics.p.mobileHeroMaxHeightVh:metrics.p.heroMaxHeightVh;
+    assert(metrics.hero.w<=Math.min(width*.84,metrics.p.heroMaxWidthPx)+16.1,'Hero width exceeds selected frame');
+    assert(metrics.hero.h<=height*hmax/100+16.1,'Hero height exceeds selected frame');
+    assert(metrics.process.w<metrics.hero.w&&metrics.process.h<metrics.hero.h,'Process photo must remain smaller');
+    assert(metrics.process.x>metrics.hero.x&&metrics.process.y>metrics.hero.y,'Selected asymmetric pair placement lost');
     const image=await page.screenshot({path:path.join(CERAMIC_REPORT,layout+'-'+name+'.png')});
     captures.push(image);
     const selected=await page.$eval('.gallery-photo--hero',el=>{const r=el.getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2}});

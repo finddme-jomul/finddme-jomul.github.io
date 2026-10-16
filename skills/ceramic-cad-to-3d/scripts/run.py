@@ -19,6 +19,11 @@ def main():
         return
     import preflight
     preflight.verify_package()
+    if remaining and remaining[0] == 'check-decisions':
+        sys.argv.pop(1)
+        import decision_checks
+        decision_checks.main()
+        return
     if remaining and remaining[0] == 'shrinkage':
         script = Path(__file__).with_name('clay-shrinkage.mjs')
         subprocess.run(['node', str(script), *remaining[1:]], cwd=options.workspace, check=True)

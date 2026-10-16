@@ -247,7 +247,13 @@
         "scripts/jomul_intake.py",
         "scripts/workflow.py",
         "scripts/spec_handoff.py"
-      ]
+      ],
+      "verification": {
+        "suites": [
+          "runtime"
+        ],
+        "scope": "P1 answer ranges, source provenance and rejecting repeated confirmations"
+      }
     },
     {
       "id": "shrinkage",
@@ -255,7 +261,13 @@
       "rule": "Use explicit source-backed shrinkage; preserve dimension intervals and confirmation provenance; no generic clay-based rate inference.",
       "consumer": [
         "scripts/clay-shrinkage.mjs"
-      ]
+      ],
+      "verification": {
+        "suites": [
+          "shrinkage"
+        ],
+        "scope": "Explicit shrinkage conversion and intervals"
+      }
     },
     {
       "id": "composition",
@@ -264,7 +276,13 @@
       "consumer": [
         "scripts/project.py",
         "scripts/shared_sheet_poc.py"
-      ]
+      ],
+      "verification": {
+        "suites": [
+          "runtime"
+        ],
+        "scope": "One/two-part CAD fixtures and handled vessel fixture"
+      }
     },
     {
       "id": "cad-style",
@@ -275,7 +293,13 @@
         "scripts/shared_sheet_poc.py",
         "scripts/isometric_geometry.py",
         "scripts/check_shared_sheet_poc.py"
-      ]
+      ],
+      "verification": {
+        "suites": [
+          "runtime"
+        ],
+        "scope": "Six regenerated single/multiple SVGs equal selected baselines; CAD contract verification"
+      }
     },
     {
       "id": "handled-geometry",
@@ -285,7 +309,13 @@
         "scripts/handled_geometry.py",
         "scripts/jomul_handled_solid.py",
         "scripts/prepare_handled.py"
-      ]
+      ],
+      "verification": {
+        "suites": [
+          "runtime"
+        ],
+        "scope": "Synthetic hollow handled solid, STEP roundtrip and geometry checks"
+      }
     },
     {
       "id": "axis-motion",
@@ -296,19 +326,37 @@
         "scripts/motion.py",
         "assets/motion/axis-motion.mjs",
         "assets/motion/viewer.js"
-      ]
+      ],
+      "verification": {
+        "suites": [
+          "axis"
+        ],
+        "scope": "Pose and group rotation behavior across six progress points; not rendered clipping",
+        "browserCheck": "scripts/check-motion.cjs (four viewports / 24 scenes via motion-preview)"
+      }
     },
     {
       "id": "single-framing",
       "state": "selected-requirement-full-page-pending",
       "profile": "motion.singleFraming",
-      "rule": "Model-relative framing and viewport occupancy; study-only-no-zoom is not the selected presentation."
+      "rule": "Model-relative framing and viewport occupancy; study-only-no-zoom is not the selected presentation.",
+      "verification": {
+        "suites": [],
+        "scope": "Full-page vessel occupancy",
+        "pendingReason": "Not covered by this runner; full-page/new-project implementation or browser evidence required."
+      }
     },
     {
       "id": "page-composition",
       "state": "implemented-for-handled-preview-full-page-pending",
       "profile": "page",
-      "rule": "Contain full CAD at viewport maximum; no visible narration/header/badge/footer; preserve CAD annotations."
+      "rule": "Contain full CAD at viewport maximum; no visible narration/header/badge/footer; preserve CAD annotations.",
+      "verification": {
+        "suites": [],
+        "scope": "Rendered CAD sizing and visible page text",
+        "pendingReason": "Not covered by this runner; full-page/new-project implementation or browser evidence required.",
+        "browserCheck": "scripts/check-motion.cjs (four viewports / 24 scenes via motion-preview)"
+      }
     },
     {
       "id": "scene-background",
@@ -317,7 +365,13 @@
       "rule": "White CAD, dark studio, light photo handoff.",
       "consumer": [
         "assets/scene/background-transition.mjs"
-      ]
+      ],
+      "verification": {
+        "suites": [
+          "background"
+        ],
+        "scope": "Background component sampled timeline; not assembled page"
+      }
     },
     {
       "id": "glaze-motion",
@@ -326,7 +380,13 @@
       "rule": "Foot-to-rim reveal with continuing spin and axis through coating.",
       "consumer": [
         "assets/scene/glaze-motion.mjs"
-      ]
+      ],
+      "verification": {
+        "suites": [
+          "glaze"
+        ],
+        "scope": "Bottom-up reveal, continuing spin/axis component behavior; not rendered material"
+      }
     },
     {
       "id": "photo-provenance",
@@ -334,7 +394,13 @@
       "rule": "Distinct final-fired/process roles, source hashes, EXIF-free export; never duplicate a source as distinct final photos.",
       "consumer": [
         "scripts/photos.py"
-      ]
+      ],
+      "verification": {
+        "suites": [
+          "runtime"
+        ],
+        "scope": "Photo roles, hashes, omission and rejection of unadopted layouts"
+      }
     },
     {
       "id": "gallery-selected",
@@ -346,18 +412,35 @@
         "scripts/gallery_profile.py",
         "assets/gallery/gallery.css",
         "assets/gallery/gallery.js"
-      ]
+      ],
+      "verification": {
+        "suites": [
+          "runtime"
+        ],
+        "scope": "Generated hero/process markup and omission; browser frame/pointer parity requires separate check",
+        "browserCheck": "tests/check-gallery-parity.cjs (desktop/mobile reference comparison)"
+      }
     },
     {
       "id": "gallery-general-multiple",
       "state": "pending",
-      "rule": "Varied sizes/asymmetric placement required; equal grid excluded; exact general placement rule is not adopted. Approved actual+process pair remains supported."
+      "rule": "Varied sizes/asymmetric placement required; equal grid excluded; exact general placement rule is not adopted. Approved actual+process pair remains supported.",
+      "verification": {
+        "suites": [],
+        "scope": "General varied-size asymmetric layout",
+        "pendingReason": "Not covered by this runner; full-page/new-project implementation or browser evidence required."
+      }
     },
     {
       "id": "photo-handoff",
       "state": "selected-requirement-full-page-pending",
       "profile": "motion.photoHandoff",
-      "rule": "3D exits before gallery entry; no separate photo-only scrolling segment; reverse-scroll behavior must be verified in assembled page."
+      "rule": "3D exits before gallery entry; no separate photo-only scrolling segment; reverse-scroll behavior must be verified in assembled page.",
+      "verification": {
+        "suites": [],
+        "scope": "Assembled page 3D exit, gallery entry and reverse scroll",
+        "pendingReason": "Not covered by this runner; full-page/new-project implementation or browser evidence required."
+      }
     },
     {
       "id": "revision",
@@ -365,12 +448,24 @@
       "rule": "Snapshot input/state/output before mutation, verify hashes, restore exact selected snapshot; CAD rebuild invalidates dependent motion.",
       "consumer": [
         "scripts/project.py"
-      ]
+      ],
+      "verification": {
+        "suites": [
+          "runtime",
+          "motion-recovery"
+        ],
+        "scope": "Exact rollback, CAD selective rebuild, failed motion retry and previous-output retention"
+      }
     },
     {
       "id": "evaluation",
       "state": "preserved",
-      "rule": "Moon development, mug single validation, bowls multiple validation; chess reserved for final E2E."
+      "rule": "Moon development, mug single validation, bowls multiple validation; chess reserved for final E2E.",
+      "verification": {
+        "suites": [],
+        "scope": "New-project final evaluation; reserved chess input is not exercised",
+        "pendingReason": "Not covered by this runner; full-page/new-project implementation or browser evidence required."
+      }
     },
     {
       "id": "execution-stage-state",
@@ -380,7 +475,14 @@
         "scripts/stages.py",
         "scripts/project.py",
         "scripts/rebuild.py"
-      ]
+      ],
+      "verification": {
+        "suites": [
+          "runtime",
+          "motion-recovery"
+        ],
+        "scope": "Stage readiness/dependency changes, read-only planning, independent photos, motion retry"
+      }
     }
   ],
   "sourceRepositoryCommit": "c84daff",
