@@ -31,11 +31,11 @@ def inputs(config_path):
             'runtime': digest(SKILL / 'runtime-lock.json')}
 
 
-def plan(previous, current, artifacts_match, handled):
+def plan(previous, current, artifacts_match):
     changed = [key for key in current if not previous or previous.get(key) != current[key]]
     rebuild_sheet = bool(changed) or not artifacts_match
-    rebuild_solid = handled and (not artifacts_match or any(k in changed for k in ('geometry', 'runtime')))
+    rebuild_solid = not artifacts_match or any(k in changed for k in ('geometry', 'runtime'))
     return {'changedInputs': changed, 'sheet': 'build' if rebuild_sheet else 'reuse',
-            'solid': ('build' if rebuild_solid else 'reuse') if handled else 'unsupported',
+            'solid': 'build' if rebuild_solid else 'reuse',
             'motion': 'invalidate' if rebuild_sheet else 'preserve', 'gallery': 'preserve',
             'page': 'unsupported'}

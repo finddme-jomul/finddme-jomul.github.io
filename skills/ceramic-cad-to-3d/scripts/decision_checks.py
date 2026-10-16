@@ -10,6 +10,7 @@ from ceramic_paths import SKILL, ROOT
 from browser_environment import node_command
 
 SUITES = {
+    'rotational-solid': [sys.executable, str(SKILL/'tests/test_rotational_solid.py')],
     'gallery-layout': [sys.executable, str(SKILL/'tests/test_gallery_layout.py')],
     'gate-contract': [sys.executable, str(SKILL/'tests/test_decision_checks.py')],
     'runtime': [sys.executable, str(SKILL/'tests/test_runtime.py')],

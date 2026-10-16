@@ -140,10 +140,8 @@ def build(project: Path, state: dict) -> None:
     from rebuild import inputs, plan
     current_inputs = inputs(config)
     previous_cad = state.get('cad') or {}
-    handled = any(part.get('shapeKind') == 'handled-vessel'
-                  for part in json.loads(config.read_text())['parts'])
     schedule = plan(previous_cad.get('buildInputs'), current_inputs,
-                    bool(previous_cad) and tree_hashes(project / 'cad') == previous_cad.get('filesSha256'), handled)
+                    bool(previous_cad) and tree_hashes(project / 'cad') == previous_cad.get('filesSha256'))
     state['lastBuildPlan'] = schedule
     if schedule['sheet'] == 'reuse':
         state['status'] = 'cad-ready'
@@ -163,15 +161,14 @@ def build(project: Path, state: dict) -> None:
         subprocess.run([sys.executable, str(CAD / 'check_shared_sheet_poc.py'), str(config), str(stage)], cwd=ROOT, check=True)
         handled = any(part.get('shapeKind') == 'handled-vessel'
                       for part in json.loads(config.read_text())['parts'])
-        if handled:
-            if schedule['solid'] == 'reuse':
-                from jomul_handled_solid import refresh_placement
-                shutil.copytree(project / 'cad/solid', stage / 'solid')
-                refresh_placement(config, stage / 'manifest.json', stage / 'solid')
-            else:
-                subprocess.run([sys.executable, str(SCRIPTS / 'jomul_handled_solid.py'),
-                                str(config), str(stage / 'manifest.json'), str(stage / 'solid')],
-                               cwd=ROOT, check=True)
+        if schedule['solid'] == 'reuse':
+            from jomul_handled_solid import refresh_placement
+            shutil.copytree(project / 'cad/solid', stage / 'solid')
+            refresh_placement(config, stage / 'manifest.json', stage / 'solid')
+        else:
+            subprocess.run([sys.executable, str(SCRIPTS / 'jomul_handled_solid.py'),
+                            str(config), str(stage / 'manifest.json'), str(stage / 'solid')],
+                           cwd=ROOT, check=True)
         output = project / 'cad'
         if output.exists():
             shutil.rmtree(output)
@@ -194,10 +191,9 @@ def build(project: Path, state: dict) -> None:
             state['cad']['intakeSha256'] = tree_hashes(project / 'intake')
         state['nextInput'] = None
         state['unsupportedStages'] = ['independent sketch interpretation',
-                                      'STEP/GLB generation and motion preview' if not handled else 'glaze, photo and full page assembly',
+                                      'rotational motion, glaze and full page assembly' if not handled else 'glaze and full page assembly',
                                       'complete 3D scene and gallery assembly', 'publication']
-        if handled:
-            state['cad']['solidManifest'] = (output / 'solid/manifest.json').relative_to(ROOT).as_posix()
+        state['cad']['solidManifest'] = (output / 'solid/manifest.json').relative_to(ROOT).as_posix()
         save(project / 'pipeline-state.json', state)
     finally:
         if stage.exists():
@@ -222,9 +218,7 @@ def verify(project: Path, state: dict) -> None:
     subprocess.run([sys.executable, str(CAD / 'check_shared_sheet_poc.py'),
                     str(project / 'input/config.json'), str(project / 'cad')], cwd=ROOT, check=True)
     config = project / 'input/config.json'
-    handled = any(part.get('shapeKind') == 'handled-vessel'
-                  for part in json.loads(config.read_text())['parts'])
-    if handled:
+    if state['cad'].get('solidManifest'):
         subprocess.run([sys.executable, str(SCRIPTS / 'jomul_handled_solid.py'),
                         str(config), str(project / 'cad/manifest.json'), str(project / 'cad/solid'),
                         '--verify'], cwd=ROOT, check=True)
@@ -370,10 +364,8 @@ def main() -> None:
                 from rebuild import inputs, plan
                 proposed = args.config.expanduser().resolve(strict=True)
                 previous = state.get('cad') or {}
-                handled = any(p.get('shapeKind') == 'handled-vessel'
-                              for p in json.loads(proposed.read_text())['parts'])
                 report['buildPlan'] = plan(previous.get('buildInputs'), inputs(proposed),
-                    bool(previous) and tree_hashes(project / 'cad') == previous.get('filesSha256'), handled)
+                    bool(previous) and tree_hashes(project / 'cad') == previous.get('filesSha256'))
             print(json.dumps(report, ensure_ascii=False, indent=2))
             return
         if args.action == 'verify':
