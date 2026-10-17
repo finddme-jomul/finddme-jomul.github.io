@@ -12,6 +12,9 @@ const config = await fetch('./assets/project.json').then(async response => {
 if (config.compositionMode === 'multiple') {
   const {startMultiple} = await import('./multiple-scene.mjs');
   await startMultiple(config);
+} else if (config.shapeKind === 'handled-vessel') {
+  const {startHandled} = await import('./handled-scene.mjs');
+  await startHandled(config,{installGallery,galleryProfile});
 } else {
 const profile = await fetch('./assets/outer-profile.json').then(async response => {
   if (!response.ok) throw new Error(`CAD profile HTTP ${response.status}`);

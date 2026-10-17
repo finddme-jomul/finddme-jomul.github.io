@@ -46,7 +46,7 @@ def build(project: Path, output: Path, data: dict) -> None:
     assert spec.loader
     spec.loader.exec_module(module)
     module.main(source=source,out=output)
-    for name in ('index.html','viewer.js'):
+    for name in ('index.html','viewer.js','handled-scene.mjs'):
         shutil.copy2(MOTION_VIEWER/name,output/name)
     html=output/'index.html'
     html.write_text(html.read_text().replace('머그',cad['project']))
