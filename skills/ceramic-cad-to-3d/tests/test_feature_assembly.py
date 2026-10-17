@@ -6,9 +6,18 @@ import unittest
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from build123d import Box, Vector, export_step
 from feature_assembly import check
+from assembly_geometry import position
 from layered_review import assembly
 
 class FeatureAssembly(unittest.TestCase):
+    def test_direct_drop_waits_above_target_and_descends_without_lift(self):
+        step={'start':.3,'duration':.4,'targetPositionMm':[30,9,-10],'dropHeightMm':160}
+        poses=[position([900,0,900],step,i/100,'direct-drop') for i in range(101)]
+        self.assertEqual([30,169,-10],poses[0]);self.assertEqual([30,9,-10],poses[-1])
+        self.assertTrue(all(p[0]==30 and p[2]==-10 for p in poses))
+        self.assertTrue(all(a[1]>=b[1] for a,b in zip(poses,poses[1:])))
+        self.assertEqual(poses[50],position([0,0,0],step,.5,'direct-drop'))
+
     def test_actual_solids_paths_final_overlap_and_offset_origin(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp);parts=[]
@@ -59,6 +68,11 @@ class FeatureAssembly(unittest.TestCase):
         spec={'status':'reviewed-provisional','provenance':'test','start':.7,'duration':.2,'steps':[{'partId':'a','start':0,'duration':1,'targetPositionMm':[0,0,0],'liftMm':10}]}
         timing={'baseGlazeStart':.4,'baseGlazeDuration':.2,'accentGlazeStart':None,'photoStart':.97}
         assembly(spec,p,timing)
+        direct=copy.deepcopy(spec);direct['mode']='direct-drop';direct['steps'][0].pop('liftMm');direct['steps'][0]['dropHeightMm']=80
+        assembly(direct,p,timing)
+        for value in (0,-1,True,float('nan'),1001):
+            direct['steps'][0]['dropHeightMm']=value
+            with self.subTest(dropHeight=value),self.assertRaises(ValueError):assembly(direct,p,timing)
         spec['start']=.5
         with self.assertRaises(ValueError):assembly(spec,p,timing)
 

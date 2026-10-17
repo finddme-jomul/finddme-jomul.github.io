@@ -18,7 +18,7 @@ def check(parts,spec):
         for t in samples:
             moved=[]
             for p,solid in zip(parts,solids):
-                x,y,z=position([p['appearance']['motion']['finalX'+screen]*1000,0,0],steps[p['id']],t)
+                x,y,z=position([p['appearance']['motion']['finalX'+screen]*1000,0,0],steps[p['id']],t,spec.get('mode','lift-place'))
                 moved.append(solid.translate(Vector(x,-z,y)))
             for i,a in enumerate(moved):
                 for j in range(i+1,len(moved)):

@@ -718,6 +718,26 @@
         "scope": "CAD sampled collisions and shared review/recovery contracts; separate browser development evidence required. Not continuous collision or visual adoption.",
         "browserCheck": "tests/check-multiple-page.cjs"
       }
+    },
+    {
+      "id": "feature-direct-drop",
+      "state": "implemented-requested-candidate",
+      "rule": "Optional direct-drop uses target X/Z airborne staging and ordered vertical descent: foundation first, upper parts afterward; no floor lineup and later lift/place. Existing lift-place remains unchanged.",
+      "consumer": [
+        "assets/multiple-scene.mjs",
+        "assets/scene/layered-vessels.mjs",
+        "scripts/layered_review.py",
+        "scripts/assembly_geometry.py",
+        "scripts/feature_assembly.py"
+      ],
+      "verification": {
+        "suites": [
+          "feature-assembly",
+          "multiple-page-input"
+        ],
+        "scope": "Vertical monotonic path, order, collision samples and browser direct-drop assertions; provisional timing/heights, not physical simulation.",
+        "browserCheck": "tests/check-multiple-page.cjs"
+      }
     }
   ],
   "sourceRepositoryCommit": "c84daff",

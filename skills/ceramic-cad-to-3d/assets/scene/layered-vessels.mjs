@@ -19,8 +19,9 @@ export function coatingWeights(spec, exterior, heightMm, height, first, second, 
   return [first,second].map((p,i)=>p<=0?0:inRegion(spec.layers[i].region,exterior,heightMm)?glazeRevealAt(fraction,p,sweep):0);
 }
 // Lift, translate above the other objects, lower. Pure progress allows reverse scroll.
-export function assemblyPosition(start, step, progress) {
+export function assemblyPosition(start, step, progress, mode='lift-place') {
   const p=clamp((progress-step.start)/step.duration),target=step.targetPositionMm.map(v=>v/1000);
+  if(mode==='direct-drop')return [target[0],target[1]+step.dropHeightMm/1000*(1-smooth(p)),target[2]];
   const top=Math.max(start[1],target[1])+step.liftMm/1000;
   if(p<1/3)return [start[0],start[1]+(top-start[1])*smooth(p*3),start[2]];
   if(p<2/3){const t=smooth(p*3-1);return [start[0]+(target[0]-start[0])*t,top,start[2]+(target[2]-start[2])*t];}

@@ -55,6 +55,7 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
     if(info.feature)for(const v of state.parts){assert(v.wireVertices>0);if(v.base>.999){const g=await page.evaluate(id=>window.__multiplePage.spec.parts.find(p=>p.id===id).glazePreview,v.id);assert(Math.abs(v.roughness-g.roughness)<1e-8&&Math.abs(v.clearcoat-g.clearcoat)<1e-8);}}
     if(info.feature&&step===3)for(const v of state.parts)assert(v.wireOpacity>.99&&v.clay===0,'feature pure wire must remain visible');
     if(step===6)for(const v of state.parts){assert(v.base>.8);assert.equal(v.accent,0);}
+    if(info.assembly?.mode==='direct-drop'&&step===8)for(const v of state.parts){const s=info.assembly.steps.find(s=>s.partId===v.id);const expected=[s.targetPositionMm[0],s.targetPositionMm[1]+s.dropHeightMm,s.targetPositionMm[2]];expected.forEach((n,i)=>assert(Math.abs(n-v.footPositionMm[i])<.001,'parts must wait above destinations, not on a floor lineup'));}
     if(step===8)for(const v of state.parts){assert(v.base>.999);assert(info.feature?v.accent===0:v.accent>.5);assert(v.body>2*Math.PI&&v.axis>2*Math.PI,'both rotations continue during glaze');}
     if(step===10){
      assert.equal(state.gallery,info.photos);assert.equal(state.exit,info.photos?1:0);assert(state.atBottom);
@@ -78,9 +79,10 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
      const result=await page.evaluate(()=>window.__multiplePage.vessels.map(v=>{
       const camera=window.__multiplePage.camera,a=v.geometry.attributes.position;let clipped=false;
       for(let i=0;i<a.count;i++){const q=v.main.position.clone().set(a.getX(i),a.getY(i),a.getZ(i)).applyMatrix4(v.spin.matrixWorld).project(camera);if(Math.abs(q.x)>1.001||Math.abs(q.y)>1.001)clipped=true;}
-      return {id:v.id,position:v.main.position.toArray(),clipped};
+      return {id:v.id,position:v.main.position.toArray(),height:v.height,assemblyProgress:v.state.assembly,clipped};
      }));
      assert(result.every(p=>!p.clipped),'assembly motion clipped');
+     if(info.assembly.mode==='direct-drop')for(const v of result){const s=info.assembly.steps.find(s=>s.partId===v.id),t=Math.max(0,Math.min(1,(v.assemblyProgress-s.start)/s.duration)),ease=t*t*(3-2*t);const expected=[s.targetPositionMm[0]/1000,(s.targetPositionMm[1]+s.dropHeightMm*(1-ease))/1000+v.height/2,s.targetPositionMm[2]/1000];expected.forEach((n,i)=>assert(Math.abs(n-v.position[i])<1e-6,'direct drop order/trajectory mismatch'));}
      if(ap===.55){if(reverseReference)assert.deepEqual(result,reverseReference,'assembly reverse scroll drift');else reverseReference=result;}
      assemblyChecks.push({layout,progress:ap,parts:result});
     }

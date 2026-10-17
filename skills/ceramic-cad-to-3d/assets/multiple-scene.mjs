@@ -24,7 +24,7 @@ export async function startMultiple(spec) {
   scene.add(new THREE.HemisphereLight(defaults.skyColor,defaults.groundColor,defaults.hemisphereIntensity));
   for(const [x,y,z,power] of defaults.pointLights){const lamp=new THREE.PointLight(defaults.keyColor,power);lamp.position.set(x,y,z);scene.add(lamp);}
   const timing=spec.motion.timing,layout=spec.motion.layout,glazeMotion=spec.motion.glaze;
-  const assembly=spec.assembly,rotationEnd=assembly?assembly.start:timing.photoStart;
+  const assembly=spec.assembly,directDrop=assembly?.mode==='direct-drop',rotationEnd=assembly?assembly.start:timing.photoStart;
   const hasPhotos=spec.ending==='photos';
   const endMotion=hasPhotos?timing.photoStart+timing.photoDuration:timing.photoStart;
   const endProgress=timing.cadEnd+(1-timing.cadEnd)*endMotion;
@@ -119,8 +119,10 @@ export async function startMultiple(spec) {
     const bounds=[];
     for(const v of vessels){
       const m=v.part.motion,drop=smooth((motionP-timing.dropStart-m.dropDelay)/timing.dropDuration),settle=smooth((motionP-timing.settleStart-m.dropDelay)/timing.settleDuration);
-      const initialX=small?m.entryXMobile:m.entryXDesktop,finalX=small?m.finalXMobile:m.finalXDesktop;
-      v.main.position.set(initialX+(finalX-initialX)*drop,(small?layout.mobileEntryY:layout.desktopEntryY)*(1-drop)+v.height*m.settledScale/2*drop+Math.sin(drop*Math.PI*3)*layout.dropBounceY*(1-drop),layout.entryZ*(1-drop));
+      const initialX=small?m.entryXMobile:m.entryXDesktop,step=assembly?.steps.find(s=>s.partId===v.id);
+      const finalX=directDrop?step.targetPositionMm[0]/1000:(small?m.finalXMobile:m.finalXDesktop);
+      const hoverY=directDrop?(step.targetPositionMm[1]+step.dropHeightMm)/1000:0,finalZ=directDrop?step.targetPositionMm[2]/1000:0;
+      v.main.position.set(initialX+(finalX-initialX)*drop,(small?layout.mobileEntryY:layout.desktopEntryY)*(1-drop)+(hoverY+v.height*m.settledScale/2)*drop+Math.sin(drop*Math.PI*3)*layout.dropBounceY*(1-drop),layout.entryZ*(1-drop)+finalZ*drop);
       const entryScale=small?m.cadToWireScaleMobile:m.cadToWireScale;v.main.scale.setScalar(entryScale+(m.settledScale-entryScale)*drop);
       const lastCoat=timing.accentGlazeStart===null?timing.baseGlazeStart+timing.baseGlazeDuration:timing.accentGlazeStart+timing.accentGlazeDuration;
       const axis=continuingAxis(m.axisTiltDegrees,m.axisDriftZDegrees,m.axisDriftXDegrees,drop,settle,smooth((motionP-lastCoat)/(rotationEnd-lastCoat)),glazeMotion.axisRetainFraction,glazeMotion.maxAxisTiltDegrees);
@@ -132,7 +134,7 @@ export async function startMultiple(spec) {
       if(assembly&&motionP>=assembly.start){
         const step=assembly.steps.find(s=>s.partId===v.id),ap=clamp((motionP-assembly.start)/assembly.duration);
         const start=[v.main.position.x,v.main.position.y-v.height/2,v.main.position.z];
-        const [x,y,z]=assemblyPosition(start,step,ap);v.main.position.set(x,y+v.height/2,z);v.state.assembly=ap;
+        const [x,y,z]=assemblyPosition(start,step,ap,assembly.mode);v.main.position.set(x,y+v.height/2,z);v.state.assembly=ap;
       }
       v.spin.updateWorldMatrix(true,false);const b=v.geometry.boundingBox.clone().applyMatrix4(v.spin.matrixWorld);
       bounds.push({bounds:b,position:{x:0,y:0,z:0},scale:1});

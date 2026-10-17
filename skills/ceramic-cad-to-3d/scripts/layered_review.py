@@ -33,6 +33,8 @@ def assembly(spec, parts, timing):
     if spec is None: return
     if spec.get('status') != 'reviewed-provisional' or not spec.get('provenance'):
         raise ValueError('Assembly needs reviewed provenance')
+    mode=spec.get('mode','lift-place')
+    if mode not in ('lift-place','direct-drop'):raise ValueError('Unsupported assembly mode')
     coat_end = (timing['baseGlazeStart'] + timing['baseGlazeDuration'] if timing['accentGlazeStart'] is None else timing['accentGlazeStart'] + timing['accentGlazeDuration'])
     if not coat_end < spec['start'] < spec['start']+spec['duration'] < timing['photoStart']:
         raise ValueError('Assembly must follow coatings and finish before handoff')
@@ -45,6 +47,9 @@ def assembly(spec, parts, timing):
         end = step['start']+step['duration']
         if len(step['targetPositionMm']) != 3 or any(not math.isfinite(v) or abs(v)>2000 for v in step['targetPositionMm']):
             raise ValueError('Assembly targets use finite millimetres, Y-up, foot-bottom origin')
-        if not 0 <= step['liftMm'] <= 1000: raise ValueError('Invalid assembly lift')
+        if mode=='direct-drop':
+            v=step.get('dropHeightMm')
+            if isinstance(v,bool) or not isinstance(v,(int,float)) or not math.isfinite(v) or not 0<v<=1000:raise ValueError('Explicit positive dropHeightMm required')
+        elif not 0 <= step['liftMm'] <= 1000: raise ValueError('Invalid assembly lift')
     if any(p['motion']['settledScale'] != 1 for p in parts):
         raise ValueError('Assembly currently requires physical scale 1')

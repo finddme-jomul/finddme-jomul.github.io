@@ -225,3 +225,16 @@ continuous collision guarantee, stability/contact simulation or manufacturing
 clearance proof. Unreviewed arbitrary packing and shared-instance/group expansion
 are not implemented. Larger counts use the same lists; visual readability and
 performance still need review for that composition.
+
+#### Foundation-first vertical descent
+
+For feature-solids, optional `assembly.mode: "direct-drop"` replaces the final
+floor lineup/lift-place stage. Each step supplies `dropHeightMm` (0 < value ≤ 1000)
+instead of `liftMm`. During the initial CAD/wire descent, each part moves toward
+its target X/Z and waits at target Y + dropHeightMm. After coating and rotation
+finish, steps descend vertically in their explicit sequential order. Put the
+foundation first and upper parts afterward. Heights must keep waiting parts clear
+of lower parts; the existing sampled CAD collision gate checks this trajectory.
+Reverse scroll uses the same pure progress function. Omitted mode retains
+`lift-place`; this new route is currently feature-solid only. Drop heights/timing
+are reviewed scene inputs, not gravity or physical settling simulation.
