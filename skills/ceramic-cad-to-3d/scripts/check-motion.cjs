@@ -67,7 +67,7 @@ const points=[['sheet',0],['handoff',.43],['wire',.56],['quarter',.685],['half',
           assert(state.frontOpacity>.8&&state.lineOpacity>.4);
           state.frontErrorPx=frontError;state.targetErrorPx=targetError;
         }
-        if(name==='wire')assert(state.lineOpacity>.8&&state.frontOpacity<.1);
+        if(name==='wire')assert(state.lineOpacity>.8&&state.frontOpacity<.1&&state.cameraElevationDegrees>10,'First wire view must be elevated after CAD alignment');
         if(name==='quarter')assert(Math.abs(state.axisPrecessionDegrees-motion.axisPrecessionDegrees*.25)<1&&state.axisTiltDegrees>0);
         if(name==='half')assert(Math.abs(state.axisPrecessionDegrees-motion.axisPrecessionDegrees*.5)<1);
         if(name==='quarter'||name==='half')assert(state.lineOpacity>.99&&state.clayOpacity===0,'Wire must visibly carry the first half turn before clay');

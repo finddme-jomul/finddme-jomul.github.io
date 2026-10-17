@@ -547,7 +547,7 @@
       "verification": {
         "suites": [],
         "scope": "Moving wire-dominant interval on desktop/mobile against selected reference; density and later solid rotations are insufficient",
-        "pendingReason": "Wire remains fully visible past the first half turn and clay is delayed; numeric visibility/projection checks do not establish user visual adoption. Current candidate needs review."
+        "pendingReason": "Wire/motion overlap and elevated first independent wire view are implemented as candidates. Entry and rotating ring projections are browser-checked; user visual adoption remains pending."
       }
     }
   ],

@@ -39,7 +39,7 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
     assert(state.minX>=-1.001&&state.maxX<=1.001&&state.minY>=-1.001&&state.maxY<=1.001,`${layout}/${step}: handle clipped`);
     assert(state.frontLoaded&&state.wireVertices>500&&state.wireVertices<50000);
     if(step===1){const box={x:(state.minX+1)*width/2,y:(1-state.maxY)*height/2,width:(state.maxX-state.minX)*width/2,height:(state.maxY-state.minY)*height/2};assert(Math.max(...Object.keys(box).map(k=>Math.abs(box[k]-state.front[k])))<1.5,'front/complete solid mismatch');}
-    if(step===2)assert(state.lineOpacity>.8);
+    if(step===2){assert(state.lineOpacity>.8);assert(state.projectedRingArea>.001&&state.cameraElevationDegrees>10,'First independent wire view must already read as a volume');}
     if(step===3||step===4){assert(state.lineOpacity>.99&&state.clayOpacity===0,'Pure wire must survive quarter and half turns');assert(state.axisTiltDegrees>5);assert(state.axisPrecessionDegrees>80&&state.bodySpinDegrees>90);}
     if(step===3)assert(state.projectedRingArea>.001,'Turning CAD ring must project as a curved ellipse, not an edge-on line');
     if(step===6){assert.equal(state.coat,0);assert(Math.abs(state.body-state.expectedBody)<.02);}

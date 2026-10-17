@@ -130,7 +130,13 @@ function render() {
   }
   applyAxisPose({spin:content,orbit:orbitRig,tilt:tiltRig},pose);
   const lookX=mix(centre.x,0,clamp(turn/.15));
-  camera.position.set(lookX,centre.y,extent*4);
+  const entry=visibility.entryView;
+  const reveal=clamp((progress-entry.start)/(entry.end-entry.start));
+  const revealEase=reveal*reveal*(3-2*reveal);
+  const release=clamp((progress-visibility.clayStart)/(visibility.clayEnd-visibility.clayStart));
+  const cameraElevationDegrees=entry.elevationDegrees*revealEase*(entry.releaseWithClay?1-release:1);
+  const elevation=THREE.MathUtils.degToRad(cameraElevationDegrees);
+  camera.position.set(lookX,centre.y+extent*4*Math.sin(elevation),extent*4*Math.cos(elevation));
   camera.lookAt(lookX,centre.y,0);
   fitRotatingSolid(lookX);
   const source=sourceBounds(),target=targetBounds();
@@ -155,7 +161,7 @@ function render() {
   renderer.render(scene,camera);
   latest={pageProgress,coat,exit,endProgress,progress,layout,source,target,front:box,bodySpinDegrees:motion.bodySpinDegrees*turn,
           axisPrecessionDegrees:motion.axisPrecessionDegrees*turn,
-          axisTiltDegrees:pose.tiltDegrees,lookX,
+          axisTiltDegrees:pose.tiltDegrees,lookX,cameraElevationDegrees,
           frontOpacity:Number(front.style.opacity),lineOpacity:line.opacity,clayOpacity:clay.opacity};
   requestAnimationFrame(render);
 }
