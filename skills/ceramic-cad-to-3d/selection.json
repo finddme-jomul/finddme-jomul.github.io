@@ -586,7 +586,23 @@
       ],
       "verification": {
         "suites": [],
-        "scope": "Default/override resolution and invalid-value rejection checked in isolation; no existing project regenerated."
+        "scope": "Default/override resolution and invalid-value rejection checked in isolation; no existing project regenerated.",
+        "pendingReason": "Resolver/output-module checks passed locally; automated decision suite and browser colour coverage remain pending."
+      }
+    },
+    {
+      "id": "feature-shape-input",
+      "state": "implemented-geometry-stage-only",
+      "rule": "Reviewed explicit solid feature data: revolve, loft, box, sphere, union and cut. Reject hollow intent; never substitute a rotational vessel. Project-page integration remains pending.",
+      "consumer": [
+        "scripts/feature_shape.py",
+        "scripts/run.py"
+      ],
+      "verification": {
+        "suites": [
+          "feature-shape"
+        ],
+        "scope": "Analytic volumes, loft fusion, disconnected/no-op feature rejection, solid/hollow distinction; CLI development exports also checked separately."
       }
     }
   ],

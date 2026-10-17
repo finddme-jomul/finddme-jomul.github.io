@@ -78,3 +78,37 @@ values are rejected. Omission uses the adopted warm grey `#6E6A68`. This is the
 The resolved colour is frozen in each generated `wire-color.mjs`. Existing pages
 and reference fixtures are not migrated; an explicit later regeneration uses
 the current default unless the input specifies an override.
+
+### Reviewed nonrotational feature geometry (stage only)
+
+`run.py --workspace ROOT shape-build --input shape.json --output UNUSED_DIR`
+consumes reviewed data and generates `model.step`, `model.glb`, the exact source
+JSON and a hashed manifest. Outputs are created atomically in a new directory;
+this is not yet `new/resume/revise` or a full project-page input.
+
+Required root fields: `schemaVersion: 1`, `units: "mm"`, `upAxis: "Z"`,
+`status: "reviewed-provisional" | "user-confirmed"`, nonempty `provenance`,
+`assumptions` array, `construction: "solid"`, nonempty ordered `features`.
+Record the evidence and unseen depth/back assumptions; the compiler does not
+infer features from a sketch. `hollow` is rejected until cavity/opening/thickness
+contracts and checks exist. A decorative cut is not a manufacturing hollowing
+operation. No shrinkage, recentering or scale conversion of input dimensions is inferred.
+
+Each feature has a unique slug `id`, `operation` (`base` for the first, then
+`union` or `cut`), and one of these `kind` definitions:
+
+| kind | fields |
+|---|---|
+| `box` | `originMm: [x,y,z]` at minimum corner, `sizeMm: [dx,dy,dz]` |
+| `sphere` | `centerMm: [x,y,z]`, `radiusMm` |
+| `revolve` | `profileRzMm: [[r,z], ...]`, closed solid section revolved 360° about Z |
+| `loft` | explicit `ruled: true/false`, `sections` in order |
+
+Loft sections are closed `polygon` with 3D `pointsMm`, or `ellipse` with
+`originMm`, `plane: XY/YZ/XZ`, `radiusUMm`, `radiusVMm`. Plane axes are respectively
+X/Y, Y/Z, X/Z. Coordinates are absolute in the common local part frame.
+The kernel checks valid, connected, positive-volume solids after every operation;
+no-op unions/cuts fail. STEP roundtrip and GLB/CAD bounds are checked before promotion.
+This finite operation vocabulary is not arbitrary CAD scripting or sculptural
+fidelity. Sweep, arbitrary transforms, external STEP/mesh, CAD sheets/frontBox,
+curve wire guides, materials, motion, assembly and project lifecycle are pending.

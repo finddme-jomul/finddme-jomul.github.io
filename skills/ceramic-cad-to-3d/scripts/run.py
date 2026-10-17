@@ -19,6 +19,11 @@ def main():
         return
     import preflight
     preflight.verify_package()
+    if remaining and remaining[0] == 'shape-build':
+        sys.argv.pop(1)
+        import feature_shape
+        feature_shape.main()
+        return
     if remaining and remaining[0] == 'selected-page':
         sys.argv.pop(1)
         import selected_page
