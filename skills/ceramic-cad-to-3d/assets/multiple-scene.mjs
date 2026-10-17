@@ -103,6 +103,14 @@ export async function startMultiple(spec) {
     const front=document.querySelector(`[data-part="${part.id}"]`);await front.querySelector('img').decode();
     return {id:part.id,part,profile,feature,height,main,orbit,tilt,spin,solid,geometry,material,wireMaterial,wireGeometry,front,paint,values};
   }));
+  // Cover every upright yaw and height of the drop with one camera envelope.
+  // Fitting only the current moving meshes makes landed pieces appear to rise.
+  const dropBounds=directDrop?vessels.map(v=>{
+    const step=assembly.steps.find(s=>s.partId===v.id),a=v.geometry.attributes.position;
+    let radius=0;for(let i=0;i<a.count;i++)radius=Math.max(radius,Math.hypot(a.getX(i),a.getZ(i)));
+    const [x,y,z]=step.targetPositionMm.map(n=>n/1000);
+    return {bounds:{min:{x:x-radius,y,z:z-radius},max:{x:x+radius,y:y+step.dropHeightMm/1000+v.height,z:z+radius}},position:{x:0,y:0,z:0},scale:1};
+  }):null;
   function frontPlacement(v,p){
     const entry=spec.sheets[layoutKey],box=entry.frontBoxes[v.id],rect=image.getBoundingClientRect();
     const scale=Math.min(rect.width/entry.pagePx[0],rect.height/entry.pagePx[1]);
@@ -150,7 +158,14 @@ export async function startMultiple(spec) {
       bounds.push({bounds:b,position:{x:0,y:0,z:0},scale:1});
     }
     const f=spec.motion.framing;
-    const fit=fitComposition(bounds,{fovDegrees:camera.fov,aspect:camera.aspect,widthFraction:small?f.mobileWidthFraction:f.desktopWidthFraction,heightFraction:small?f.mobileHeightFraction:f.desktopHeightFraction,minDistance:f.minDistance});
+    const lastCoat=timing.accentGlazeStart===null?timing.baseGlazeStart+timing.baseGlazeDuration:timing.accentGlazeStart+timing.accentGlazeDuration;
+    const lockCamera=directDrop?smooth((motionP-lastCoat)/(assembly.start-lastCoat)):0;
+    const cameraBounds=directDrop?bounds.map((item,i)=>{
+      const b={min:{},max:{}};
+      for(const edge of ['min','max'])for(const axis of ['x','y','z'])b[edge][axis]=item.bounds[edge][axis]*(1-lockCamera)+dropBounds[i].bounds[edge][axis]*lockCamera;
+      return {bounds:b,position:{x:0,y:0,z:0},scale:1};
+    }):bounds;
+    const fit=fitComposition(cameraBounds,{fovDegrees:camera.fov,aspect:camera.aspect,widthFraction:small?f.mobileWidthFraction:f.desktopWidthFraction,heightFraction:small?f.mobileHeightFraction:f.desktopHeightFraction,minDistance:f.minDistance});
     camera.position.set(fit.centerX,fit.centerY,fit.distance);camera.lookAt(fit.centerX,fit.centerY,0);camera.updateMatrixWorld();
     if(spec.motion.camera.elevationDegrees){
       const elevation=THREE.MathUtils.degToRad(spec.motion.camera.elevationDegrees)*smooth((p-timing.wireFadeStart)/timing.wireFadeDuration);
@@ -158,7 +173,7 @@ export async function startMultiple(spec) {
       for(let attempt=0;attempt<12;attempt++){
         camera.position.set(fit.centerX,fit.centerY+distance*Math.sin(elevation),distance*Math.cos(elevation));camera.lookAt(fit.centerX,fit.centerY,0);camera.updateMatrixWorld();
         let overflow=1;
-        for(const item of bounds)for(const x of [item.bounds.min.x,item.bounds.max.x])for(const y of [item.bounds.min.y,item.bounds.max.y])for(const z of [item.bounds.min.z,item.bounds.max.z]){
+        for(const item of cameraBounds)for(const x of [item.bounds.min.x,item.bounds.max.x])for(const y of [item.bounds.min.y,item.bounds.max.y])for(const z of [item.bounds.min.z,item.bounds.max.z]){
           const q=new THREE.Vector3(x,y,z).project(camera);overflow=Math.max(overflow,Math.abs(q.x)/(small?f.mobileWidthFraction:f.desktopWidthFraction),Math.abs(q.y)/(small?f.mobileHeightFraction:f.desktopHeightFraction));
         }
         if(overflow<=1.001)break;distance*=overflow*1.01;

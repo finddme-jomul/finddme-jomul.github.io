@@ -83,7 +83,14 @@
     "pointerMaxExtraScale": 0.34,
     "pointerEaseMs": 85,
     "openOnClick": true,
-    "contentAfterGallery": false
+    "contentAfterGallery": false,
+    "scatterAdoption": {
+      "status": "user-adopted",
+      "algorithm": "bounded-scatter-v1",
+      "reference": ".poc/jomul-project-assets-workspaces/97-gallery-scatter-review/gallery/index.html",
+      "userStatement": "여러 사진의 크기·위치 배치는 채택해도 되는데",
+      "scope": "Varied photo sizes and positions only; does not approve CAD/wire or landing motion."
+    }
   },
   "motion": {
     "photoHandoff": "scene-exit-then-gallery-enter",

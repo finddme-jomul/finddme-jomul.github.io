@@ -290,7 +290,7 @@ class PortableRuntime(unittest.TestCase):
         out=self.project(pid)/'gallery'
         before={p.name:sha(p) for p in out.iterdir() if p.is_file()}
         result=json.loads((out/'manifest.json').read_text())
-        self.assertEqual('candidate-not-visually-adopted',result['layout']['status'])
+        self.assertEqual('user-adopted',result['layout']['status'])
         self.assertEqual(['actual','actual','process'],[p['role'] for p in result['photos']])
         self.assertEqual(3,(out/'gallery.html').read_text().count('gallery-photo--scatter'))
         self.run_cli('gallery',pid,'--photos',manifest)
