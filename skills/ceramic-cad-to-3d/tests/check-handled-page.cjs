@@ -24,7 +24,9 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
        q.project(m.camera);minX=Math.min(minX,q.x);maxX=Math.max(maxX,q.x);minY=Math.min(minY,q.y);maxY=Math.max(maxY,q.y);
       }
      }
-     return {...m.state,minX,maxX,minY,maxY,uncoated,vertices,meshCount:m.meshes.length,coatedMeshCount:m.glazeMeshes.length,
+     const wirePoints=[0,36,72].map(i=>q.clone().fromBufferAttribute(m.wire.geometry.attributes.position,i).applyMatrix4(m.wire.matrixWorld).project(m.camera));
+     const [a,b,c]=wirePoints;const projectedRingArea=Math.abs((b.x-a.x)*(c.y-a.y)-(b.y-a.y)*(c.x-a.x));
+     return {...m.state,projectedRingArea,minX,maxX,minY,maxY,uncoated,vertices,meshCount:m.meshes.length,coatedMeshCount:m.glazeMeshes.length,
       body:m.content.rotation.y,axis:m.orbitRig.rotation.y,tiltX:m.tiltRig.rotation.x,tiltZ:m.tiltRig.rotation.z,
       clayVisible:m.meshes.some(v=>v.visible),glazeVisible:m.glazeMeshes.every(v=>v.visible),
       gallery:document.querySelector('#gallery')?.classList.contains('gallery-active')??false,
@@ -38,6 +40,8 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
     assert(state.frontLoaded&&state.wireVertices>500&&state.wireVertices<50000);
     if(step===1){const box={x:(state.minX+1)*width/2,y:(1-state.maxY)*height/2,width:(state.maxX-state.minX)*width/2,height:(state.maxY-state.minY)*height/2};assert(Math.max(...Object.keys(box).map(k=>Math.abs(box[k]-state.front[k])))<1.5,'front/complete solid mismatch');}
     if(step===2)assert(state.lineOpacity>.8);
+    if(step===3||step===4){assert(state.lineOpacity>.99&&state.clayOpacity===0,'Pure wire must survive quarter and half turns');assert(state.axisTiltDegrees>5);assert(state.axisPrecessionDegrees>80&&state.bodySpinDegrees>90);}
+    if(step===3)assert(state.projectedRingArea>.001,'Turning CAD ring must project as a curved ellipse, not an edge-on line');
     if(step===6){assert.equal(state.coat,0);assert(Math.abs(state.body-state.expectedBody)<.02);}
     if(step===8){assert(state.coat>.5&&state.coat<1);assert(state.uncoated>0&&state.uncoated<state.vertices);assert(state.body>state.expectedBody&&state.axis>state.expectedAxis);}
     if(step===8){

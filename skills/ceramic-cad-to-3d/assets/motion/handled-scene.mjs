@@ -14,6 +14,7 @@ const host = document.querySelector('#viewer');
 const gltf = await new GLTFLoader().loadAsync('./model.glb');
 const wireGuide = await fetch('./wire-guide.json').then(r => r.json());
 const motion = await fetch('./motion-config.json').then(r => r.json());
+const visibility=wireGuide.density.handledVisibility;
 if (wireGuide.sourceSha256.handle !== settings.sourceSha256.handle ||
     wireGuide.sourceSha256.profile !== settings.sourceSha256.profile)
   throw new Error('3D wire guide differs from solid inputs');
@@ -141,8 +142,8 @@ function render() {
   front.style.opacity=String(progress<.10?0:progress<.42?1:1-clamp((progress-.42)/.12));
   sheet.style.opacity=String(1-clamp((progress-.07)/.2));
   host.style.opacity=String(clamp((progress-.32)/.15)*(1-exit));
-  line.opacity=clamp((progress-.36)/.14)*(1-clamp((progress-.59)/.12));
-  clay.opacity=clamp((progress-.52)/.18);
+  line.opacity=clamp((progress-.36)/.14)*(1-clamp((progress-visibility.wireFadeStart)/(visibility.wireFadeEnd-visibility.wireFadeStart)));
+  clay.opacity=clamp((progress-visibility.clayStart)/(visibility.clayEnd-visibility.clayStart));
   clay.depthWrite=clay.opacity>.98;
   if(pageConfig){
     clip.constant=centre.y-coatRadius+2*coatRadius*coat;
@@ -155,7 +156,7 @@ function render() {
   latest={pageProgress,coat,exit,endProgress,progress,layout,source,target,front:box,bodySpinDegrees:motion.bodySpinDegrees*turn,
           axisPrecessionDegrees:motion.axisPrecessionDegrees*turn,
           axisTiltDegrees:pose.tiltDegrees,lookX,
-          frontOpacity:Number(front.style.opacity),lineOpacity:line.opacity};
+          frontOpacity:Number(front.style.opacity),lineOpacity:line.opacity,clayOpacity:clay.opacity};
   requestAnimationFrame(render);
 }
 render();
