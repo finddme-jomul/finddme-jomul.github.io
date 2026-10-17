@@ -738,6 +738,25 @@
         "scope": "Vertical monotonic path, order, collision samples and browser direct-drop assertions; provisional timing/heights, not physical simulation.",
         "browserCheck": "tests/check-multiple-page.cjs"
       }
+    },
+    {
+      "id": "feature-soft-spin-landing",
+      "state": "implemented-requested-candidate",
+      "rule": "Optional direct-drop soft-spin continues body/axis yaw until each landing, smoothly reduces angular speed, and uses zero endpoint velocity/acceleration vertical easing. CAD collision samples include actual yaw.",
+      "consumer": [
+        "assets/multiple-scene.mjs",
+        "assets/scene/layered-vessels.mjs",
+        "scripts/assembly_geometry.py",
+        "scripts/feature_assembly.py"
+      ],
+      "verification": {
+        "suites": [
+          "feature-assembly",
+          "layered-vessels"
+        ],
+        "scope": "Landing easing, rotation continuation and CAD/browser sampled paths; not physical simulation.",
+        "browserCheck": "tests/check-multiple-page.cjs"
+      }
     }
   ],
   "sourceRepositoryCommit": "c84daff",

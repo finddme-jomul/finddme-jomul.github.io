@@ -1,9 +1,9 @@
 """Sample shared upright placement with actual feature CAD solids; no physics claim."""
-from build123d import import_step, Vector
-from assembly_geometry import position
+from build123d import import_step, Vector, Axis
+from assembly_geometry import position, smooth
 
 
-def check(parts,spec):
+def check(parts,spec,motion=None):
     if spec is None:return None
     steps={s['partId']:s for s in spec['steps']}
     solids=[]
@@ -18,8 +18,15 @@ def check(parts,spec):
         for t in samples:
             moved=[]
             for p,solid in zip(parts,solids):
-                x,y,z=position([p['appearance']['motion']['finalX'+screen]*1000,0,0],steps[p['id']],t,spec.get('mode','lift-place'))
-                moved.append(solid.translate(Vector(x,-z,y)))
+                x,y,z=position([p['appearance']['motion']['finalX'+screen]*1000,0,0],steps[p['id']],t,spec.get('mode','lift-place'),spec.get('landing'))
+                posed=solid
+                if spec.get('landing')=='soft-spin':
+                    if motion is None:raise ValueError('Soft spin collision check requires motion')
+                    step=steps[p['id']];now=spec['start']+spec['duration']*t
+                    end=spec['start']+spec['duration']*(step['start']+step['duration']);start=motion['timing']['baseGlazeStart']
+                    angle=360*smooth((now-start)/(end-start))*(motion['glaze']['spinTurns']+motion['glaze']['axisPrecessionTurns'])
+                    posed=solid.rotate(Axis.Z,angle)
+                moved.append(posed.translate(Vector(x,-z,y)))
             for i,a in enumerate(moved):
                 for j in range(i+1,len(moved)):
                     checks+=1;b=moved[j];aa,bb=a.bounding_box(),b.bounding_box()
@@ -29,5 +36,5 @@ def check(parts,spec):
                         common=a.intersect(b);volume=0 if common is None else (common.volume if hasattr(common,"volume") else sum(s.volume for s in common));intersections+=1
                     if volume>1e-5:raise ValueError(f'Feature assembly collision {parts[i]["id"]}/{parts[j]["id"]} {screen} progress={t:g}')
                     if t==1 and screen=='Desktop':final.append({'parts':[parts[i]['id'],parts[j]['id']],'intersectionMm3':volume})
-    return {'scope':'Upright translation only; sampled CAD intersections with disjoint-bounds broad phase, not continuous collision/manufacturing proof',
+    return {'scope':'Upright placement (including configured soft spin); sampled CAD intersections with disjoint-bounds broad phase, not continuous collision/manufacturing proof',
             'posesPerLayout':len(samples),'pairChecks':checks,'cadIntersections':intersections,'finalIntersections':final,'targets':spec['steps']}

@@ -26,3 +26,9 @@ for(let i=0;i<=100;i++){const p=assemblyPosition([99,99,99],falling,i/100,'direc
 assert.deepEqual(assemblyPosition(origin,falling,0,'direct-drop'),[.03,.169,-.01]);
 assert.deepEqual(assemblyPosition(origin,falling,1,'direct-drop'),[.03,.009,-.01]);
 console.log('DIRECT_DROP_MONOTONIC_OK');
+
+const softAt=t=>assemblyPosition(origin,falling,falling.start+falling.duration*t,'direct-drop','soft-spin')[1];
+assert(Math.abs(softAt(0)-.169)<1e-12);assert(Math.abs(softAt(1)-.009)<1e-12);
+assert(softAt(.999)-softAt(1)<2e-9,'gentle end velocity');
+assert(softAt(.9)>softAt(.99)&&softAt(.99)>softAt(1));
+console.log('SOFT_LANDING_ENDPOINTS_OK');

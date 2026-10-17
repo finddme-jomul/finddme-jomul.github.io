@@ -127,14 +127,17 @@ export async function startMultiple(spec) {
       const lastCoat=timing.accentGlazeStart===null?timing.baseGlazeStart+timing.baseGlazeDuration:timing.accentGlazeStart+timing.accentGlazeDuration;
       const axis=continuingAxis(m.axisTiltDegrees,m.axisDriftZDegrees,m.axisDriftXDegrees,drop,settle,smooth((motionP-lastCoat)/(rotationEnd-lastCoat)),glazeMotion.axisRetainFraction,glazeMotion.maxAxisTiltDegrees);
       const axisFade=smooth((p-timing.axisFadeStart)/timing.axisFadeDuration);
-      const turns=glazeSpinAt(motionP,timing.baseGlazeStart,rotationEnd,glazeMotion.spinTurns);
-      applyAxisPose(v,{bodyY:(drop*m.turns+turns)*2*Math.PI,orbitY:(drop*m.orbitTurns+glazeSpinAt(motionP,timing.baseGlazeStart,rotationEnd,glazeMotion.axisPrecessionTurns))*2*Math.PI,tiltX:THREE.MathUtils.degToRad(axis.xDegrees)*axisFade,tiltZ:THREE.MathUtils.degToRad(axis.zDegrees)*axisFade});
+      const softSpin=directDrop&&assembly.landing==='soft-spin';
+      const spinEnd=softSpin?assembly.start+assembly.duration*(step.start+step.duration):rotationEnd;
+      const spinAt=turns=>softSpin?smooth((motionP-timing.baseGlazeStart)/(spinEnd-timing.baseGlazeStart))*turns:glazeSpinAt(motionP,timing.baseGlazeStart,spinEnd,turns);
+      const turns=spinAt(glazeMotion.spinTurns);
+      applyAxisPose(v,{bodyY:(drop*m.turns+turns)*2*Math.PI,orbitY:(drop*m.orbitTurns+spinAt(glazeMotion.axisPrecessionTurns))*2*Math.PI,tiltX:THREE.MathUtils.degToRad(axis.xDegrees)*axisFade,tiltZ:THREE.MathUtils.degToRad(axis.zDegrees)*axisFade});
       const clay=smooth((motionP-timing.clayStart-m.dropDelay)/timing.clayDuration),base=smooth((motionP-timing.baseGlazeStart)/timing.baseGlazeDuration),accent=timing.accentGlazeStart===null?0:smooth((motionP-timing.accentGlazeStart)/timing.accentGlazeDuration);
       v.material.opacity=clay;v.material.depthWrite=clay>.98;v.wireMaterial.opacity=(1-clay)*smooth((p-timing.wireFadeStart)/timing.wireFadeDuration);v.paint(base,accent);v.state={drop,clay,base,accent,turns};
       if(assembly&&motionP>=assembly.start){
         const step=assembly.steps.find(s=>s.partId===v.id),ap=clamp((motionP-assembly.start)/assembly.duration);
         const start=[v.main.position.x,v.main.position.y-v.height/2,v.main.position.z];
-        const [x,y,z]=assemblyPosition(start,step,ap,assembly.mode);v.main.position.set(x,y+v.height/2,z);v.state.assembly=ap;
+        const [x,y,z]=assemblyPosition(start,step,ap,assembly.mode,assembly.landing);v.main.position.set(x,y+v.height/2,z);v.state.assembly=ap;
       }
       v.spin.updateWorldMatrix(true,false);const b=v.geometry.boundingBox.clone().applyMatrix4(v.spin.matrixWorld);
       bounds.push({bounds:b,position:{x:0,y:0,z:0},scale:1});

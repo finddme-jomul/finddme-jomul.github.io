@@ -6,10 +6,18 @@ import unittest
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from build123d import Box, Vector, export_step
 from feature_assembly import check
-from assembly_geometry import position
+from assembly_geometry import position, landing_ease
 from layered_review import assembly
 
 class FeatureAssembly(unittest.TestCase):
+    def test_soft_landing_has_zero_endpoint_velocity_and_acceleration(self):
+        self.assertEqual(0,landing_ease(0));self.assertEqual(1,landing_ease(1))
+        h=1e-4
+        self.assertLess((landing_ease(1)-landing_ease(1-h))/h,1e-6)
+        self.assertLess(abs((landing_ease(1)-2*landing_ease(1-h)+landing_ease(1-2*h))/h**2),.01)
+        step={'start':0,'duration':1,'targetPositionMm':[0,0,0],'dropHeightMm':100}
+        self.assertLess(position([0,0,0],step,.99,'direct-drop','soft-spin')[1],.002)
+
     def test_direct_drop_waits_above_target_and_descends_without_lift(self):
         step={'start':.3,'duration':.4,'targetPositionMm':[30,9,-10],'dropHeightMm':160}
         poses=[position([900,0,900],step,i/100,'direct-drop') for i in range(101)]
