@@ -11,6 +11,7 @@ def classify(shape_path, glb_path):
     from build123d import Vertex, GeomType
     from pygltflib import GLTF2
     data=json.loads(Path(shape_path).read_text())
+    if data['construction']=='imported':raise ValueError('Imported STEP has no pre-hollow exterior evidence')
     envelope=copy.deepcopy(data);envelope['construction']='solid';envelope.pop('hollowing',None)
     original,_=build(envelope)
     faces=list(original.faces())

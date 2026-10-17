@@ -112,7 +112,13 @@ def import_config(project: Path, source: Path) -> None:
                 raise ValueError(f'{pid}: {kind} must be a JSON file')
             dest = stage / f'{pid}-{kind}.json'
             shutil.copy2(original, dest)
-            json.loads(dest.read_text())
+            content=json.loads(dest.read_text())
+            if feature_mode and kind=='shape' and content.get('construction')=='imported':
+                from feature_step import source_path
+                f=content['features'][0];model=source_path(f,original.parent)
+                shutil.copy2(original,stage/f'{pid}-source-shape.json')
+                name=f'{pid}-source-model.step';shutil.copy2(model,stage/name)
+                f['source']=name;save(dest,content)
             part[kind] = (project / 'input' / dest.name).relative_to(ROOT).as_posix()
     save(stage / 'config.json', data)
     current = project / 'input'

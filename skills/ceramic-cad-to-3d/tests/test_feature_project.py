@@ -77,6 +77,25 @@ class FeatureProject(unittest.TestCase):
                 self.assertAlmostEqual(manifest['volumeMm3'],20*10*40-18*8*39,places=4)
                 self.assertTrue((project/'geometry'/part/'wire-guide.json').is_file())
             current=hashes(project);cli('resume',pid);self.assertEqual(current,hashes(project))
+            # Imported STEP is archived, fingerprinted and survives removal of its source.
+            from build123d import Box,export_step
+            model=root/'external.step';export_step(Box(20,10,30),model)
+            raw_step=model.read_bytes()
+            data.update(construction='imported');data.pop('hollowing')
+            data['features']=[dict(id='source',operation='base',kind='step',source=model.name,sha256=hashlib.sha256(raw_step).hexdigest(),modelIntent='solid',expectedBoundsMm={'min':[-10,-5,-15],'max':[10,5,15]})]
+            shape.write_text(json.dumps(data))
+            cli('revise',pid,'--feedback','Reviewed external STEP','--config',config);cli('verify',pid)
+            self.assertEqual(raw_step,(project/'input/form-source-model.step').read_bytes())
+            self.assertEqual(data,json.loads((project/'input/form-source-shape.json').read_text()))
+            self.assertEqual(raw_step,(project/'geometry/form/imported-source.step').read_bytes())
+            model.unlink();current=hashes(project);cli('resume',pid);self.assertEqual(current,hashes(project))
+            old_geometry=hashes(project/'geometry')
+            export_step(Box(20,10,32),model)
+            cli('revise',pid,'--feedback','Unreviewed changed source hash','--config',config,ok=False)
+            self.assertEqual(old_geometry,hashes(project/'geometry'))
+            data['features'][0].update(sha256=hashlib.sha256(model.read_bytes()).hexdigest(),expectedBoundsMm={'min':[-10,-5,-16],'max':[10,5,16]})
+            shape.write_text(json.dumps(data));cli('resume',pid,'--config',config);cli('verify',pid)
+            self.assertNotEqual(old_geometry,hashes(project/'geometry'))
             (project/'geometry/form/model.step').write_text('tampered')
             self.assertIn('drift',cli('verify',pid,ok=False))
 

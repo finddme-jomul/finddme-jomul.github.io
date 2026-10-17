@@ -31,6 +31,10 @@ def prepare(project, review):
     for part,appearance in zip(config['parts'],review['parts']):
         sources={k:(ROOT/part[k]).resolve() for k in ('shape','material')}
         if any(not p.is_relative_to(project/'input') for p in sources.values()):raise ValueError('Archived feature inputs required')
+        shape=json.loads(sources['shape'].read_text())
+        if shape.get('construction')=='imported':
+            from feature_step import source_path
+            files.add(source_path(shape['features'][0],sources['shape'].parent))
         files.update(sources.values());material=json.loads(sources['material'].read_text());g=appearance['glazePreview']
         if not layered and (material.get('composition') or material.get('glazeLayers') or material.get('glaze',{}).get('layers') or appearance.get('coatings') or appearance['accentEnabled']):
             raise ValueError('Feature pages currently support one all-surface glaze')
@@ -44,6 +48,8 @@ def prepare(project, review):
         manifest=json.loads((project/'geometry'/part['id']/'manifest.json').read_text())
         b={f'{side}{axis}':manifest['boundsMm'][side][i] for side in ('min','max') for i,axis in enumerate('XYZ')}
         if layered:
+            if json.loads(sources['shape'].read_text()).get('construction')=='imported':
+                raise ValueError('Imported STEP partial coatings need reviewed surface identity; one all-surface coat is supported')
             from layered_review import coatings
             evidence=material.get('glazeLayers',[])
             if [l.get('order') for l in evidence]!=[1,2] or g.get('clayName')!=material.get('clay',{}).get('name') or not g.get('clayName') or appearance['accentEnabled']:
