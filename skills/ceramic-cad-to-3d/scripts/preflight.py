@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 from ceramic_paths import ROOT, SKILL, SCRIPTS, ASSETS, PROFILE
 
@@ -101,15 +102,22 @@ def verify_package(names=None):
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument('--release', action='store_true')
+    parser.add_argument('--evidence', type=Path)
     parser.add_argument('--baseline', action='append', default=[])
     args = parser.parse_args()
     profile = verify_package(args.baseline)
     print('CERAMIC_PACKAGE_OK ' + profile['profileId'])
+    if args.evidence and not args.release:
+        parser.error('--evidence requires --release')
     if args.release:
-        selection = json.loads((SKILL / 'selection.json').read_text())
-        if selection['pending']:
-            raise SystemExit('CERAMIC_RELEASE_BLOCKED: ' + '; '.join(selection['pending']))
-        raise SystemExit('Release evidence gate must be implemented before clearing pending stages')
+        if not args.evidence:
+            raise SystemExit('CERAMIC_RELEASE_BLOCKED: supply --evidence with current regression, single/multiple E2E and real visual approvals')
+        try:
+            from release_gate import check
+            result = check(args.evidence)
+        except (ValueError, OSError, KeyError, TypeError, subprocess.TimeoutExpired) as error:
+            raise SystemExit('CERAMIC_RELEASE_BLOCKED: ' + str(error)) from error
+        print('CERAMIC_RELEASE_OK ' + json.dumps(result, ensure_ascii=False))
 
 
 if __name__ == '__main__':
