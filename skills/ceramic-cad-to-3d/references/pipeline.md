@@ -17,7 +17,7 @@ This freezes scope, not visual approval or a claim of release readiness.
 | Homogeneous feature-solid single/multiple pages | Supported primitive/revolve/loft union/cut; uniform hollow offset with one planar opening; reviewed single-solid STEP import. |
 | Materials | Existing rotational coating contracts; feature one full coat or exactly two reviewed coats/height regions. Imported STEP supports one full coat only. |
 | Composition | Existing upright plate nesting and gentle staggered drop; reversible scroll. No physical fall simulation. |
-| Photos | Existing zero/one/multiple photo paths; seeded scatter remains subject to visual adoption. |
+| Photos | Existing zero/one/multiple photo paths; seeded scatter sizes/positions are user-adopted. |
 
 Deferred, retained as uncompleted requests: mixed rotational/handled/feature
 projects; shared instances and CAD groups; target-rotation assembly; STL/GLB
@@ -28,7 +28,7 @@ and deployment remain external responsibilities.
 
 Closure order:
 1. Run package/decision regression checks against one unchanged runtime.
-2. Obtain visual decisions for feature CAD/wire and scatter, scoped to exact outputs.
+2. Obtain visual decisions for feature CAD/wire; scatter sizes/positions are adopted (2026-10-18).
 3. Run unused reviewed input through single and multiple E2E. One multi-object
    sketch may supply both cases; record that they share a source. Existing plates,
    temporary knights and the high-difficulty knight image are development data.
@@ -61,7 +61,7 @@ restart completed count-generalization, plate nesting or knight feasibility work
 | 05 Material | Verified clay/glaze evidence and CAD mesh → expected material/render | Separate clay and glaze states; unknown fired color or gloss stays provisional. Reusing a GLB does not prove material parity. |
 | 06 Web 3D | Same shape/material → GLB and load/units/bounds check | CAD mm becomes web metres; inspect side/rear/handle joins. Single/multiple rotational and feature-solid page candidates, single handled pages, plus handled/feature motion previews are supported; general release remains pending. |
 | 07 Real photos | `actual[]`, `process[]`, target association, order → metadata-safe web copies and role/order manifest | Keep cover, final-fired, and process roles distinct. A process photo may appear in the last gallery. Never duplicate one source as distinct final photos to claim real multi-photo validation. |
-| 08 Page assembly | Reviewed sheet, wire, GLB, motion, photos, selected visual profile → CAD→wire→clay→glaze→final gallery | Preserve the selected whole-scene CAD placement/cropping. No visible page narration, title, caption, badge, progress line, or footer. Photo exists only in the final 100vh gallery after 3D exits; no photo-only scroll segment. The selected moon camera/framing stays fixed; new wide vessels use the shared viewer’s bounded fit. Equal-grid photo placement is rejected; explicit seeded scatter remains a review candidate. |
+| 08 Page assembly | Reviewed sheet, wire, GLB, motion, photos, selected visual profile → CAD→wire→clay→glaze→final gallery | Preserve the selected whole-scene CAD placement/cropping. No visible page narration, title, caption, badge, progress line, or footer. Photo exists only in the final 100vh gallery after 3D exits; no photo-only scroll segment. The selected moon camera/framing stays fixed; new wide vessels use the shared viewer’s bounded fit. Equal-grid photo placement is rejected; explicit seeded scatter sizes/positions are user-adopted. |
 | 09 Verify | Generated outputs and the same selected contract → hashes, geometry checks, browser captures and visual review | Compare the same scroll progress and viewport with the selected moon/bowl baseline; check object occupancy as well as clipping. Automated passing is not user visual approval. |
 | 10 Feedback | User correction, prior state → minimal affected rebuild and exact rollback path | Record adopted feedback in the input/profile and consumer first, then regenerate and verify. Do not reverse-engineer a rollback from remembered values. |
 | 11 Package/E2E | All stages and new project input → reusable skill release | Still incomplete. Moon is development, mug is single validation, bowls are multiple validation; reserve chess for final evaluation. |
@@ -120,9 +120,9 @@ The suite covers generated CAD fixture equality and contracts, P1 evidence, soli
 
 Browser evidence is separate: `check-motion.cjs` runs through the motion command; `tests/check-gallery-parity.cjs` compares selected desktop/mobile pages and checks actual image loading, frame limits, smaller asymmetric process placement, final viewport height, pointer enlargement and lightbox behavior. The decision runner does not silently reuse old browser reports as fresh success. Its gallery result covers generated markup/roles, while rendering requires the browser check. Full-page framing/composition, general multi-photo placement, assembled photo handoff and new-project evaluation remain explicitly unverified by this runner.
 
-## Scatter review candidate
+## Adopted scatter placement
 
-`gallery_layout.py` separates presentation from photo roles. Legacy list input keeps the selected hero/process layout. Explicit `layout.mode=scatter` supports 2–8 photos, stable seed, bounded varied sizes and asymmetric positions, with separate desktop/mobile placement values in the generated manifest. Roles/statuses and source metadata are preserved independently. The public component preview is generated by the same gallery command. This is a technically checked candidate, not visual adoption or full-page assembly. The selected two-photo comparison must continue passing pixel parity. General multiple-photo visual adoption remains pending.
+`gallery_layout.py` separates presentation from photo roles. Legacy list input keeps the selected hero/process layout. Explicit `layout.mode=scatter` supports 2–8 photos, stable seed, bounded varied sizes and asymmetric positions, with separate desktop/mobile placement values in the generated manifest. Roles/statuses and source metadata are preserved independently. The public component preview is generated by the same gallery command. The user adopted the sizes/positions on 2026-10-18. This is gallery placement approval, not approval of every project page. The selected two-photo comparison must continue passing pixel parity.
 
 ## Reproducible execution environment
 
@@ -257,3 +257,7 @@ The explicit `feature-solids` list schema now supports one or multiple parts wit
 ### Reviewed STEP dependencies
 
 External STEP uses the common feature compiler with an explicit imported construction mode. Intake archives both the source model and the original review JSON; normalized input references the archived bytes. Geometry/page fingerprints include the model itself, so changed bytes cannot hide behind an unchanged wrapper JSON. Import preserves shape and uses existing CAD/wire/page adapters, not a per-project model script. See the [STEP contract](input.md#reviewed-step-input).
+
+## Closure feedback — 2026-10-18
+
+User adopted the existing multiple-photo sizes/positions (bounded-scatter-v1). This does not adopt feature CAD/wire or landing. The same user reported apparent re-ascent during final direct-drop landing. Keep the approved soft spin and short gaps; use a deterministic full-path camera envelope during landing so per-frame reframing cannot lift stationary/descending pieces on screen. Inspect forward/reverse desktop/mobile trajectories. Chess sketches do not exist yet; unused final evaluation input remains unavailable.

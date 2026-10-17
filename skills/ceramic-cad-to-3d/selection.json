@@ -231,7 +231,6 @@
   },
   "pending": [
     "new-project finished-page assembly with approved scene parity",
-    "multi-photo placement rule",
     "new-project end-to-end evaluation"
   ],
   "profileSource": {
@@ -431,15 +430,15 @@
     },
     {
       "id": "gallery-general-multiple",
-      "state": "implemented-candidate-visual-adoption-pending",
-      "rule": "Explicit scatter candidate for 2–8 photos: distinct bounded sizes/asymmetric placement, stable seed and responsive placements stored in output manifest; photo role does not select placement. Default selected hero/process pair remains unchanged. Visual adoption pending.",
+      "state": "implemented-user-adopted",
+      "rule": "Explicit adopted scatter for 2–8 photos: distinct bounded sizes/asymmetric placement, stable seed and responsive placements stored in output manifest; photo role does not select placement. Default selected hero/process pair remains unchanged. User adopted photo sizes/positions on 2026-10-18; no CAD/wire/landing approval implied.",
       "verification": {
         "suites": [
           "gallery-layout",
           "runtime"
         ],
         "scope": "2–8 placement bounds/nonoverlap/determinism and role independence; three-photo component generation/repeat/source validation",
-        "browserCheck": "tests/check-scatter.cjs (review candidate; separate browser run, not visual adoption)"
+        "browserCheck": "tests/check-scatter.cjs (separate browser run; visual adoption recorded in gallery.scatterAdoption)"
       },
       "consumer": [
         "scripts/gallery_layout.py",
