@@ -508,14 +508,15 @@
         "scripts/selected_page.py",
         "assets/selected-page/viewer.js",
         "scripts/page.py",
-        "scripts/selected_cad.py"
+        "scripts/selected_cad.py",
+        "scripts/selected_sheet.py"
       ],
       "verification": {
         "suites": [
           "runtime",
           "selected-cad"
         ],
-        "scope": "Reject unselected candidate generation; exact source manifest verification and full-scene browser parity are separate checks; CAD front extraction equality/source sensitivity and incompatible geometry rejection",
+        "scope": "Reject unselected candidate generation; exact source manifest verification and full-scene browser parity are separate checks; CAD front extraction equality/source sensitivity and incompatible geometry rejection; regenerated selected sheet PNG byte equality and CAD-derived front-box equality",
         "browserCheck": "tests/check-selected-page.cjs: four viewports, 12 timeline positions including reverse scroll; exact pixels and scene state"
       }
     }

@@ -65,18 +65,39 @@ class SelectedCAD(unittest.TestCase):
             (inputs/'config.json').write_text(json.dumps(config))
             (project/'pipeline-state.json').write_text('{}')
             stage=root/'output'; (stage/'assets').mkdir(parents=True)
+            shutil.copy2(bridge.ASSETS/'selected-page/assets/project.json',stage/'assets/project.json')
             # Real CAD verification is exercised by the CLI/browser integration.
             with patch.object(bridge,'ROOT',root), patch('project.verify') as verify:
                 prepared=bridge.prepare(project)
                 verify.assert_called_once()
                 bridge.install(prepared,stage)
                 self.assertEqual((stage/'assets/front-view.svg').read_text(),self.expected)
+                self.assertEqual((stage/'assets/cad-sheet.png').read_bytes(),(bridge.ASSETS/'selected-page/assets/cad-sheet.png').read_bytes())
                 dimension_file=inputs/'moon-jar-dimensions.json'
                 dimensions=json.loads(dimension_file.read_text())
                 dimensions['shrinkage']['totalPercent']=10
                 dimension_file.write_text(json.dumps(dimensions))
                 with self.assertRaisesRegex(ValueError,'changed dimension/material record'):
                     bridge.prepare(project)
+
+    def test_sheet_uses_profile_dimensions_and_material(self):
+        from selected_sheet import render
+        fixture = Path(__file__).resolve().parent/'fixtures/single'
+        calc=json.loads((fixture/'moon-jar-dimensions.json').read_text())
+        material=json.loads((fixture/'moon-jar-material.json').read_text())
+        expected=(bridge.ASSETS/'selected-page/assets/cad-sheet.png').read_bytes()
+        with tempfile.TemporaryDirectory() as folder:
+            output=Path(folder)
+            for change in ('profile','dimensions','material'):
+                profile=copy.deepcopy(self.profile); dims=copy.deepcopy(calc); mat=copy.deepcopy(material)
+                if change=='profile': profile[20][0] += 2
+                if change=='dimensions': dims['targetFiredMm']['height'] += 1
+                if change=='material': mat['clay']['wetPreviewHex']='#ff0000'
+                box=render(profile,dims,mat,output/change)
+                self.assertNotEqual((output/change/'cad-sheet.png').read_bytes(),expected,change)
+                if change=='dimensions':
+                    selected=json.loads((bridge.ASSETS/'selected-page/assets/project.json').read_text())['sheetFrontBox']
+                    self.assertNotEqual(box,selected)
 
     def test_input_drift_rejected_before_install(self):
         with tempfile.TemporaryDirectory() as folder:

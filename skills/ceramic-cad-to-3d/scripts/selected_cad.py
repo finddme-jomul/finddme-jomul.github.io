@@ -1,7 +1,7 @@
 """CAD-derived front/wire inputs for the selected scene, with honest partial scope.
 
-Until its sheet and surface generators are connected, this bridge accepts only
-CAD inputs compatible with the retained selected sheet/model/material assets.
+Until its surface generator is connected, this bridge accepts only
+CAD inputs compatible with the selected layout and retained surface model/material assets.
 """
 import json
 import math
@@ -68,7 +68,8 @@ def prepare(project):
         raise ValueError('Selected CAD front extraction differs from the reference')
     return {'project': str(project.relative_to(ROOT)), 'part': part['id'],
             'inputsSha256': {str(p.relative_to(ROOT)): sha(p) for p in files.values()},
-            'profile': profile, 'frontSvg': svg}
+            'profile': profile, 'frontSvg': svg,
+            'calculation': json.loads(files['dimensions'].read_text()), 'material': material}
 
 
 def verify_inputs(prepared):
@@ -82,4 +83,10 @@ def install(prepared, stage):
     # Preserve the original profile serialization as well as numeric values.
     (stage/'assets/outer-profile.json').write_text(json.dumps(prepared['profile'])+'\n')
     (stage/'assets/front-view.svg').write_text(prepared['frontSvg'])
-    return {k: v for k, v in prepared.items() if k not in ('profile', 'frontSvg')}
+    from selected_sheet import render
+    front_box = render(prepared['profile'], prepared['calculation'], prepared['material'], stage/'assets')
+    config_path = stage/'assets/project.json'
+    config = json.loads(config_path.read_text())
+    if front_box != config['sheetFrontBox']:
+        raise ValueError('Generated sheet front placement differs from the selected scene')
+    return {k: v for k, v in prepared.items() if k not in ('profile', 'frontSvg', 'calculation', 'material')}
