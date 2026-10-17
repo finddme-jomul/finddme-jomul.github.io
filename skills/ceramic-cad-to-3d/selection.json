@@ -621,6 +621,24 @@
         ],
         "scope": "Real CLI single-to-multiple, source changes, no-op resume, material-only reuse, invalid-shape recovery, exact rollback, tamper detection and page rejection."
       }
+    },
+    {
+      "id": "feature-drawing-guide",
+      "state": "implemented-candidate-visual-adoption-pending",
+      "profile": "wire3d.featureSections",
+      "rule": "One BRep supplies orthographic CAD views, part frontBoxes and actual plane-section wire curves. New density and six-view composition remain candidates; do not replace adopted vessel rendering.",
+      "consumer": [
+        "scripts/feature_drawing.py",
+        "scripts/feature_project.py"
+      ],
+      "verification": {
+        "suites": [
+          "feature-drawing",
+          "feature-project"
+        ],
+        "scope": "Sphere section surface/plane checks, SVG part mapping/frontBox coordinates, axis conversion and project revision lifecycle. Static browser gate is separate; motion not connected.",
+        "browserCheck": "tests/check-feature-drawing.cjs"
+      }
     }
   ],
   "sourceRepositoryCommit": "c84daff",

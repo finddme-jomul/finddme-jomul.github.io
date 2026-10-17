@@ -175,6 +175,12 @@
         "releaseWithClay": true
       }
     },
-    "defaultColor": "#6E6A68"
+    "defaultColor": "#6E6A68",
+    "featureSections": {
+      "status": "candidate-not-visually-adopted",
+      "horizontalSections": 16,
+      "verticalSections": 9,
+      "curveSegments": 48
+    }
   }
 }

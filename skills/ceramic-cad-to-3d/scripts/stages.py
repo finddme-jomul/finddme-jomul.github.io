@@ -77,8 +77,12 @@ def describe(project, state):
         valid=(state['status']=='geometry-ready' and hashes(project/'input')==entry['inputSha256']
                and hashes(project/'geometry')==entry['filesSha256'])
         result['geometry']={'status':'complete' if valid else 'stale', 'outputs':['geometry/*'],
-                            'reason':'Feature solid geometry only; CAD sheet/frontBox pending'}
-        result['cad'].update(status='blocked',reason='Feature CAD sheet/frontBox and wire guide pending')
+                            'reason':'Feature solid geometry; drawing and renderer readiness tracked separately'}
+        if entry.get('drawingCandidate'):
+            result['drawing']={'status':'candidate' if valid else 'stale',
+                               'outputs':['geometry/sheet-*.svg','geometry/drawing-manifest.json','geometry/*/wire-guide.json'],
+                               'reason':'BRep drawing and section guides; visual adoption and page alignment pending'}
+        result['cad'].update(status='blocked',reason='Feature drawing adoption/page alignment pending')
         for name in ('motion','page'):
             result[name].update(status='blocked',reason='Feature geometry renderer integration pending')
     return result

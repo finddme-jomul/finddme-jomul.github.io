@@ -110,8 +110,7 @@ X/Y, Y/Z, X/Z. Coordinates are absolute in the common local part frame.
 The kernel checks valid, connected, positive-volume solids after every operation;
 no-op unions/cuts fail. STEP roundtrip and GLB/CAD bounds are checked before promotion.
 This finite operation vocabulary is not arbitrary CAD scripting or sculptural
-fidelity. Sweep, arbitrary transforms, external STEP/mesh, CAD sheets/frontBox,
-curve wire guides, materials, motion, assembly and project lifecycle are pending.
+fidelity. Sweep, arbitrary transforms, external STEP/mesh, materials, motion and assembly remain pending. The project route below adds candidate CAD views/curve guides and lifecycle tracking.
 
 #### Feature-solid project lifecycle
 
@@ -133,6 +132,32 @@ compares STEP volume/bounds and GLB bounds with the reviewed source.
 
 All parts in this initial route must be feature-solid. Mixing vessel and feature
 parts, switching an existing vessel project into feature mode, P1 feature
-extraction, CAD sheets/frontBox, curve guides and motion/page rendering remain
-unsupported. Page/motion commands explicitly reject geometry-only readiness.
+extraction, visually adopted feature CAD layout and motion/page rendering remain
+unsupported. Candidate views and section guides are now generated as described below. Page/motion commands explicitly reject geometry-only readiness.
 Do not reclassify it as cad-ready or attach a substitute rotational model.
+
+#### Feature CAD and wire candidates
+
+Project builds generate `geometry/sheet-{desktop,mobile,mobile-short}.svg`,
+`drawing-manifest.json`, and `<part-id>/wire-guide.json` alongside the solid.
+`short` reuses desktop. All parts share a sheet; desktop uses up to two columns,
+mobile uses one. Six views: front, plan, side, centre-Y section, isometric and
+axonometric CAD section-guide preview. Overall dimensions are input CAD bounds,
+not shrinkage-adjusted manufacturing measurements. Material hatching and a
+visually adopted technical-detail arrangement remain pending.
+
+Front view looks from negative Y with Z up. `frontBoxes` are normalized against
+the whole sheet and include the source STEP hash and `cameraLookAtMm`. These
+coordinates describe the drawn front extent, not an already browser-verified
+CAD-to-3D transition. Guide groups preserve CAD mm/Z-up; line segments are also
+exported as `positionsYUpMetres`, mapping `[x,y,z]` to `[x,z,-y]/1000`.
+
+Wire curves come from BRep edges and actual XY/YZ/XZ sections. Candidate density
+is in `wire3d.featureSections` (16 horizontal, 9 per vertical axis, 48 intervals
+per curve). Internal trim holes remain section boundaries; no triangle mesh edge
+fallback is used. Curves may be dense on planar parts; this new policy is not a
+replacement for adopted rotational/handled wire rules. These static candidates
+need visual review and connection to the existing motion/material/page renderer.
+The project stays geometry-ready; drawing status is candidate, not complete CAD
+or page approval. Changing shape/runtime rebuilds the dependent drawing/guide;
+material-only revisions reuse solid files and regenerate the sheet deterministically.

@@ -34,6 +34,9 @@ def verify(project, state):
     from build123d import import_step
     from jomul_handled_solid import bounds, glb_bounds_mm
     config = json.loads((project/'input/config.json').read_text())
+    if entry.get('drawingCandidate'):
+        from feature_drawing import verify as verify_drawing
+        verify_drawing(config,project/'geometry')
     for part in config['parts']:
         out = project/'geometry'/part['id']
         original, _ = compile_shape(json.loads((ROOT/part['shape']).read_text()))
@@ -59,7 +62,7 @@ def build(project, state):
     if old and current == old['buildInputs'] and tree_hashes(out) == old['filesSha256']:
         # Material metadata/input paths can change while producing identical geometry.
         state['status'] = 'geometry-ready'
-        state['nextInput'] = 'CAD sheet/frontBox and curve wire integration pending; not page-ready'
+        state['nextInput'] = 'Review feature drawing/curve guide candidate; material/motion/page integration pending'
         old['inputSha256'] = tree_hashes(project/'input')
         verify(project,state)
         save(project/'pipeline-state.json',state)
@@ -80,6 +83,8 @@ def build(project, state):
                 result = generate(ROOT/part['shape'],stage/part['id'])
             rows.append({'id':part['id'], 'shapeKind':'feature-solid', 'source':part['shape'],
                          'volumeMm3':result['volumeMm3'], 'boundsMm':result['boundsMm']})
+        from feature_drawing import build as build_drawing
+        build_drawing(config,stage)
         (stage/'manifest.json').write_text(json.dumps({'status':'geometry-stage-only','parts':rows},indent=2)+'\n')
         if out.exists(): out.rename(previous)
         try:
@@ -88,10 +93,10 @@ def build(project, state):
             if previous.exists(): previous.rename(out)
             raise
         try:
-            state['featureGeometry'] = {'filesSha256':tree_hashes(out), 'inputSha256':tree_hashes(project/'input'), 'buildInputs':current}
+            state['featureGeometry'] = {'filesSha256':tree_hashes(out), 'inputSha256':tree_hashes(project/'input'), 'buildInputs':current, 'drawingCandidate':True}
             state['status'] = 'geometry-ready'
-            state['nextInput'] = 'CAD sheet/frontBox and curve wire integration pending; not page-ready'
-            state['unsupportedStages'] = ['feature CAD sheet/frontBox', 'feature wire/material/motion/page', 'hollow', 'publication']
+            state['nextInput'] = 'Review feature drawing/curve guide candidate; material/motion/page integration pending'
+            state['unsupportedStages'] = ['feature drawing visual adoption', 'feature material/motion/page', 'hollow', 'publication']
             save(project/'pipeline-state.json',state)
         except Exception:
             shutil.rmtree(out)
@@ -99,6 +104,6 @@ def build(project, state):
             state.clear();state.update(prior)
             raise
         if previous.exists(): shutil.rmtree(previous)
-        record(project,'Built reviewed feature geometry; CAD sheet and page remain pending.')
+        record(project,'Built feature geometry and BRep drawing/section-guide candidate; page remains pending.')
     finally:
         if stage.exists(): shutil.rmtree(stage)
