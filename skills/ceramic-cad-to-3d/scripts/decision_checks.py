@@ -19,6 +19,7 @@ SUITES = {
     'gallery-layout': [sys.executable, str(SKILL/'tests/test_gallery_layout.py')],
     'gate-contract': [sys.executable, str(SKILL/'tests/test_decision_checks.py')],
     'runtime': [sys.executable, str(SKILL/'tests/test_runtime.py')],
+    'page-recovery': [sys.executable, str(SKILL/'tests/test_page_scheduler.py')],
     'motion-recovery': [sys.executable, str(SKILL/'tests/test_motion_scheduler.py')],
     'axis': node_command(SKILL/'tests/test-axis-motion.mjs'),
     'background': node_command(SKILL/'tests/test-background.mjs'),

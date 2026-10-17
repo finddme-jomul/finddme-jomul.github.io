@@ -484,17 +484,19 @@
     {
       "id": "execution-stage-state",
       "state": "implemented-supported-stage-boundaries",
-      "rule": "Read-only fresh stage status; preserve legacy state and exact rollback; gallery preparation independent of CAD; report transitive change scope without claiming full-page scheduling. Separate geometry/material/drawing/runtime inputs; reuse intact unchanged outputs and handled solid bytes for material/drawing-only changes; retain reviewed motion input on invalidation. Automatically rebuild existing reviewed motion after CAD changes, publish only after browser verification, and retain CAD/input for explicit resume retry after failure.",
+      "rule": "Read-only fresh stage status; preserve legacy state and exact rollback; gallery preparation independent of CAD; report transitive change scope without claiming full-page scheduling. Separate geometry/material/drawing/runtime inputs; reuse intact unchanged outputs and handled solid bytes for material/drawing-only changes; retain reviewed motion input on invalidation. Automatically rebuild existing reviewed motion after CAD changes, publish only after browser verification, and retain CAD/input for explicit resume retry after failure. Registered page-review uses selected-page only; recheck CAD/photo/review/runtime/output dependencies on resume, and rebuild after CAD or gallery changes. Publish immutable verified page revisions via atomic state reference; preserve previous page and reviewed input on failure/interruption. Never auto-migrate withdrawn scene inputs.",
       "consumer": [
         "scripts/stages.py",
         "scripts/project.py",
         "scripts/rebuild.py",
-        "scripts/page.py"
+        "scripts/page.py",
+        "scripts/page_scheduler.py"
       ],
       "verification": {
         "suites": [
           "runtime",
-          "motion-recovery"
+          "motion-recovery",
+          "page-recovery"
         ],
         "scope": "Stage readiness/dependency changes, read-only planning, independent photos, motion retry",
         "browserCheck": "Withdrawn candidate evidence; selected whole-page replay is checked by tests/check-selected-page.cjs"

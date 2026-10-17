@@ -298,6 +298,7 @@ def main() -> None:
     revise = sub.add_parser('revise'); revise.add_argument('project'); revise.add_argument('--feedback', required=True)
     revise.add_argument('--config', type=Path)
     motion = sub.add_parser('motion-preview'); motion.add_argument('project'); motion.add_argument('--motion', required=True, type=Path)
+    page_review = sub.add_parser('page-review'); page_review.add_argument('project'); page_review.add_argument('--review', required=True, type=Path)
     page = sub.add_parser('page'); page.add_argument('project'); page.add_argument('--scene', required=True, type=Path)
     gallery = sub.add_parser('gallery'); gallery.add_argument('project'); gallery.add_argument('--photos', required=True, type=Path)
     status = sub.add_parser('status'); status.add_argument('project')
@@ -356,7 +357,17 @@ def main() -> None:
             raise
     else:
         state = state_for(project)
+        if args.action == 'page-review':
+            import page_scheduler
+            data=json.loads(args.review.expanduser().resolve(strict=True).read_text())
+            verify(project,state)
+            snapshot(project)
+            state['pageGenerator']='selected-page'
+            page_scheduler.build(project,state,data)
+            return
         if args.action == 'page':
+            if state.get('pageGenerator')=='selected-page':
+                raise ValueError('CERAMIC_PAGE_BASELINE_REQUIRED: use page-review --review; legacy scene must not replace registered input')
             import page as page_builder
             data=json.loads(args.scene.expanduser().resolve(strict=True).read_text())
             verify(project,state)
@@ -413,7 +424,7 @@ def main() -> None:
             if state.get('pageReview') or state.get('pageJob'):
                 from stages import describe
                 if describe(project,state)['page']['status']!='complete':
-                    raise ValueError('Page review is stale; rebuild with page --scene')
+                    raise ValueError('Page review is stale or failed; use resume for registered selected-page inputs, or page-review --review')
             if state.get('motionJob', {}).get('status') in ('failed', 'running'):
                 raise ValueError('Motion browser gate is incomplete; use resume to retry')
             if state.get('gallery'):
@@ -450,6 +461,11 @@ def main() -> None:
                 record(project, 'Built selected final-gallery component; finished-page assembly remains pending.')
             finally:
                 if stage.exists(): shutil.rmtree(stage)
+            if state.get('pageGenerator')=='selected-page':
+                state['reviewedPageInput']['photos']=str(source.relative_to(ROOT))
+                save(project/'pipeline-state.json',state)
+                from page_scheduler import resume as resume_page
+                resume_page(project,state)
             print(f'CERAMIC_GALLERY_COMPONENT_READY {project.name}')
             return
         if args.action == 'motion-preview':
@@ -550,6 +566,8 @@ def main() -> None:
         elif state['status'] == 'cad-ready':
             verify(project, state)
             resume_motion(project, state)
+            from page_scheduler import resume as resume_page
+            resume_page(project,state)
             return
         elif (project / 'intake/manifest.json').is_file():
             intake = jomul_intake.progress(project)
@@ -569,6 +587,8 @@ def main() -> None:
             raise
     if state.get('status') == 'cad-ready':
         resume_motion(project, state)
+        from page_scheduler import resume as resume_page
+        resume_page(project,state)
     final = state_for(project)
     print(f'JOMUL_PROJECT_{final["status"].upper().replace("-", "_")} {args.project} {project}')
 

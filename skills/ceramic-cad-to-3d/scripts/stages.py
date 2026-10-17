@@ -8,8 +8,8 @@ CONTRACT = {
                'outputs': ['motion-preview/*'], 'completion': 'CAD dependency, output hashes; four-viewport gate at build'},
     'gallery': {'dependsOn': [], 'inputs': ['reviewed photo list and source images'],
                 'outputs': ['gallery/*'], 'completion': 'source roles/hashes and exported output hashes'},
-    'page': {'dependsOn': ['cad', 'gallery'], 'inputs': ['reviewed scene and stage outputs'],
-             'outputs': ['page-review/*'], 'completion': 'browser-gated rotational candidate; visual parity pending'},
+    'page': {'dependsOn': ['cad', 'gallery'], 'inputs': ['registered selected-page review and hashed CAD/photo inputs'],
+             'outputs': ['page-revisions/*'], 'completion': 'selected-page browser gate and current dependency/output hashes; visual acceptance remains separately scoped'},
 }
 
 
@@ -59,16 +59,17 @@ def describe(project, state):
     if (not motion and state.get('reviewedMotionInput')
             and state.get('motionJob', {}).get('status') not in ('failed', 'running')):
         result['motion']['reason'] = 'CAD changed; reviewedMotionInput is preserved; rebuild motion-preview and pass its browser gate'
-    result['page'].update(status='pending', reason='Needs explicit page --scene and current CAD/gallery; rotational candidate only')
+    result['page'].update(status='pending', reason='Register explicit page-review --review input')
     page=state.get('pageReview')
     if page:
-        from ceramic_paths import SKILL
-        valid=(result['cad']['status']=='complete' and result['gallery']['status']=='complete'
-               and hashes(project/'cad')==page['cadSha256']
-               and hashes(project/'gallery')==page['gallerySha256']
-               and hashes(project/'page-review')==page['filesSha256']
-               and hashlib.sha256((SKILL/'runtime-lock.json').read_bytes()).hexdigest()==page['runtimeSha256'])
-        result['page'].update(status='complete' if valid else 'stale',reason='Browser-gated candidate, visual adoption pending' if valid else 'Page dependency/runtime/output changed; rebuild page --scene')
+        if page.get('generator')=='selected-page':
+            from page_scheduler import current
+            valid=result['cad']['status']=='complete' and current(project,state)
+            result['page'].update(status='complete' if valid else 'stale',
+                                  reason='Browser-verified selected-page revision' if valid else 'Page inputs/runtime/output changed; use resume',
+                                  output=page['output'])
+        else:
+            result['page'].update(status='stale',reason='Withdrawn legacy scene; register page-review --review explicitly')
     if state.get('pageJob',{}).get('status') in ('failed','running'):
         result['page'].update(status=state['pageJob']['status'],reason=state['pageJob'].get('error','Browser gate pending'))
     return result
