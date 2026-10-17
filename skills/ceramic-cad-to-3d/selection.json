@@ -757,6 +757,23 @@
         "scope": "Landing easing, rotation continuation and CAD/browser sampled paths; not physical simulation.",
         "browserCheck": "tests/check-multiple-page.cjs"
       }
+    },
+    {
+      "id": "feature-overlapping-drop",
+      "state": "implemented-requested-candidate",
+      "rule": "Explicit direct-drop overlap permits upper parts to descend together while preserving departure and landing order. Per-part easing/spin and sampled collision gate remain active.",
+      "consumer": [
+        "scripts/layered_review.py",
+        "assets/multiple-scene.mjs",
+        "scripts/feature_assembly.py"
+      ],
+      "verification": {
+        "suites": [
+          "feature-assembly"
+        ],
+        "scope": "Overlap opt-in and ordered endpoints; actual browser poses and rotating CAD samples for the reviewed composition.",
+        "browserCheck": "tests/check-multiple-page.cjs"
+      }
     }
   ],
   "sourceRepositoryCommit": "c84daff",
