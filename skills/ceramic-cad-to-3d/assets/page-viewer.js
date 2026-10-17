@@ -33,6 +33,8 @@ geometry.computeBoundingBox();
 const bounds = geometry.boundingBox;
 const modelHeight = bounds.max.y - bounds.min.y;
 const modelWidth = Math.max(bounds.max.x - bounds.min.x, bounds.max.z - bounds.min.z);
+const wideVessel = config.dimensionsMm.maxDiameter > config.dimensionsMm.height;
+const glazeExtent = wideVessel ? Math.hypot(modelWidth, modelHeight) / 2 * 1.01 : modelHeight / 2;
 const targetHeight = config.dimensionsMm.height / 1000;
 if (Math.abs(modelHeight - targetHeight) > .003) throw new Error('CAD and GLB height disagree');
 function resize() {
@@ -40,7 +42,14 @@ function resize() {
   renderer.setSize(w, h);
   camera.aspect = w / h;
   const tangent = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
-  camera.position.set(0, 0, Math.max(modelHeight / (2 * tangent), modelWidth / (2 * tangent * camera.aspect)) * 1.35);
+  let distance = Math.max(modelHeight / (2 * tangent), modelWidth / (2 * tangent * camera.aspect)) * 1.35;
+  if (wideVessel) {
+    // A sphere around the CAD bounds fits every body/tilt/orbit pose of a wide vessel.
+    const radius = Math.hypot(modelWidth, modelHeight) / 2;
+    const halfAngle = Math.atan(tangent * Math.min(1, camera.aspect));
+    distance = radius / Math.sin(halfAngle) * 1.05;
+  }
+  camera.position.set(0, 0, distance);
   camera.lookAt(0, 0, 0);
   camera.updateProjectionMatrix();
 }
@@ -56,7 +65,7 @@ const clayMaterial = new THREE.MeshStandardMaterial({
   depthWrite: false, side: THREE.DoubleSide
 });
 const clay = new THREE.Mesh(geometry, clayMaterial); root.add(clay);
-const clip = new THREE.Plane(new THREE.Vector3(0, -1, 0), -modelHeight / 2);
+const clip = new THREE.Plane(new THREE.Vector3(0, -1, 0), -glazeExtent);
 const glazeMaterial = original.material.clone();
 glazeMaterial.clippingPlanes = [clip];
 glazeMaterial.polygonOffset = true;
@@ -110,7 +119,10 @@ function placeCadMain() {
   const width = image.width * box.width, height = image.height * box.height;
   const left = image.left + image.width * box.cx - width / 2;
   const top = image.top + image.height * box.cy - height / 2;
-  const finalHeight = Math.min(innerHeight * .67, innerWidth * (innerWidth <= 600 ? .98 : 1.1));
+  let finalHeight = Math.min(innerHeight * .67, innerWidth * (innerWidth <= 600 ? .98 : 1.1));
+  if (wideVessel) {
+    finalHeight = Math.min(finalHeight, innerWidth * .9 * height / width);
+  }
   const scale = finalHeight / height;
   const dx = innerWidth / 2 - (left + width / 2), dy = innerHeight / 2 - (top + height / 2);
   cadMain.style.left = `${left}px`; cadMain.style.top = `${top}px`;
@@ -130,7 +142,7 @@ const timeline = createTimeline({autoplay: false, defaults: {ease: 'linear'}})
   .add(tiltRig, {[chosen[0]]: [0, chosen[1] * config.motion.tiltDegrees], duration: 200, ease: 'inOutSine'}, 500)
   .add(wireMaterial, {opacity: [1, 0], duration: 140}, 620)
   .add(clayMaterial, {opacity: [0, 1], duration: 130}, 620)
-  .add(clip, {constant: [-modelHeight / 2, modelHeight / 2], duration: 200}, 780)
+  .add(clip, {constant: [-glazeExtent, glazeExtent], duration: 200}, 780)
   .add('body', {backgroundColor: ['#fff', '#202023'], duration: 240}, 680)
 ;
 if (hasPhotos) timeline
@@ -145,7 +157,7 @@ syncTimeline();
 let galleryActive = false;
 function frame() {
   clayMaterial.depthWrite = clayMaterial.opacity > .98;
-  glaze.visible = clip.constant > -modelHeight / 2 + .0005;
+  glaze.visible = clip.constant > -glazeExtent + .0005;
   placeCadMain();
   if (!galleryActive) renderer.render(scene, camera);
   requestAnimationFrame(frame);
@@ -158,7 +170,7 @@ function updateSceneState() {
 }
 addEventListener('scroll', updateSceneState, {passive: true});
 updateSceneState();
-window.__moonJar = {config, root, orbitRig, tiltRig, wireMaterial, clayMaterial, clip, geometry, timeline, glbLoaded: true};
+window.__moonJar = {config, camera, root, orbitRig, tiltRig, wireMaterial, clayMaterial, clip, geometry, timeline, glbLoaded: true};
 
 import { installGallery } from './gallery.js';
 import { galleryProfile } from './gallery-config.js';

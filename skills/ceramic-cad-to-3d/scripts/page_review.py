@@ -21,8 +21,8 @@ def validate(review, profile, dims, material):
             raise ValueError('Invalid reviewed motion/surface value')
     if set(surface)!={'floorPolicy','roughness','clearcoat'} or surface['floorPolicy']!='exact':
         raise ValueError('New inputs use the exact-floor CAD policy and explicit roughness/clearcoat only')
-    if not 30<=dims['height']<=300 or not .5<=dims['maxDiameter']/dims['height']<=1:
-        raise ValueError('New single review currently supports height 30–300mm and diameter/height 0.5–1')
+    if not 30<=dims['height']<=300 or not .5<=dims['maxDiameter']/dims['height']<=3:
+        raise ValueError('New single review currently supports height 30–300mm and diameter/height 0.5–3')
     for group,key in (('clay','wetPreviewHex'),('glaze','firedAppearancePreviewHex')):
         if not re.fullmatch(r'#[0-9a-fA-F]{6}',material[group][key]): raise ValueError('Explicit preview colours required')
         if not material[group]['name'] or len(material[group]['name'])>12: raise ValueError('Material display name must be 1–12 characters')
