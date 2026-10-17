@@ -129,7 +129,14 @@ def make_rotational_solid(profile: list, dims: dict, *, floor_policy="exact") ->
         # the nominal floor connects to the centre. Never the default CAD solid.
         inner = [(r-wall,0,z) for r,z in reversed(profile) if z >= floor]
         end = [(0,0,floor)]
-    section = Face(Wire.make_polygon([(0,0,0)] + outer + inner + end, close=True))
+    points = [(0,0,0)] + outer + inner + end
+    if 'footHeight' in dims:
+        if floor_policy != 'exact':
+            raise ValueError('Raised feet require the exact floor policy')
+        from rotational_section import raised_foot_section
+        points = [(r, 0, z) for r, z in raised_foot_section(profile, dims)]
+        floor = dims['footHeight'] + dims['baseThickness']
+    section = Face(Wire.make_polygon(points, close=True))
     solid = Solid.revolve(section, 360, Axis.Z)
     if not solid.is_valid or len(solid.solids()) != 1 or solid.volume <= 0:
         raise ValueError('Rotational profile did not produce one valid hollow solid')

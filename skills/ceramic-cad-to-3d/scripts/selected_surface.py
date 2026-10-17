@@ -16,7 +16,7 @@ def render(profile, dimensions, material, output, surface=None):
         settings.update(surface)
     solid, checks = make_rotational_solid(profile, dimensions, floor_policy=settings['floorPolicy'])
     checks['nominalFloorHeightMm'] = checks.pop('floorHeightMm')
-    checks['firstInnerRingHeightMm'] = next(z for r,z in profile if z >= dimensions['baseThickness'])
+    checks['firstInnerRingHeightMm'] = next(z for r,z in profile if z >= checks['nominalFloorHeightMm'])
     if not export_stl(solid, output/'surface.stl', tolerance=settings['stlTolerance'], angular_tolerance=settings['stlAngularTolerance']):
         raise ValueError('Selected surface STL export failed')
     (output/'surface-input.json').write_text(json.dumps({
