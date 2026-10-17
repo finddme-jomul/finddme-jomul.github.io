@@ -58,3 +58,27 @@ def assembly(spec, parts, timing):
         elif not 0 <= step['liftMm'] <= 1000: raise ValueError('Invalid assembly lift')
     if any(p['motion']['settledScale'] != 1 for p in parts):
         raise ValueError('Assembly currently requires physical scale 1')
+
+
+def apply_assembly_preset(review):
+    """Resolve the adopted motion preset without mutating archived review inputs."""
+    import copy
+    import json
+    from ceramic_paths import PROFILE
+    result=copy.deepcopy(review)
+    spec=result.get('assembly') if result else None
+    if not spec or not spec.get('preset'):return result
+    profile=json.loads(PROFILE.read_text())['assembly']['gentleStaggeredDrop']
+    if spec['preset']!=profile['preset']:raise ValueError('Unknown assembly preset')
+    for key in ('mode','landing','overlap'):
+        if key in spec and spec[key]!=profile[key]:raise ValueError('Assembly preset conflicts with '+key)
+        spec[key]=profile[key]
+    # The foundation is deliberately allowed to land before the upper pieces.
+    # Subsequent landings should closely follow one another without rushed falls.
+    upper=spec['steps'][1:]
+    limit=profile['maxUpperLandingGapToFallDurationRatio']
+    for a,b in zip(upper,upper[1:]):
+        gap=(b['start']+b['duration'])-(a['start']+a['duration'])
+        if gap<0 or gap>limit*min(a['duration'],b['duration'])+1e-9:
+            raise ValueError('Adopted gentle-staggered landing gap exceeded; overlap falls instead of rushing descent')
+    return result

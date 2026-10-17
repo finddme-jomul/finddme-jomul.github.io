@@ -52,7 +52,6 @@ The entire `ceramic-integration-gallery` scene is the user-selected presentation
 
 For a new **single rotational** page candidate, add `--review REVIEW.json` to `selected-page --cad-project PROJECT_DIR --output DIR`. Read the new single-page review contract in [pipeline](references/pipeline.md#new-single-page-review). This mode regenerates geometry, sheet, materials, motion inputs and reviewed photos using the shared scene renderer. An explicit empty photo list ends at the fully glazed vessel; photo-bearing pages retain the selected exit/gallery transition. It requires height 30–300 mm and diameter/height 0.5–3, and runs four-viewport technical checks before publication. It does not mark the new appearance adopted. Registered page reviews support automatic rebuilding as described below; the two-part contract uses a separate review schema.
 
-
 For **multiple rotational vessels**, use the same `selected-page --cad-project PROJECT_DIR --review REVIEW.json --output UNUSED_DIR` entrypoint. Read [multiple-part review](references/pipeline.md#two-part-page-review) first: this mode needs an explicit ordered two-layer composition review, not the single-vessel review schema. It consumes the project's verified common CAD sheet/front boxes, regenerates each surface, and assembles the reviewed drop/axis/coating sequence and current gallery. Outputs are technical review candidates; the selected bowl visual design is not automatically replaced. Register the review as described below to enable project-page regeneration.
 
 For **one handled vessel**, use the same `selected-page --cad-project --review --output` command and the [handled page review contract](references/pipeline.md#handled-page-review). It reuses the verified complete CAD solid and the shared handled motion module, then adds explicit single-glaze preview inputs and the current gallery. Preserve all meshes, the body-axis pivot and CAD handle guides. New glaze appearance is provisional; retain unresolved P1 handle questions and do not treat a bisque photo as finished glaze evidence.
@@ -79,6 +78,16 @@ For multiple `feature-solid` parts, use `page-review` with `renderer: "feature-s
 
 When the user wants a foundation to land first and upper parts to descend onto it without a late floor lineup, use `assembly.mode: "direct-drop"` and ordered `dropHeightMm` steps. The initial descent stages parts above their target positions; final vertical descent follows coating/rotation. Keep `lift-place` for requested lift/translate/lower arrangements. See the feature assembly input contract.
 
-For a request to keep rotating through descent and land softly, add `assembly.landing: "soft-spin"` to `direct-drop`. This keeps upright body/axis yaw until each landing and eases the final descent; review heights and duration together. Collision checks must use the rotating pose.
+### Adopted sequential-drop finish
 
-When gaps between successive direct-drop landings feel too long, use explicit `assembly.overlap: true` and stagger step starts while retaining departure/landing order. Preserve the soft landing duration instead of shortening each fall; verify simultaneous rotating poses for collision.
+The user adopted revision `6e815f1a65e141b794bb2ca295600804` for this motion.
+For new sequential direct-drop reviews, use `assembly.preset: "gentle-staggered"`
+unless the user explicitly requests a different style. The active profile
+`assembly.gentleStaggeredDrop` supplies soft-spin and overlapping descent and
+preserves the reviewed three-part timing reference. The generator rejects
+conflicting settings and excessive landing gaps between upper pieces (gap ≤ 20%
+of the shorter fall interval). Keep rotation through landing and a gentle stop;
+reduce gaps by overlapping falls, not by making each fall abrupt. Review drop
+heights, overall scroll duration and collision clearance for new shapes/counts.
+This adopts the motion, not specimen materials, arbitrary layouts or physical
+simulation. Existing generated revisions are not bulk regenerated.
