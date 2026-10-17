@@ -5,6 +5,8 @@ description: "Run reviewed ceramic CAD projects, generate rotational, handled or
 
 # Ceramic CAD to 3D
 
+V1 scope is frozen by user decision (2026-10-18); follow [the scope and closure gates](references/pipeline.md#v1-scope-freeze--2026-10-18). During closure, fix supported behavior and validate it; retain new capabilities as deferred work. Scope approval does not imply visual adoption or release approval.
+
 Automation acceptance: given reviewed shape, dimensions, materials and placement,
 generate and revise through the maintained entrypoint without a new script for
 each project or part count. New inputs exercise shared contracts and generators.
