@@ -158,8 +158,9 @@ export async function startMultiple(spec) {
       bounds.push({bounds:b,position:{x:0,y:0,z:0},scale:1});
     }
     const f=spec.motion.framing;
-    const lastCoat=timing.accentGlazeStart===null?timing.baseGlazeStart+timing.baseGlazeDuration:timing.accentGlazeStart+timing.accentGlazeDuration;
-    const lockCamera=directDrop?smooth((motionP-lastCoat)/(assembly.start-lastCoat)):0;
+    // Finish camera staging with the initial CAD-to-3D descent, before coating.
+    // A late blend after glazing itself lifts pieces even with fixed landing framing.
+    const lockCamera=directDrop?Math.min(...vessels.map(v=>v.state.drop)):0;
     const cameraBounds=directDrop?bounds.map((item,i)=>{
       const b={min:{},max:{}};
       for(const edge of ['min','max'])for(const axis of ['x','y','z'])b[edge][axis]=item.bounds[edge][axis]*(1-lockCamera)+dropBounds[i].bounds[edge][axis]*lockCamera;

@@ -305,3 +305,7 @@ Unit fixtures for the gate are synthetic and do not count as release evidence.
 Changing runtime/tests makes older decision reports stale; runtime changes also
 require evaluated pages to be regenerated and reviewed. Historical approvals
 remain scoped to their byte-preserved outputs.
+
+### Pre-landing camera correction
+
+User rejected the post-glaze camera rise in revision d6edb399b56341009949559e75ccce57. Fixing only the assembly interval was insufficient: the late camera-envelope blend also caused visible ascent. Complete that blend with initial CAD-to-3D descent, before coating; keep it fixed from glaze completion through landing. `check-direct-drop.cjs` now samples this entire interval and reverse scroll. This correction is a candidate until visually reviewed; do not record the rejection as approval.
