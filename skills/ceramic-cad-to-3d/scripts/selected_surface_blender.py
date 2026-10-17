@@ -42,5 +42,5 @@ bpy.ops.export_scene.gltf(filepath=str(folder/'model.glb'), export_format='GLB',
 (folder/'blender-report.json').write_text(json.dumps({
     'blender': bpy.app.version_string, 'vertices': len(vessel.data.vertices),
     'polygons': len(vessel.data.polygons), 'smooth': all(p.use_smooth for p in vessel.data.polygons),
-    'dimensionsM': list(vessel.dimensions), 'roughness': .66, 'clearcoat': .08,
+    'dimensionsM': list(vessel.dimensions), 'roughness': spec['surfaceSettings']['roughness'], 'clearcoat': spec['surfaceSettings']['clearcoat'],
     'finishColor': spec['finishColor'], 'surfaceSettings': spec['surfaceSettings']}, indent=2)+'\n')

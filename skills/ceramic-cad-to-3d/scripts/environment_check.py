@@ -20,8 +20,14 @@ def python_check():
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--setup',action='store_true')
+    parser.add_argument('--setup-blender',action='store_true')
     args=parser.parse_args()
     config=python_check()
+    if args.setup_blender:
+        import blender_environment
+        blender_environment.install()
+        print(json.dumps(blender_environment.check(),indent=2))
+        return
     if args.setup:
         target=SKILL/'.venv'
         if not target.exists():subprocess.run([sys.executable,'-m','venv',str(target)],check=True)
@@ -31,6 +37,8 @@ def main():
         subprocess.run(['docker','run','--rm','--platform',config['platform'],'--user',f'{os.getuid()}:{os.getgid()}',
                         '--entrypoint','npm','-e','npm_config_cache=/tmp/npm-cache','-v',f'{SKILL}:/skill','-w','/skill',
                         config['browserImage'],'ci','--no-audit','--no-fund'],check=True)
+        import blender_environment
+        blender_environment.install()
         subprocess.run([str(target/'bin/python'),str(SKILL/'scripts/run.py'),'environment'],check=True)
         return
     errors=[]
@@ -47,4 +55,6 @@ def main():
         if not p.exists() or json.loads(p.read_text())['version']!=expected:errors.append(f'{name}: run environment --setup')
     subprocess.run(['docker','image','inspect',config['browserImage']],check=True,stdout=subprocess.DEVNULL)
     if errors:raise RuntimeError('Environment mismatch:\n'+'\n'.join(errors))
-    print(json.dumps({'status':'ready','environment':config,'pythonPackages':len((SKILL/'requirements-lock.txt').read_text().splitlines())},indent=2))
+    import blender_environment
+    blender=blender_environment.check()
+    print(json.dumps({'blender':blender,'status':'ready','environment':config,'pythonPackages':len((SKILL/'requirements-lock.txt').read_text().splitlines())},indent=2))

@@ -10,6 +10,8 @@ from ceramic_paths import SKILL, ROOT
 from browser_environment import node_command
 
 SUITES = {
+    'blender-install': [sys.executable, str(SKILL/'tests/test_blender_environment.py')],
+    'new-page-input': [sys.executable, str(SKILL/'tests/test_page_review.py')],
     'selected-cad': [sys.executable, str(SKILL/'tests/test_selected_cad.py')],
     'rotational-solid': [sys.executable, str(SKILL/'tests/test_rotational_solid.py')],
     'gallery-layout': [sys.executable, str(SKILL/'tests/test_gallery_layout.py')],
