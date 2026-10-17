@@ -1,3 +1,4 @@
+import {wireColor} from './wire-color.mjs';
 import { installGallery } from './gallery.js';
 import { galleryProfile } from './gallery-config.js';
 import * as THREE from 'three';
@@ -105,7 +106,7 @@ for (let k = 0; k < meridianCount; k++) {
 }
 const wireGeometry = new THREE.BufferGeometry();
 wireGeometry.setAttribute('position', new THREE.Float32BufferAttribute(points, 3));
-const wireMaterial = new THREE.LineBasicMaterial({color: 0x6e6a68, transparent: true, opacity: 0, depthWrite: false});
+const wireMaterial = new THREE.LineBasicMaterial({color: wireColor, transparent: true, opacity: 0, depthWrite: false});
 const wire = new THREE.LineSegments(wireGeometry, wireMaterial); root.add(wire);
 const story = document.querySelector('#story');
 // The final gallery owns the photographs; there is no photo-only scroll scene.

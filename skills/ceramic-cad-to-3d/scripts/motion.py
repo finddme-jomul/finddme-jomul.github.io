@@ -17,6 +17,8 @@ HANDOFF_BUILDER=SCRIPTS/'prepare_handled.py'
 
 
 def motion_input(data: dict) -> dict:
+    from wire_color import resolve
+    resolve(data)
     accepted=json.loads(PROFILE.read_text())['motion']['axisRig']
     if accepted['order']!='body-spin-under-tilt-under-axis-precession' or accepted['framing']!='transformed-mesh-bounds':
         raise ValueError('Unsupported accepted axis rig profile')
@@ -51,6 +53,8 @@ def build(project: Path, output: Path, data: dict) -> None:
     html=output/'index.html'
     html.write_text(html.read_text().replace('머그',cad['project']))
     shutil.copy2(AXIS_MODULE,output/'axis-motion.mjs')
+    from wire_color import install as install_wire_color
+    install_wire_color(output, data)
     (output/'motion-config.json').write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
     (output/'motion-preview-manifest.json').write_text(json.dumps({
         'schemaVersion':1,'partId':cad['parts'][0]['id'],'status':'motion-review-only',
