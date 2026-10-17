@@ -139,7 +139,7 @@
     "handle": "Preserve CAD-derived handle silhouette rails; do not substitute GLB triangle edges",
     "decision": "2026-10-17 user requested dense mug wire matching moon/bowls; previously handled body used stride20 and two meridians",
     "spatialReadability": {
-      "status": "user-required; current dense mug candidate not visually accepted",
+      "status": "user-required; wire/motion overlap implemented as review candidate, visual adoption pending",
       "criterion": "Dense CAD-derived wire must visibly turn in three dimensions: curvature, depth and changing orientation must remain readable while the wire is clearly visible.",
       "reject": "A front-facing spreadsheet-like grid, even if line counts and subsequent solid rotation pass technical checks.",
       "review": [
@@ -149,6 +149,13 @@
       ],
       "verification": "Density and numeric axis checks alone do not establish this visual criterion. Review the moving result against the selected moon reference before claiming adoption.",
       "feedback": "2026-10-17: user described current mug wire as an Excel grid and requested an impression of volumetric rolling."
+    },
+    "handledVisibility": {
+      "wireFadeStart": 0.84,
+      "wireFadeEnd": 0.98,
+      "clayStart": 0.82,
+      "clayEnd": 0.98,
+      "reason": "Keep wire fully visible through more than half of the body/axis turn before clay replaces it; visual review pending"
     }
   }
 }

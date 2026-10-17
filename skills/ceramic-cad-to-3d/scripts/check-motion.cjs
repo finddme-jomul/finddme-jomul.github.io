@@ -70,6 +70,7 @@ const points=[['sheet',0],['handoff',.43],['wire',.56],['quarter',.685],['half',
         if(name==='wire')assert(state.lineOpacity>.8&&state.frontOpacity<.1);
         if(name==='quarter')assert(Math.abs(state.axisPrecessionDegrees-motion.axisPrecessionDegrees*.25)<1&&state.axisTiltDegrees>0);
         if(name==='half')assert(Math.abs(state.axisPrecessionDegrees-motion.axisPrecessionDegrees*.5)<1);
+        if(name==='quarter'||name==='half')assert(state.lineOpacity>.99&&state.clayOpacity===0,'Wire must visibly carry the first half turn before clay');
         if(name==='full')assert(Math.abs(state.bodySpinDegrees-motion.bodySpinDegrees)<.3&&Math.abs(state.axisPrecessionDegrees-motion.axisPrecessionDegrees)<.3&&Math.abs(state.axisTiltDegrees-motion.tiltDegrees)<.1,
           'full motion '+JSON.stringify({layout,progress:state.progress,body:state.bodySpinDegrees,axis:state.axisPrecessionDegrees,tilt:state.axisTiltDegrees}));
         await page.screenshot({path:path.join(output,layout+'-'+name+'.png')});

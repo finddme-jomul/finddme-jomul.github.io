@@ -537,7 +537,7 @@
     },
     {
       "id": "wire-spatial-readability",
-      "state": "user-required-visual-correction-pending",
+      "state": "wire-rotation-overlap-implemented-visual-review-pending",
       "rule": "The clearly visible CAD-derived wire must convey a volume turning in depth; a spreadsheet-like front grid is insufficient. Preserve accurate geometry and inspect wire/motion overlap and depth cues. Current dense mug is technically verified but not visually accepted.",
       "consumer": [
         "assets/accepted-profile.json",
@@ -547,7 +547,7 @@
       "verification": {
         "suites": [],
         "scope": "Moving wire-dominant interval on desktop/mobile against selected reference; density and later solid rotations are insufficient",
-        "pendingReason": "User rejected the flat-grid impression of page-dense-wire-final; rendering correction and visual review have not been performed."
+        "pendingReason": "Wire remains fully visible past the first half turn and clay is delayed; numeric visibility/projection checks do not establish user visual adoption. Current candidate needs review."
       }
     }
   ],
