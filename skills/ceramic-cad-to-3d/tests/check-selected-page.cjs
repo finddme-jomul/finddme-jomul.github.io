@@ -26,6 +26,11 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
      await page.evaluate(t=>scrollTo(0,t/1200*(window.__moonJar.config.motion.storyHeightVh-100)*innerHeight/100),time);
      await page.waitForFunction(t=>Math.abs(window.__photoPacing.pace().timelineTime-t)<1 && Math.abs(window.__moonJar.timeline.currentTime-window.__photoPacing.pace().timelineTime)<1,{},time);
      await new Promise(r=>setTimeout(r,time===1080?2200:250));
+     if(time===1080)await page.waitForFunction(()=>{
+      const gallery=document.querySelector('#gallery');
+      return getComputedStyle(gallery).backgroundColor==='rgb(255, 255, 255)' &&
+       gallery.getAnimations({subtree:true}).every(a=>a.playState==='finished'||a.playState==='idle');
+     });
      metrics.push(await page.evaluate(()=>{
       const m=window.__moonJar;
       return {body:m.root.rotation.y,axis:m.orbitRig.rotation.y,clay:m.clayMaterial.opacity,wire:m.wireMaterial.opacity,glaze:m.clip.constant,gallery:document.querySelector('#gallery').classList.contains('gallery-active'),height:document.documentElement.scrollHeight};

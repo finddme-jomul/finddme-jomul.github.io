@@ -11,6 +11,7 @@ from browser_environment import node_command
 
 SUITES = {
     'blender-install': [sys.executable, str(SKILL/'tests/test_blender_environment.py')],
+    'multiple-page-input': [sys.executable, str(SKILL/'tests/test_multiple_page.py')],
     'new-page-input': [sys.executable, str(SKILL/'tests/test_page_review.py')],
     'selected-cad': [sys.executable, str(SKILL/'tests/test_selected_cad.py')],
     'rotational-solid': [sys.executable, str(SKILL/'tests/test_rotational_solid.py')],

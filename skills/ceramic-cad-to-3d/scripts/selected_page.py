@@ -19,17 +19,27 @@ def restore(output, cad_project=None, review=None):
     prepared = None
     if cad_project is not None:
         from selected_cad import prepare
+        cad_project = cad_project.resolve()
+        if not cad_project.is_relative_to(ROOT): raise ValueError('CAD project must be inside workspace')
+        if json.loads((cad_project/'input/config.json').read_text())['compositionMode'] == 'multiple':
+            from multiple_page import prepare
         prepared = prepare(cad_project, review=review)
     try:
         shutil.copytree(source,stage)
         shutil.copy2(ASSETS/'page-viewer.js',stage/'viewer.js')
+        shutil.copy2(ASSETS/'multiple-scene.mjs',stage/'multiple-scene.mjs')
+        shutil.copytree(ASSETS/'scene',stage/'scene')
+        shutil.copy2(ASSETS/'motion/axis-motion.mjs',stage/'scene/axis-motion.mjs')
         cad_inputs = None
         if prepared is not None:
             from selected_cad import install
+            if prepared.get('mode') == 'multiple':
+                from multiple_page import install
             cad_inputs = install(prepared, stage)
         report_dir=output.with_name(output.name+'.verification')
         from browser_environment import run_browser
-        run_browser('tests/check-new-page.cjs' if review is not None else 'tests/check-selected-page.cjs',{
+        checker = 'tests/check-multiple-page.cjs' if prepared and prepared.get('mode') == 'multiple' else ('tests/check-new-page.cjs' if review is not None else 'tests/check-selected-page.cjs')
+        run_browser(checker,{
             'CERAMIC_BASELINE':'http://127.0.0.1:5173/@fs/ceramic-skill/assets/selected-page/index.html',
             'CERAMIC_CANDIDATE':'http://127.0.0.1:5173/'+stage.relative_to(ROOT).as_posix()+'/index.html',
             'CERAMIC_SCOPE':'selected-CAD-and-surface-regeneration' if prepared is not None else 'selected-input-replay',
@@ -47,8 +57,8 @@ def restore(output, cad_project=None, review=None):
             verify_inputs(prepared)
             (stage/'cad-bridge.json').write_text(json.dumps({
                 'status':'new-input-review-candidate' if review is not None else 'selected-cad-surface-verified', 'newCadGeneration':True,
-                'generated':['assets/front-view.svg','assets/outer-profile.json','assets/cad-sheet.png','assets/cad-sheet.pdf','assets/model.glb'],
-                'retainedReference':['scene renderer/timeline'] if review is not None else ['motion','photos'],
+                'generated':([f'assets/{p["id"]}/{name}' for p in prepared['parts'] for name in ('front-view.svg','outer-profile.json','model.glb')] if prepared.get('mode') == 'multiple' else ['assets/front-view.svg','assets/outer-profile.json','assets/cad-sheet.png','assets/cad-sheet.pdf','assets/model.glb']),
+                'retainedReference':(['common motion/gallery rules; explicit two-part review inputs'] if prepared.get('mode') == 'multiple' else ['scene renderer/timeline']) if review is not None else ['motion','photos'],
                 'scope':'New single rotational review; visual adoption pending' if review is not None else 'Compatible selected moon inputs only; visual sampled-floor model, not the exact-floor CAD solid; general inputs pending',
                 'outputsSha256':{str(p.relative_to(stage)):sha(p) for p in sorted(stage.rglob('*')) if p.is_file() and 'browser-parity' not in p.relative_to(stage).parts},
                 **cad_inputs}, ensure_ascii=False, indent=2)+'\n')
