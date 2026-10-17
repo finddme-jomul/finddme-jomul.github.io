@@ -193,6 +193,8 @@ into a connected solid STEP/GLB with source hashes and geometry checks; see the
 Synthetic smooth and faceted inputs exercise the same compiler. This completes
 the initial solid feature compiler, not the general nonrotational project pipeline.
 Part/source identity and lifecycle now use manual feature-solid configs and
-geometry-ready state. Next connect CAD sheet/frontBox and curved wire guides,
-then existing material/motion/page generation. Hollow construction,
+geometry-ready state. Candidate CAD sheet/frontBox and BRep section-curve guides are now generated
+with the project; static mapping and section geometry are checked. Next connect
+existing material/motion/page generation and review the feature-specific visual
+result before adopting its layout or wire density. Hollow construction,
 external models and manufacturing verification remain unsupported.

@@ -10,6 +10,7 @@ from ceramic_paths import SKILL, ROOT
 from browser_environment import node_command
 
 SUITES = {
+    'feature-drawing': [sys.executable, str(SKILL/'tests/test_feature_drawing.py')],
     'feature-project': [sys.executable, str(SKILL/'tests/test_feature_project.py')],
     'feature-shape': [sys.executable, str(SKILL/'tests/test_feature_shape.py')],
     'layered-vessels': node_command(SKILL/'tests/test-layered-vessels.mjs'),
