@@ -83,11 +83,11 @@ def describe(project, state):
                                'outputs':['geometry/sheet-*.svg','geometry/drawing-manifest.json','geometry/*/wire-guide.json'],
                                'reason':'BRep drawing and section guides; visual adoption pending'}
         result['cad'].update(status='blocked',reason='Feature drawing visual adoption pending')
-        result['page'].update(status='pending',reason='Register a single-feature page review with explicit materials')
+        result['page'].update(status='pending',reason='Register a feature page review with explicit materials')
         if page and page.get('generator')=='selected-page':
             from page_scheduler import current
             result['page'].update(status='complete' if valid and current(project,state) else 'stale',
-                                  reason='Single-feature page candidate; visual adoption pending',output=page['output'])
+                                  reason='Feature page candidate; visual adoption pending',output=page['output'])
         if state.get('pageJob',{}).get('status') in ('failed','running'):
             result['page'].update(status=state['pageJob']['status'],reason=state['pageJob'].get('error','Browser gate pending'))
         result['motion'].update(status='blocked',reason='Provide reviewed motion input for a feature part')

@@ -1,8 +1,9 @@
 import {sceneDefaults} from './scene-defaults.mjs';
 const defaults=sceneDefaults.multiple;
 import {wireColor} from './wire-color.mjs';
-// Two-part scene mode; inputs retain CAD IDs, ordered coatings and reviewed motion.
+// Reviewed multi-part scene; inputs retain CAD IDs, ordered coatings and reviewed motion.
 import * as THREE from 'three';
+import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {smooth,clamp,continuingAxis,glazeRevealAt,glazeSpinAt,sprayCoverage} from './scene/glaze-motion.mjs';
 import {applyAxisPose} from './scene/axis-motion.mjs';
@@ -37,12 +38,22 @@ export async function startMultiple(spec) {
   }
   addEventListener('resize',resize);resize();await image.decode();
   const vessels=await Promise.all(spec.parts.map(async part=>{
-    const profile=await fetch(`./assets/${part.id}/outer-profile.json`).then(r=>{if(!r.ok)throw Error('Profile failed');return r.json()});
+    const feature=part.shapeKind==='feature-solid';
+    const guide=feature?await fetch(`./assets/${part.id}/wire-guide.json`).then(r=>r.json()):null;
+    if(feature&&guide.sourceStepSha256!==part.sourceStepSha256)throw Error('Feature guide source mismatch');
+    const profile=feature?null:await fetch(`./assets/${part.id}/outer-profile.json`).then(r=>{if(!r.ok)throw Error('Profile failed');return r.json()});
     const gltf=await new GLTFLoader().loadAsync(`./assets/${part.id}/model.glb`);
     const meshes=[];gltf.scene.traverse(n=>{if(n.isMesh)meshes.push(n)});
-    if(meshes.length!==1)throw Error('Surface exporter must supply one complete mesh per vessel');
-    const original=meshes[0];original.updateWorldMatrix(true,false);
-    const geometry=original.geometry.clone().applyMatrix4(original.matrixWorld);geometry.computeBoundingBox();
+    if(!meshes.length||!feature&&meshes.length!==1)throw Error('Missing complete mesh');
+    gltf.scene.updateMatrixWorld(true);
+    let geometry;
+    const offset=feature?[(part.boundsMm.minX+part.boundsMm.maxX)/2000,part.boundsMm.minZ/1000,-(part.boundsMm.minY+part.boundsMm.maxY)/2000]:[0,0,0];
+    if(feature){
+      const pieces=meshes.map(m=>{let g=m.geometry.clone().applyMatrix4(m.matrixWorld);if(g.index)g=g.toNonIndexed();for(const k of Object.keys(g.attributes))if(!['position','normal'].includes(k))g.deleteAttribute(k);if(!g.attributes.normal)g.computeVertexNormals();return g;});
+      geometry=mergeGeometries(pieces);if(!geometry)throw Error('Feature mesh merge failed');
+      geometry.translate(-offset[0],-offset[1],-offset[2]);
+    }else{const original=meshes[0];original.updateWorldMatrix(true,false);geometry=original.geometry.clone().applyMatrix4(original.matrixWorld);}
+    geometry.computeBoundingBox();
     const height=part.dimensionsMm.height/1000;
     if(Math.abs(geometry.boundingBox.max.y-geometry.boundingBox.min.y-height)>.001)throw Error('CAD/model height drift');
     const main=new THREE.Group(),orbit=new THREE.Group(),tilt=new THREE.Group(),spin=new THREE.Group();
@@ -51,13 +62,14 @@ export async function startMultiple(spec) {
     const positions=geometry.attributes.position,values=[];
     for(let i=0;i<positions.count;i++){
       const fraction=clamp(positions.getY(i)/height),angle=Math.atan2(positions.getZ(i),positions.getX(i));
-      values.push({fraction,heightMm:positions.getY(i)*1000,exterior:exteriorAt(profile,Math.hypot(positions.getX(i),positions.getZ(i))*1000,positions.getY(i)*1000),coverage:sprayCoverage(angle,fraction,part.accentCenterAngle,part.accentWidthScale),base:base.clone().lerp(warm,.2+.09*Math.sin(angle*5+fraction*12)),accent:accent.clone().lerp(accentWarm,g.accentWarmMix||0)});
+      values.push({fraction,heightMm:positions.getY(i)*1000,exterior:feature?false:exteriorAt(profile,Math.hypot(positions.getX(i),positions.getZ(i))*1000,positions.getY(i)*1000),coverage:sprayCoverage(angle,fraction,part.accentCenterAngle,part.accentWidthScale),base:base.clone().lerp(warm,.2+.09*Math.sin(angle*5+fraction*12)),accent:accent.clone().lerp(accentWarm,g.accentWarmMix||0)});
     }
     const colours=new THREE.BufferAttribute(new Float32Array(positions.count*3),3);geometry.setAttribute('color',colours);
-    const material=new THREE.MeshStandardMaterial({vertexColors:true,roughness:.9,side:THREE.DoubleSide,transparent:true,opacity:0});
+    const material=new (feature?THREE.MeshPhysicalMaterial:THREE.MeshStandardMaterial)({vertexColors:true,roughness:.9,side:THREE.DoubleSide,transparent:true,opacity:0});
     const solid=new THREE.Mesh(geometry,material);spin.add(solid);
     const points=[];
-    for(let j=0;j<profile.length;j++){
+    if(feature){for(let i=0;i<guide.positionsYUpMetres.length;i++)points.push(guide.positionsYUpMetres[i]-offset[i%3]);}
+    else for(let j=0;j<profile.length;j++){
       const [r,z]=profile[j];
       if(j%4===0||j===profile.length-1)for(let i=0;i<72;i++){const a=i/72*Math.PI*2,b=(i+1)/72*Math.PI*2;points.push(r/1000*Math.cos(a),z/1000,r/1000*Math.sin(a),r/1000*Math.cos(b),z/1000,r/1000*Math.sin(b));}
       if(j)for(let i=0;i<12;i++){const a=i/12*Math.PI*2,[r0,z0]=profile[j-1];points.push(r0/1000*Math.cos(a),z0/1000,r0/1000*Math.sin(a),r/1000*Math.cos(a),z/1000,r/1000*Math.sin(a));}
@@ -69,7 +81,7 @@ export async function startMultiple(spec) {
       const stamp=baseP.toFixed(4)+':'+accentP.toFixed(4);if(stamp===lastPaint)return;lastPaint=stamp;
       for(let i=0;i<values.length;i++){
         const v=values[i],b=glazeRevealAt(v.fraction,baseP,timing.surfaceSweepWidth,glazeMotion.direction),a=part.accentEnabled?glazeRevealAt(v.fraction,accentP,timing.surfaceSweepWidth,glazeMotion.direction)*v.coverage*b:0;
-        let c=clay.clone().lerp(v.base,b).lerp(v.accent,a);
+        let c=clay.clone().lerp(feature?base:v.base,b).lerp(v.accent,a);
         if(part.coatings){
           const coat=part.coatings,[first,second]=coatingWeights(coat,v.exterior,v.heightMm,part.dimensionsMm.height,baseP,accentP,timing.surfaceSweepWidth);
           const finish=inRegion(coat.fired.region,v.exterior,v.heightMm)?coat.fired.regionHex:coat.fired.baseHex;
@@ -78,10 +90,11 @@ export async function startMultiple(spec) {
         colours.setXYZ(i,c.r,c.g,c.b);
       }
       colours.needsUpdate=true;material.roughness=.9-.57*baseP;
+      if(feature){material.roughness=.9+(g.roughness-.9)*baseP;material.clearcoat=g.clearcoat*baseP;}
       if(part.coatings)material.roughness=.9+(part.coatings.roughness-.9)*Math.max(baseP,accentP);
     }
     const front=document.querySelector(`[data-part="${part.id}"]`);await front.querySelector('img').decode();
-    return {id:part.id,part,profile,height,main,orbit,tilt,spin,solid,geometry,material,wireMaterial,front,paint,values};
+    return {id:part.id,part,profile,feature,height,main,orbit,tilt,spin,solid,geometry,material,wireMaterial,wireGeometry,front,paint,values};
   }));
   function frontPlacement(v,p){
     const entry=spec.sheets[layoutKey],box=entry.frontBoxes[v.id],rect=image.getBoundingClientRect();
@@ -89,8 +102,10 @@ export async function startMultiple(spec) {
     const sheetW=entry.pagePx[0]*scale,sheetH=entry.pagePx[1]*scale;
     const source={x:rect.left+(rect.width-sheetW)/2+sheetW*box.cx,y:rect.top+(rect.height-sheetH)/2+sheetH*box.cy,w:sheetW*box.width,h:sheetH*box.height};
     let left=Infinity,right=-Infinity,top=Infinity,bottom=-Infinity;
-    for(const [r,z] of v.profile)for(const sign of [-1,1]){
-      const q=new THREE.Vector3(sign*r/1000,z/1000,0).applyMatrix4(v.spin.matrixWorld).project(camera);
+    const projected=[];
+    if(v.feature){const a=v.geometry.attributes.position;for(let i=0;i<a.count;i++)projected.push(new THREE.Vector3().fromBufferAttribute(a,i).applyMatrix4(v.spin.matrixWorld).project(camera));}
+    else for(const [r,z] of v.profile)for(const sign of [-1,1])projected.push(new THREE.Vector3(sign*r/1000,z/1000,0).applyMatrix4(v.spin.matrixWorld).project(camera));
+    for(const q of projected){
       const x=(q.x+1)*innerWidth/2,y=(1-q.y)*innerHeight/2;left=Math.min(left,x);right=Math.max(right,x);top=Math.min(top,y);bottom=Math.max(bottom,y);
     }
     const move=smooth((p-timing.frontMoveStart)/timing.frontMoveDuration);

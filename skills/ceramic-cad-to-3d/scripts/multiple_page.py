@@ -123,12 +123,17 @@ def install(prepared,stage):
     if prepared.get('assemblyCheck'):
         (stage/'assembly-check.json').write_text(json.dumps(prepared['assemblyCheck'],indent=2)+'\n')
     project=ROOT/prepared['project'];review=prepared['review']
+    feature=prepared.get('featureSolids',False)
     for entry in prepared['sheetManifest']['layouts'].values():
-        shutil.copy2(project/'cad'/entry['file'],stage/'assets'/entry['file'])
+        shutil.copy2(project/('geometry' if feature else 'cad')/entry['file'],stage/'assets'/entry['file'])
     from selected_surface import render
     rendered=[]
     for p in prepared['parts']:
         out=stage/'assets'/p['id'];out.mkdir()
+        if feature:
+            from feature_multiple import install_part
+            rendered.append(install_part(project,p,out))
+            continue
         (out/'outer-profile.json').write_text(json.dumps(p['profile'])+'\n')
         (out/'front-view.svg').write_text(p['frontSvg'])
         (out/'material-evidence.json').write_text(json.dumps(p['materialEvidence'],ensure_ascii=False,indent=2)+'\n')
@@ -157,4 +162,7 @@ def install(prepared,stage):
     (stage/'index.html').write_text(document)
     for name in ('model.glb','front-view.svg','outer-profile.json','cad-sheet.png','actual-photo.webp','process-photo.webp'):
         (stage/'assets'/name).unlink(missing_ok=True)
-    return {'mode':'multiple','review':review,'inputsSha256':prepared['inputsSha256'],'scope':'Multiple rotational vessels; provisional materials and scene; visual review pending'}
+    return {'mode':'multiple','review':review,'inputsSha256':prepared['inputsSha256'],
+            **({'generated':[f'assets/{p["id"]}/{name}' for p in prepared['parts'] for name in ('front-view.svg','wire-guide.json','model.glb','material-evidence.json')],
+                'retainedReference':['shared multiple scene, per-part complete CAD solids and BRep guides']} if feature else {}),
+            'scope':'Multiple feature solids; upright assembly candidate; visual adoption pending' if feature else 'Multiple rotational vessels; provisional materials and scene; visual review pending'}

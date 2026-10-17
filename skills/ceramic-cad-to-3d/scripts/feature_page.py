@@ -8,6 +8,9 @@ from handled_page import validate
 
 def prepare(project, review):
     config=json.loads((project/'input/config.json').read_text())
+    if config['compositionMode']=='multiple':
+        from feature_multiple import prepare as multiple
+        return multiple(project,review)
     if config['compositionMode']!='single' or len(config['parts'])!=1 or config['parts'][0].get('shapeKind')!='feature-solid':
         raise ValueError('Feature full-page review currently requires one feature-solid; simultaneous feature pages remain pending')
     part=config['parts'][0]

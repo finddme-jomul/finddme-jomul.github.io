@@ -64,6 +64,6 @@ class FeatureReview(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError,'partId'):feature_page.prepare(project,changed)
                 config['compositionMode']='multiple';config['parts'].append({**part,'id':'second'})
                 path.write_text(json.dumps(config))
-                with self.assertRaisesRegex(ValueError,'one feature-solid'):feature_page.prepare(project,review)
+                with self.assertRaisesRegex(ValueError,'feature-solids renderer'):feature_page.prepare(project,review)
 
 if __name__=='__main__':unittest.main()

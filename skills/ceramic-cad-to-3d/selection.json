@@ -643,7 +643,7 @@
     {
       "id": "feature-axis-motion",
       "state": "implemented-per-part-review-candidate",
-      "rule": "Reuse handled-scene axis/motion renderer for selected feature part; centre actual mesh and BRep guides together, fit camera-space transformed bounds. Single-feature material/page candidates supported; simultaneous assembly pending.",
+      "rule": "Reuse handled-scene axis/motion renderer for selected feature part; centre actual mesh and BRep guides together, fit camera-space transformed bounds. Single/multiple feature page candidates and upright placement are supported through shared renderers.",
       "consumer": [
         "scripts/prepare_feature_motion.py",
         "scripts/motion.py",
@@ -681,7 +681,7 @@
     {
       "id": "feature-single-page",
       "state": "implemented-review-candidate",
-      "rule": "Single explicit feature solid uses shared handled whole-page renderer, reviewed named clay/glaze and photo roles; preserve failed revisions and dependency-driven resume. Multiple feature pages remain unsupported.",
+      "rule": "Single explicit feature solid uses shared handled whole-page renderer, reviewed named clay/glaze and photo roles; preserve failed revisions and dependency-driven resume. Multiple feature pages use their explicit feature-solids review schema.",
       "consumer": [
         "scripts/feature_page.py",
         "scripts/handled_page.py",
@@ -696,6 +696,27 @@
         ],
         "scope": "Shared scheduler recovery and single-feature browser development checks; not visual adoption or release.",
         "browserCheck": "tests/check-handled-page.cjs"
+      }
+    },
+    {
+      "id": "feature-multiple-page",
+      "state": "implemented-review-candidate",
+      "rule": "Homogeneous feature-solid lists use the shared multiple renderer, source BRep guides, explicit single-coat materials and optional upright sequential placement. No instance-count-specific scripts.",
+      "consumer": [
+        "scripts/feature_multiple.py",
+        "scripts/feature_assembly.py",
+        "scripts/multiple_page.py",
+        "assets/multiple-scene.mjs",
+        "scripts/layered_review.py"
+      ],
+      "verification": {
+        "suites": [
+          "feature-assembly",
+          "multiple-page-input",
+          "page-recovery"
+        ],
+        "scope": "CAD sampled collisions and shared review/recovery contracts; separate browser development evidence required. Not continuous collision or visual adoption.",
+        "browserCheck": "tests/check-multiple-page.cjs"
       }
     }
   ],
