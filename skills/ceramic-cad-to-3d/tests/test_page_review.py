@@ -24,7 +24,9 @@ class NewReview(unittest.TestCase):
         with patch.object(page_review,'load_photos',return_value=[{'role':'process'}]):
             page_review.validate(self.review,self.profile,self.dims,self.material)
             with self.assertRaises(ValueError):
-                page_review.validate(self.review,self.profile,{**self.dims,'maxDiameter':self.dims['height']*1.1},self.material)
+                page_review.validate(self.review,self.profile,{**self.dims,'maxDiameter':self.dims['height']*3.01},self.material)
+            for ratio in (1.1,2.5,3):
+                page_review.validate(self.review,self.profile,{**self.dims,'maxDiameter':self.dims['height']*ratio},self.material)
             for field,value in [('roughness',float('nan')),('clearcoat',2),('floorPolicy','selected-visual-sampled'),('imageId','unreviewed')]:
                 r=copy.deepcopy(self.review);r['surface'][field]=value
                 with self.assertRaises(ValueError):page_review.validate(r,self.profile,self.dims,self.material)
