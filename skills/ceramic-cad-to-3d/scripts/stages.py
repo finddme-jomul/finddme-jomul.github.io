@@ -72,6 +72,15 @@ def describe(project, state):
             result['page'].update(status='stale',reason='Withdrawn legacy scene; register page-review --review explicitly')
     if state.get('pageJob',{}).get('status') in ('failed','running'):
         result['page'].update(status=state['pageJob']['status'],reason=state['pageJob'].get('error','Browser gate pending'))
+    if state.get('featureGeometry'):
+        entry=state['featureGeometry']
+        valid=(state['status']=='geometry-ready' and hashes(project/'input')==entry['inputSha256']
+               and hashes(project/'geometry')==entry['filesSha256'])
+        result['geometry']={'status':'complete' if valid else 'stale', 'outputs':['geometry/*'],
+                            'reason':'Feature solid geometry only; CAD sheet/frontBox pending'}
+        result['cad'].update(status='blocked',reason='Feature CAD sheet/frontBox and wire guide pending')
+        for name in ('motion','page'):
+            result[name].update(status='blocked',reason='Feature geometry renderer integration pending')
     return result
 
 

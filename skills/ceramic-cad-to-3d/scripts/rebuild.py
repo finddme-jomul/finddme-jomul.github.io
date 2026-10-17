@@ -20,10 +20,10 @@ def inputs(config_path):
         geometry.append({
             'id': part['id'], 'shapeKind': part.get('shapeKind', 'rotational-profile'),
             'dimensionsKey': part.get('dimensionsKey', 'valuesMm'),
-            'sources': {kind: digest(ROOT / part[kind]) for kind in ('profile', 'dimensions', 'handle') if kind in part}})
+            'sources': {kind: digest(ROOT / part[kind]) for kind in ('profile', 'dimensions', 'handle', 'shape') if kind in part}})
         material.append({'id': part['id'], 'source': digest(ROOT / part['material']),
                          'format': part.get('materialFormat')})
-        for kind in ('profile', 'dimensions', 'handle', 'material'):
+        for kind in ('profile', 'dimensions', 'handle', 'shape', 'material'):
             if kind in normalized:
                 normalized[kind] = kind  # File location alone does not change the rendering.
     return {'geometry': fingerprint(geometry), 'material': fingerprint(material),
