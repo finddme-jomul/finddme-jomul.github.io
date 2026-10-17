@@ -537,17 +537,30 @@
     },
     {
       "id": "wire-spatial-readability",
-      "state": "wire-rotation-overlap-implemented-visual-review-pending",
-      "rule": "The clearly visible CAD-derived wire must convey a volume turning in depth; a spreadsheet-like front grid is insufficient. Preserve accurate geometry and inspect wire/motion overlap and depth cues. Current dense mug is technically verified but not visually accepted.",
+      "state": "user-adopted-handled-wire-entry-and-motion",
+      "rule": "Preserve the user-adopted first handled wire depth and turning volume from page-wire-entry-depth: exact CAD alignment, elevated initial wire view, and sustained wire visibility during rotation. Reject earlier spreadsheet-like entry or early clay occlusion. Preserve accurate geometry; do not apply the mug camera numbers blindly to other shapes.",
       "consumer": [
         "assets/accepted-profile.json",
         "scripts/prepare_handled.py",
         "assets/motion/handled-scene.mjs"
       ],
       "verification": {
-        "suites": [],
+        "suites": [
+          "handled-page-input"
+        ],
         "scope": "Moving wire-dominant interval on desktop/mobile against selected reference; density and later solid rotations are insufficient",
-        "pendingReason": "Wire/motion overlap and elevated first independent wire view are implemented as candidates. Entry and rotating ring projections are browser-checked; user visual adoption remains pending."
+        "browserCheck": "tests/check-handled-page.cjs and scripts/check-motion.cjs: first wire elevation/projected ring area, quarter/half turn wire opacity, CAD handoff and frame bounds. Browser checks run separately; visual acceptance is the recorded user feedback."
+      },
+      "acceptance": {
+        "date": "2026-10-17",
+        "userMessage": "응 이런 느낌이 계속 나왔으면 좋겠어 스킬에 반영된거야?",
+        "reference": ".poc/handled-page-development/page-wire-entry-depth",
+        "scope": "First handled wire depth and volumetric wire rotation; preserve this feel on subsequent generation. Does not approve provisional glaze colour, handle manufacturing dimensions or full skill release.",
+        "referenceSha256": {
+          "handled-scene.mjs": "47f70b64f978e5f30a6c01f9bc9573c577dff0c148ca5ab23a8e3dc3961a6c51",
+          "wire-guide.json": "1f56b24dfe1f3f3efe553c8c0ddf5450caa3730ccd84f8f31cf86c374ce3d8e3",
+          "browser-parity/report.json": "948fcf6d07d55ea691d0aad61489de2c4b69f38cc2cae37ccb537600db9b1210"
+        }
       }
     }
   ],
