@@ -29,7 +29,7 @@ def front_svg(profile, dimensions):
             f'stroke-linejoin="round" stroke-linecap="round"/></svg>\n')
 
 
-def prepare(project):
+def prepare(project, review=None):
     project = Path(project).resolve()
     if not project.is_relative_to(ROOT):
         raise ValueError('CAD project must be in the workspace')
@@ -49,27 +49,35 @@ def prepare(project):
     material = json.loads(files['material'].read_text())
     reference = ASSETS/'selected-page/assets'
     settings = json.loads((reference/'project.json').read_text())
-    if profile != json.loads((reference/'outer-profile.json').read_text()) or dims != settings['dimensionsMm']:
-        raise ValueError('CERAMIC_SELECTED_CAD_PENDING: changed geometry needs the selected sheet/model generation bridge; refusing to pair it with reference assets')
-    if part['materialFormat'] != 'single' or material['clay']['wetPreviewHex'] != settings['clayColor'] or material['glaze']['firedAppearancePreviewHex'] != settings['finishColor']:
-        raise ValueError('CERAMIC_SELECTED_CAD_PENDING: changed material needs the selected surface generation bridge')
-    expected_material = json.loads((ASSETS/'selected-page.json').read_text())['cadBridgeMaterial']
-    if any(material[group].get(key) != value for group, fields in expected_material.items() for key, value in fields.items()):
-        raise ValueError('CERAMIC_SELECTED_CAD_PENDING: changed material labels/finish cannot use the retained sheet/model')
-    # Retained sheet labels include forming sizes and provisional-source notes.
-    expected_inputs = json.loads((ASSETS/'selected-page.json').read_text())['cadBridgeInputSha256']
-    if any(sha(files[key]) != value for key, value in expected_inputs.items()):
-        raise ValueError('CERAMIC_SELECTED_CAD_PENDING: changed dimension/material record cannot use the retained reference sheet')
+    if review is None:
+        if profile != json.loads((reference/'outer-profile.json').read_text()) or dims != settings['dimensionsMm']:
+            raise ValueError('CERAMIC_SELECTED_CAD_PENDING: changed geometry needs the selected sheet/model generation bridge; refusing to pair it with reference assets')
+        if part['materialFormat'] != 'single' or material['clay']['wetPreviewHex'] != settings['clayColor'] or material['glaze']['firedAppearancePreviewHex'] != settings['finishColor']:
+            raise ValueError('CERAMIC_SELECTED_CAD_PENDING: changed material needs the selected surface generation bridge')
+        expected_material = json.loads((ASSETS/'selected-page.json').read_text())['cadBridgeMaterial']
+        if any(material[group].get(key) != value for group, fields in expected_material.items() for key, value in fields.items()):
+            raise ValueError('CERAMIC_SELECTED_CAD_PENDING: changed material labels/finish cannot use the retained sheet/model')
+        # Retained sheet labels include forming sizes and provisional-source notes.
+        expected_inputs = json.loads((ASSETS/'selected-page.json').read_text())['cadBridgeInputSha256']
+        if any(sha(files[key]) != value for key, value in expected_inputs.items()):
+            raise ValueError('CERAMIC_SELECTED_CAD_PENDING: changed dimension/material record cannot use the retained reference sheet')
+    else:
+        from page_review import validate
+        validate(review, profile, dims, material)
+        files['photoInput']=(ROOT/review['photos']).resolve()
+        from photos import load_photos
+        for index, photo in enumerate(load_photos(files['photoInput'])):
+            files['photo'+str(index)]=(ROOT/photo['source']).resolve()
     # Also check actual CAD and solid outputs, not just the input shape.
     from project import verify
     verify(project, json.loads((project/'pipeline-state.json').read_text()))
     svg = front_svg(profile, dims)
-    if svg != (reference/'front-view.svg').read_text():
+    if review is None and svg != (reference/'front-view.svg').read_text():
         raise ValueError('Selected CAD front extraction differs from the reference')
     return {'project': str(project.relative_to(ROOT)), 'part': part['id'],
             'inputsSha256': {str(p.relative_to(ROOT)): sha(p) for p in files.values()},
             'profile': profile, 'frontSvg': svg,
-            'calculation': json.loads(files['dimensions'].read_text()), 'material': material}
+            'calculation': {**json.loads(files['dimensions'].read_text()), 'targetFiredMm':dims}, 'material': material, 'review':review, 'name':config['name']}
 
 
 def verify_inputs(prepared):
@@ -84,13 +92,16 @@ def install(prepared, stage):
     (stage/'assets/outer-profile.json').write_text(json.dumps(prepared['profile'])+'\n')
     (stage/'assets/front-view.svg').write_text(prepared['frontSvg'])
     from selected_sheet import render
-    front_box = render(prepared['profile'], prepared['calculation'], prepared['material'], stage/'assets')
+    front_box = render(prepared['profile'], prepared['calculation'], prepared['material'], stage/'assets', adapt=prepared['review'] is not None)
     config_path = stage/'assets/project.json'
     config = json.loads(config_path.read_text())
-    if front_box != config['sheetFrontBox']:
+    if prepared['review'] is None and front_box != config['sheetFrontBox']:
         raise ValueError('Generated sheet front placement differs from the selected scene')
+    if prepared['review'] is not None:
+        from page_review import configure
+        configure(prepared,stage,config,front_box)
     from selected_surface import render as render_surface
-    render_surface(prepared['profile'], prepared['calculation']['targetFiredMm'], prepared['material'], stage/'surface-generation')
+    render_surface(prepared['profile'], prepared['calculation']['targetFiredMm'], prepared['material'], stage/'surface-generation', surface=prepared['review']['surface'] if prepared['review'] is not None else None)
     import shutil
     shutil.copy2(stage/'surface-generation/model.glb', stage/'assets/model.glb')
     return {k: v for k, v in prepared.items() if k not in ('profile', 'frontSvg', 'calculation', 'material')}
