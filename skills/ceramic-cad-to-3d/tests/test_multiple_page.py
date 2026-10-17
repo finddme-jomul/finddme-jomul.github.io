@@ -35,4 +35,19 @@ class MultipleReview(unittest.TestCase):
         changed=copy.deepcopy(part);g=changed['glazePreview'];g['baseName'],g['accentName']=g['accentName'],g['baseName']
         with self.assertRaises(ValueError):verify_layers(material,changed,'rice-bowl')
 
+    def test_arbitrary_review_count_preserves_all_ids_and_order(self):
+        for count in (3,5,8):
+            review=copy.deepcopy(self.review)
+            review['parts']=[copy.deepcopy(self.review['parts'][0]) for _ in range(count)]
+            ids=[f'vessel-{i}' for i in range(count)]
+            for i,part in enumerate(review['parts']):
+                part['id']=ids[i]
+                for screen in ('Desktop','Mobile'):
+                    part['motion']['finalX'+screen]=(i-(count-1)/2)*.2
+            with patch('multiple_page.load_photos',return_value=[]):
+                validate(review,ids)
+                bad=copy.deepcopy(review);bad['parts'][-1]['motion']['finalXDesktop']=-1
+                with self.assertRaises(ValueError):validate(bad,ids)
+                with self.assertRaises(ValueError):validate(review,ids[:-1])
+
 if __name__=='__main__':unittest.main()

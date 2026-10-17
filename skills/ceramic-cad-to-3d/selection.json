@@ -300,7 +300,7 @@
         "suites": [
           "runtime"
         ],
-        "scope": "Six regenerated single/multiple SVGs equal selected baselines; CAD contract verification"
+        "scope": "Six regenerated single/multiple SVGs equal selected baselines; CAD contract verification; list-driven 3/5-part CAD and solids, all part frontBoxes and no-op resume, five-part pending intake; selected 1/2 layouts unchanged"
       }
     },
     {

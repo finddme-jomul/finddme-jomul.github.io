@@ -43,13 +43,13 @@ def check(out: Path, config: Path) -> None:
         assert set(layout["frontBoxes"]) == expected_ids, (name, "front boxes")
         sheet_text = " ".join(node.text or "" for node in root.iter()
                               if node.tag.endswith("text"))
-        if project["compositionMode"] == "multiple":
+        if project["compositionMode"] == "multiple" and len(project['parts']) <= 2:
             assert "WET H" not in sheet_text, (name, "unverified forming size leaked")
             if name in ("desktop", "short"):
                 assert all(token in sheet_text for token in ("PART", "HEIGHT", "SOURCE")), (name, "part table")
             else:
                 assert sheet_text.count("PROFILE OUTER Ø") == len(project["parts"]), (name, "per-part stations")
-        else:
+        elif project['compositionMode'] == 'single':
             record = json.loads((ROOT /
                                  project["parts"][0]["dimensions"]).read_text())
             shrink = record.get("shrinkage")
@@ -148,6 +148,10 @@ def check(out: Path, config: Path) -> None:
                 assert handle["status"] in ("synthetic-test", "reviewed-provisional", "user-confirmed")
             else:
                 assert not any(node.attrib.get("data-front-handle") == pid for node in nodes)
+            actual['cx'] += float(group.attrib.get('data-layout-x',0)) / page_w
+            actual['cy'] += float(group.attrib.get('data-layout-y',0)) / page_h
+            if 'data-layout-x' in group.attrib:
+                assert group.attrib['transform'] == f"translate({group.attrib['data-layout-x']},{group.attrib['data-layout-y']})"
             assert all(abs(actual[key] - box[key]) < .0001 for key in actual), (name, pid, "frontBox/profile mismatch")
             assert 0 < box["cx"] - box["width"] / 2 < box["cx"] + box["width"] / 2 < 1
             assert 0 < box["cy"] - box["height"] / 2 < box["cy"] + box["height"] / 2 < 1

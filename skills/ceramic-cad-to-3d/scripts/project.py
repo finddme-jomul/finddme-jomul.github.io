@@ -82,8 +82,8 @@ def copy_image(path: Path, into: Path, label: str) -> str:
 def import_config(project: Path, source: Path) -> None:
     data = json.loads(source.expanduser().resolve(strict=True).read_text())
     parts = data.get('parts')
-    if data.get('style') != 'technical-dense' or not isinstance(parts, list) or len(parts) not in (1, 2):
-        raise ValueError('Only technical-dense one/two-part CAD is supported')
+    if data.get('style') != 'technical-dense' or not isinstance(parts, list) or not parts:
+        raise ValueError('Technical-dense CAD requires a nonempty parts list')
     if data.get('compositionMode') != ('single' if len(parts) == 1 else 'multiple'):
         raise ValueError('compositionMode does not match parts')
     if len({p.get('id') for p in parts}) != len(parts):
@@ -133,7 +133,7 @@ def build(project: Path, state: dict) -> None:
     config = project / 'input/config.json'
     if not config.is_file():
         state['status'] = 'awaiting-cad-specification'
-        state['nextInput'] = 'Provide a reviewed technical-dense config with one or two parts and source JSON files.'
+        state['nextInput'] = 'Provide a reviewed technical-dense config with a nonempty parts list and source JSON files.'
         save(project / 'pipeline-state.json', state)
         return
     subprocess.run([sys.executable, str(SCRIPTS / 'preflight.py')], cwd=ROOT, check=True)

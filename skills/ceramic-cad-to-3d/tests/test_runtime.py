@@ -321,5 +321,61 @@ class PortableRuntime(unittest.TestCase):
             self.assertEqual('failed',json.loads(self.run_cli('status',pid))['stages']['page']['status'])
             self.assertIn('stale',self.run_cli('verify',pid,ok=False))
 
+    def test_13_part_count_changes_use_existing_cli_and_preserve_all_parts(self):
+        template=json.loads(self.configs['single'].read_text())['parts'][0]
+        config=self.workspace/'many-parts.json'
+        project=self.project('83-count-generalization')
+        for count in (3,5):
+            data={'name':'Synthetic count regression','style':'technical-dense',
+                  'compositionMode':'multiple','parts':[
+                      {**template,'id':f'part-{i}','name':f'Part {i}'} for i in range(count)]}
+            config.write_text(json.dumps(data))
+            if count==3:
+                self.run_cli('new',project.name,'--sketch',self.sketch,'--config',config)
+            else:
+                self.run_cli('revise',project.name,'--feedback','Add input parts without changing generator','--config',config)
+            self.run_cli('verify',project.name)
+            manifest=json.loads((project/'cad/manifest.json').read_text())
+            solids=json.loads((project/'cad/solid/manifest.json').read_text())
+            ids={p['id'] for p in data['parts']}
+            self.assertEqual(ids,{p['id'] for p in solids['parts']})
+            self.assertTrue(all(p['stepRoundTrip'] for p in solids['parts']))
+            for layout in manifest['layouts'].values():
+                self.assertEqual(ids,set(layout['frontBoxes']))
+                boxes=list(layout['frontBoxes'].values())
+                for i,a in enumerate(boxes):
+                    for b in boxes[i+1:]:
+                        self.assertTrue(abs(a['cx']-b['cx'])>=(a['width']+b['width'])/2 or
+                                        abs(a['cy']-b['cy'])>=(a['height']+b['height'])/2)
+            before={p.relative_to(project/'cad').as_posix():sha(p) for p in (project/'cad').rglob('*') if p.is_file()}
+            self.run_cli('resume',project.name)
+            self.assertEqual(before,{p.relative_to(project/'cad').as_posix():sha(p) for p in (project/'cad').rglob('*') if p.is_file()})
+            # A stale two-part review must not silently drop newly added CAD parts.
+            sys.path.insert(0,str(self.skill/'scripts'))
+            from multiple_page import validate
+            review=json.loads((self.skill/'tests/fixtures/multiple/scene.json').read_text())
+            with self.assertRaises(ValueError):validate(review,[p['id'] for p in data['parts']])
+
+    def test_14_multi_part_intake_keeps_questions_per_part(self):
+        fixture=self.skill/'tests/fixtures/single'
+        parts=[]
+        for i in range(5):
+            pid=f'input-{i}'
+            extraction=json.loads((fixture/'p1.json').read_text())
+            extraction['project']=pid
+            extraction['source'].update({'path':str(self.sketch),'sha256':sha(self.sketch)})
+            path=self.workspace/f'{pid}-p1.json';path.write_text(json.dumps(extraction))
+            parts.append({'id':pid,'name':f'Input {i}','extraction':str(path),
+                          'profile':str(fixture/'moon-jar-profile.json')})
+        intake=self.workspace/'many-intake.json'
+        intake.write_text(json.dumps({'schemaVersion':1,'name':'Five pending inputs','parts':parts}))
+        self.assertIn('AWAITING_SKETCH_ANSWERS',self.run_cli('new','84-many-intake','--sketch',self.sketch,'--intake',intake))
+        project=self.project('84-many-intake')
+        self.run_cli('verify',project.name)
+        for p in parts:
+            state=json.loads((project/'intake'/p['id']/'p1-state.json').read_text())
+            self.assertEqual(p['id'],state['project'])
+        self.assertFalse((project/'cad').exists())
+
 if __name__=='__main__':
     unittest.main()
