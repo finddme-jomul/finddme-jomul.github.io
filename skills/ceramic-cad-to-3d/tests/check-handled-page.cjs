@@ -47,6 +47,7 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
     if(step===2){assert(state.lineOpacity>.8);assert((feature?state.wireDepthRange>.001:state.projectedRingArea>.001)&&state.cameraElevationDegrees>10,'First independent wire view must already read as a volume');}
     if(step===3||step===4){assert(state.lineOpacity>.99&&state.clayOpacity===0,'Pure wire must survive quarter and half turns');assert(state.axisTiltDegrees>5);assert(state.axisPrecessionDegrees>80&&state.bodySpinDegrees>90);}
     if(step===3&&!feature)assert(state.projectedRingArea>.001,'Turning CAD ring must project as a curved ellipse, not an edge-on line');
+    if(step===10){const expected=await page.evaluate(()=>window.__mugMotion.pageConfig.motion.surfaceElevationDegrees??0);assert(Math.abs(state.cameraElevationDegrees-expected)<.01,'Reviewed surface camera elevation');}
     if(step===6){assert.equal(state.coat,0);assert(Math.abs(state.body-state.expectedBody)<.02);}
     if(step===8){assert(state.coat>.5&&state.coat<1);assert(state.uncoated>0&&state.uncoated<state.vertices);assert(state.body>state.expectedBody&&state.axis>state.expectedAxis);}
     if(step===8){

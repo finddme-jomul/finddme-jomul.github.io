@@ -269,3 +269,7 @@ and adjust overall scroll budget for larger compositions. The reference heights
 65/100/135mm are specimen-specific, not global defaults. Previously explicit
 reviews without a preset retain their existing behavior; do not use their older
 motion as the default when creating a new review.
+
+### Single solid page surface camera
+
+Single handled/feature page reviews optionally accept `motion.surfaceElevationDegrees` (finite 0–35, default 0). The camera transitions to this elevation as clay appears and retains it through glazing, making a reviewed hollow opening visible. It does not change the adopted wire entry view. Existing omitted-value reviews retain the original front-facing finish. Inspect desktop/mobile framing and the opening; 22° is the hollow development fixture value, not a universal adopted default.

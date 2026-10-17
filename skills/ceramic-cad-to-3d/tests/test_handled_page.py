@@ -31,6 +31,11 @@ class HandledReview(unittest.TestCase):
                 'surface':{'clayName':'잡토','glazeName':'하늘보리 유약','clayHex':'#d7d2ca','glazeHex':'#b9d5d9','roughness':.33,'clearcoat':.08,'provenance':'provisional colour'},'photos':'photos.json'}
         with patch('handled_page.load_photos',return_value=[]):
             validate(review,material)
+            elevated=copy.deepcopy(review);elevated['motion']['surfaceElevationDegrees']=22
+            validate(elevated,material)
+            for value in (-1,36,True,float('nan')):
+                elevated['motion']['surfaceElevationDegrees']=value
+                with self.assertRaises(ValueError):validate(elevated,material)
             for field,value in [('glazeName','wrong'),('glazeHex','red'),('roughness',float('nan')),('clearcoat',True),('provenance','')]:
                 changed=copy.deepcopy(review);changed['surface'][field]=value
                 with self.subTest(field=field),self.assertRaises(ValueError):validate(changed,material)
