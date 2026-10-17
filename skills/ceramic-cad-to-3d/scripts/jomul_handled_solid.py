@@ -98,8 +98,10 @@ def make_solid(profile: list, dims: dict, handle: dict) -> tuple[Solid, dict]:
                    'joinedSolidCount': len(fused.solids())}
 
 
-def make_rotational_solid(profile: list, dims: dict) -> tuple[Solid, dict]:
+def make_rotational_solid(profile: list, dims: dict, *, floor_policy="exact") -> tuple[Solid, dict]:
     """Revolve the reviewed polyline; radial wall offset is a preview model."""
+    if floor_policy not in ('exact', 'selected-visual-sampled'):
+        raise ValueError('Unknown rotational floor policy')
     required = ('height', 'maxDiameter', 'openingDiameter', 'footDiameter',
                 'wallThickness', 'baseThickness')
     if any(isinstance(dims.get(k), bool) or not isinstance(dims.get(k), (int, float))
@@ -121,8 +123,13 @@ def make_rotational_solid(profile: list, dims: dict) -> tuple[Solid, dict]:
     floor_radius = a[0] + (b[0]-a[0])*(floor-a[1])/(b[1]-a[1]) - wall
     outer = [(r,0,z) for r,z in profile]
     inner = [(r-wall,0,z) for r,z in reversed(profile) if z > floor]
-    section = Face(Wire.make_polygon([(0,0,0)] + outer + inner +
-                                    [(floor_radius,0,floor),(0,0,floor)], close=True))
+    end = [(floor_radius,0,floor),(0,0,floor)]
+    if floor_policy == 'selected-visual-sampled':
+        # Exact user-selected visual source: first sampled inner ring at/above
+        # the nominal floor connects to the centre. Never the default CAD solid.
+        inner = [(r-wall,0,z) for r,z in reversed(profile) if z >= floor]
+        end = [(0,0,floor)]
+    section = Face(Wire.make_polygon([(0,0,0)] + outer + inner + end, close=True))
     solid = Solid.revolve(section, 360, Axis.Z)
     if not solid.is_valid or len(solid.solids()) != 1 or solid.volume <= 0:
         raise ValueError('Rotational profile did not produce one valid hollow solid')

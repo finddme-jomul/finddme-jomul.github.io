@@ -7,6 +7,18 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'scripts'))
 from jomul_handled_solid import make_rotational_solid
 
 class RotationalSolid(unittest.TestCase):
+    def test_selected_visual_floor_does_not_replace_default_cad(self):
+        dims=dict(height=100,maxDiameter=80,openingDiameter=80,footDiameter=80,
+                  wallThickness=4,baseThickness=7)
+        profile=[[40,0],[40,20],[40,100]]
+        exact,_=make_rotational_solid(profile,dims)
+        visual,_=make_rotational_solid(profile,dims,floor_policy='selected-visual-sampled')
+        self.assertFalse(exact.is_inside((30,0,10)))
+        self.assertTrue(visual.is_inside((30,0,10)))
+        self.assertGreater(visual.volume,exact.volume)
+        with self.assertRaises(ValueError):
+            make_rotational_solid(profile,dims,floor_policy='unknown')
+
     def test_open_cavity_and_exact_unsampled_floor(self):
         dims=dict(height=100,maxDiameter=80,openingDiameter=80,footDiameter=80,
                   wallThickness=4,baseThickness=7)

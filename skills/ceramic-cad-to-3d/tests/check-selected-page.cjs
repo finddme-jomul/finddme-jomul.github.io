@@ -41,5 +41,5 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
    console.log('SELECTED_PAGE_PARITY_OK',layout);
   }
  }finally{await browser.close();}
- fs.writeFileSync(path.join(CERAMIC_REPORT,'report.json'),JSON.stringify({status:'passed',scope:'selected-whole-page-input-replay-not-new-CAD',comparisons},null,2)+'\n');
+ fs.writeFileSync(path.join(CERAMIC_REPORT,'report.json'),JSON.stringify({status:'passed',scope:process.env.CERAMIC_SCOPE||'selected-whole-page-input-replay-not-new-CAD',comparisons},null,2)+'\n');
 })().catch(e=>{console.error(e);process.exit(1)});

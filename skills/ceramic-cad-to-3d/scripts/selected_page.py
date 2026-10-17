@@ -31,21 +31,22 @@ def restore(output, cad_project=None):
         run_browser('tests/check-selected-page.cjs',{
             'CERAMIC_BASELINE':'http://127.0.0.1:5173/@fs/ceramic-skill/assets/selected-page/index.html',
             'CERAMIC_CANDIDATE':'http://127.0.0.1:5173/'+stage.relative_to(ROOT).as_posix()+'/index.html',
+            'CERAMIC_SCOPE':'selected-CAD-and-surface-regeneration' if prepared is not None else 'selected-input-replay',
             'CERAMIC_REPORT':'/workspace/'+report_dir.relative_to(ROOT).as_posix()})
         report=json.loads((report_dir/'report.json').read_text())
         if report['status']!='passed' or len(report['comparisons'])!=48: raise ValueError('Incomplete whole-page parity evidence')
         shutil.copytree(report_dir,stage/'browser-parity')
         for name,expected in manifest['files'].items():
             if sha(stage/name)!=expected: raise ValueError('Restored output drift: '+name)
-        (stage/'restoration.json').write_text(json.dumps({'status':'selected-input-replay-verified','newCadGeneration':False,'reference':manifest,'browserReportSha256':sha(stage/'browser-parity/report.json')},ensure_ascii=False,indent=2)+'\n')
+        (stage/'restoration.json').write_text(json.dumps({'status':'selected-cad-regeneration-verified' if prepared is not None else 'selected-input-replay-verified','newCadGeneration':prepared is not None,'reference':manifest,'browserReportSha256':sha(stage/'browser-parity/report.json')},ensure_ascii=False,indent=2)+'\n')
         if prepared is not None:
             from selected_cad import verify_inputs
             verify_inputs(prepared)
             (stage/'cad-bridge.json').write_text(json.dumps({
-                'status':'cad-sheet-front-wire-verified', 'newCadGeneration':False,
-                'generated':['assets/front-view.svg','assets/outer-profile.json','assets/cad-sheet.png','assets/cad-sheet.pdf'],
-                'retainedReference':['surface model/material','motion','photos'],
-                'scope':'Compatible selected geometry only; surface model regeneration remains pending',
+                'status':'selected-cad-surface-verified', 'newCadGeneration':True,
+                'generated':['assets/front-view.svg','assets/outer-profile.json','assets/cad-sheet.png','assets/cad-sheet.pdf','assets/model.glb'],
+                'retainedReference':['motion','photos'],
+                'scope':'Compatible selected moon inputs only; visual sampled-floor model, not the exact-floor CAD solid; general inputs pending',
                 **cad_inputs}, ensure_ascii=False, indent=2)+'\n')
         stage.rename(output)
     finally:
@@ -56,6 +57,6 @@ def restore(output, cad_project=None):
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--output',type=Path,required=True)
-    parser.add_argument('--cad-project',type=Path,help='Verify and regenerate compatible CAD front/wire inputs; surface model remains a reference asset')
+    parser.add_argument('--cad-project',type=Path,help='Regenerate compatible selected CAD sheet/front/wire/surface; requires the pinned local Blender image')
     args=parser.parse_args()
     restore(args.output.expanduser().resolve(), args.cad_project)

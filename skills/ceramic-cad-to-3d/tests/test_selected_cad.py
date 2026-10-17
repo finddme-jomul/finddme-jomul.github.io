@@ -73,6 +73,7 @@ class SelectedCAD(unittest.TestCase):
                 bridge.install(prepared,stage)
                 self.assertEqual((stage/'assets/front-view.svg').read_text(),self.expected)
                 self.assertEqual((stage/'assets/cad-sheet.png').read_bytes(),(bridge.ASSETS/'selected-page/assets/cad-sheet.png').read_bytes())
+                self.assertEqual((stage/'assets/model.glb').read_bytes(),(bridge.ASSETS/'selected-page/assets/model.glb').read_bytes())
                 dimension_file=inputs/'moon-jar-dimensions.json'
                 dimensions=json.loads(dimension_file.read_text())
                 dimensions['shrinkage']['totalPercent']=10
