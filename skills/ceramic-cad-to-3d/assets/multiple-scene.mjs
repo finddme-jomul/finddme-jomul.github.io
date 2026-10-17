@@ -11,7 +11,7 @@ import {fitComposition} from './scene/composition-framing.mjs';
 import {backgroundAt} from './scene/background-transition.mjs';
 import {installGallery} from './gallery.js';
 import {galleryProfile} from './gallery-config.js';
-import {exteriorAt,inRegion,coatingWeights,assemblyPosition} from './scene/layered-vessels.mjs';
+import {exteriorAt,inRegion,coatingWeights,assemblyPosition,featureCoatingBands} from './scene/layered-vessels.mjs';
 
 export async function startMultiple(spec) {
   const host=document.querySelector('#viewer'),story=document.querySelector('#story');
@@ -43,16 +43,23 @@ export async function startMultiple(spec) {
     if(feature&&guide.sourceStepSha256!==part.sourceStepSha256)throw Error('Feature guide source mismatch');
     const profile=feature?null:await fetch(`./assets/${part.id}/outer-profile.json`).then(r=>{if(!r.ok)throw Error('Profile failed');return r.json()});
     const gltf=await new GLTFLoader().loadAsync(`./assets/${part.id}/model.glb`);
+    const regions=part.surfaceRegions?await fetch(`./assets/${part.id}/${part.surfaceRegions.file}`).then(r=>r.json()):null;
+    if(regions&&regions.sourceGlbSha256!==part.surfaceRegions.sourceGlbSha256)throw Error('Feature surface source mismatch');
     const meshes=[];gltf.scene.traverse(n=>{if(n.isMesh)meshes.push(n)});
     if(!meshes.length||!feature&&meshes.length!==1)throw Error('Missing complete mesh');
     gltf.scene.updateMatrixWorld(true);
-    let geometry;
+    let geometry;let exteriorFlags=[];
+    if(regions&&regions.primitiveExterior.length!==meshes.length)throw Error('Feature surface primitive mismatch');
     const offset=feature?[(part.boundsMm.minX+part.boundsMm.maxX)/2000,part.boundsMm.minZ/1000,-(part.boundsMm.minY+part.boundsMm.maxY)/2000]:[0,0,0];
     if(feature){
-      const pieces=meshes.map(m=>{let g=m.geometry.clone().applyMatrix4(m.matrixWorld);if(g.index)g=g.toNonIndexed();for(const k of Object.keys(g.attributes))if(!['position','normal'].includes(k))g.deleteAttribute(k);if(!g.attributes.normal)g.computeVertexNormals();return g;});
+      const pieces=meshes.map((m,index)=>{let g=m.geometry.clone().applyMatrix4(m.matrixWorld);if(g.index)g=g.toNonIndexed();for(let i=0;i<g.attributes.position.count;i++)exteriorFlags.push(regions?regions.primitiveExterior[index]:false);for(const k of Object.keys(g.attributes))if(!['position','normal'].includes(k))g.deleteAttribute(k);if(!g.attributes.normal)g.computeVertexNormals();return g;});
       geometry=mergeGeometries(pieces);if(!geometry)throw Error('Feature mesh merge failed');
       geometry.translate(-offset[0],-offset[1],-offset[2]);
     }else{const original=meshes[0];original.updateWorldMatrix(true,false);geometry=original.geometry.clone().applyMatrix4(original.matrixWorld);}
+    if(feature&&part.coatings){
+      const refined=featureCoatingBands(geometry.attributes.position.array,geometry.attributes.normal.array,exteriorFlags,part.dimensionsMm.height/1000);
+      geometry.dispose();geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(refined.positions,3));geometry.setAttribute('normal',new THREE.Float32BufferAttribute(refined.normals,3));exteriorFlags=refined.exterior;
+    }
     geometry.computeBoundingBox();
     const height=part.dimensionsMm.height/1000;
     if(Math.abs(geometry.boundingBox.max.y-geometry.boundingBox.min.y-height)>.001)throw Error('CAD/model height drift');
@@ -62,7 +69,7 @@ export async function startMultiple(spec) {
     const positions=geometry.attributes.position,values=[];
     for(let i=0;i<positions.count;i++){
       const fraction=clamp(positions.getY(i)/height),angle=Math.atan2(positions.getZ(i),positions.getX(i));
-      values.push({fraction,heightMm:positions.getY(i)*1000,exterior:feature?false:exteriorAt(profile,Math.hypot(positions.getX(i),positions.getZ(i))*1000,positions.getY(i)*1000),coverage:sprayCoverage(angle,fraction,part.accentCenterAngle,part.accentWidthScale),base:base.clone().lerp(warm,.2+.09*Math.sin(angle*5+fraction*12)),accent:accent.clone().lerp(accentWarm,g.accentWarmMix||0)});
+      values.push({fraction,heightMm:positions.getY(i)*1000,exterior:feature?exteriorFlags[i]:exteriorAt(profile,Math.hypot(positions.getX(i),positions.getZ(i))*1000,positions.getY(i)*1000),coverage:sprayCoverage(angle,fraction,part.accentCenterAngle,part.accentWidthScale),base:base.clone().lerp(warm,.2+.09*Math.sin(angle*5+fraction*12)),accent:accent.clone().lerp(accentWarm,g.accentWarmMix||0)});
     }
     const colours=new THREE.BufferAttribute(new Float32Array(positions.count*3),3);geometry.setAttribute('color',colours);
     const material=new (feature?THREE.MeshPhysicalMaterial:THREE.MeshStandardMaterial)({vertexColors:true,roughness:.9,side:THREE.DoubleSide,transparent:true,opacity:0});

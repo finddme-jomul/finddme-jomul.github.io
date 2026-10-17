@@ -12,7 +12,7 @@ from selected_cad import front_svg, verify_inputs
 def validate(review, ids):
     from page import validate as validate_scene
     validate_scene(review, ids)
-    if len(ids) < (1 if review.get('renderer') == 'layered-vessels' else 2) or len(set(ids)) != len(ids):
+    if len(ids) < (1 if review.get('renderer') == 'layered-vessels' or review.get('renderer')=='feature-solids' and all('coatings' in p for p in review['parts']) else 2) or len(set(ids)) != len(ids):
         raise ValueError('Multiple review requires at least two distinct CAD parts')
     def finite(value):
         if isinstance(value, (int, float)) and not math.isfinite(value):
@@ -22,7 +22,7 @@ def validate(review, ids):
         if isinstance(value, list):
             for item in value: finite(item)
     finite(review)
-    if review.get('renderer') == 'layered-vessels':
+    if review.get('renderer') == 'layered-vessels' or any('coatings' in p for p in review['parts']):
         if any('coatings' not in p for p in review['parts']):
             raise ValueError('Layered vessel mode requires explicit coatings for every part')
         t=review['motion']['timing']
@@ -165,6 +165,6 @@ def install(prepared,stage):
     for name in ('model.glb','front-view.svg','outer-profile.json','cad-sheet.png','actual-photo.webp','process-photo.webp'):
         (stage/'assets'/name).unlink(missing_ok=True)
     return {'mode':'multiple','review':review,'inputsSha256':prepared['inputsSha256'],
-            **({'generated':[f'assets/{p["id"]}/{name}' for p in prepared['parts'] for name in ('front-view.svg','wire-guide.json','model.glb','material-evidence.json')],
+            **({'generated':[f'assets/{p["id"]}/{name}' for p in prepared['parts'] for name in (('front-view.svg','wire-guide.json','model.glb','material-evidence.json','surface-regions.json') if 'coatings' in p['appearance'] else ('front-view.svg','wire-guide.json','model.glb','material-evidence.json'))],
                 'retainedReference':['shared multiple scene, per-part complete CAD solids and BRep guides']} if feature else {}),
             'scope':'Multiple feature solids; upright assembly candidate; visual adoption pending' if feature else 'Multiple rotational vessels; provisional materials and scene; visual review pending'}
