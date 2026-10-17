@@ -1,0 +1,21 @@
+import assert from 'node:assert/strict';
+import {exteriorAt,inRegion,coatingWeights,assemblyPosition} from '../assets/scene/layered-vessels.mjs';
+const profile=[[40,0],[40,10],[60,30],[90,55]];
+assert(exteriorAt(profile,50,20));
+assert(!exteriorAt(profile,49,20)); // 1 mm interior must stay distinct.
+const region={surface:'exterior',minHeightMm:10,maxHeightMm:40};
+assert(inRegion(region,true,30));assert(!inRegion(region,false,30));assert(!inRegion(region,true,45));
+const black={region},clear={region:{surface:'all'}};
+assert.deepEqual(coatingWeights({layers:[clear,black]},true,0,55,0,0,.04),[0,0]);
+assert.deepEqual(coatingWeights({layers:[black,clear]},false,30,55,1,0,.04),[0,0]);
+assert.deepEqual(coatingWeights({layers:[black,clear]},false,30,55,1,1,.04),[0,1]);
+assert.deepEqual(coatingWeights({layers:[clear,black]},false,30,55,1,1,.04),[1,0]);
+assert.deepEqual(coatingWeights({layers:[black,clear]},true,30,55,1,1,.04),[1,1]);
+const step={start:.2,duration:.6,targetPositionMm:[0,11.5,0],liftMm:100};
+const origin=[.23,0,0];
+assert.deepEqual(assemblyPosition(origin,step,0),origin);
+assert(Math.abs(assemblyPosition(origin,step,1)[1]-.0115)<1e-12);
+assert(assemblyPosition(origin,step,.5)[1]>.1);
+const first=assemblyPosition(origin,step,.4);assemblyPosition(origin,step,1);
+assert.deepEqual(assemblyPosition(origin,step,.4),first);
+console.log('LAYERED_REGIONS_AND_REVERSIBLE_ASSEMBLY_OK');

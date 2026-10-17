@@ -8,6 +8,29 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from multiple_page import validate, verify_layers
 
 class MultipleReview(unittest.TestCase):
+    def test_layered_regions_preserve_source_order_and_exterior_scope(self):
+        from layered_review import coatings, assembly
+        region={'surface':'exterior','minHeightMm':10,'maxHeightMm':40}
+        spec={'status':'reviewed-provisional','provenance':'synthetic test',
+              'layers':[{'name':'black','region':region,'previewHex':'#222222'},
+                        {'name':'clear','region':{'surface':'all'},'previewHex':'#eeeeee'}],
+              'fired':{'region':region,'baseHex':'#eeeeee','regionHex':'#888888'},'roughness':.7}
+        evidence=[{'name':'black','application':'exterior-below-dashed-boundary'},
+                  {'name':'clear','application':'full-coat'}]
+        coatings(spec,evidence,{'height':55})
+        for edit in ('inside','order','height'):
+            bad=copy.deepcopy(spec)
+            if edit=='inside':bad['layers'][0]['region']={'surface':'all'}
+            if edit=='order':bad['layers'].reverse()
+            if edit=='height':bad['fired']['region']['maxHeightMm']=60
+            with self.subTest(edit=edit),self.assertRaises(ValueError):coatings(bad,evidence,{'height':55})
+        plan={'status':'reviewed-provisional','provenance':'synthetic test','start':.75,'duration':.15,
+              'steps':[{'partId':'a','start':0,'duration':1,'targetPositionMm':[0,11.5,0],'liftMm':100}]}
+        timing={'accentGlazeStart':.58,'accentGlazeDuration':.12,'photoStart':.97}
+        assembly(plan,[{'id':'a','motion':{'settledScale':1}}],timing)
+        bad=copy.deepcopy(plan);bad['start']=.6
+        with self.assertRaises(ValueError):assembly(bad,[{'id':'a','motion':{'settledScale':1}}],timing)
+
     def setUp(self):
         self.review=json.loads((Path(__file__).parent/'fixtures/multiple/scene.json').read_text())
         self.review['photos']='photos.json'

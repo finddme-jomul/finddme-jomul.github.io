@@ -7,6 +7,7 @@ import {fitComposition} from './scene/composition-framing.mjs';
 import {backgroundAt} from './scene/background-transition.mjs';
 import {installGallery} from './gallery.js';
 import {galleryProfile} from './gallery-config.js';
+import {exteriorAt,inRegion,coatingWeights,assemblyPosition} from './scene/layered-vessels.mjs';
 
 export async function startMultiple(spec) {
   const host=document.querySelector('#viewer'),story=document.querySelector('#story');
@@ -19,6 +20,7 @@ export async function startMultiple(spec) {
   scene.add(new THREE.HemisphereLight(0xffffff,0xc8c7c2,1.7));
   for(const [x,y,z,power] of [[-.3,.35,.5,3.5],[.3,.2,-.2,2.2]]){const lamp=new THREE.PointLight(0xffffff,power);lamp.position.set(x,y,z);scene.add(lamp);}
   const timing=spec.motion.timing,layout=spec.motion.layout,glazeMotion=spec.motion.glaze;
+  const assembly=spec.assembly,rotationEnd=assembly?assembly.start:timing.photoStart;
   const hasPhotos=spec.ending==='photos';
   const endMotion=hasPhotos?timing.photoStart+timing.photoDuration:timing.photoStart;
   const endProgress=timing.cadEnd+(1-timing.cadEnd)*endMotion;
@@ -46,7 +48,7 @@ export async function startMultiple(spec) {
     const positions=geometry.attributes.position,values=[];
     for(let i=0;i<positions.count;i++){
       const fraction=clamp(positions.getY(i)/height),angle=Math.atan2(positions.getZ(i),positions.getX(i));
-      values.push({fraction,coverage:sprayCoverage(angle,fraction,part.accentCenterAngle,part.accentWidthScale),base:base.clone().lerp(warm,.2+.09*Math.sin(angle*5+fraction*12)),accent:accent.clone().lerp(accentWarm,g.accentWarmMix||0)});
+      values.push({fraction,heightMm:positions.getY(i)*1000,exterior:exteriorAt(profile,Math.hypot(positions.getX(i),positions.getZ(i))*1000,positions.getY(i)*1000),coverage:sprayCoverage(angle,fraction,part.accentCenterAngle,part.accentWidthScale),base:base.clone().lerp(warm,.2+.09*Math.sin(angle*5+fraction*12)),accent:accent.clone().lerp(accentWarm,g.accentWarmMix||0)});
     }
     const colours=new THREE.BufferAttribute(new Float32Array(positions.count*3),3);geometry.setAttribute('color',colours);
     const material=new THREE.MeshStandardMaterial({vertexColors:true,roughness:.9,side:THREE.DoubleSide,transparent:true,opacity:0});
@@ -64,12 +66,19 @@ export async function startMultiple(spec) {
       const stamp=baseP.toFixed(4)+':'+accentP.toFixed(4);if(stamp===lastPaint)return;lastPaint=stamp;
       for(let i=0;i<values.length;i++){
         const v=values[i],b=glazeRevealAt(v.fraction,baseP,timing.surfaceSweepWidth,glazeMotion.direction),a=part.accentEnabled?glazeRevealAt(v.fraction,accentP,timing.surfaceSweepWidth,glazeMotion.direction)*v.coverage*b:0;
-        const c=clay.clone().lerp(v.base,b).lerp(v.accent,a);colours.setXYZ(i,c.r,c.g,c.b);
+        let c=clay.clone().lerp(v.base,b).lerp(v.accent,a);
+        if(part.coatings){
+          const coat=part.coatings,[first,second]=coatingWeights(coat,v.exterior,v.heightMm,part.dimensionsMm.height,baseP,accentP,timing.surfaceSweepWidth);
+          const finish=inRegion(coat.fired.region,v.exterior,v.heightMm)?coat.fired.regionHex:coat.fired.baseHex;
+          c=clay.clone().lerp(new THREE.Color(coat.layers[0].previewHex),first).lerp(new THREE.Color(finish),second);
+        }
+        colours.setXYZ(i,c.r,c.g,c.b);
       }
       colours.needsUpdate=true;material.roughness=.9-.57*baseP;
+      if(part.coatings)material.roughness=.9+(part.coatings.roughness-.9)*Math.max(baseP,accentP);
     }
     const front=document.querySelector(`[data-part="${part.id}"]`);await front.querySelector('img').decode();
-    return {id:part.id,part,profile,height,main,orbit,tilt,spin,solid,geometry,material,wireMaterial,front,paint};
+    return {id:part.id,part,profile,height,main,orbit,tilt,spin,solid,geometry,material,wireMaterial,front,paint,values};
   }));
   function frontPlacement(v,p){
     const entry=spec.sheets[layoutKey],box=entry.frontBoxes[v.id],rect=image.getBoundingClientRect();
@@ -96,18 +105,35 @@ export async function startMultiple(spec) {
       v.main.position.set(initialX+(finalX-initialX)*drop,(small?layout.mobileEntryY:layout.desktopEntryY)*(1-drop)+v.height*m.settledScale/2*drop+Math.sin(drop*Math.PI*3)*layout.dropBounceY*(1-drop),layout.entryZ*(1-drop));
       const entryScale=small?m.cadToWireScaleMobile:m.cadToWireScale;v.main.scale.setScalar(entryScale+(m.settledScale-entryScale)*drop);
       const lastCoat=timing.accentGlazeStart===null?timing.baseGlazeStart+timing.baseGlazeDuration:timing.accentGlazeStart+timing.accentGlazeDuration;
-      const axis=continuingAxis(m.axisTiltDegrees,m.axisDriftZDegrees,m.axisDriftXDegrees,drop,settle,smooth((motionP-lastCoat)/(timing.photoStart-lastCoat)),glazeMotion.axisRetainFraction,glazeMotion.maxAxisTiltDegrees);
+      const axis=continuingAxis(m.axisTiltDegrees,m.axisDriftZDegrees,m.axisDriftXDegrees,drop,settle,smooth((motionP-lastCoat)/(rotationEnd-lastCoat)),glazeMotion.axisRetainFraction,glazeMotion.maxAxisTiltDegrees);
       const axisFade=smooth((p-timing.axisFadeStart)/timing.axisFadeDuration);
-      const turns=glazeSpinAt(motionP,timing.baseGlazeStart,timing.photoStart,glazeMotion.spinTurns);
-      applyAxisPose(v,{bodyY:(drop*m.turns+turns)*2*Math.PI,orbitY:(drop*m.orbitTurns+glazeSpinAt(motionP,timing.baseGlazeStart,timing.photoStart,glazeMotion.axisPrecessionTurns))*2*Math.PI,tiltX:THREE.MathUtils.degToRad(axis.xDegrees)*axisFade,tiltZ:THREE.MathUtils.degToRad(axis.zDegrees)*axisFade});
+      const turns=glazeSpinAt(motionP,timing.baseGlazeStart,rotationEnd,glazeMotion.spinTurns);
+      applyAxisPose(v,{bodyY:(drop*m.turns+turns)*2*Math.PI,orbitY:(drop*m.orbitTurns+glazeSpinAt(motionP,timing.baseGlazeStart,rotationEnd,glazeMotion.axisPrecessionTurns))*2*Math.PI,tiltX:THREE.MathUtils.degToRad(axis.xDegrees)*axisFade,tiltZ:THREE.MathUtils.degToRad(axis.zDegrees)*axisFade});
       const clay=smooth((motionP-timing.clayStart-m.dropDelay)/timing.clayDuration),base=smooth((motionP-timing.baseGlazeStart)/timing.baseGlazeDuration),accent=timing.accentGlazeStart===null?0:smooth((motionP-timing.accentGlazeStart)/timing.accentGlazeDuration);
       v.material.opacity=clay;v.material.depthWrite=clay>.98;v.wireMaterial.opacity=(1-clay)*smooth((p-timing.wireFadeStart)/timing.wireFadeDuration);v.paint(base,accent);v.state={drop,clay,base,accent,turns};
+      if(assembly&&motionP>=assembly.start){
+        const step=assembly.steps.find(s=>s.partId===v.id),ap=clamp((motionP-assembly.start)/assembly.duration);
+        const start=[v.main.position.x,v.main.position.y-v.height/2,v.main.position.z];
+        const [x,y,z]=assemblyPosition(start,step,ap);v.main.position.set(x,y+v.height/2,z);v.state.assembly=ap;
+      }
       v.spin.updateWorldMatrix(true,false);const b=v.geometry.boundingBox.clone().applyMatrix4(v.spin.matrixWorld);
       bounds.push({bounds:b,position:{x:0,y:0,z:0},scale:1});
     }
     const f=spec.motion.framing;
     const fit=fitComposition(bounds,{fovDegrees:camera.fov,aspect:camera.aspect,widthFraction:small?f.mobileWidthFraction:f.desktopWidthFraction,heightFraction:small?f.mobileHeightFraction:f.desktopHeightFraction,minDistance:f.minDistance});
     camera.position.set(fit.centerX,fit.centerY,fit.distance);camera.lookAt(fit.centerX,fit.centerY,0);camera.updateMatrixWorld();
+    if(spec.motion.camera.elevationDegrees){
+      const elevation=THREE.MathUtils.degToRad(spec.motion.camera.elevationDegrees)*smooth((p-timing.wireFadeStart)/timing.wireFadeDuration);
+      let distance=fit.distance;
+      for(let attempt=0;attempt<12;attempt++){
+        camera.position.set(fit.centerX,fit.centerY+distance*Math.sin(elevation),distance*Math.cos(elevation));camera.lookAt(fit.centerX,fit.centerY,0);camera.updateMatrixWorld();
+        let overflow=1;
+        for(const item of bounds)for(const x of [item.bounds.min.x,item.bounds.max.x])for(const y of [item.bounds.min.y,item.bounds.max.y])for(const z of [item.bounds.min.z,item.bounds.max.z]){
+          const q=new THREE.Vector3(x,y,z).project(camera);overflow=Math.max(overflow,Math.abs(q.x)/(small?f.mobileWidthFraction:f.desktopWidthFraction),Math.abs(q.y)/(small?f.mobileHeightFraction:f.desktopHeightFraction));
+        }
+        if(overflow<=1.001)break;distance*=overflow*1.01;
+      }
+    }
     sheet.style.opacity=String(1-smooth((p-timing.sheetFadeStart)/timing.sheetFadeDuration));
     for(const v of vessels)frontPlacement(v,p);
     const exit=hasPhotos?smooth((motionP-timing.photoStart)/timing.photoDuration):0;

@@ -10,6 +10,7 @@ from ceramic_paths import SKILL, ROOT
 from browser_environment import node_command
 
 SUITES = {
+    'layered-vessels': node_command(SKILL/'tests/test-layered-vessels.mjs'),
     'blender-install': [sys.executable, str(SKILL/'tests/test_blender_environment.py')],
     'handled-page-input': [sys.executable, str(SKILL/'tests/test_handled_page.py')],
     'multiple-page-input': [sys.executable, str(SKILL/'tests/test_multiple_page.py')],

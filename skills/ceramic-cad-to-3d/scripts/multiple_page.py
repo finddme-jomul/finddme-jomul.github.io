@@ -12,7 +12,7 @@ from selected_cad import front_svg, verify_inputs
 def validate(review, ids):
     from page import validate as validate_scene
     validate_scene(review, ids)
-    if len(ids) < 2 or len(set(ids)) != len(ids):
+    if len(ids) < (1 if review.get('renderer') == 'layered-vessels' else 2) or len(set(ids)) != len(ids):
         raise ValueError('Multiple review requires at least two distinct CAD parts')
     def finite(value):
         if isinstance(value, (int, float)) and not math.isfinite(value):
@@ -22,6 +22,16 @@ def validate(review, ids):
         if isinstance(value, list):
             for item in value: finite(item)
     finite(review)
+    if review.get('renderer') == 'layered-vessels':
+        if any('coatings' not in p for p in review['parts']):
+            raise ValueError('Layered vessel mode requires explicit coatings for every part')
+        t=review['motion']['timing']
+        if t['accentGlazeStart'] is None or t['baseGlazeStart']+t['baseGlazeDuration'] > t['accentGlazeStart']:
+            raise ValueError('Reviewed coating passes must be sequential')
+    from layered_review import assembly
+    assembly(review.get('assembly'), review['parts'], review['motion']['timing'])
+    if not 0 <= review['motion']['camera'].get('elevationDegrees',0) <= 35:
+        raise ValueError('Invalid reviewed camera elevation')
     for p in review['parts']:
         if not re.fullmatch(r'[a-z0-9][a-z0-9-]*', p['id']): raise ValueError('Invalid part ID')
         if not isinstance(p['accentEnabled'], bool): raise ValueError('Explicit accentEnabled required')
@@ -61,13 +71,17 @@ def validate(review, ids):
     load_photos(photo)
 
 
-def verify_layers(material, appearance, part_id):
+def verify_layers(material, appearance, part_id, dims=None):
     """Check preserved ordered CAD evidence before creating web material inputs."""
     matches=[p for p in material.get('composition',{}).get('parts',[]) if p['id']==part_id]
     if len(matches)!=1: raise ValueError('Multiple review requires per-part composition material evidence')
     layers=matches[0]['material']['glazeLayers']
     if len(layers)!=2 or [p['order'] for p in layers]!=[1,2]:
         raise ValueError('Current multiple review supports explicit two-layer material evidence')
+    if 'coatings' in appearance:
+        from layered_review import coatings
+        coatings(appearance['coatings'],layers,dims)
+        return
     g=appearance['glazePreview']
     if not appearance['accentEnabled'] or layers[0]['name'] not in g['baseName'] or layers[1]['name'] not in g['accentName']:
         raise ValueError('Reviewed coating order disagrees with source CAD material evidence')
@@ -76,7 +90,7 @@ def verify_layers(material, appearance, part_id):
 def prepare(project, review):
     if review is None: raise ValueError('Multiple pages require explicit reviewed scene input')
     config=json.loads((project/'input/config.json').read_text())
-    if config['compositionMode']!='multiple' or any(p.get('shapeKind','rotational-profile')!='rotational-profile' for p in config['parts']):
+    if (config['compositionMode']!='multiple' and review.get('renderer')!='layered-vessels') or any(p.get('shapeKind','rotational-profile')!='rotational-profile' for p in config['parts']):
         raise ValueError('Multiple page requires rotational vessels')
     ids=[p['id'] for p in config['parts']];validate(review,ids)
     from project import verify
@@ -89,20 +103,25 @@ def prepare(project, review):
         if any(not p.is_relative_to(project/'input') for p in sources.values()): raise ValueError('Archived CAD inputs required')
         files.update(sources.values())
         profile=json.loads(sources['profile'].read_text());dims=json.loads(sources['dimensions'].read_text())[part.get('dimensionsKey','valuesMm')]
-        if not 30<=dims['height']<=300 or not .5<=dims['maxDiameter']/dims['height']<=3: raise ValueError('Unsupported multiple vessel proportions')
+        limit=4 if review.get('renderer')=='layered-vessels' else 3
+        if not 30<=dims['height']<=300 or not .5<=dims['maxDiameter']/dims['height']<=limit: raise ValueError('Unsupported multiple vessel proportions')
         # Keep full ordered material evidence; never collapse two coats into one colour.
         material=json.loads(sources['material'].read_text())
-        verify_layers(material,appearance,part['id'])
+        verify_layers(material,appearance,part['id'],dims)
         parts.append({'id':part['id'],'profile':profile,'dimensionsMm':dims,'frontSvg':front_svg(profile,dims),'materialEvidence':material,'appearance':appearance})
     for entry in manifest['layouts'].values(): files.add(project/'cad'/entry['file'])
     photo=(ROOT/review['photos']).resolve();files.add(photo)
     for item in load_photos(photo): files.add((ROOT/item['source']).resolve())
-    return {'mode':'multiple','project':str(project.relative_to(ROOT)),'name':config['name'],'review':copy.deepcopy(review),'parts':parts,'sheetManifest':manifest,
+    from assembly_geometry import check as check_assembly
+    assembly_check=check_assembly(parts,review.get('assembly'))
+    return {'mode':'multiple','project':str(project.relative_to(ROOT)),'name':config['name'],'review':copy.deepcopy(review),'parts':parts,'sheetManifest':manifest,'assemblyCheck':assembly_check,
             'inputsSha256':{str(p.relative_to(ROOT)):sha(p) for p in sorted(files)}}
 
 
 def install(prepared,stage):
     verify_inputs(prepared)
+    if prepared.get('assemblyCheck'):
+        (stage/'assembly-check.json').write_text(json.dumps(prepared['assemblyCheck'],indent=2)+'\n')
     project=ROOT/prepared['project'];review=prepared['review']
     for entry in prepared['sheetManifest']['layouts'].values():
         shutil.copy2(project/'cad'/entry['file'],stage/'assets'/entry['file'])
@@ -122,7 +141,7 @@ def install(prepared,stage):
     for file in (gallery/'assets').iterdir():shutil.copy2(file,stage/'assets'/file.name)
     for name in ('gallery.js','gallery.css','gallery-config.js'):
         if (gallery/name).exists():shutil.copy2(gallery/name,stage/name)
-    spec={**review,'compositionMode':'multiple','name':prepared['name'],'parts':rendered,'sheets':prepared['sheetManifest']['layouts'],
+    spec={**review,'compositionMode':'single' if len(rendered)==1 else 'multiple','name':prepared['name'],'parts':rendered,'sheets':prepared['sheetManifest']['layouts'],
           'ending':'photos' if load_photos(photos) else 'glaze'}
     (stage/'assets/project.json').write_text(json.dumps(spec,ensure_ascii=False,indent=2)+'\n')
     document=(stage/'index.html').read_text();a=document.index('<section class="gallery"');b=document.index('<script type="module"',a)
