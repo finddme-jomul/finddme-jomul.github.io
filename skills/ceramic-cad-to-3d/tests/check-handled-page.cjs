@@ -10,7 +10,9 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
    await page.setViewport({width,height,deviceScaleFactor:1});await page.goto(process.env.CERAMIC_CANDIDATE,{waitUntil:'networkidle0'});
    await page.waitForFunction(()=>window.__mugMotion?.state?.target);
    const guide=await page.evaluate(()=>fetch('./wire-guide.json').then(r=>r.json()));
-   assert.equal(guide.density.bodyProfileStride,4);assert.equal(guide.density.bodyMeridians,12);assert.equal(guide.density.bodyRingSegments,72);
+   const feature=await page.evaluate(()=>window.__mugMotion.pageConfig.shapeKind==='feature-solid');
+   if(feature){assert(guide.sourceStepSha256&&guide.visibility);}else{assert.equal(guide.density.bodyProfileStride,4);assert.equal(guide.density.bodyMeridians,12);assert.equal(guide.density.bodyRingSegments,72);}
+   assert(await page.evaluate(()=>{const m=window.__mugMotion,s=m.pageConfig.surface;return m.meshes.every(v=>v.material.color.getHexString()===s.clayHex.slice(1).toLowerCase())&&m.glazeMeshes.every(v=>v.material.color.getHexString()===s.glazeHex.slice(1).toLowerCase()&&v.material.roughness===s.roughness&&v.material.clearcoat===s.clearcoat)}),'reviewed materials must reach every mesh');
    const info=await page.evaluate(()=>({end:window.__mugMotion.state.endProgress,photos:window.__mugMotion.pageConfig.ending==='photos'}));
    let step=0;
    for(const p of [0,.43*.72,.56*.72,.685*.72,.79*.72,.895*.72,.72,.79,.9,1,info.end,.79*.72]){
@@ -24,9 +26,12 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
        q.project(m.camera);minX=Math.min(minX,q.x);maxX=Math.max(maxX,q.x);minY=Math.min(minY,q.y);maxY=Math.max(maxY,q.y);
       }
      }
+     let wireDepthMin=Infinity,wireDepthMax=-Infinity;
+     const positions=m.wire.geometry.attributes.position;
+     for(let i=0;i<positions.count;i++){q.fromBufferAttribute(positions,i).applyMatrix4(m.wire.matrixWorld).applyMatrix4(m.camera.matrixWorldInverse);wireDepthMin=Math.min(wireDepthMin,q.z);wireDepthMax=Math.max(wireDepthMax,q.z);}
      const wirePoints=[0,36,72].map(i=>q.clone().fromBufferAttribute(m.wire.geometry.attributes.position,i).applyMatrix4(m.wire.matrixWorld).project(m.camera));
      const [a,b,c]=wirePoints;const projectedRingArea=Math.abs((b.x-a.x)*(c.y-a.y)-(b.y-a.y)*(c.x-a.x));
-     return {...m.state,projectedRingArea,minX,maxX,minY,maxY,uncoated,vertices,meshCount:m.meshes.length,coatedMeshCount:m.glazeMeshes.length,
+     return {...m.state,wireDepthRange:wireDepthMax-wireDepthMin,projectedRingArea,minX,maxX,minY,maxY,uncoated,vertices,meshCount:m.meshes.length,coatedMeshCount:m.glazeMeshes.length,
       body:m.content.rotation.y,axis:m.orbitRig.rotation.y,tiltX:m.tiltRig.rotation.x,tiltZ:m.tiltRig.rotation.z,
       clayVisible:m.meshes.some(v=>v.visible),glazeVisible:m.glazeMeshes.every(v=>v.visible),
       gallery:document.querySelector('#gallery')?.classList.contains('gallery-active')??false,
@@ -36,12 +41,12 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
       expectedBody:m.motion.bodySpinDegrees*Math.PI/180,expectedAxis:m.motion.axisPrecessionDegrees*Math.PI/180};
     });
     assert(state.meshCount>0&&state.coatedMeshCount===state.meshCount&&state.vertices>0);
-    assert(state.minX>=-1.001&&state.maxX<=1.001&&state.minY>=-1.001&&state.maxY<=1.001,`${layout}/${step}: handle clipped`);
+    assert(state.minX>=-1.001&&state.maxX<=1.001&&state.minY>=-1.001&&state.maxY<=1.001,`${layout}/${step}: solid clipped`);
     assert(state.frontLoaded&&state.wireVertices>500&&state.wireVertices<50000);
     if(step===1){const box={x:(state.minX+1)*width/2,y:(1-state.maxY)*height/2,width:(state.maxX-state.minX)*width/2,height:(state.maxY-state.minY)*height/2};assert(Math.max(...Object.keys(box).map(k=>Math.abs(box[k]-state.front[k])))<1.5,'front/complete solid mismatch');}
-    if(step===2){assert(state.lineOpacity>.8);assert(state.projectedRingArea>.001&&state.cameraElevationDegrees>10,'First independent wire view must already read as a volume');}
+    if(step===2){assert(state.lineOpacity>.8);assert((feature?state.wireDepthRange>.001:state.projectedRingArea>.001)&&state.cameraElevationDegrees>10,'First independent wire view must already read as a volume');}
     if(step===3||step===4){assert(state.lineOpacity>.99&&state.clayOpacity===0,'Pure wire must survive quarter and half turns');assert(state.axisTiltDegrees>5);assert(state.axisPrecessionDegrees>80&&state.bodySpinDegrees>90);}
-    if(step===3)assert(state.projectedRingArea>.001,'Turning CAD ring must project as a curved ellipse, not an edge-on line');
+    if(step===3&&!feature)assert(state.projectedRingArea>.001,'Turning CAD ring must project as a curved ellipse, not an edge-on line');
     if(step===6){assert.equal(state.coat,0);assert(Math.abs(state.body-state.expectedBody)<.02);}
     if(step===8){assert(state.coat>.5&&state.coat<1);assert(state.uncoated>0&&state.uncoated<state.vertices);assert(state.body>state.expectedBody&&state.axis>state.expectedAxis);}
     if(step===8){
@@ -64,5 +69,5 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
    assert.deepEqual(errors,[]);await page.close();console.log('HANDLED_PAGE_OK',layout);
   }
  }finally{await browser.close();}
- fs.writeFileSync(path.join(report,'report.json'),JSON.stringify({status:'passed',scope:'handled-whole-solid-technical-review-not-visual-adoption',checks},null,2)+'\n');
+ fs.writeFileSync(path.join(report,'report.json'),JSON.stringify({status:'passed',scope:'whole-solid-technical-review-not-visual-adoption',checks},null,2)+'\n');
 })().catch(e=>{console.error(e);process.exit(1)});

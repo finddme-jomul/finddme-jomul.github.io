@@ -39,4 +39,31 @@ class HandledReview(unittest.TestCase):
             changed=copy.deepcopy(material);changed['glazeLayers']=[{},{}]
             with self.assertRaises(ValueError):validate(review,changed)
 
+class FeatureReview(unittest.TestCase):
+    def test_feature_dispatch_guards_and_complete_geometry_dependency(self):
+        import tempfile
+        import feature_page
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);project=root/'project';(project/'input').mkdir(parents=True);(project/'geometry').mkdir()
+            material={'clay':{'name':'Test clay'},'glaze':{'name':'Test glaze'}}
+            (project/'input/material.json').write_text(json.dumps(material))
+            (project/'input/shape.json').write_text('{}');(project/'pipeline-state.json').write_text('{}')
+            (project/'geometry/wire-guide.json').write_text('{}');(project/'geometry/model.glb').write_bytes(b'fixture')
+            (root/'photos.json').write_text('[]')
+            part={'id':'form','shapeKind':'feature-solid','material':'project/input/material.json','shape':'project/input/shape.json'}
+            config={'compositionMode':'single','name':'Test','parts':[part]}
+            path=project/'input/config.json';path.write_text(json.dumps(config))
+            review={'motion':{'partId':'form'},'photos':'photos.json'}
+            with patch.object(feature_page,'ROOT',root),patch('project.verify'),patch('feature_page.validate') as validate:
+                prepared=feature_page.prepare(project,review)
+                validate.assert_called_once_with(review,material)
+                self.assertEqual('feature',prepared['mode'])
+                self.assertIn('project/geometry/wire-guide.json',prepared['inputsSha256'])
+                self.assertIn('project/geometry/model.glb',prepared['inputsSha256'])
+                changed=copy.deepcopy(review);changed['motion']['partId']='wrong'
+                with self.assertRaisesRegex(ValueError,'partId'):feature_page.prepare(project,changed)
+                config['compositionMode']='multiple';config['parts'].append({**part,'id':'second'})
+                path.write_text(json.dumps(config))
+                with self.assertRaisesRegex(ValueError,'one feature-solid'):feature_page.prepare(project,review)
+
 if __name__=='__main__':unittest.main()

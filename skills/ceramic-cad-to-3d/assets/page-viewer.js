@@ -15,7 +15,7 @@ const config = await fetch('./assets/project.json').then(async response => {
 if (config.compositionMode === 'multiple' || config.renderer === 'layered-vessels') {
   const {startMultiple} = await import('./multiple-scene.mjs');
   await startMultiple(config);
-} else if (config.shapeKind === 'handled-vessel') {
+} else if (['handled-vessel','feature-solid'].includes(config.shapeKind)) {
   const {startHandled} = await import('./handled-scene.mjs');
   await startHandled(config,{installGallery,galleryProfile});
 } else {

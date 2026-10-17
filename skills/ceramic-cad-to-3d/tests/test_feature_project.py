@@ -50,7 +50,11 @@ class FeatureProject(unittest.TestCase):
             self.assertEqual(json.loads(cli('status',pid))['stages']['geometry']['status'],'stale')
             data['features'].pop();shape.write_text(json.dumps(data));cli('resume',pid,'--config',config);cli('verify',pid)
             review=root/'review.json';review.write_text('{}')
-            self.assertIn('not CAD/page-ready',cli('page-review',pid,'--review',review,ok=False))
+            from unittest.mock import patch
+            sys.path.insert(0,str(K/'scripts'))
+            import feature_page
+            with patch.object(feature_page,'ROOT',root), self.assertRaisesRegex(ValueError,'explicit clay/glaze'):
+                feature_page.prepare(project,{})
             previous_models=hashes(project/'geometry/form')
             material.write_text('{"status":"unknown","note":"updated evidence"}')
             cli('revise',pid,'--feedback','Material evidence only','--config',config)

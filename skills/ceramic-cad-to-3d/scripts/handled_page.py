@@ -55,8 +55,13 @@ def prepare(project, review):
 
 def install(prepared, stage):
     verify_inputs(prepared)
-    from prepare_handled import main
-    main(ROOT/prepared['project']/'cad',stage)
+    feature=prepared.get('mode')=='feature'
+    if feature:
+        from prepare_feature_motion import prepare as prepare_feature
+        prepare_feature(ROOT/prepared['project']/'geometry',stage,prepared['review']['motion'])
+    else:
+        from prepare_handled import main
+        main(ROOT/prepared['project']/'cad',stage)
     review=prepared['review']
     (stage/'motion-config.json').write_text(json.dumps(review['motion'],ensure_ascii=False,indent=2)+'\n')
     (stage/'material-evidence.json').write_text(json.dumps(prepared['materialEvidence'],ensure_ascii=False,indent=2)+'\n')
@@ -64,7 +69,7 @@ def install(prepared, stage):
     for file in (gallery/'assets').iterdir(): shutil.copy2(file,stage/'assets'/file.name)
     for name in ('gallery.js','gallery.css','gallery-config.js'):
         if (gallery/name).exists(): shutil.copy2(gallery/name,stage/name)
-    spec={**review,'shapeKind':'handled-vessel','compositionMode':'single','name':prepared['name'],
+    spec={**review,'shapeKind':'feature-solid' if feature else 'handled-vessel','compositionMode':'single','name':prepared['name'],
           'ending':'photos' if load_photos(ROOT/review['photos']) else 'glaze'}
     (stage/'assets/project.json').write_text(json.dumps(spec,ensure_ascii=False,indent=2)+'\n')
     document=(ASSETS/'motion/index.html').read_text()
@@ -75,7 +80,7 @@ def install(prepared, stage):
     (stage/'index.html').write_text(document)
     for name in ('model.glb','front-view.svg','outer-profile.json','cad-sheet.png','actual-photo.webp','process-photo.webp'):
         (stage/'assets'/name).unlink(missing_ok=True)
-    return {'mode':'handled','review':review,'inputsSha256':prepared['inputsSha256'],
+    return {'mode':prepared['mode'],'review':review,'inputsSha256':prepared['inputsSha256'],
             'generated':['front-view.svg','wire-guide.json','index.html','assets/project.json','gallery-source'],
             'retainedReference':['verified complete CAD solid model.glb and common CAD sheets; shared handled motion'],
-            'scope':'One handled vessel, one glaze; CAD solid reused with all meshes; provisional appearance, visual adoption pending'}
+            'scope':'One complete solid, one reviewed all-surface glaze; provisional appearance, visual adoption pending'}
