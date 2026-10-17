@@ -90,8 +90,8 @@ def _add_material_questions(extraction: dict) -> None:
 def initialize(project: Path, source: Path, sketch: Path) -> dict:
     manifest = _read(source.expanduser().resolve(strict=True))
     parts = manifest.get('parts')
-    if manifest.get('schemaVersion') != 1 or not isinstance(parts, list) or len(parts) not in (1, 2):
-        raise ValueError('Intake needs schemaVersion 1 and one or two parts')
+    if manifest.get('schemaVersion') != 1 or not isinstance(parts, list) or not parts:
+        raise ValueError('Intake needs schemaVersion 1 and a nonempty parts list')
     if len({p.get('id') for p in parts}) != len(parts):
         raise ValueError('Duplicate intake part ID')
     stage = project / 'intake.next'

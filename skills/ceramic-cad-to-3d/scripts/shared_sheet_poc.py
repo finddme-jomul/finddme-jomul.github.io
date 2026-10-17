@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render single or two-part provisional CAD sheets from one profile contract.
+"""Render source-derived CAD sheets from the shared profile contract.
 
 This is an isolated comparison PoC. It does not replace the accepted PDF or
 the bowl gallery's current SVG sheets.
@@ -23,6 +23,14 @@ SIZES = {
     "multiple": {"desktop": (1600, 1000), "mobile": (900, 1900), "mobile-short": (900, 1500)},
 }
 INK, PALE = "#34393b", "#a9b0b0"
+
+
+def sheet_size(mode: str, count: int, size_name: str) -> tuple[int, int]:
+    if count <= 2:
+        return SIZES[mode][size_name]
+    panel_w, panel_h = SIZES['single'][size_name]
+    columns = 2 if size_name == 'desktop' else 1
+    return panel_w * columns, 140 + math.ceil(count / columns) * panel_h
 
 
 def esc(value: object) -> str:
@@ -406,10 +414,12 @@ def station_table(part: dict, x: float, y: float) -> str:
     return "".join(rows)
 
 
-def render_single_landscape(part: dict, page: tuple[int, int]) -> tuple[str, dict]:
+def render_single_landscape(part: dict, page: tuple[int, int], fit_width=False) -> tuple[str, dict]:
     w, h = page
     short = False
     scale = min(4.1, (h - (300 if short else 220)) / part["dimensions"]["height"])
+    if fit_width:
+        scale = min(scale, 640 / part['dimensions'].get('overallWidth', part['dimensions']['maxDiameter']))
     base = h - (95 if short else 165)
     cx = 510
     front, box = front_view(part, cx, base, scale, page, single_hero=True)
@@ -584,9 +594,28 @@ def render_multiple_portrait(parts: list[dict], page: tuple[int, int]) -> tuple[
     return "".join(body), boxes
 
 
+def render_part_panels(parts: list[dict], size_name: str, page: tuple[int, int]) -> tuple[str, dict]:
+    panel_w, panel_h = SIZES['single'][size_name]
+    columns = 2 if size_name == 'desktop' else 1
+    w, h = page
+    drawings, boxes = [], {}
+    for index, part in enumerate(parts):
+        x, y = (index % columns) * panel_w, 100 + (index // columns) * panel_h
+        drawing, local = (render_single_landscape(part, (panel_w, panel_h), fit_width=True)
+                          if size_name == 'desktop' else render_single_portrait(part, (panel_w, panel_h)))
+        drawing = drawing.replace('<g data-part=',
+            f'<g transform="translate({x},{y})" data-layout-x="{x}" data-layout-y="{y}" data-part=', 1)
+        drawings.append(drawing)
+        box = local[part['id']]
+        boxes[part['id']] = {**box, 'cx': (box['cx']*panel_w+x)/w,
+                            'cy': (box['cy']*panel_h+y)/h,
+                            'width':box['width']*panel_w/w,'height':box['height']*panel_h/h}
+    return ''.join(drawings), boxes
+
+
 def render(project: dict, parts: list[dict], size_name: str) -> tuple[str, dict]:
-    w, h = SIZES[project["compositionMode"]][size_name]
-    require(1 <= len(parts) <= 2, "this PoC supports one or two independent vessels")
+    require(bool(parts), 'CAD sheet needs at least one part')
+    w, h = sheet_size(project['compositionMode'],len(parts),size_name)
     body = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" role="img" aria-label="{esc(project["name"])} technical CAD sheet">',
             f'<style>.heavy{{fill:none;stroke:{INK};stroke-width:1.35}}.fine{{fill:none;stroke:{INK};stroke-width:.8}}.pale,.axis{{fill:none;stroke:{PALE};stroke-width:.5}}.dashed{{stroke-dasharray:2 2}}.section{{fill:none;stroke:{INK};stroke-width:.9}}text{{fill:{INK};font-family:Arial,"Noto Sans CJK KR",sans-serif;letter-spacing:.15px}}</style>',
             f'<rect width="{w}" height="{h}" fill="{project["cadProfile"]["background"]}"/>',
@@ -594,7 +623,9 @@ def render(project: dict, parts: list[dict], size_name: str) -> tuple[str, dict]
                 label(55, 45, f'{project["name"].upper()}  /  TECHNICAL CAD', 22),
                 label(55, 70, "FRONT · PLAN · SECTION · PROFILE ISOMETRIC / mm", 12)]),
             line(55, 92, w - 55, 92)]
-    if w > h:
+    if len(parts) > 2:
+        drawing, boxes = render_part_panels(parts, size_name, (w,h))
+    elif w > h:
         drawing, boxes = (render_single_landscape(parts[0], (w, h)) if len(parts) == 1
                           else render_multiple_landscape(parts, (w, h)))
     else:
@@ -644,7 +675,8 @@ def build(config_path: Path, out: Path) -> dict:
                                            **({"handle": raw["handle"]} if p["handle"] else {})},
                            "sources": p["sources"], "stationsMm": p["stationsMm"]}
                           for raw, p in zip(project["parts"], parts)], "layouts": {}}
-    for size_name, size in SIZES[project["compositionMode"]].items():
+    for size_name in SIZES[project["compositionMode"]]:
+        size = sheet_size(project['compositionMode'],len(parts),size_name)
         svg, boxes = render(project, parts, size_name)
         filename = f"sheet-{size_name}.svg"
         (out / filename).write_text(svg, encoding="utf-8")
@@ -652,7 +684,7 @@ def build(config_path: Path, out: Path) -> dict:
                                           "frontBoxes": boxes}
     manifest["layouts"]["short"] = {
         "file": manifest["layouts"]["desktop"]["file"],
-        "pagePx": SIZES[project["compositionMode"]]["desktop"],
+        "pagePx": manifest['layouts']['desktop']['pagePx'],
         "frontBoxes": manifest["layouts"]["desktop"]["frontBoxes"],
         "reuseOf": "desktop",
     }

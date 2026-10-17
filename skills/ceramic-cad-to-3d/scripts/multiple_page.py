@@ -1,4 +1,4 @@
-"""Source-derived two-vessel review through the selected-page entrypoint."""
+"""Source-derived multi-vessel review through the selected-page entrypoint."""
 import copy
 import json
 import math
@@ -12,8 +12,8 @@ from selected_cad import front_svg, verify_inputs
 def validate(review, ids):
     from page import validate as validate_scene
     validate_scene(review, ids)
-    if len(ids) != 2 or len(set(ids)) != 2:
-        raise ValueError('Multiple review requires two distinct CAD parts')
+    if len(ids) < 2 or len(set(ids)) != len(ids):
+        raise ValueError('Multiple review requires at least two distinct CAD parts')
     def finite(value):
         if isinstance(value, (int, float)) and not math.isfinite(value):
             raise ValueError('Nonfinite multiple review input')
@@ -53,7 +53,8 @@ def validate(review, ids):
         raise ValueError('Invalid coating axis')
     if not 0<t['photoDuration']<=1-t['photoStart']: raise ValueError('Invalid scene exit')
     for screen in ('Desktop','Mobile'):
-        if review['parts'][0]['motion']['finalX'+screen]>=review['parts'][1]['motion']['finalX'+screen]:
+        positions=[p['motion']['finalX'+screen] for p in review['parts']]
+        if any(a>=b for a,b in zip(positions,positions[1:])):
             raise ValueError('Preserve reviewed left-to-right part order')
     photo=(ROOT/review['photos']).resolve()
     if not photo.is_relative_to(ROOT): raise ValueError('Photos must be inside workspace')
@@ -63,7 +64,7 @@ def validate(review, ids):
 def verify_layers(material, appearance, part_id):
     """Check preserved ordered CAD evidence before creating web material inputs."""
     matches=[p for p in material.get('composition',{}).get('parts',[]) if p['id']==part_id]
-    if len(matches)!=1: raise ValueError('Two-part review requires per-part composition material evidence')
+    if len(matches)!=1: raise ValueError('Multiple review requires per-part composition material evidence')
     layers=matches[0]['material']['glazeLayers']
     if len(layers)!=2 or [p['order'] for p in layers]!=[1,2]:
         raise ValueError('Current multiple review supports explicit two-layer material evidence')
@@ -73,10 +74,10 @@ def verify_layers(material, appearance, part_id):
 
 
 def prepare(project, review):
-    if review is None: raise ValueError('Two-part pages require explicit reviewed scene input')
+    if review is None: raise ValueError('Multiple pages require explicit reviewed scene input')
     config=json.loads((project/'input/config.json').read_text())
     if config['compositionMode']!='multiple' or any(p.get('shapeKind','rotational-profile')!='rotational-profile' for p in config['parts']):
-        raise ValueError('Multiple page currently supports two rotational vessels')
+        raise ValueError('Multiple page requires rotational vessels')
     ids=[p['id'] for p in config['parts']];validate(review,ids)
     from project import verify
     verify(project,json.loads((project/'pipeline-state.json').read_text()))
@@ -137,4 +138,4 @@ def install(prepared,stage):
     (stage/'index.html').write_text(document)
     for name in ('model.glb','front-view.svg','outer-profile.json','cad-sheet.png','actual-photo.webp','process-photo.webp'):
         (stage/'assets'/name).unlink(missing_ok=True)
-    return {'mode':'multiple','review':review,'inputsSha256':prepared['inputsSha256'],'scope':'Two rotational vessels; provisional materials and scene; visual review pending'}
+    return {'mode':'multiple','review':review,'inputsSha256':prepared['inputsSha256'],'scope':'Multiple rotational vessels; provisional materials and scene; visual review pending'}
