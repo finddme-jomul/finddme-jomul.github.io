@@ -2,6 +2,44 @@
 
 Use this as the maintained skill contract for the whole intended workflow. The current CLI implements only the supported subset below. Local design evidence lives in `docs/make-skill/`; that directory is excluded from Git, so this reference must carry the decisions needed to run and extend the skill without silently substituting an old PoC.
 
+## V1 scope freeze — 2026-10-18
+
+User instruction: “첫 버전 범위를 고정하고 마감 검증으로 넘어가자.”
+The implementation at `300858e` is the feature ceiling for v1. During closure,
+change code only to correct defects in this scope or implement release verification;
+new capability requests go to the deferred list until explicitly reprioritized.
+This freezes scope, not visual approval or a claim of release readiness.
+
+| Included in v1 closure | Boundary |
+| --- | --- |
+| Reviewed input and project lifecycle | Common entrypoint, archived sources, revise/resume/verify/rollback; agent reviews the sketch and unresolved inputs. |
+| Rotational single/multiple and single handled pages | List-driven CAD and CAD→wire→clay→glaze→photo page body; part-count performance is only measured at tested counts. |
+| Homogeneous feature-solid single/multiple pages | Supported primitive/revolve/loft union/cut; uniform hollow offset with one planar opening; reviewed single-solid STEP import. |
+| Materials | Existing rotational coating contracts; feature one full coat or exactly two reviewed coats/height regions. Imported STEP supports one full coat only. |
+| Composition | Existing upright plate nesting and gentle staggered drop; reversible scroll. No physical fall simulation. |
+| Photos | Existing zero/one/multiple photo paths; seeded scatter remains subject to visual adoption. |
+
+Deferred, retained as uncompleted requests: mixed rotational/handled/feature
+projects; shared instances and CAD groups; target-rotation assembly; STL/GLB
+import and imported-model partial-coating surface identity. Arbitrary sculpting,
+more-than-two feature coats, manufacturing certification and host-site publication
+are outside v1. The generated page is the project body; host navigation/listing
+and deployment remain external responsibilities.
+
+Closure order:
+1. Run package/decision regression checks against one unchanged runtime.
+2. Obtain visual decisions for feature CAD/wire and scatter, scoped to exact outputs.
+3. Run unused reviewed input through single and multiple E2E. One multi-object
+   sketch may supply both cases; record that they share a source. Existing plates,
+   temporary knights and the high-difficulty knight image are development data.
+4. Implement/check the release evidence gate: bind runtime, inputs, immutable output
+   revisions, browser reports and real visual decisions; reject missing/stale/failed
+   evidence. Emptying `selection.pending` alone must never certify a release.
+
+Package/regression success is technical evidence only. `preflight --release`
+remains blocked until closing evidence exists and the gate consumes it. Do not
+restart completed count-generalization, plate nesting or knight feasibility work.
+
 ## Decision rule
 
 - Package one maintained generation path inside this skill, with shared modules and input-driven single/multiple behavior. Select adopted behavior from the PoCs; do not bulk-import historical builders or rejected variants. The PoC target registry is not the skill dependency list. Keep historical evidence outside the active runtime.
@@ -28,7 +66,7 @@ Use this as the maintained skill contract for the whole intended workflow. The c
 | 10 Feedback | User correction, prior state → minimal affected rebuild and exact rollback path | Record adopted feedback in the input/profile and consumer first, then regenerate and verify. Do not reverse-engineer a rollback from remembered values. |
 | 11 Package/E2E | All stages and new project input → reusable skill release | Still incomplete. Moon is development, mug is single validation, bowls are multiple validation; reserve chess for final evaluation. |
 
-`single` and `multiple` use one workflow selected by the number of finished vessel instances. A handle is a subcomponent of one vessel, not another `part`. Each independent part keeps its own evidence, CAD, material, and ID; instances can reuse a model. Do not copy one part's uncertain values or one photograph to another.
+`single` and `multiple` use one workflow selected by the number of finished vessel instances. A handle is a subcomponent of one vessel, not another `part`. Each independent part keeps its own evidence, CAD, material, and ID. Shared model-instance input is deferred beyond v1. Do not copy one part's uncertain values or one photograph to another.
 
 ## Selected visual baselines and current limits
 
@@ -47,7 +85,7 @@ The selected hero plus smaller process-photo composition is supported by the int
 
 ## Execution state contract
 
-The current executable stages are CAD (including rotational and handled solids), handled motion preview, and the gallery component. They retain their existing generators. The previous rotational page candidate was withdrawn after the user reconfirmed the entire selected scene. Separate `selected-page` commands generate selected-input replay and new single/multiple rotational and single handled page candidates; registered `page-review --review` inputs now call that same generator for project-page rebuild/recovery. These coarse execution boundaries do not claim implementation of every design stage 00–11.
+The current executable stages include rotational/handled/feature CAD, handled/feature motion preview, the gallery component and the supported page candidates listed in the v1 scope above. They retain their shared generators. The previous rotational page candidate was withdrawn after the user reconfirmed the entire selected scene. Separate `selected-page` commands generate selected-input replay and new single/multiple rotational and single handled page candidates; registered `page-review --review` inputs now call that same generator for project-page rebuild/recovery. These coarse execution boundaries do not claim implementation of every design stage 00–11.
 
 `pipeline-state.json` keeps its existing schema version and evidence fields, with additive `stageContractVersion: 1` and `stages` fields on the next normal write. Each stage declares inputs, outputs, dependencies, completion conditions and a status/reason. `status PROJECT` derives fresh status from recorded and current hashes without writing files; old projects need no eager migration. Stored stage status is a snapshot, not a substitute for this check. `complete` means recorded stage artifacts match, not user visual approval or a freshly repeated geometry/browser test; use `verify` for the existing geometry checks.
 
