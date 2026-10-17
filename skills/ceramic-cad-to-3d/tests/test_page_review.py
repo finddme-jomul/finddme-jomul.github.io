@@ -2,6 +2,8 @@ import copy
 import json
 from pathlib import Path
 import sys
+import shutil
+import tempfile
 import unittest
 from unittest.mock import patch
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
@@ -28,8 +30,25 @@ class NewReview(unittest.TestCase):
                 with self.assertRaises(ValueError):page_review.validate(r,self.profile,self.dims,self.material)
             r=copy.deepcopy(self.review);r['provenance']=''
             with self.assertRaises(ValueError):page_review.validate(r,self.profile,self.dims,self.material)
-        with patch.object(page_review,'load_photos',return_value=[]),self.assertRaises(ValueError):
+        with patch.object(page_review,'load_photos',return_value=[]):
             page_review.validate(self.review,self.profile,self.dims,self.material)
+
+    def test_empty_photos_remove_gallery_without_reference_assets(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);stage=root/'page'
+            shutil.copytree(Path(__file__).resolve().parents[1]/'assets/selected-page',stage)
+            (root/'photos.json').write_text('[]')
+            prepared={'review':self.review,'material':self.material,'part':'synthetic',
+                      'name':'Synthetic','calculation':{'targetFiredMm':self.dims}}
+            with patch.object(page_review,'ROOT',root):
+                page_review.configure(prepared,stage,{}, {'cx':.5,'cy':.5,'width':.2,'height':.3})
+            self.assertEqual(json.loads((stage/'assets/project.json').read_text())['ending'],'glaze')
+            document=(stage/'index.html').read_text()
+            self.assertNotIn('<section class="gallery"',document)
+            self.assertNotIn('<dialog',document)
+            self.assertFalse((stage/'assets/actual-photo.webp').exists())
+            self.assertFalse((stage/'assets/process-photo.webp').exists())
+            self.assertEqual(json.loads((stage/'gallery-source/manifest.json').read_text())['photoCount'],0)
 
     def test_adaptive_sheet_preserves_reference_and_fits_new_dimensions(self):
         self.assertEqual(sheet_layout(self.dims,True),sheet_layout(self.dims,False))

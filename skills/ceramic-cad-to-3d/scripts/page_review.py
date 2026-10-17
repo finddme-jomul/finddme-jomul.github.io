@@ -30,7 +30,7 @@ def validate(review, profile, dims, material):
         raise ValueError('Explicit optical/finish labels required')
     photos=(ROOT/review['photos']).resolve()
     if not photos.is_relative_to(ROOT): raise ValueError('Photo input must be inside the workspace')
-    if not load_photos(photos): raise ValueError('New page review currently requires at least one reviewed photo')
+    load_photos(photos)  # An explicit empty list ends at the fully glazed vessel.
 
 
 def configure(prepared, stage, config, front_box):
@@ -38,12 +38,14 @@ def configure(prepared, stage, config, front_box):
     config.update(id=prepared['part'],status='new-input-review-candidate',
                   dimensionsMm=prepared['calculation']['targetFiredMm'],sheetFrontBox=front_box,
                   clayColor=material['clay']['wetPreviewHex'],finishColor=material['glaze']['firedAppearancePreviewHex'],
-                  motion=review['motion'])
+                  motion=review['motion'],
+                  ending='photos' if load_photos(ROOT/review['photos']) else 'glaze')
     config.pop('photoSubject',None);config.pop('photoStatus',None)
     (stage/'assets/project.json').write_text(json.dumps(config,ensure_ascii=False,indent=2)+'\n')
     gallery=stage/'gallery-source';build_gallery(ROOT/review['photos'],gallery)
     for file in (gallery/'assets').iterdir(): shutil.copy2(file,stage/'assets'/file.name)
-    for name in ('gallery.js','gallery.css','gallery-config.js'):shutil.copy2(gallery/name,stage/name)
+    for name in ('gallery.js','gallery.css','gallery-config.js'):
+        if (gallery/name).exists(): shutil.copy2(gallery/name,stage/name)
     for name in ('actual-photo.webp','process-photo.webp'):(stage/'assets'/name).unlink(missing_ok=True)
     document=(stage/'index.html').read_text();begin=document.index('<section class="gallery"');end=document.index('<script type="module"',begin)
     document=document[:begin]+(gallery/'gallery.html').read_text()+document[end:]

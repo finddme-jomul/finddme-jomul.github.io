@@ -22,6 +22,7 @@ def restore(output, cad_project=None, review=None):
         prepared = prepare(cad_project, review=review)
     try:
         shutil.copytree(source,stage)
+        shutil.copy2(ASSETS/'page-viewer.js',stage/'viewer.js')
         cad_inputs = None
         if prepared is not None:
             from selected_cad import install
@@ -37,7 +38,8 @@ def restore(output, cad_project=None, review=None):
         if report['status']!='passed' or len(report.get('comparisons',report.get('checks',[])))!=48: raise ValueError('Incomplete whole-page parity evidence')
         shutil.copytree(report_dir,stage/'browser-parity')
         for name,expected in manifest['files'].items():
-            if review is not None and name!='viewer.js': continue
+            if name == 'viewer.js': expected = sha(ASSETS/'page-viewer.js')
+            elif review is not None: continue
             if sha(stage/name)!=expected: raise ValueError('Restored output drift: '+name)
         (stage/'restoration.json').write_text(json.dumps({'status':'new-input-review-candidate' if review is not None else ('selected-cad-regeneration-verified' if prepared is not None else 'selected-input-replay-verified'),'newCadGeneration':prepared is not None,'reference':manifest,'browserReportSha256':sha(stage/'browser-parity/report.json')},ensure_ascii=False,indent=2)+'\n')
         if prepared is not None:
