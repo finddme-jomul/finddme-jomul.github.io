@@ -10,6 +10,7 @@ from ceramic_paths import SKILL, ROOT
 from browser_environment import node_command
 
 SUITES = {
+    'release-gate': [sys.executable, str(SKILL/'tests/test_release_gate.py')],
     'feature-assembly': [sys.executable, str(SKILL/'tests/test_feature_assembly.py')],
     'feature-drawing': [sys.executable, str(SKILL/'tests/test_feature_drawing.py')],
     'feature-project': [sys.executable, str(SKILL/'tests/test_feature_project.py')],

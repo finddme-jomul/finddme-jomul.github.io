@@ -32,7 +32,7 @@ Closure order:
 3. Run unused reviewed input through single and multiple E2E. One multi-object
    sketch may supply both cases; record that they share a source. Existing plates,
    temporary knights and the high-difficulty knight image are development data.
-4. Implement/check the release evidence gate: bind runtime, inputs, immutable output
+4. Run the implemented release evidence gate: bind runtime, inputs, immutable output
    revisions, browser reports and real visual decisions; reject missing/stale/failed
    evidence. Emptying `selection.pending` alone must never certify a release.
 
@@ -261,3 +261,47 @@ External STEP uses the common feature compiler with an explicit imported constru
 ## Closure feedback — 2026-10-18
 
 User adopted the existing multiple-photo sizes/positions (bounded-scatter-v1). This does not adopt feature CAD/wire or landing. The same user reported apparent re-ascent during final direct-drop landing. Keep the approved soft spin and short gaps; use a deterministic full-path camera envelope during landing so per-frame reframing cannot lift stationary/descending pieces on screen. Inspect forward/reverse desktop/mobile trajectories. Chess sketches do not exist yet; unused final evaluation input remains unavailable.
+
+## V1 release evidence gate
+
+Run `scripts/run.py --workspace ROOT preflight --release --evidence FILE.json`.
+This read-only command verifies existing artifacts and invokes project `verify`;
+it never generates pages, clears pending stages or publishes a site. It reports
+`CERAMIC_RELEASE_OK` only for the frozen scope and named evaluation outputs.
+Missing evidence returns `CERAMIC_RELEASE_BLOCKED` with a nonzero exit code.
+
+The evidence JSON has `schemaVersion: 1`, `runtimeSha256` (runtime-lock.json hash),
+`decisions`, `visualDecisions`, and `cases`. Every artifact reference is
+`{"path":"workspace-relative/file", "sha256":"file SHA256"}`; refs must resolve
+inside the workspace and match real bytes, including symlink resolution.
+
+- `decisions`: artifact ref to a complete `check-decisions` report. All registered
+  suites must pass and its runtime/test hash inventory must equal the current one.
+- `visualDecisions`: artifact refs to scoped decision records. Required scopes are
+  `feature-cad-wire`, `direct-drop`, `gallery-scatter`. Each record contains `scope`,
+  `status: user-approved`, the user's actual `quote`, `sourceMessage` identifying
+  that reply, and nonempty `outputs` artifact refs. Do not infer approval from a
+  technical check, a request to continue or an approval of another scope.
+- `cases`: exactly one `single` and one `multiple`, each with `mode`, `project`
+  (workspace-relative project directory), `revision` (project-relative
+  `page-revisions/ID`), `evaluationAttestation`, and `visualApproval` artifact refs.
+  Mode must match archived config and part count. The current page must have a
+  completed job, matching geometry/input/output hashes, and browser checks for
+  all 12 scenes at desktop/short/mobile/mobile-short. Project geometry `verify`
+  must pass. Cases use separate projects; a shared sketch is permitted.
+- The evaluation attestation contains current `runtimeSha256`,
+  `unusedBeforeEvaluation: true`, `reviewer`, `sourceMessage`, and a `source`
+  artifact ref matching the archived sketch. This is an audited human/agent
+  provenance statement, not a machine proof of historical non-use. Never label
+  existing development inputs held-out; if evaluation drives code tuning, record
+  that change and obtain unused input before claiming held-out success.
+- Each case's visual approval contains `status: user-approved`, actual `quote`,
+  `sourceMessage`, matching `project`/`revision`, and `outputFilesSha256` copied
+  from that reviewed revision. Approval cannot be transferred to altered output.
+
+Known pending stages are discharged only by this evidence; deleting pending
+strings does not bypass the checks. A new unknown pending stage still blocks.
+Unit fixtures for the gate are synthetic and do not count as release evidence.
+Changing runtime/tests makes older decision reports stale; runtime changes also
+require evaluated pages to be regenerated and reviewed. Historical approvals
+remain scoped to their byte-preserved outputs.
