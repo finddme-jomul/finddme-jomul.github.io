@@ -17,5 +17,21 @@
     "assets/outer-profile.json": "d9f77a8042c340c47e98cb6f0130c9b41fe48bf6019617e50fe9d04ecc1b6c17",
     "assets/actual-photo.webp": "0a555c1cedb8cb6aba3918d16a2115af6855818893a239339b143f5824772479",
     "assets/process-photo.webp": "0a9e06388e7cac3c9a84c8c30ccc18aa1c9c9f0e5e4de72cf3a0c8f2b672419d"
+  },
+  "cadBridgeMaterial": {
+    "clay": {
+      "name": "백토",
+      "product": null
+    },
+    "glaze": {
+      "name": "무광투명유약",
+      "product": null,
+      "optical": "clear",
+      "finish": "matte"
+    }
+  },
+  "cadBridgeInputSha256": {
+    "dimensions": "095d3951e7b74765444ccec2f6f3c12cc21c01a8aee9a5840210e3378384653f",
+    "material": "97ef9fb558b80ed95cc3db4a3a7403c1489090b681083396ec48e5d832cb154d"
   }
 }
