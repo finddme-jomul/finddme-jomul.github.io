@@ -130,5 +130,13 @@
       "priority": "User-confirmed entire scene supersedes earlier candidate page framing, sheet display, wire and material settings",
       "scope": "selected moon reference; general CAD-to-selected-renderer adaptation pending"
     }
+  },
+  "wire3d": {
+    "bodyProfileStride": 4,
+    "bodyRingSegments": 72,
+    "bodyMeridians": 12,
+    "source": "CAD outer profile; preserve each sampled radius and height",
+    "handle": "Preserve CAD-derived handle silhouette rails; do not substitute GLB triangle edges",
+    "decision": "2026-10-17 user requested dense mug wire matching moon/bowls; previously handled body used stride20 and two meridians"
   }
 }

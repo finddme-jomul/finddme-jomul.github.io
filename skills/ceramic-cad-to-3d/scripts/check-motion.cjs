@@ -27,6 +27,8 @@ const points=[['sheet',0],['handoff',.43],['wire',.56],['quarter',.685],['half',
       const response=await page.goto(base,{waitUntil:'networkidle0'});
       assert([200,304].includes(response.status()));
       await page.waitForFunction(()=>!!window.__mugMotion?.state?.target);
+      const guide=await page.evaluate(()=>fetch('./wire-guide.json').then(r=>r.json()));
+      assert.equal(guide.density.bodyProfileStride,4);assert.equal(guide.density.bodyMeridians,12);assert.equal(guide.density.bodyRingSegments,72);
       const results=[];
       for (const [name,progress] of points) {
         await page.evaluate(p=>scrollTo(0,innerHeight*1.8*p),progress);
@@ -53,7 +55,7 @@ const points=[['sheet',0],['handoff',.43],['wire',.56],['quarter',.685],['half',
                   sheetRect:{x:sheetRect.x,y:sheetRect.y,width:sheetRect.width,height:sheetRect.height}};
         });
         assert(state.scrollWidth<=width+1,'horizontal overflow');
-        assert(state.wireVertices>500&&state.wireVertices<6000,'CAD guide expected, not raw mesh triangle edges');
+        assert(state.wireVertices>500&&state.wireVertices<50000,'CAD guide expected, not raw mesh triangle edges');
         assert(state.meshBox.x>=-1&&state.meshBox.y>=-1&&
                state.meshBox.x+state.meshBox.width<=width+1&&
                state.meshBox.y+state.meshBox.height<=height+1,'mesh clipped '+JSON.stringify({layout,name,meshBox:state.meshBox,viewport:state.viewport,target:state.target}));

@@ -16,6 +16,22 @@ NS = '{http://www.w3.org/2000/svg}'
 from handled_geometry import sampled_centerline  # noqa: E402
 
 
+def body_wire_lines(profile, density):
+    stride, segments, meridians = (density[k] for k in ('bodyProfileStride','bodyRingSegments','bodyMeridians'))
+    lines = []
+    def add_line(points, closed=False):
+        lines.append((points, closed))
+    for index, (radius, z) in enumerate(profile):
+        if index % stride == 0 or index == len(profile) - 1:
+            add_line([(radius * math.cos(i * math.tau / segments),
+                       radius * math.sin(i * math.tau / segments), z)
+                      for i in range(segments)], closed=True)
+    for index in range(meridians):
+        angle = index * math.tau / meridians
+        add_line([(radius * math.cos(angle), radius * math.sin(angle), z) for radius, z in profile])
+    return lines
+
+
 def main(source: Path, out: Path) -> None:
     manifest = json.loads((source / 'manifest.json').read_text())
     solid = json.loads((source / 'solid/manifest.json').read_text())
@@ -35,6 +51,7 @@ def main(source: Path, out: Path) -> None:
             raise ValueError(f'{kind} differs from the STEP/GLB source')
     profile = json.loads(profile_path.read_text())
     handle = json.loads(handle_path.read_text())
+    density = json.loads(PROFILE.read_text())['wire3d']
     wire_segments = []
     def add_line(points, closed=False):
         pairs = list(zip(points, points[1:] + ([points[0]] if closed else [])))
@@ -42,13 +59,8 @@ def main(source: Path, out: Path) -> None:
             # The GLB loader has already applied its Z-up to Y-up node rotation.
             for x, y, z in (a, b):
                 wire_segments.extend((x / 1000, z / 1000, -y / 1000))
-    for index, (radius, z) in enumerate(profile):
-        if index % 20 == 0 or index == len(profile) - 1:
-            add_line([(radius * math.cos(i * math.tau / 72),
-                       radius * math.sin(i * math.tau / 72), z)
-                      for i in range(72)], closed=True)
-    for side in (-1, 1):
-        add_line([(side * radius, 0, z) for radius, z in profile])
+    for points, closed in body_wire_lines(profile, density):
+        add_line(points, closed)
     centerline = sampled_centerline(handle)
     half = handle['sectionDiameterMm'] / 2
     for side in (-1, 1):
@@ -65,6 +77,8 @@ def main(source: Path, out: Path) -> None:
     (out / 'wire-guide.json').write_text(json.dumps({
         'schemaVersion': 1, 'source': 'CAD profile and exact handle solid path',
         'sourceSha256': {'profile': expected['profile'], 'handle': expected['handle']},
+        'density': density,
+        'bodyRingCount': sum(closed for _, closed in body_wire_lines(profile, density)),
         'positionsYUpMetres': wire_segments
     }) + '\n')
     for layout in ('desktop', 'mobile', 'mobile-short'):
