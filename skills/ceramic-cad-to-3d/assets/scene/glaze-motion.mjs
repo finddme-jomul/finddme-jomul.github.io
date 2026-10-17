@@ -31,3 +31,20 @@ export function continuingAxis(startDegrees, driftZDegrees, driftXDegrees, dropP
     xDegrees:falling.xDegrees*(1-settled)
   };
 }
+
+export function sprayCoverage(angle, heightFraction, centerAngle, widthScale = 1) {
+  const wave = .12 * Math.sin(9 * angle + 15 * heightFraction);
+  const streams = [
+    [centerAngle, .68, .82],
+    [centerAngle + .49, .36, .66],
+    [centerAngle - .43, .34, .72]
+  ];
+  let coverage = 0;
+  for (const [center, width, reach] of streams) {
+    const distance = angularDistance(angle, center + wave);
+    const lateral = Math.exp(-.5 * (distance / (width * widthScale)) ** 2);
+    const downward = smooth((heightFraction - (1 - reach) + .09 * Math.sin(11 * angle)) / .13);
+    coverage = Math.max(coverage, lateral * downward);
+  }
+  return clamp(coverage);
+}

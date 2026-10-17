@@ -1,3 +1,5 @@
+import { installGallery } from './gallery.js';
+import { galleryProfile } from './gallery-config.js';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { createTimeline } from 'animejs';
@@ -7,6 +9,10 @@ const config = await fetch('./assets/project.json').then(async response => {
   if (!response.ok) throw new Error(`project settings HTTP ${response.status}`);
   return response.json();
 });
+if (config.compositionMode === 'multiple') {
+  const {startMultiple} = await import('./multiple-scene.mjs');
+  await startMultiple(config);
+} else {
 const profile = await fetch('./assets/outer-profile.json').then(async response => {
   if (!response.ok) throw new Error(`CAD profile HTTP ${response.status}`);
   return response.json();
@@ -172,8 +178,6 @@ addEventListener('scroll', updateSceneState, {passive: true});
 updateSceneState();
 window.__moonJar = {config, camera, root, orbitRig, tiltRig, wireMaterial, clayMaterial, clip, geometry, timeline, glbLoaded: true};
 
-import { installGallery } from './gallery.js';
-import { galleryProfile } from './gallery-config.js';
 if (hasPhotos) installGallery({
   gallery:document.querySelector('#gallery'),
   story,
@@ -182,3 +186,5 @@ if (hasPhotos) installGallery({
   profile:galleryProfile,
   source:'moon-jar-photo-pacing-slow'
 });
+
+}

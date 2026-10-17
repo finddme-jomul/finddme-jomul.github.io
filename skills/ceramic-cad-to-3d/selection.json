@@ -514,7 +514,9 @@
         "scripts/selected_surface_blender.py",
         "scripts/blender_environment.py",
         "scripts/page_review.py",
-        "assets/page-viewer.js"
+        "assets/page-viewer.js",
+        "scripts/multiple_page.py",
+        "assets/multiple-scene.mjs"
       ],
       "verification": {
         "suites": [
@@ -522,10 +524,11 @@
           "selected-cad",
           "rotational-solid",
           "blender-install",
-          "new-page-input"
+          "new-page-input",
+          "multiple-page-input"
         ],
-        "scope": "Reject unselected candidate generation; exact source manifest verification and full-scene browser parity are separate checks; CAD front extraction equality/source sensitivity and incompatible geometry rejection; regenerated selected sheet PNG byte equality and CAD-derived front-box equality; selected visual surface GLB byte equality; exact-floor CAD remains default; pinned Blender installation integrity; explicit new single review inputs and adaptive sheet bounds; shared runtime viewer preserves selected photo scene and supports explicit empty-photo glaze ending (candidate); wide single-vessel front fit and rotation-safe camera, candidate only",
-        "browserCheck": "tests/check-selected-page.cjs: four viewports, 12 timeline positions including reverse scroll; exact pixels and scene state; tests/check-new-page.cjs separately verifies new single inputs, not visual adoption"
+        "scope": "Reject unselected candidate generation; exact source manifest verification and full-scene browser parity are separate checks; CAD front extraction equality/source sensitivity and incompatible geometry rejection; regenerated selected sheet PNG byte equality and CAD-derived front-box equality; selected visual surface GLB byte equality; exact-floor CAD remains default; pinned Blender installation integrity; explicit new single review inputs and adaptive sheet bounds; shared runtime viewer preserves selected photo scene and supports explicit empty-photo glaze ending (candidate); wide single-vessel front fit and rotation-safe camera, candidate only; two-part review contracts and source-derived surfaces (browser evidence separate)",
+        "browserCheck": "tests/check-selected-page.cjs: four viewports, 12 timeline positions including reverse scroll; exact pixels and scene state; tests/check-new-page.cjs separately verifies new single inputs, not visual adoption; tests/check-multiple-page.cjs: two-vessel source/rotation/ordered coatings/0-or-1-photo review, not bowl pixel adoption"
       }
     }
   ],
