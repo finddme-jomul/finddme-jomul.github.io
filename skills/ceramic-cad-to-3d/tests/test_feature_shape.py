@@ -24,9 +24,32 @@ class FeatureShape(unittest.TestCase):
         self.assertFalse(model.is_inside((10,10,19)))
         self.assertLess(checks[-1]['changeMm3'],0)
         for update in ({'construction':'hollow'}, {'construction':None}):
-            with self.assertRaisesRegex(ValueError,'solid construction'):build({**data,**update})
+            with self.assertRaises(ValueError):build({**data,**update})
         data['features'][-1]['centerMm']=[100,100,100]
         with self.assertRaisesRegex(ValueError,'ineffective cut'):build(data)
+
+    def test_hollow_offset_and_rejections(self):
+        data=spec([dict(id='base', operation='base', kind='box', originMm=[10,20,30], sizeMm=[20,30,40])])
+        data.update(construction='hollow', hollowing=dict(thicknessMm=2, opening=dict(axis='Z',side='max'), cavityProbeMm=[20,35,50]))
+        model, checks=build(data)
+        self.assertAlmostEqual(model.volume,20*30*40-16*26*38,places=4)
+        self.assertFalse(model.is_inside((20,35,69)))  # opening, not a sealed inner void
+        self.assertTrue(model.is_inside((20,35,31)))  # bottom retained
+        self.assertTrue(model.is_inside((11,35,50)))  # wall retained
+        self.assertFalse(model.is_inside((13,35,50)))
+        self.assertTrue(checks[-1]['cavityProbeEmpty'])
+        for patch in ({'thicknessMm':0}, {'thicknessMm':11}, {'thicknessMm':float('nan')}, {'cavityProbeMm':[100,100,100]}, {'opening':{'axis':'Q','side':'max'}}):
+            invalid=copy.deepcopy(data);invalid['hollowing'].update(patch)
+            with self.assertRaises(ValueError):build(invalid)
+        sphere=copy.deepcopy(data);sphere['features']=[dict(id='ball',operation='base',kind='sphere',centerMm=[20,35,50],radiusMm=10)]
+        with self.assertRaisesRegex(ValueError,'planar face'):build(sphere)
+        # A different input, curved wall and off-origin position use the same operation.
+        oval=copy.deepcopy(data);oval['features']=[dict(id='oval',operation='base',kind='loft',ruled=False,sections=[
+            dict(kind='ellipse',plane='XY',originMm=[20,35,z],radiusUMm=10,radiusVMm=15) for z in (30,70)])]
+        curved,_=build(oval)
+        self.assertTrue(curved.is_valid)
+        self.assertFalse(curved.is_inside((20,35,69)))
+        self.assertTrue(curved.is_inside((20,35,31)))
 
     def test_nonrotational_loft_and_union(self):
         data=spec([dict(id='base',operation='base',kind='box',originMm=[-10,-10,0],sizeMm=[20,20,10]),

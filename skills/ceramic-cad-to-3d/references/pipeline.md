@@ -194,8 +194,7 @@ Synthetic smooth and faceted inputs exercise the same compiler. This completes
 the initial solid feature compiler, not the general nonrotational project pipeline.
 Part/source identity and lifecycle now use manual feature-solid configs and
 geometry-ready state. Candidate CAD sheet/frontBox and BRep section-curve guides are now generated
-with the project; static mapping and section geometry are checked. Single-feature material/motion/page candidates now use the existing solid renderer; review the feature-specific visual result before adopting its layout or wire density. Hollow construction,
-external models and manufacturing verification remain unsupported.
+with the project; static mapping and section geometry are checked. Single-feature material/motion/page candidates now use the existing solid renderer; review the feature-specific visual result before adopting its layout or wire density. Reviewed uniform-offset hollow construction with one extremal planar opening now uses the same compiler/lifecycle; see the feature input contract. External models and manufacturing verification remain unsupported. Hollow page appearance still requires its own browser review.
 
 ### Feature motion and shared defaults
 

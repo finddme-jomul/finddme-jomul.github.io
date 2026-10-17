@@ -593,7 +593,7 @@
     {
       "id": "feature-shape-input",
       "state": "implemented-geometry-stage-only",
-      "rule": "Reviewed explicit solid feature data: revolve, loft, box, sphere, union and cut. Reject hollow intent; never substitute a rotational vessel. Single-feature page candidates reuse the shared solid renderer.",
+      "rule": "Reviewed solid or uniform-offset hollow feature data: revolve, loft, box, sphere, union and cut. Hollow requires positive thickness, one extremal planar opening and an emptied cavity probe; never substitute a rotational vessel. Single-feature page candidates reuse the shared solid renderer.",
       "consumer": [
         "scripts/feature_shape.py",
         "scripts/run.py"
@@ -602,7 +602,7 @@
         "suites": [
           "feature-shape"
         ],
-        "scope": "Analytic volumes, loft fusion, disconnected/no-op feature rejection, solid/hollow distinction; CLI development exports also checked separately."
+        "scope": "Analytic volumes, loft fusion, disconnected/no-op feature rejection, solid/hollow distinction, analytic hollow wall/floor volume and curved hollow opening; CLI lifecycle exports checked separately."
       }
     },
     {
