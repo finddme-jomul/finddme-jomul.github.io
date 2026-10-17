@@ -35,6 +35,7 @@ def assembly(spec, parts, timing):
         raise ValueError('Assembly needs reviewed provenance')
     mode=spec.get('mode','lift-place')
     if mode not in ('lift-place','direct-drop'):raise ValueError('Unsupported assembly mode')
+    if spec.get('landing') not in (None,'soft-spin') or spec.get('landing') and mode!='direct-drop':raise ValueError('Soft spin requires direct-drop')
     coat_end = (timing['baseGlazeStart'] + timing['baseGlazeDuration'] if timing['accentGlazeStart'] is None else timing['accentGlazeStart'] + timing['accentGlazeDuration'])
     if not coat_end < spec['start'] < spec['start']+spec['duration'] < timing['photoStart']:
         raise ValueError('Assembly must follow coatings and finish before handoff')

@@ -238,3 +238,14 @@ of lower parts; the existing sampled CAD collision gate checks this trajectory.
 Reverse scroll uses the same pure progress function. Omitted mode retains
 `lift-place`; this new route is currently feature-solid only. Drop heights/timing
 are reviewed scene inputs, not gravity or physical settling simulation.
+
+For continued rotation and a soft touchdown, set `assembly.landing: "soft-spin"`
+with `direct-drop`. Body and upright-axis yaw continue from the glaze stage until
+each part's own step ends, smoothly reaching zero angular velocity at landing.
+The axis tilt still releases before assembly, so placement stays upright. Vertical
+motion uses quintic smootherstep (zero endpoint velocity and acceleration). CAD
+collision samples apply the same time-dependent yaw, rather than checking only
+unrotated solids. Whole-turn constraints preserve the final orientation. Drop
+heights and step durations remain reviewed inputs; shorten the distance and allow
+more scroll for landing when the previous descent reads as abrupt. Omitted
+`landing` preserves the earlier direct-drop behavior.

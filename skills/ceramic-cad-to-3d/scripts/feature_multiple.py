@@ -44,7 +44,7 @@ def prepare(project, review):
     photo=(ROOT/review['photos']).resolve();files.add(photo)
     for item in load_photos(photo):files.add((ROOT/item['source']).resolve())
     from feature_assembly import check
-    assembly_check=check(parts,review.get('assembly'))
+    assembly_check=check(parts,review.get('assembly'),review['motion'])
     return {'mode':'multiple','featureSolids':True,'project':str(project.relative_to(ROOT)),'name':config['name'],'review':copy.deepcopy(review),'parts':parts,
             'sheetManifest':json.loads((project/'geometry/drawing-manifest.json').read_text()),'assemblyCheck':assembly_check,
             'inputsSha256':{str(p.relative_to(ROOT)):sha(p) for p in sorted(files)}}
