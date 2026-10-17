@@ -7,9 +7,23 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from build123d import Box, Vector, export_step
 from feature_assembly import check
 from assembly_geometry import position, landing_ease
-from layered_review import assembly
+from layered_review import assembly, apply_assembly_preset
 
 class FeatureAssembly(unittest.TestCase):
+    def test_adopted_preset_preserves_reference_and_rejects_regression(self):
+        spec={'preset':'gentle-staggered','steps':[{'start':0,'duration':.22},{'start':.22,'duration':.60},{'start':.34,'duration':.60}]}
+        review={'assembly':spec};original=copy.deepcopy(review)
+        result=apply_assembly_preset(review)['assembly']
+        self.assertEqual(original,review)
+        self.assertEqual('direct-drop',result['mode']);self.assertEqual('soft-spin',result['landing']);self.assertTrue(result['overlap'])
+        self.assertEqual(spec['steps'],result['steps'])
+        bad=copy.deepcopy(review);bad['assembly']['steps'][2]['start']=.55
+        with self.assertRaisesRegex(ValueError,'landing gap'):apply_assembly_preset(bad)
+        bad=copy.deepcopy(review);bad['assembly']['overlap']=False
+        with self.assertRaisesRegex(ValueError,'conflicts'):apply_assembly_preset(bad)
+        legacy={'assembly':{'mode':'direct-drop'}}
+        self.assertEqual(legacy,apply_assembly_preset(legacy))
+
     def test_soft_landing_has_zero_endpoint_velocity_and_acceleration(self):
         self.assertEqual(0,landing_ease(0));self.assertEqual(1,landing_ease(1))
         h=1e-4

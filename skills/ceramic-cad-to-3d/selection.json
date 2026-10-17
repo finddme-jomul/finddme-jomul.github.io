@@ -774,6 +774,23 @@
         "scope": "Overlap opt-in and ordered endpoints; actual browser poses and rotating CAD samples for the reviewed composition.",
         "browserCheck": "tests/check-multiple-page.cjs"
       }
+    },
+    {
+      "id": "adopted-gentle-staggered-drop",
+      "state": "user-adopted-within-feature-direct-drop-scope",
+      "profile": "assembly.gentleStaggeredDrop",
+      "rule": "Use gentle-staggered for sequential drops: resolve soft-spin and overlap, reject conflicting modes and excessive upper-part landing gaps. Preserve approved reference and adapt geometric clearances separately.",
+      "consumer": [
+        "scripts/layered_review.py",
+        "scripts/feature_multiple.py",
+        "assets/multiple-scene.mjs"
+      ],
+      "verification": {
+        "suites": [
+          "feature-assembly"
+        ],
+        "scope": "Preset resolution and gap regression guard; adopted reference 6e815f1a65e141b794bb2ca295600804 already browser-verified. No blanket shape or physical approval."
+      }
     }
   ],
   "sourceRepositoryCommit": "c84daff",

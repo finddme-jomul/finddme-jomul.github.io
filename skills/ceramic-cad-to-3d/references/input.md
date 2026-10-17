@@ -256,3 +256,18 @@ times, but a later departure may precede an earlier landing. Omitted/false keeps
 nonoverlapping steps. Keep the foundation landing before the upper parts in the
 reviewed timing. The same per-part soft-spin, reversible trajectory and rotating
 CAD collision samples apply to simultaneous movement.
+
+#### Adopted gentle-staggered preset
+
+New sequential direct-drop reviews should name `assembly.preset:
+"gentle-staggered"`. The feature multiple adapter resolves mode=direct-drop,
+landing=soft-spin and overlap=true from `accepted-profile.json`; explicit
+conflicts are rejected. Timing and geometry remain reviewed input. For upper
+pieces after the foundation, the landing gap must not exceed 0.2 times the
+shorter of the adjacent fall durations. The selected three-part reference is
+foundation [0,.22], upper pieces [.22,.82] and [.34,.94] within assembly [.63,.95].
+Those are scroll progress values, not seconds. Preserve sufficient fall duration
+and adjust overall scroll budget for larger compositions. The reference heights
+65/100/135mm are specimen-specific, not global defaults. Previously explicit
+reviews without a preset retain their existing behavior; do not use their older
+motion as the default when creating a new review.

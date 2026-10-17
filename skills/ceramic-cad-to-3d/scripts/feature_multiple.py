@@ -14,6 +14,8 @@ def prepare(project, review):
         raise ValueError('Feature multiple pages require homogeneous feature-solid parts')
     if not review or review.get('renderer')!='feature-solids':
         raise ValueError('Explicit feature-solids renderer review required')
+    from layered_review import apply_assembly_preset
+    review=apply_assembly_preset(review)
     validate(review,[p['id'] for p in config['parts']])
     if review['motion']['timing']['accentGlazeStart'] is not None:
         raise ValueError('Feature pages currently support one all-surface glaze')

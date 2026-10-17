@@ -281,5 +281,61 @@
         ]
       ]
     }
+  },
+  "assembly": {
+    "gentleStaggeredDrop": {
+      "status": "user-adopted",
+      "preset": "gentle-staggered",
+      "scope": "Sequential direct-drop appearance: gentle landing, rotation through descent, closely spaced ordered landings. Not material/geometry/physical simulation approval.",
+      "userDecision": "좋은 거 같아. 이렇게 순차적으로 떨어지는 모션에서는 이렇게 사뿐하게 마무리, 요소별 착지 간격 너무 크지 않게 이정도를 유지할 수 있도록 스킬에 적용해줘",
+      "mode": "direct-drop",
+      "landing": "soft-spin",
+      "overlap": true,
+      "maxUpperLandingGapToFallDurationRatio": 0.2,
+      "reference": {
+        "project": "90-feature-assembly",
+        "revision": "6e815f1a65e141b794bb2ca295600804",
+        "reviewSha256": "5b952239bc146210d84409a8ca995ef4a4b1595c79f43bce50373bbdcc363b4d",
+        "assemblyStart": 0.63,
+        "assemblyDuration": 0.32,
+        "storyHeightVh": 1250,
+        "steps": [
+          {
+            "partId": "base",
+            "start": 0,
+            "duration": 0.22,
+            "targetPositionMm": [
+              0,
+              0,
+              0
+            ],
+            "dropHeightMm": 65
+          },
+          {
+            "partId": "smooth",
+            "start": 0.22,
+            "duration": 0.6,
+            "targetPositionMm": [
+              -30,
+              9,
+              0
+            ],
+            "dropHeightMm": 100
+          },
+          {
+            "partId": "faceted",
+            "start": 0.34,
+            "duration": 0.6,
+            "targetPositionMm": [
+              30,
+              9,
+              0
+            ],
+            "dropHeightMm": 135
+          }
+        ]
+      },
+      "adaptation": "Preserve soft easing/rotation and short relative landing gaps. Review heights, overall scroll duration and collision clearance for new geometry/counts; do not blindly copy millimetres or shorten falls to reduce landing gaps."
+    }
   }
 }
