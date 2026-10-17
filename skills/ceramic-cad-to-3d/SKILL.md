@@ -80,3 +80,5 @@ For multiple `feature-solid` parts, use `page-review` with `renderer: "feature-s
 When the user wants a foundation to land first and upper parts to descend onto it without a late floor lineup, use `assembly.mode: "direct-drop"` and ordered `dropHeightMm` steps. The initial descent stages parts above their target positions; final vertical descent follows coating/rotation. Keep `lift-place` for requested lift/translate/lower arrangements. See the feature assembly input contract.
 
 For a request to keep rotating through descent and land softly, add `assembly.landing: "soft-spin"` to `direct-drop`. This keeps upright body/axis yaw until each landing and eases the final descent; review heights and duration together. Collision checks must use the rotating pose.
+
+When gaps between successive direct-drop landings feel too long, use explicit `assembly.overlap: true` and stagger step starts while retaining departure/landing order. Preserve the soft landing duration instead of shortening each fall; verify simultaneous rotating poses for collision.

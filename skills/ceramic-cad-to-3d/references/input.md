@@ -249,3 +249,10 @@ unrotated solids. Whole-turn constraints preserve the final orientation. Drop
 heights and step durations remain reviewed inputs; shorten the distance and allow
 more scroll for landing when the previous descent reads as abrupt. Omitted
 `landing` preserves the earlier direct-drop behavior.
+
+Set `assembly.overlap: true` only with `direct-drop` when successive upper parts
+should descend together. Steps must retain nondecreasing departure and landing
+times, but a later departure may precede an earlier landing. Omitted/false keeps
+nonoverlapping steps. Keep the foundation landing before the upper parts in the
+reviewed timing. The same per-part soft-spin, reversible trajectory and rotating
+CAD collision samples apply to simultaneous movement.

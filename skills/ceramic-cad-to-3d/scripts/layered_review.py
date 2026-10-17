@@ -41,10 +41,14 @@ def assembly(spec, parts, timing):
         raise ValueError('Assembly must follow coatings and finish before handoff')
     if len(spec['steps']) != len(parts) or {s['partId'] for s in spec['steps']} != {p['id'] for p in parts}:
         raise ValueError('Assembly must reference each part exactly once')
+    overlap=spec.get('overlap',False)
+    if not isinstance(overlap,bool) or overlap and mode!='direct-drop':raise ValueError('Overlap requires direct-drop')
     end = 0
+    previous_start = 0
     for step in spec['steps']:
-        if not end <= step['start'] < step['start']+step['duration'] <= 1:
-            raise ValueError('Assembly steps must be sequential within the stage')
+        if not (previous_start if overlap else end) <= step['start'] < step['start']+step['duration'] <= 1 or (overlap and step['start']+step['duration']<end):
+            raise ValueError('Assembly steps must preserve departure and landing order within the stage')
+        previous_start = step['start']
         end = step['start']+step['duration']
         if len(step['targetPositionMm']) != 3 or any(not math.isfinite(v) or abs(v)>2000 for v in step['targetPositionMm']):
             raise ValueError('Assembly targets use finite millimetres, Y-up, foot-bottom origin')

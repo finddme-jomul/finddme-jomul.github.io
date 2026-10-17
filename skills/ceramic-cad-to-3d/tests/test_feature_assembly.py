@@ -71,6 +71,20 @@ class FeatureAssembly(unittest.TestCase):
                     bad=copy.deepcopy(review);bad['parts'][0]['glazePreview']['clearcoat']=True
                     with self.assertRaisesRegex(ValueError,'roughness/clearcoat'):adapter.prepare(project,bad)
 
+    def test_overlap_requires_opt_in_and_preserves_landing_order(self):
+        timing={'baseGlazeStart':.4,'baseGlazeDuration':.2,'accentGlazeStart':None,'photoStart':.97}
+        parts=[{'id':v,'motion':{'settledScale':1}} for v in ('base','one','two')]
+        spec={'status':'reviewed-provisional','provenance':'test','mode':'direct-drop','overlap':True,'start':.63,'duration':.32,
+              'steps':[{'partId':pid,'start':start,'duration':duration,'dropHeightMm':100,'targetPositionMm':[0,0,0]} for pid,start,duration in [('base',0,.22),('one',.22,.60),('two',.34,.60)]]}
+        assembly(spec,parts,timing)
+        bad=copy.deepcopy(spec);bad.pop('overlap')
+        with self.assertRaises(ValueError):assembly(bad,parts,timing)
+        bad=copy.deepcopy(spec);bad['steps'][2]['duration']=.1
+        with self.assertRaises(ValueError):assembly(bad,parts,timing)
+        a,b=spec['steps'][1:]
+        self.assertLess(b['start'],a['start']+a['duration'])
+        self.assertAlmostEqual((b['start']+b['duration']-a['start']-a['duration'])*spec['duration'],.0384)
+
     def test_single_coat_assembly_timing(self):
         p=[{'id':'a','motion':{'settledScale':1}}]
         spec={'status':'reviewed-provisional','provenance':'test','start':.7,'duration':.2,'steps':[{'partId':'a','start':0,'duration':1,'targetPositionMm':[0,0,0],'liftMm':10}]}
