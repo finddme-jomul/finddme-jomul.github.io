@@ -88,11 +88,9 @@ this standalone command is geometry-only; the project lifecycle route below also
 
 Required root fields: `schemaVersion: 1`, `units: "mm"`, `upAxis: "Z"`,
 `status: "reviewed-provisional" | "user-confirmed"`, nonempty `provenance`,
-`assumptions` array, `construction: "solid"`, nonempty ordered `features`.
+`assumptions` array, `construction: "solid" | "hollow"`, nonempty ordered `features`.
 Record the evidence and unseen depth/back assumptions; the compiler does not
-infer features from a sketch. `hollow` is rejected until cavity/opening/thickness
-contracts and checks exist. A decorative cut is not a manufacturing hollowing
-operation. No shrinkage, recentering or scale conversion of input dimensions is inferred.
+infer features from a sketch. For `hollow`, supply `hollowing: {thicknessMm: 2, opening: {axis: "Z", side: "max"}, cavityProbeMm: [0,0,20]}` with reviewed values. After all features, the compiler offsets inward by that positive thickness and removes exactly one extremal planar face on X/Y/Z min/max. Ambiguous or curved opening faces fail; no face index is guessed. The probe must be inside the original solid and empty afterward. Valid connected remaining material, reduced positive volume and unchanged outer bounds are checked. This supports a uniform-offset open cavity, not arbitrary cavity cutters, closed voids, varying thickness or a global minimum-wall/manufacturing guarantee. Kernel offset failure requires revised input, never silent solid fallback. `solid` rejects stray hollowing input. A decorative cut alone does not declare hollow intent. No shrinkage, recentering or scale conversion of input dimensions is inferred.
 
 Each feature has a unique slug `id`, `operation` (`base` for the first, then
 `union` or `cut`), and one of these `kind` definitions:

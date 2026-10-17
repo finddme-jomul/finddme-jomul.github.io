@@ -31,8 +31,19 @@ def validate(data):
         raise ValueError('Reviewed feature provenance required')
     if not isinstance(data.get('assumptions'), list):
         raise ValueError('Record assumptions explicitly, including unseen depth')
-    if data.get('construction') != 'solid':
-        raise ValueError('Only explicit solid construction is supported; hollow needs reviewed cavity/opening/thickness support')
+    if data.get('construction') not in ('solid', 'hollow'):
+        raise ValueError('Explicit solid or hollow construction required')
+    if data['construction'] == 'hollow':
+        shell = data.get('hollowing', {})
+        if not isinstance(shell, dict) or set(shell) != {'thicknessMm', 'opening', 'cavityProbeMm'}:
+            raise ValueError('Hollow construction requires thicknessMm, opening and cavityProbeMm')
+        number(shell['thicknessMm'], True)
+        vector(shell['cavityProbeMm'])
+        opening = shell['opening']
+        if not isinstance(opening, dict) or set(opening) != {'axis', 'side'} or opening['axis'] not in ('X','Y','Z') or opening['side'] not in ('min','max'):
+            raise ValueError('Opening requires axis X/Y/Z and side min/max')
+    elif 'hollowing' in data:
+        raise ValueError('Solid construction must not carry hollowing input')
     features = data.get('features')
     if not isinstance(features, list) or not features:
         raise ValueError('A nonempty ordered feature list is required')
@@ -112,7 +123,44 @@ def build(data):
         if feature['operation'] == 'union' and change <= 1e-7:
             raise ValueError(feature['id']+': ineffective union')
         checks.append({'id':feature['id'], 'operation':feature['operation'], 'volumeMm3':model.volume, 'changeMm3':change})
+    if data['construction'] == 'hollow':
+        model, shell_check = hollow(model, data['hollowing'])
+        checks.append(shell_check)
     return model, checks
+
+
+def hollow(model, spec):
+    """Inward uniform offset with one explicitly selected extremal planar opening."""
+    from build123d import GeomType, Kind
+    axis = 'XYZ'.index(spec['opening']['axis'])
+    side = spec['opening']['side']
+    box = model.bounding_box()
+    extreme = list(getattr(box, side))[axis]
+    faces = []
+    for face in model.faces():
+        fb = face.bounding_box()
+        if face.geom_type == GeomType.PLANE and all(abs(list(v)[axis]-extreme) < 1e-5 for v in (fb.min, fb.max)):
+            faces.append(face)
+    if len(faces) != 1:
+        raise ValueError('Opening must select exactly one extremal planar face')
+    probe = spec['cavityProbeMm']
+    if not model.is_inside(probe):
+        raise ValueError('Cavity probe must be inside the original solid')
+    try:
+        result = model.solids()[0].offset_3d(faces, -spec['thicknessMm'], kind=Kind.INTERSECTION)
+    except Exception as exc:
+        raise ValueError('Hollow offset failed; review geometry, opening and thickness') from exc
+    if not result.is_valid or len(result.solids()) != 1 or not 0 < result.volume < model.volume:
+        raise ValueError('Hollow offset must leave one connected positive-volume solid')
+    rb = result.bounding_box()
+    if any(abs(a-b) > 1e-4 for x,y in ((box.min,rb.min),(box.max,rb.max)) for a,b in zip(x,y)):
+        raise ValueError('Hollow offset changed outer bounds')
+    if result.is_inside(probe):
+        raise ValueError('Cavity probe remains filled; review thickness or probe')
+    return result, {'operation':'hollow', 'method':'inward-uniform-offset',
+                    'thicknessMm':spec['thicknessMm'], 'opening':spec['opening'],
+                    'cavityProbeMm':probe, 'cavityProbeEmpty':True,
+                    'volumeMm3':result.volume, 'changeMm3':result.volume-model.volume}
 
 
 def generate(source, output):
@@ -140,12 +188,12 @@ def generate(source, output):
         if any(abs(mesh_bounds[key]-cad_bounds[key]) > .5 for key in cad_bounds):
             raise ValueError('GLB bounds differ from CAD by more than 0.5 mm')
         box = model.bounding_box()
-        result = {'schemaVersion':1, 'status':'geometry-stage-only', 'construction':'solid',
+        result = {'schemaVersion':1, 'status':'geometry-stage-only', 'construction':data['construction'],
                   'units':'mm', 'upAxis':'Z', 'manufacturingValidated':False,
                   'glbUnit':'m', 'glbBoundsMm':mesh_bounds,
                   'volumeMm3':model.volume, 'boundsMm':{'min':list(box.min), 'max':list(box.max)},
                   'features':checks, 'stepRoundTripRelativeVolumeError':error,
-                  'limitations':['No project CAD sheet/frontBox or wire guide yet', 'No material, motion, page or project lifecycle integration', 'Hollow and external-model input unsupported'],
+                  'limitations':['Standalone geometry export; use project commands for drawings, motion and pages', 'Hollow offset supports one extremal planar opening; no manufacturing or global minimum-wall certification', 'External-model input unsupported'],
                   'sha256':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in stage.iterdir()}}
         (stage/'manifest.json').write_text(json.dumps(result, indent=2)+'\n')
         stage.rename(output)

@@ -62,7 +62,7 @@ def build(project, state):
     if old and current == old['buildInputs'] and tree_hashes(out) == old['filesSha256']:
         # Material metadata/input paths can change while producing identical geometry.
         state['status'] = 'geometry-ready'
-        state['nextInput'] = 'Review feature drawing/curve guide candidate; material/motion/page integration pending'
+        state['nextInput'] = 'Review feature drawing/curve guide; provide explicit material/motion input for page-review'
         old['inputSha256'] = tree_hashes(project/'input')
         verify(project,state)
         save(project/'pipeline-state.json',state)
@@ -95,8 +95,8 @@ def build(project, state):
         try:
             state['featureGeometry'] = {'filesSha256':tree_hashes(out), 'inputSha256':tree_hashes(project/'input'), 'buildInputs':current, 'drawingCandidate':True}
             state['status'] = 'geometry-ready'
-            state['nextInput'] = 'Review feature drawing/curve guide candidate; material/motion/page integration pending'
-            state['unsupportedStages'] = ['feature drawing visual adoption', 'feature material/motion/page', 'hollow', 'publication']
+            state['nextInput'] = 'Review feature drawing/curve guide; provide explicit material/motion input for page-review'
+            state['unsupportedStages'] = ['feature drawing visual adoption', 'partial/layered feature coatings', 'external models', 'publication']
             save(project/'pipeline-state.json',state)
         except Exception:
             shutil.rmtree(out)
@@ -104,6 +104,6 @@ def build(project, state):
             state.clear();state.update(prior)
             raise
         if previous.exists(): shutil.rmtree(previous)
-        record(project,'Built feature geometry and BRep drawing/section-guide candidate; page remains pending.')
+        record(project,'Built feature geometry and BRep drawing/section-guide candidate; explicit page review remains required.')
     finally:
         if stage.exists(): shutil.rmtree(stage)

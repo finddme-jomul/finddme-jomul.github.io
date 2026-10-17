@@ -66,6 +66,17 @@ class FeatureProject(unittest.TestCase):
             self.assertTrue((project/'geometry/second-form/model.step').is_file())
             cli('verify',pid)
             current=hashes(project);cli('resume',pid);self.assertEqual(current,hashes(project))
+            # Same lifecycle switches reviewed construction, retaining part IDs.
+            data.update(construction='hollow', hollowing=dict(thicknessMm=1, opening=dict(axis='Z',side='max'), cavityProbeMm=[10,5,20]))
+            shape.write_text(json.dumps(data))
+            cli('revise',pid,'--feedback','Reviewed open hollow forms','--config',config)
+            cli('verify',pid)
+            for part in ('form','second-form'):
+                manifest=json.loads((project/'geometry'/part/'manifest.json').read_text())
+                self.assertEqual(manifest['construction'],'hollow')
+                self.assertAlmostEqual(manifest['volumeMm3'],20*10*40-18*8*39,places=4)
+                self.assertTrue((project/'geometry'/part/'wire-guide.json').is_file())
+            current=hashes(project);cli('resume',pid);self.assertEqual(current,hashes(project))
             (project/'geometry/form/model.step').write_text('tampered')
             self.assertIn('drift',cli('verify',pid,ok=False))
 
