@@ -7,7 +7,7 @@ from ceramic_paths import ROOT, SKILL, ASSETS
 from photos import sha
 
 
-def restore(output):
+def restore(output, cad_project=None):
     manifest=json.loads((ASSETS/'selected-page.json').read_text())
     source=ASSETS/'selected-page'
     for name,expected in manifest['files'].items():
@@ -16,8 +16,16 @@ def restore(output):
     if not output.is_relative_to(ROOT) or output.is_relative_to(SKILL): raise ValueError('Output must be in the workspace outside the skill')
     stage=output.with_name(output.name+'.building')
     if stage.exists(): raise ValueError('Unresolved selected-page staging directory')
+    prepared = None
+    if cad_project is not None:
+        from selected_cad import prepare
+        prepared = prepare(cad_project)
     try:
         shutil.copytree(source,stage)
+        cad_inputs = None
+        if prepared is not None:
+            from selected_cad import install
+            cad_inputs = install(prepared, stage)
         report_dir=output.with_name(output.name+'.verification')
         from browser_environment import run_browser
         run_browser('tests/check-selected-page.cjs',{
@@ -30,6 +38,15 @@ def restore(output):
         for name,expected in manifest['files'].items():
             if sha(stage/name)!=expected: raise ValueError('Restored output drift: '+name)
         (stage/'restoration.json').write_text(json.dumps({'status':'selected-input-replay-verified','newCadGeneration':False,'reference':manifest,'browserReportSha256':sha(stage/'browser-parity/report.json')},ensure_ascii=False,indent=2)+'\n')
+        if prepared is not None:
+            from selected_cad import verify_inputs
+            verify_inputs(prepared)
+            (stage/'cad-bridge.json').write_text(json.dumps({
+                'status':'cad-front-wire-verified', 'newCadGeneration':False,
+                'generated':['assets/front-view.svg','assets/outer-profile.json'],
+                'retainedReference':['CAD sheet','surface model/material','motion','photos'],
+                'scope':'Compatible selected geometry only; sheet/model regeneration remains pending',
+                **cad_inputs}, ensure_ascii=False, indent=2)+'\n')
         stage.rename(output)
     finally:
         if stage.exists(): shutil.rmtree(stage)
@@ -39,5 +56,6 @@ def restore(output):
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--cad-project',type=Path,help='Verify and regenerate compatible CAD front/wire inputs; sheet/model remain reference assets')
     args=parser.parse_args()
-    restore(args.output.expanduser().resolve())
+    restore(args.output.expanduser().resolve(), args.cad_project)
