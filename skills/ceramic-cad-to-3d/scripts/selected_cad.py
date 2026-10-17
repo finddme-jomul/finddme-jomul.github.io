@@ -1,7 +1,7 @@
 """CAD-derived front/wire inputs for the selected scene, with honest partial scope.
 
-Until its surface generator is connected, this bridge accepts only
-CAD inputs compatible with the selected layout and retained surface model/material assets.
+This bridge accepts the reviewed moon inputs only until new-project layout
+and material adaptation is verified. It regenerates the selected visual surface.
 """
 import json
 import math
@@ -89,4 +89,8 @@ def install(prepared, stage):
     config = json.loads(config_path.read_text())
     if front_box != config['sheetFrontBox']:
         raise ValueError('Generated sheet front placement differs from the selected scene')
+    from selected_surface import render as render_surface
+    render_surface(prepared['profile'], prepared['calculation']['targetFiredMm'], prepared['material'], stage/'surface-generation')
+    import shutil
+    shutil.copy2(stage/'surface-generation/model.glb', stage/'assets/model.glb')
     return {k: v for k, v in prepared.items() if k not in ('profile', 'frontSvg', 'calculation', 'material')}

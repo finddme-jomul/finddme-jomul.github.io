@@ -1,0 +1,14 @@
+{
+  "status": "selected-visual-source",
+  "imageId": "sha256:dce14892d5ba8e251e0d0737598a9eba225df0565d48141660002bce42fd4233",
+  "blender": "4.5.11",
+  "source": "same reviewed CAD profile; selected visual sampled-floor policy, separate from exact-floor CAD export",
+  "roughness": 0.66,
+  "clearcoat": 0.08,
+  "floorPolicy": "selected-visual-sampled",
+  "stlTolerance": 0.12,
+  "stlAngularTolerance": 0.08,
+  "meshName": "moon-jar-final-draft",
+  "scope": "Compatible selected moon inputs only; not manufacturing geometry",
+  "environmentScope": "Pinned existing local Blender image; portable installation is pending"
+}
