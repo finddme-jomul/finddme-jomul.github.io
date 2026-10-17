@@ -198,3 +198,20 @@ with the project; static mapping and section geometry are checked. Next connect
 existing material/motion/page generation and review the feature-specific visual
 result before adopting its layout or wire density. Hollow construction,
 external models and manufacturing verification remain unsupported.
+
+### Feature motion and shared defaults
+
+Feature parts now consume the existing handled-scene/axis renderer through an
+input adapter. This is per-part CAD→wire→neutral-clay motion review; whole-page
+materials/glaze/photos and simultaneous feature assembly are still pending.
+Geometry-dependent state/recovery uses the existing project commands. Smooth and
+offset faceted development inputs exercise actual browser alignment/framing and
+reverse scroll; numerical success is not user visual adoption.
+
+`accepted-profile.json` is the maintained defaults source, not a second config
+tree. `sceneDefaults` centralizes the three renderers' principal lighting/camera
+settings and the shared handled/feature transition timing; wire colour remains
+`wire3d.defaultColor` with project override. Values are copied to each generated
+output so a global config edit cannot silently alter old pages. Original baseline
+assets remain immutable. Formula-specific constants still live with their
+algorithms; this change is not a claim that every numeric literal is configurable.

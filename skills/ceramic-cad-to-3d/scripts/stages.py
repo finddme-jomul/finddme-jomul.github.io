@@ -83,8 +83,14 @@ def describe(project, state):
                                'outputs':['geometry/sheet-*.svg','geometry/drawing-manifest.json','geometry/*/wire-guide.json'],
                                'reason':'BRep drawing and section guides; visual adoption and page alignment pending'}
         result['cad'].update(status='blocked',reason='Feature drawing adoption/page alignment pending')
-        for name in ('motion','page'):
-            result[name].update(status='blocked',reason='Feature geometry renderer integration pending')
+        result['page'].update(status='blocked',reason='Feature full-page integration pending')
+        result['motion'].update(status='blocked',reason='Provide reviewed motion input for a feature part')
+        if motion:
+            motion_valid=(valid and motion.get('geometrySha256')==hashes(project/'geometry')
+                          and hashes(project/'motion-preview')==motion['filesSha256'])
+            result['motion'].update(status='complete' if motion_valid else 'stale',reason='Feature motion preview; full page remains pending')
+        if state.get('motionJob',{}).get('status') in ('failed','running'):
+            result['motion'].update(status=state['motionJob']['status'],reason=state['motionJob'].get('error','Browser gate pending'))
     return result
 
 

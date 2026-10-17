@@ -14,3 +14,6 @@ def resolve(motion=None):
 
 def install(output, motion=None):
     (output/'wire-color.mjs').write_text('export const wireColor = '+json.dumps(resolve(motion))+';\n')
+
+    profile = json.loads(PROFILE.read_text())
+    (output/'scene-defaults.mjs').write_text('export const sceneDefaults = '+json.dumps(profile['sceneDefaults'])+';\n')

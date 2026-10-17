@@ -1,3 +1,5 @@
+import {sceneDefaults} from './scene-defaults.mjs';
+const defaults=sceneDefaults.multiple;
 import {wireColor} from './wire-color.mjs';
 // Two-part scene mode; inputs retain CAD IDs, ordered coatings and reviewed motion.
 import * as THREE from 'three';
@@ -14,12 +16,12 @@ export async function startMultiple(spec) {
   const host=document.querySelector('#viewer'),story=document.querySelector('#story');
   const sheet=document.querySelector('#cad-sheet'),image=document.querySelector('#cad-sheet-image');
   const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
-  renderer.setPixelRatio(Math.min(devicePixelRatio,1.6));
-  renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.45;
+  renderer.setPixelRatio(Math.min(devicePixelRatio,defaults.pixelRatioCap));
+  renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=defaults.exposure;
   host.appendChild(renderer.domElement);
-  const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(32,1,.01,10);
-  scene.add(new THREE.HemisphereLight(0xffffff,0xc8c7c2,1.7));
-  for(const [x,y,z,power] of [[-.3,.35,.5,3.5],[.3,.2,-.2,2.2]]){const lamp=new THREE.PointLight(0xffffff,power);lamp.position.set(x,y,z);scene.add(lamp);}
+  const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(defaults.fov,1,defaults.near,defaults.far);
+  scene.add(new THREE.HemisphereLight(defaults.skyColor,defaults.groundColor,defaults.hemisphereIntensity));
+  for(const [x,y,z,power] of defaults.pointLights){const lamp=new THREE.PointLight(defaults.keyColor,power);lamp.position.set(x,y,z);scene.add(lamp);}
   const timing=spec.motion.timing,layout=spec.motion.layout,glazeMotion=spec.motion.glaze;
   const assembly=spec.assembly,rotationEnd=assembly?assembly.start:timing.photoStart;
   const hasPhotos=spec.ending==='photos';
