@@ -84,7 +84,7 @@ the current default unless the input specifies an override.
 `run.py --workspace ROOT shape-build --input shape.json --output UNUSED_DIR`
 consumes reviewed data and generates `model.step`, `model.glb`, the exact source
 JSON and a hashed manifest. Outputs are created atomically in a new directory;
-this is not yet `new/resume/revise` or a full project-page input.
+this standalone command is geometry-only; the project lifecycle route below also consumes the same compiler.
 
 Required root fields: `schemaVersion: 1`, `units: "mm"`, `upAxis: "Z"`,
 `status: "reviewed-provisional" | "user-confirmed"`, nonempty `provenance`,
@@ -112,3 +112,27 @@ no-op unions/cuts fail. STEP roundtrip and GLB/CAD bounds are checked before pro
 This finite operation vocabulary is not arbitrary CAD scripting or sculptural
 fidelity. Sweep, arbitrary transforms, external STEP/mesh, CAD sheets/frontBox,
 curve wire guides, materials, motion, assembly and project lifecycle are pending.
+
+#### Feature-solid project lifecycle
+
+Manual configs may use `shapeKind: "feature-solid"` with `id`, `name`, `shape`
+(path to the reviewed feature JSON) and `material` (JSON evidence object).
+Dimensions are inside the feature data, not a vessel `dimensions/profile` pair.
+Use the usual `style: "technical-dense"` as the target drawing style and
+`compositionMode: "single" | "multiple"` consistent with part count; this does
+not claim a technical sheet has already been generated.
+
+`new --sketch --config`, `revise --feedback --config`, `resume [--config]`,
+`status [--config]`, `verify`, and `rollback` now preserve part IDs, archived
+shape/material inputs, fingerprints and snapshots. Outputs live in
+`geometry/<part-id>/`; state is `geometry-ready`, with `cad` still blocked.
+Same-input resume preserves output/state; material-only edits reuse geometry.
+Failed generation retains the preceding output, marks readiness stale/blocked,
+and permits corrected-config resume. Verify rebuilds the BRep in memory and
+compares STEP volume/bounds and GLB bounds with the reviewed source.
+
+All parts in this initial route must be feature-solid. Mixing vessel and feature
+parts, switching an existing vessel project into feature mode, P1 feature
+extraction, CAD sheets/frontBox, curve guides and motion/page rendering remain
+unsupported. Page/motion commands explicitly reject geometry-only readiness.
+Do not reclassify it as cad-ready or attach a substitute rotational model.

@@ -192,6 +192,7 @@ into a connected solid STEP/GLB with source hashes and geometry checks; see the
 [feature input contract](input.md#reviewed-nonrotational-feature-geometry-stage-only).
 Synthetic smooth and faceted inputs exercise the same compiler. This completes
 the initial solid feature compiler, not the general nonrotational project pipeline.
-Next connect part/source identity and lifecycle, CAD sheet/frontBox and curved
-wire guides, then existing material/motion/page generation. Hollow construction,
+Part/source identity and lifecycle now use manual feature-solid configs and
+geometry-ready state. Next connect CAD sheet/frontBox and curved wire guides,
+then existing material/motion/page generation. Hollow construction,
 external models and manufacturing verification remain unsupported.

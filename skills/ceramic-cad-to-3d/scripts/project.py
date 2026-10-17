@@ -88,15 +88,21 @@ def import_config(project: Path, source: Path) -> None:
         raise ValueError('compositionMode does not match parts')
     if len({p.get('id') for p in parts}) != len(parts):
         raise ValueError('Duplicate part IDs')
+    from feature_project import uses_features, validate_config
+    feature_mode = uses_features(data)
+    if feature_mode: validate_config(data)
+    current_config = project/'input/config.json'
+    if current_config.exists() and uses_features(json.loads(current_config.read_text())) != feature_mode:
+        raise ValueError('Changing between feature geometry and vessel projects requires a separate project')
     stage = project / 'input.next'
     if stage.exists():
         shutil.rmtree(stage)
     stage.mkdir()
     for part in parts:
         pid = part['id']
-        if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', pid) or part.get('shapeKind', 'rotational-profile') not in ('rotational-profile', 'handled-vessel'):
+        if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', pid) or part.get('shapeKind', 'rotational-profile') not in ('rotational-profile', 'handled-vessel', 'feature-solid'):
             raise ValueError(f'Unsupported part shape or ID: {pid}')
-        required = ('profile', 'dimensions', 'material') + (('handle',) if part.get('shapeKind') == 'handled-vessel' else ())
+        required = ('shape', 'material') if feature_mode else ('profile', 'dimensions', 'material') + (('handle',) if part.get('shapeKind') == 'handled-vessel' else ())
         if part.get('shapeKind', 'rotational-profile') == 'rotational-profile' and 'handle' in part:
             raise ValueError(f'{pid}: rotational part cannot have handle input')
         for kind in required:
@@ -135,6 +141,11 @@ def build(project: Path, state: dict) -> None:
         state['status'] = 'awaiting-cad-specification'
         state['nextInput'] = 'Provide a reviewed technical-dense config with a nonempty parts list and source JSON files.'
         save(project / 'pipeline-state.json', state)
+        return
+    from feature_project import uses_features
+    if uses_features(json.loads(config.read_text())):
+        from feature_project import build as build_features
+        build_features(project, state)
         return
     subprocess.run([sys.executable, str(SCRIPTS / 'preflight.py')], cwd=ROOT, check=True)
     from rebuild import inputs, plan
@@ -201,6 +212,11 @@ def build(project: Path, state: dict) -> None:
 
 
 def verify(project: Path, state: dict) -> None:
+    if state.get('featureGeometry'):
+        from feature_project import verify as verify_features
+        verify_features(project, state)
+        print(f'CERAMIC_FEATURE_VERIFY_OK {project.name}')
+        return
     if state['status'] != 'cad-ready':
         if (project / 'intake/manifest.json').is_file():
             import jomul_intake
@@ -357,6 +373,8 @@ def main() -> None:
             raise
     else:
         state = state_for(project)
+        if state.get('featureGeometry') and args.action in ('page-review','page','motion-preview'):
+            raise ValueError('Feature geometry is not CAD/page-ready; sheet and wire integration pending')
         if args.action == 'page-review':
             import page_scheduler
             data=json.loads(args.review.expanduser().resolve(strict=True).read_text())
@@ -414,9 +432,9 @@ def main() -> None:
             if args.config:
                 from rebuild import inputs, plan
                 proposed = args.config.expanduser().resolve(strict=True)
-                previous = state.get('cad') or {}
+                previous = state.get('featureGeometry') or state.get('cad') or {}
                 report['buildPlan'] = plan(previous.get('buildInputs'), inputs(proposed),
-                    bool(previous) and tree_hashes(project / 'cad') == previous.get('filesSha256'))
+                    bool(previous) and tree_hashes(project / ('geometry' if state.get('featureGeometry') else 'cad')) == previous.get('filesSha256'))
             print(json.dumps(report, ensure_ascii=False, indent=2))
             return
         if args.action == 'verify':
@@ -558,11 +576,20 @@ def main() -> None:
         elif args.config:
             if (project / 'intake/manifest.json').exists():
                 raise ValueError('P1 intake owns this CAD config; answer P1 questions or revise the intake explicitly')
-            if state['status'] == 'cad-ready':
+            if state['status'] in ('cad-ready','geometry-ready'):
                 snapshot(project)
             import_config(project, args.config)
         elif state['status'] == 'awaiting-revised-cad-specification':
             raise ValueError('Revised CAD config is required for this resume')
+        elif state.get('featureGeometry') and state['status'] == 'geometry-ready':
+            from feature_project import build as build_features
+            from rebuild import inputs
+            if inputs(project/'input/config.json') == state['featureGeometry']['buildInputs']:
+                verify(project,state)
+                return
+            snapshot(project)
+            build_features(project,state)
+            return
         elif state['status'] == 'cad-ready':
             verify(project, state)
             resume_motion(project, state)

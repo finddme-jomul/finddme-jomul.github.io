@@ -604,6 +604,23 @@
         ],
         "scope": "Analytic volumes, loft fusion, disconnected/no-op feature rejection, solid/hollow distinction; CLI development exports also checked separately."
       }
+    },
+    {
+      "id": "feature-project-lifecycle",
+      "state": "implemented-geometry-stage-only",
+      "rule": "Manual feature-solid parts use existing project commands and snapshots; geometry-ready never implies CAD sheet or page readiness. Keep previous output on generation failure; reject mixed vessel/feature projects.",
+      "consumer": [
+        "scripts/feature_project.py",
+        "scripts/project.py",
+        "scripts/rebuild.py",
+        "scripts/stages.py"
+      ],
+      "verification": {
+        "suites": [
+          "feature-project"
+        ],
+        "scope": "Real CLI single-to-multiple, source changes, no-op resume, material-only reuse, invalid-shape recovery, exact rollback, tamper detection and page rejection."
+      }
     }
   ],
   "sourceRepositoryCommit": "c84daff",
