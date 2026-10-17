@@ -42,10 +42,10 @@ def restore(output, cad_project=None):
             from selected_cad import verify_inputs
             verify_inputs(prepared)
             (stage/'cad-bridge.json').write_text(json.dumps({
-                'status':'cad-front-wire-verified', 'newCadGeneration':False,
-                'generated':['assets/front-view.svg','assets/outer-profile.json'],
-                'retainedReference':['CAD sheet','surface model/material','motion','photos'],
-                'scope':'Compatible selected geometry only; sheet/model regeneration remains pending',
+                'status':'cad-sheet-front-wire-verified', 'newCadGeneration':False,
+                'generated':['assets/front-view.svg','assets/outer-profile.json','assets/cad-sheet.png','assets/cad-sheet.pdf'],
+                'retainedReference':['surface model/material','motion','photos'],
+                'scope':'Compatible selected geometry only; surface model regeneration remains pending',
                 **cad_inputs}, ensure_ascii=False, indent=2)+'\n')
         stage.rename(output)
     finally:
@@ -56,6 +56,6 @@ def restore(output, cad_project=None):
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--output',type=Path,required=True)
-    parser.add_argument('--cad-project',type=Path,help='Verify and regenerate compatible CAD front/wire inputs; sheet/model remain reference assets')
+    parser.add_argument('--cad-project',type=Path,help='Verify and regenerate compatible CAD front/wire inputs; surface model remains a reference asset')
     args=parser.parse_args()
     restore(args.output.expanduser().resolve(), args.cad_project)

@@ -33,5 +33,10 @@
   "cadBridgeInputSha256": {
     "dimensions": "095d3951e7b74765444ccec2f6f3c12cc21c01a8aee9a5840210e3378384653f",
     "material": "97ef9fb558b80ed95cc3db4a3a7403c1489090b681083396ec48e5d832cb154d"
+  },
+  "cadBridgeUserConfirmation": {
+    "date": "2026-10-17",
+    "message": "응 이제 최종 결정들이 잘 반영된 거 같아. 다음 작업 진행해주",
+    "scope": "Review of 9b5a7e7 compatible CAD front/wire bridge; does not approve unimplemented new model generation"
   }
 }
