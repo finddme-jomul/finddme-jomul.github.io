@@ -31,8 +31,8 @@ def validate(data):
         raise ValueError('Reviewed feature provenance required')
     if not isinstance(data.get('assumptions'), list):
         raise ValueError('Record assumptions explicitly, including unseen depth')
-    if data.get('construction') not in ('solid', 'hollow'):
-        raise ValueError('Explicit solid or hollow construction required')
+    if data.get('construction') not in ('solid', 'hollow', 'imported'):
+        raise ValueError('Explicit solid, hollow or imported construction required')
     if data['construction'] == 'hollow':
         shell = data.get('hollowing', {})
         if not isinstance(shell, dict) or set(shell) != {'thicknessMm', 'opening', 'cavityProbeMm'}:
@@ -47,6 +47,8 @@ def validate(data):
     features = data.get('features')
     if not isinstance(features, list) or not features:
         raise ValueError('A nonempty ordered feature list is required')
+    if data['construction']=='imported' and (len(features)!=1 or features[0].get('kind')!='step'):
+        raise ValueError('Imported construction requires exactly one base STEP feature')
     ids = set()
     for i, feature in enumerate(features):
         fid = feature.get('id', '')
@@ -56,7 +58,11 @@ def validate(data):
         if feature.get('operation') not in (('base',) if i == 0 else ('union', 'cut')):
             raise ValueError('First feature must be base; later features union or cut')
         kind = feature.get('kind')
-        if kind == 'box':
+        if kind == 'step':
+            if data['construction']!='imported':raise ValueError('STEP requires imported construction; no implicit hollowing')
+            from feature_step import validate as validate_step
+            validate_step(feature)
+        elif kind == 'box':
             vector(feature['originMm'])
             for v in vector(feature['sizeMm']): number(v, True)
         elif kind == 'sphere':
@@ -86,14 +92,17 @@ def validate(data):
     return data
 
 
-def build(data):
+def build(data, base_dir=None):
     validate(data)
     from build123d import Axis, Face, Plane, Solid, Wire
     model = None
     checks = []
     for feature in data['features']:
         kind = feature['kind']
-        if kind == 'box':
+        if kind == 'step':
+            from feature_step import load
+            tool = load(feature,base_dir)
+        elif kind == 'box':
             tool = Solid.make_box(*feature['sizeMm'], Plane(origin=feature['originMm']))
         elif kind == 'sphere':
             tool = Solid.make_sphere(feature['radiusMm'], Plane(origin=feature['centerMm']))
@@ -173,10 +182,14 @@ def generate(source, output):
     if output.exists() or stage.exists(): raise ValueError('Choose an unused output directory')
     raw = source.read_bytes()
     data = json.loads(raw)
-    model, checks = build(data)
+    model, checks = build(data, source.parent)
     stage.mkdir(parents=True)
     try:
         (stage/'shape-input.json').write_bytes(raw)
+        if data['construction']=='imported':
+            from feature_step import source_path
+            f=data['features'][0]
+            shutil.copy2(source_path(f,source.parent),stage/'imported-source.step')
         export_step(model, stage/'model.step')
         export_gltf(model, stage/'model.glb', binary=True, linear_deflection=.08, angular_deflection=.15)
         restored = import_step(stage/'model.step')
@@ -193,8 +206,10 @@ def generate(source, output):
                   'glbUnit':'m', 'glbBoundsMm':mesh_bounds,
                   'volumeMm3':model.volume, 'boundsMm':{'min':list(box.min), 'max':list(box.max)},
                   'features':checks, 'stepRoundTripRelativeVolumeError':error,
-                  'limitations':['Standalone geometry export; use project commands for drawings, motion and pages', 'Hollow offset supports one extremal planar opening; no manufacturing or global minimum-wall certification', 'External-model input unsupported'],
+                  'limitations':['Standalone geometry export; use project commands for drawings, motion and pages', 'Hollow offset supports one extremal planar opening; no manufacturing or global minimum-wall certification', 'Reviewed single-solid STEP supported; mesh import and imported surface-region classification unsupported'],
                   'sha256':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in stage.iterdir()}}
+        if data['construction']=='imported':
+            result['importedSource']={'file':'imported-source.step','sha256':data['features'][0]['sha256'],'modelIntent':data['features'][0]['modelIntent']}
         (stage/'manifest.json').write_text(json.dumps(result, indent=2)+'\n')
         stage.rename(output)
     finally:

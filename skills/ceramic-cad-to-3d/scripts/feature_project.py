@@ -39,7 +39,7 @@ def verify(project, state):
         verify_drawing(config,project/'geometry')
     for part in config['parts']:
         out = project/'geometry'/part['id']
-        original, _ = compile_shape(json.loads((ROOT/part['shape']).read_text()))
+        original, _ = compile_shape(json.loads((ROOT/part['shape']).read_text()),(ROOT/part['shape']).parent)
         restored = import_step(out/'model.step')
         if not restored.is_valid or len(restored.solids()) != 1 or abs(original.volume-restored.volume)/original.volume > 1e-6:
             raise ValueError('Feature STEP geometry differs from reviewed source')
@@ -96,7 +96,7 @@ def build(project, state):
             state['featureGeometry'] = {'filesSha256':tree_hashes(out), 'inputSha256':tree_hashes(project/'input'), 'buildInputs':current, 'drawingCandidate':True}
             state['status'] = 'geometry-ready'
             state['nextInput'] = 'Review feature drawing/curve guide; provide explicit material/motion input for page-review'
-            state['unsupportedStages'] = ['feature drawing visual adoption', 'more than two feature coating layers', 'external models', 'publication']
+            state['unsupportedStages'] = ['feature drawing visual adoption', 'more than two feature coating layers', 'mesh import and imported partial coatings', 'publication']
             save(project/'pipeline-state.json',state)
         except Exception:
             shutil.rmtree(out)

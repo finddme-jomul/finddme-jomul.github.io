@@ -66,6 +66,33 @@ class FeatureShape(unittest.TestCase):
                 self.assertEqual(sum(result['primitiveExterior']),5 if hollow else 6)
                 self.assertEqual(result['primitiveExterior'].count(False),6 if hollow else 0)
 
+    def test_imported_step_bounds_hash_and_solid_count(self):
+        import hashlib,json
+        from build123d import Box,Compound,export_step
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);source=root/'original.step'
+            box=Box(20,30,40);export_step(box,source)
+            feature=dict(id='import',kind='step',operation='base',source=source.name,sha256=hashlib.sha256(source.read_bytes()).hexdigest(),modelIntent='solid',expectedBoundsMm={'min':[-10,-15,-20],'max':[10,15,20]})
+            data=spec([feature]);data['construction']='imported'
+            model,_=build(data,root);self.assertAlmostEqual(model.volume,24000,places=4)
+            bad=copy.deepcopy(data);bad['features'][0]['expectedBoundsMm']['max'][0]=11
+            with self.assertRaisesRegex(ValueError,'bounds'):build(bad,root)
+            bad=copy.deepcopy(data);bad['features'][0].update(modelIntent='hollow',cavityProbeMm=[0,0,0])
+            with self.assertRaisesRegex(ValueError,'probe'):build(bad,root)
+            source.write_bytes(source.read_bytes()+b'\n')
+            with self.assertRaisesRegex(ValueError,'hash'):build(data,root)
+            hollow=box.cut(Box(16,26,40).translate((0,0,2)))
+            export_step(hollow,source)
+            feature.update(sha256=hashlib.sha256(source.read_bytes()).hexdigest(),modelIntent='hollow',cavityProbeMm=[0,0,0])
+            restored,_=build(data,root)
+            self.assertAlmostEqual(restored.volume,hollow.volume,places=4)
+            self.assertFalse(restored.is_inside((0,0,19)))
+            export_step(Compound(children=[box,box.translate((30,0,0))]),source)
+            feature['sha256']=hashlib.sha256(source.read_bytes()).hexdigest()
+            with self.assertRaisesRegex(ValueError,'one connected'):build(data,root)
+            bad=copy.deepcopy(data);bad['features'][0]['source']='../original.step'
+            with self.assertRaisesRegex(ValueError,'adjacent'):build(bad,root)
+
     def test_nonrotational_loft_and_union(self):
         data=spec([dict(id='base',operation='base',kind='box',originMm=[-10,-10,0],sizeMm=[20,20,10]),
           dict(id='leaning-neck',operation='union',kind='loft',ruled=True,sections=[

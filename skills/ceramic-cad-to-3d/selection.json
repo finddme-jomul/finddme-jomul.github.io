@@ -593,9 +593,10 @@
     {
       "id": "feature-shape-input",
       "state": "implemented-geometry-stage-only",
-      "rule": "Reviewed solid or uniform-offset hollow feature data: revolve, loft, box, sphere, union and cut. Hollow requires positive thickness, one extremal planar opening and an emptied cavity probe; never substitute a rotational vessel. Single-feature page candidates reuse the shared solid renderer.",
+      "rule": "Reviewed solid or uniform-offset hollow feature data: revolve, loft, box, sphere, union and cut. Hollow requires positive thickness, one extremal planar opening and an emptied cavity probe; never substitute a rotational vessel. Reviewed imported construction preserves a hash-bound single-solid STEP with explicit expected mm bounds and solid/hollow intent; one-coat pages reuse the shared renderer. Imported partial-coating surface classification and mesh formats remain unsupported.",
       "consumer": [
         "scripts/feature_shape.py",
+        "scripts/feature_step.py",
         "scripts/run.py"
       ],
       "verification": {

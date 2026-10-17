@@ -27,6 +27,10 @@ def prepare(project, review):
     verify(project,json.loads((project/'pipeline-state.json').read_text()))
     # The complete geometry/drawing bundle is the page dependency, not just its GLB.
     files={project/'input/config.json',*sources.values(),*(p for p in (project/'geometry').rglob('*') if p.is_file())}
+    shape=json.loads(sources['shape'].read_text())
+    if shape.get('construction')=='imported':
+        from feature_step import source_path
+        files.add(source_path(shape['features'][0],sources['shape'].parent))
     photo=(ROOT/review['photos']).resolve();files.add(photo)
     for item in load_photos(photo):files.add((ROOT/item['source']).resolve())
     return {'mode':'feature','project':str(project.relative_to(ROOT)),'name':config['name'],'part':part['id'],

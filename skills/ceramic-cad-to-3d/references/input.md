@@ -88,7 +88,7 @@ this standalone command is geometry-only; the project lifecycle route below also
 
 Required root fields: `schemaVersion: 1`, `units: "mm"`, `upAxis: "Z"`,
 `status: "reviewed-provisional" | "user-confirmed"`, nonempty `provenance`,
-`assumptions` array, `construction: "solid" | "hollow"`, nonempty ordered `features`.
+`assumptions` array, `construction: "solid" | "hollow" | "imported"`, nonempty ordered `features`.
 Record the evidence and unseen depth/back assumptions; the compiler does not
 infer features from a sketch. For `hollow`, supply `hollowing: {thicknessMm: 2, opening: {axis: "Z", side: "max"}, cavityProbeMm: [0,0,20]}` with reviewed values. After all features, the compiler offsets inward by that positive thickness and removes exactly one extremal planar face on X/Y/Z min/max. Ambiguous or curved opening faces fail; no face index is guessed. The probe must be inside the original solid and empty afterward. Valid connected remaining material, reduced positive volume and unchanged outer bounds are checked. This supports a uniform-offset open cavity, not arbitrary cavity cutters, closed voids, varying thickness or a global minimum-wall/manufacturing guarantee. Kernel offset failure requires revised input, never silent solid fallback. `solid` rejects stray hollowing input. A decorative cut alone does not declare hollow intent. No shrinkage, recentering or scale conversion of input dimensions is inferred.
 
@@ -108,7 +108,7 @@ X/Y, Y/Z, X/Z. Coordinates are absolute in the common local part frame.
 The kernel checks valid, connected, positive-volume solids after every operation;
 no-op unions/cuts fail. STEP roundtrip and GLB/CAD bounds are checked before promotion.
 This finite operation vocabulary is not arbitrary CAD scripting or sculptural
-fidelity. Sweep, arbitrary transforms, external STEP/mesh, materials, motion and assembly remain pending. The project route below adds candidate CAD views/curve guides and lifecycle tracking.
+fidelity. Sweep, arbitrary transforms and external mesh import remain pending. Reviewed STEP input is described below; project material/motion/page routes are described in their sections. The project route below adds candidate CAD views/curve guides and lifecycle tracking.
 
 #### Feature-solid project lifecycle
 
@@ -285,3 +285,17 @@ Archive each part's `material.clay.name` and `material.glazeLayers` with exactly
 `surface-regions.json` binds primitive membership to source shape/GLB hashes. Each exterior primitive's vertices must lie on the original pre-hollow CAD boundary (0.0001mm tolerance); the removed opening face is excluded. Thus hollow inner walls/floor and opening rim are excluded from exterior coats, while original underside surfaces are included. A solid's decorative cut surfaces remain exterior; hidden cavities are not inferred. Only compiler-produced GLB layout is supported. Verify classification on new geometry; no external mesh or arbitrary face-ID selection is implied.
 
 Coarse feature triangles are subdivided in height without changing their surface or CAD wire guides. Vertex colour interpolation across a region boundary is bounded to 1/80 of the object's height; it is a visual approximation, not a physical coating edge. Existing rotational and one-coat outputs do not use this subdivision. The same browser gate checks both layer orders, inside/outside colour, rotation, framing and reverse scrolling. User visual adoption remains separate.
+
+### Reviewed STEP input
+
+Keep the existing `shapeKind: feature-solid` project part and reviewed shape JSON metadata. Set `construction: imported`, with exactly one feature:
+
+```json
+{"id":"source","operation":"base","kind":"step","source":"reviewed-model.step","sha256":"<64 lowercase hexadecimal digits>","modelIntent":"solid","expectedBoundsMm":{"min":[-16,-11,-21],"max":[16,11,21]}}
+```
+
+The STEP/STP filename must be adjacent to the source shape JSON. Preserve exact source SHA256 and explicitly reviewed post-import mm/Z-up bounds. OCCT reads STEP units; the importer checks the resulting bounds within0.1mm and never guesses orientation, scale or missing dimensions. Supply a reviewed `modelIntent: solid|hollow`; hollow additionally requires `cavityProbeMm` inside the bounds and outside the material. That probe is a sanity check, not proof of every cavity or opening. No hollowing/Boolean feature steps are added in this imported mode.
+
+Only one connected valid positive-volume BRep solid with no extra faces/edges is supported per part. Assemblies/disconnected solids, open shells and mesh formats are rejected. Use separate reviewed parts for multiple objects. The original geometry is tessellated/exported through the common compiler and gains the same drawing/frontBox/wire, lifecycle and one-coat page path. Imported partial/two-layer coatings are explicitly rejected because no pre-hollow exterior identity has been supplied; never classify the inner wall as exterior by guessing.
+
+`new/revise/resume --config` archives the exact STEP and original source JSON, plus a normalized shape JSON referencing the archived STEP. Model bytes are included in rebuild/page dependencies. Source-file changes require a newly reviewed hash and bounds; mismatches fail without replacing prior geometry. Existing projects remain reproducible after the original external file is removed. Standalone shape-build also preserves raw source bytes as `imported-source.step` and records the original source JSON; it does not rewrite the original filename in that JSON. To replay a standalone bundle, place those preserved STEP bytes beside its source JSON under the declared filename.

@@ -21,6 +21,12 @@ def inputs(config_path):
             'id': part['id'], 'shapeKind': part.get('shapeKind', 'rotational-profile'),
             'dimensionsKey': part.get('dimensionsKey', 'valuesMm'),
             'sources': {kind: digest(ROOT / part[kind]) for kind in ('profile', 'dimensions', 'handle', 'shape') if kind in part}})
+        if 'shape' in part:
+            shape=ROOT/part['shape'];data=json.loads(shape.read_text())
+            if data.get('construction')=='imported':
+                from feature_step import source_path
+                f=data['features'][0]
+                geometry[-1]['sources']['step']=digest(source_path(f,shape.parent))
         material.append({'id': part['id'], 'source': digest(ROOT / part['material']),
                          'format': part.get('materialFormat')})
         for kind in ('profile', 'dimensions', 'handle', 'shape', 'material'):
