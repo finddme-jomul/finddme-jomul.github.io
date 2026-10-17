@@ -13,9 +13,11 @@ def smooth(t):
     t=max(0,min(1,t));return t*t*(3-2*t)
 
 
-def position(start, step, progress):
+def position(start, step, progress, mode='lift-place'):
     p=max(0,min(1,(progress-step['start'])/step['duration']))
-    target=step['targetPositionMm'];top=max(start[1],target[1])+step['liftMm']
+    target=step['targetPositionMm']
+    if mode=='direct-drop':return [target[0],target[1]+step['dropHeightMm']*(1-smooth(p)),target[2]]
+    top=max(start[1],target[1])+step['liftMm']
     if p<1/3:return [start[0],start[1]+(top-start[1])*smooth(p*3),start[2]]
     if p<2/3:
         t=smooth(p*3-1);return [start[0]+(target[0]-start[0])*t,top,start[2]+(target[2]-start[2])*t]

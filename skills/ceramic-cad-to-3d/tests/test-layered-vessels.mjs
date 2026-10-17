@@ -19,3 +19,10 @@ assert(assemblyPosition(origin,step,.5)[1]>.1);
 const first=assemblyPosition(origin,step,.4);assemblyPosition(origin,step,1);
 assert.deepEqual(assemblyPosition(origin,step,.4),first);
 console.log('LAYERED_REGIONS_AND_REVERSIBLE_ASSEMBLY_OK');
+
+const falling={start:.3,duration:.4,targetPositionMm:[30,9,-10],dropHeightMm:160};
+let previous=Infinity;
+for(let i=0;i<=100;i++){const p=assemblyPosition([99,99,99],falling,i/100,'direct-drop');assert.equal(p[0],.03);assert.equal(p[2],-.01);assert(p[1]<=previous+1e-12);previous=p[1];}
+assert.deepEqual(assemblyPosition(origin,falling,0,'direct-drop'),[.03,.169,-.01]);
+assert.deepEqual(assemblyPosition(origin,falling,1,'direct-drop'),[.03,.009,-.01]);
+console.log('DIRECT_DROP_MONOTONIC_OK');

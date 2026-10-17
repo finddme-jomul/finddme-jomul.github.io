@@ -28,6 +28,8 @@ def validate(review, ids):
         t=review['motion']['timing']
         if t['accentGlazeStart'] is None or t['baseGlazeStart']+t['baseGlazeDuration'] > t['accentGlazeStart']:
             raise ValueError('Reviewed coating passes must be sequential')
+    if (review.get('assembly') or {}).get('mode')=='direct-drop' and review.get('renderer')!='feature-solids':
+        raise ValueError('Direct drop currently requires feature-solids renderer')
     from layered_review import assembly
     assembly(review.get('assembly'), review['parts'], review['motion']['timing'])
     if not 0 <= review['motion']['camera'].get('elevationDegrees',0) <= 35:
