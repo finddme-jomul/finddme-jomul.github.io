@@ -82,7 +82,7 @@ When the user wants a foundation to land first and upper parts to descend onto i
 
 ### Adopted sequential-drop finish
 
-The user adopted revision `6e815f1a65e141b794bb2ca295600804` for this motion.
+The original timing/soft-spin reference is `6e815f1a65e141b794bb2ca295600804`; the user adopted corrected CAD/wire and camera staging in revision `1ba00fb8db46437ba9c318edc6250376` on 2026-10-18.
 For new sequential direct-drop reviews, use `assembly.preset: "gentle-staggered"`
 unless the user explicitly requests a different style. The active profile
 `assembly.gentleStaggeredDrop` supplies soft-spin and overlapping descent and

@@ -28,7 +28,7 @@ and deployment remain external responsibilities.
 
 Closure order:
 1. Run package/decision regression checks against one unchanged runtime.
-2. Obtain visual decisions for feature CAD/wire; scatter sizes/positions are adopted (2026-10-18).
+2. Feature CAD/wire, corrected landing and scatter sizes/positions are adopted (2026-10-18); preserve the scoped decisions and exact reviewed outputs.
 3. Run unused reviewed input through single and multiple E2E. One multi-object
    sketch may supply both cases; record that they share a source. Existing plates,
    temporary knights and the high-difficulty knight image are development data.
@@ -309,3 +309,7 @@ remain scoped to their byte-preserved outputs.
 ### Pre-landing camera correction
 
 User rejected the post-glaze camera rise in revision d6edb399b56341009949559e75ccce57. Fixing only the assembly interval was insufficient: the late camera-envelope blend also caused visible ascent. Complete that blend with initial CAD-to-3D descent, before coating; keep it fixed from glaze completion through landing. `check-direct-drop.cjs` now samples this entire interval and reverse scroll. This correction is a candidate until visually reviewed; do not record the rejection as approval.
+
+## Adopted closure presentation — 2026-10-18
+
+User reply: “응 이걸로 가자. 다음 작업으로 넘어가자”. Applies to the corrected CAD→wire presentation and final landing at `90-feature-assembly/page-revisions/1ba00fb8db46437ba9c318edc6250376`. Initial camera staging finishes before glazing; the camera stays fixed through final landing, preserving soft spin and short landing gaps. Earlier `d6edb399b56341009949559e75ccce57` remains rejected for pre-landing re-ascent. This accepts presentation of the reviewed output, not synthetic material/shape manufacturing facts or held-out E2E. Preserve its exact files rather than regenerating it for approval metadata changes. Scatter sizes/positions were adopted separately. New unused-input evaluation and release remain pending.

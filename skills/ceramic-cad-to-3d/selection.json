@@ -624,9 +624,9 @@
     },
     {
       "id": "feature-drawing-guide",
-      "state": "implemented-candidate-visual-adoption-pending",
+      "state": "user-adopted-within-reviewed-feature-page-scope",
       "profile": "wire3d.featureSections",
-      "rule": "One BRep supplies orthographic CAD views, part frontBoxes and actual plane-section wire curves. New density and six-view composition remain candidates; do not replace adopted vessel rendering.",
+      "rule": "One BRep supplies orthographic CAD views, part frontBoxes and actual plane-section wire curves. User adopted CAD/wire presentation in revision 1ba00fb8db46437ba9c318edc6250376; preserve existing adopted vessel rendering and review new geometries separately.",
       "consumer": [
         "scripts/feature_drawing.py",
         "scripts/feature_project.py"
@@ -782,7 +782,7 @@
       "id": "adopted-gentle-staggered-drop",
       "state": "user-adopted-within-feature-direct-drop-scope",
       "profile": "assembly.gentleStaggeredDrop",
-      "rule": "Use gentle-staggered for sequential drops: resolve soft-spin and overlap, reject conflicting modes and excessive upper-part landing gaps. Preserve approved reference and adapt geometric clearances separately.",
+      "rule": "Use gentle-staggered for sequential drops: resolve soft-spin and overlap, reject conflicting modes and excessive upper-part landing gaps. Preserve approved reference and adapt geometric clearances separately. User adopted corrected framing in revision 1ba00fb8db46437ba9c318edc6250376: finish camera staging in initial CAD-to-3D descent, hold fixed from glaze completion through landing; retain soft spin and short gaps.",
       "consumer": [
         "scripts/layered_review.py",
         "scripts/feature_multiple.py",
@@ -792,7 +792,7 @@
         "suites": [
           "feature-assembly"
         ],
-        "scope": "Preset resolution and gap regression guard; adopted reference 6e815f1a65e141b794bb2ca295600804 already browser-verified. No blanket shape or physical approval."
+        "scope": "Preset/gap regression plus separately checked four-viewport full glaze-completion-to-landing trajectory and reverse scroll. Adopted corrected reference 1ba00fb8db46437ba9c318edc6250376. No blanket shape/material/manufacturing approval."
       }
     }
   ],
