@@ -1,3 +1,4 @@
+import {wireColor} from './wire-color.mjs';
 // Two-part scene mode; inputs retain CAD IDs, ordered coatings and reviewed motion.
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
@@ -59,7 +60,7 @@ export async function startMultiple(spec) {
       if(j%4===0||j===profile.length-1)for(let i=0;i<72;i++){const a=i/72*Math.PI*2,b=(i+1)/72*Math.PI*2;points.push(r/1000*Math.cos(a),z/1000,r/1000*Math.sin(a),r/1000*Math.cos(b),z/1000,r/1000*Math.sin(b));}
       if(j)for(let i=0;i<12;i++){const a=i/12*Math.PI*2,[r0,z0]=profile[j-1];points.push(r0/1000*Math.cos(a),z0/1000,r0/1000*Math.sin(a),r/1000*Math.cos(a),z/1000,r/1000*Math.sin(a));}
     }
-    const wireMaterial=new THREE.LineBasicMaterial({color:0x56636b,transparent:true,opacity:0,depthWrite:false});
+    const wireMaterial=new THREE.LineBasicMaterial({color:wireColor,transparent:true,opacity:0,depthWrite:false});
     const wireGeometry=new THREE.BufferGeometry();wireGeometry.setAttribute('position',new THREE.Float32BufferAttribute(points,3));spin.add(new THREE.LineSegments(wireGeometry,wireMaterial));
     let lastPaint='';
     function paint(baseP,accentP){

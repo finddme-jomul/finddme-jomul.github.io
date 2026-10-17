@@ -1,3 +1,4 @@
+import {wireColor} from './wire-color.mjs';
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {moonAxisPose,applyAxisPose} from './axis-motion.mjs';
@@ -32,7 +33,7 @@ const model = new THREE.Group(); content.add(model);
 scene.add(new THREE.HemisphereLight(0xffffff,0xa9a39a,2.2));
 const keyLight=new THREE.DirectionalLight(0xffffff,2.4);keyLight.position.set(.15,.25,.4);scene.add(keyLight);
 const clay = new THREE.MeshStandardMaterial({color:0xd7d2ca,roughness:.88,side:THREE.DoubleSide,transparent:true,opacity:0,depthWrite:false});
-const line = new THREE.LineBasicMaterial({color:0x55514e,transparent:true,opacity:0,depthWrite:false});
+const line = new THREE.LineBasicMaterial({color:wireColor,transparent:true,opacity:0,depthWrite:false});
 const meshes = [];
 const glazeMeshes=[];
 const clip=new THREE.Plane(new THREE.Vector3(0,-1,0),-10);

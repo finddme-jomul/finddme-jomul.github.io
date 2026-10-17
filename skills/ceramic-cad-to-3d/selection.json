@@ -570,6 +570,24 @@
           "browser-parity/report.json": "948fcf6d07d55ea691d0aad61489de2c4b69f38cc2cae37ccb537600db9b1210"
         }
       }
+    },
+    {
+      "id": "wire-colour",
+      "state": "implemented",
+      "profile": "wire3d.defaultColor",
+      "rule": "Common warm grey #6E6A68 for newly generated outputs; optional motion.wireColor #RRGGBB override. Existing generated pages and reference fixtures are not migrated.",
+      "consumer": [
+        "scripts/wire_color.py",
+        "scripts/selected_page.py",
+        "scripts/motion.py",
+        "assets/page-viewer.js",
+        "assets/multiple-scene.mjs",
+        "assets/motion/handled-scene.mjs"
+      ],
+      "verification": {
+        "suites": [],
+        "scope": "Default/override resolution and invalid-value rejection checked in isolation; no existing project regenerated."
+      }
     }
   ],
   "sourceRepositoryCommit": "c84daff",

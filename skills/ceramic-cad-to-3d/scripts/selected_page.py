@@ -8,6 +8,9 @@ from photos import sha
 
 
 def restore(output, cad_project=None, review=None):
+    from wire_color import resolve, install as install_wire_color
+    wire_motion = (review or {}).get('motion')
+    resolve(wire_motion)
     manifest=json.loads((ASSETS/'selected-page.json').read_text())
     source=ASSETS/'selected-page'
     for name,expected in manifest['files'].items():
@@ -42,6 +45,7 @@ def restore(output, cad_project=None, review=None):
             elif prepared.get('mode') == 'handled':
                 from handled_page import install
             cad_inputs = install(prepared, stage)
+        install_wire_color(stage, wire_motion)
         report_dir=output.with_name(output.name+'.verification')
         from browser_environment import run_browser
         checker = 'tests/check-multiple-page.cjs' if prepared and prepared.get('mode') == 'multiple' else ('tests/check-new-page.cjs' if review is not None else 'tests/check-selected-page.cjs')

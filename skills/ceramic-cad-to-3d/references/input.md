@@ -66,3 +66,15 @@ The existing ordered photo list keeps the selected hero/process behavior. For a 
 The generated `gallery/index.html` is a standalone component review, not a finished CAD-to-photo page. The scatter manifest is `candidate-not-visually-adopted`. Keep selected layout as default until a visual choice is adopted. Multiple image files can be crops of one source photograph: retain this provenance; do not count them as independent captures.
 
 For CAD sheets with three or more parts, optional `cadLayout: {"partOrder": ["part-id", "..."], "lastRowAlignment": "center-front"}` sets drawing order separately from the source part list. List every ID exactly once. On desktop, a lone final-row vessel is centered by its frontBox; mobile keeps that order in one column. Omission preserves the existing layout. This is CAD placement only, not scene/assembly ordering.
+
+### Shared wire colour
+
+Optional `motion.wireColor` in the page-review JSON (single rotational, handled,
+or multiple/layered) overrides `wire3d.defaultColor` in the accepted profile.
+For `motion-preview --motion`, place `wireColor` at the root of that motion JSON.
+Use a six-digit hex string, for example `"wireColor": "#334455"`; invalid or null
+values are rejected. Omission uses the adopted warm grey `#6E6A68`. This is the
+3D guide-line colour, independent of CAD drawing strokes and clay/glaze colours.
+The resolved colour is frozen in each generated `wire-color.mjs`. Existing pages
+and reference fixtures are not migrated; an explicit later regeneration uses
+the current default unless the input specifies an override.
