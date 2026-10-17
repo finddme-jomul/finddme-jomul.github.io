@@ -16,7 +16,7 @@ def validate(review, material):
         raise ValueError('Handled page requires an explicit provisional review and provenance')
     motion_input(review['motion'])
     surface=review['surface']
-    for value,low,high in [(review['motion']['storyHeightVh'],300,1500),(surface['roughness'],0,1),(surface['clearcoat'],0,1)]:
+    for value,low,high in [(review['motion'].get('surfaceElevationDegrees',0),0,35),(review['motion']['storyHeightVh'],300,1500),(surface['roughness'],0,1),(surface['clearcoat'],0,1)]:
         if isinstance(value,bool) or not isinstance(value,(int,float)) or not math.isfinite(value) or not low<=value<=high:
             raise ValueError('Invalid handled story/material value')
     for key in ('clayHex','glazeHex'):

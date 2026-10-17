@@ -155,7 +155,7 @@ function render() {
   const reveal=clamp((progress-entry.start)/(entry.end-entry.start));
   const revealEase=reveal*reveal*(3-2*reveal);
   const release=clamp((progress-visibility.clayStart)/(visibility.clayEnd-visibility.clayStart));
-  const cameraElevationDegrees=entry.elevationDegrees*revealEase*(entry.releaseWithClay?1-release:1);
+  const cameraElevationDegrees=entry.elevationDegrees*revealEase*(entry.releaseWithClay?1-release:1)+(pageConfig?.motion.surfaceElevationDegrees??0)*release;
   const elevation=THREE.MathUtils.degToRad(cameraElevationDegrees);
   camera.position.set(lookX,centre.y+extent*defaults.cameraDistanceFactor*Math.sin(elevation),extent*defaults.cameraDistanceFactor*Math.cos(elevation));
   camera.lookAt(lookX,centre.y,0);
