@@ -37,30 +37,38 @@ def motion_input(data: dict) -> dict:
 
 def build(project: Path, output: Path, data: dict) -> None:
     motion_input(data)
-    source=project/'cad'
+    feature=(project/'geometry/drawing-manifest.json').is_file()
+    source=project/('geometry' if feature else 'cad')
     cad=json.loads((source/'manifest.json').read_text())
-    if len(cad['parts'])!=1 or cad['parts'][0]['shapeKind']!='handled-vessel':
-        raise ValueError('Motion preview currently requires one handled part with a skill GLB')
-    if not (source/'solid/manifest.json').is_file():
-        raise ValueError('CAD project lacks a verified GLB solid')
-    spec=importlib.util.spec_from_file_location('jomul_handoff_builder',HANDOFF_BUILDER)
-    module=importlib.util.module_from_spec(spec)
-    assert spec.loader
-    spec.loader.exec_module(module)
-    module.main(source=source,out=output)
+    if feature:
+        from prepare_feature_motion import prepare
+        settings=prepare(source,output,data)
+        part_id=settings['partId'];glb_hash=settings['glbSha256']
+        title=part_id
+    else:
+        if len(cad['parts'])!=1 or cad['parts'][0]['shapeKind']!='handled-vessel':
+            raise ValueError('Motion preview requires one handled part or a reviewed feature part')
+        spec=importlib.util.spec_from_file_location('jomul_handoff_builder',HANDOFF_BUILDER)
+        module=importlib.util.module_from_spec(spec)
+        assert spec.loader
+        spec.loader.exec_module(module)
+        module.main(source=source,out=output)
+        part_id=cad['parts'][0]['id']
+        glb_hash=json.loads((source/'solid/manifest.json').read_text())['parts'][0]['glbSha256']
+        title=cad['project']
     for name in ('index.html','viewer.js','handled-scene.mjs'):
         shutil.copy2(MOTION_VIEWER/name,output/name)
     html=output/'index.html'
-    html.write_text(html.read_text().replace('머그',cad['project']))
+    html.write_text(html.read_text().replace('머그',title))
     shutil.copy2(AXIS_MODULE,output/'axis-motion.mjs')
     from wire_color import install as install_wire_color
     install_wire_color(output, data)
     (output/'motion-config.json').write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
     (output/'motion-preview-manifest.json').write_text(json.dumps({
-        'schemaVersion':1,'partId':cad['parts'][0]['id'],'status':'motion-review-only',
+        'schemaVersion':1,'partId':part_id,'status':'motion-review-only',
         'axisRig':json.loads(PROFILE.read_text())['motion']['axisRig'],
         'cadManifestSha256':hashlib.sha256((source/'manifest.json').read_bytes()).hexdigest(),
-        'glbSha256':json.loads((source/'solid/manifest.json').read_text())['parts'][0]['glbSha256'],
+        'glbSha256':glb_hash,
         'motionSha256':hashlib.sha256((output/'motion-config.json').read_bytes()).hexdigest(),
         'axisModuleSha256':hashlib.sha256(AXIS_MODULE.read_bytes()).hexdigest(),
         'unsupported':'glaze/photo/final page assembly and multi-part or rotational GLB generation'

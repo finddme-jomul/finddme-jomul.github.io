@@ -28,7 +28,7 @@ const points=[['sheet',0],['handoff',.43],['wire',.56],['quarter',.685],['half',
       assert([200,304].includes(response.status()));
       await page.waitForFunction(()=>!!window.__mugMotion?.state?.target);
       const guide=await page.evaluate(()=>fetch('./wire-guide.json').then(r=>r.json()));
-      assert.equal(guide.density.bodyProfileStride,4);assert.equal(guide.density.bodyMeridians,12);assert.equal(guide.density.bodyRingSegments,72);
+      if(input.shapeKind==='feature-solid'){assert(guide.groups.some(g=>g.kind==='section'));assert.equal(guide.sourceStepSha256,input.sourceSha256.step);}else{assert.equal(guide.density.bodyProfileStride,4);assert.equal(guide.density.bodyMeridians,12);assert.equal(guide.density.bodyRingSegments,72);}
       const results=[];
       for (const [name,progress] of points) {
         await page.evaluate(p=>scrollTo(0,innerHeight*1.8*p),progress);
@@ -75,6 +75,12 @@ const points=[['sheet',0],['handoff',.43],['wire',.56],['quarter',.685],['half',
           'full motion '+JSON.stringify({layout,progress:state.progress,body:state.bodySpinDegrees,axis:state.axisPrecessionDegrees,tilt:state.axisTiltDegrees}));
         await page.screenshot({path:path.join(output,layout+'-'+name+'.png')});
         results.push({name,...state});
+      }
+      if(input.shapeKind==='feature-solid'){
+        await page.evaluate(()=>scrollTo(0,innerHeight*1.8*.56));await new Promise(r=>setTimeout(r,400));
+        const reverse=await page.evaluate(()=>window.__mugMotion.state);
+        const first=results.find(r=>r.name==='wire');
+        for(const key of ['cameraElevationDegrees','bodySpinDegrees','axisPrecessionDegrees','lineOpacity','clayOpacity'])assert(Math.abs(reverse[key]-first[key])<.001,'Reverse scroll drift '+key);
       }
       assert.deepEqual(errors,[]);
       report.cases.push({layout,viewport:[width,height],results,errors});

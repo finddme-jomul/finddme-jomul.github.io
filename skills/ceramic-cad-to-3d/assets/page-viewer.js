@@ -1,3 +1,5 @@
+import {sceneDefaults} from './scene-defaults.mjs';
+const defaults=sceneDefaults.rotational;
 import {wireColor} from './wire-color.mjs';
 import { installGallery } from './gallery.js';
 import { galleryProfile } from './gallery-config.js';
@@ -24,14 +26,14 @@ const profile = await fetch('./assets/outer-profile.json').then(async response =
 const gltf = await new GLTFLoader().loadAsync('./assets/model.glb');
 const host = document.querySelector('#viewer');
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setPixelRatio(Math.min(devicePixelRatio, defaults.pixelRatioCap));
 renderer.localClippingEnabled = true;
 host.appendChild(renderer.domElement);
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(32, 1, .01, 10);
-scene.add(new THREE.HemisphereLight(0xffffff, 0x819092, 2.2));
-const key = new THREE.DirectionalLight(0xffffff, 3.0);
-key.position.set(.15, .3, .2);
+const camera = new THREE.PerspectiveCamera(defaults.fov, 1, defaults.near, defaults.far);
+scene.add(new THREE.HemisphereLight(defaults.skyColor, defaults.groundColor, defaults.hemisphereIntensity));
+const key = new THREE.DirectionalLight(defaults.keyColor, defaults.keyIntensity);
+key.position.set(...defaults.keyPosition);
 scene.add(key);
 let original;
 gltf.scene.traverse(object => { if (object.isMesh) original = object; });
@@ -52,12 +54,12 @@ function resize() {
   renderer.setSize(w, h);
   camera.aspect = w / h;
   const tangent = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
-  let distance = Math.max(modelHeight / (2 * tangent), modelWidth / (2 * tangent * camera.aspect)) * 1.35;
+  let distance = Math.max(modelHeight / (2 * tangent), modelWidth / (2 * tangent * camera.aspect)) * defaults.fit;
   if (wideVessel) {
     // A sphere around the CAD bounds fits every body/tilt/orbit pose of a wide vessel.
     const radius = Math.hypot(modelWidth, modelHeight) / 2;
     const halfAngle = Math.atan(tangent * Math.min(1, camera.aspect));
-    distance = radius / Math.sin(halfAngle) * 1.05;
+    distance = radius / Math.sin(halfAngle) * defaults.wideFit;
   }
   camera.position.set(0, 0, distance);
   camera.lookAt(0, 0, 0);
@@ -71,7 +73,7 @@ const root = new THREE.Group(); root.position.y = -(bounds.min.y + bounds.max.y)
 const tiltChoices = {right: ['rotateZ', -1], left: ['rotateZ', 1], forward: ['rotateX', 1], backward: ['rotateX', -1], none: ['rotateZ', 0]};
 const chosen = tiltChoices[config.motion.tiltDirection] || tiltChoices.right;
 const clayMaterial = new THREE.MeshStandardMaterial({
-  color: config.clayColor, roughness: .95, transparent: true, opacity: 0,
+  color: config.clayColor, roughness: defaults.clayRoughness, transparent: true, opacity: 0,
   depthWrite: false, side: THREE.DoubleSide
 });
 const clay = new THREE.Mesh(geometry, clayMaterial); root.add(clay);

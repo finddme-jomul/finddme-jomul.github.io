@@ -12,6 +12,12 @@ import motion
 
 class MotionScheduling(unittest.TestCase):
     def test_failure_retry_and_no_redundant_build(self):
+        self.exercise(False)
+
+    def test_feature_failure_retry_and_no_redundant_build(self):
+        self.exercise(True)
+
+    def exercise(self,feature):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp); workspace=root/'01-test'; workspace.mkdir()
             (workspace/'cad').mkdir(); (workspace/'cad/manifest.json').write_text('{}')
@@ -19,6 +25,10 @@ class MotionScheduling(unittest.TestCase):
             state={'schemaVersion':1,'projectId':'01-test','status':'cad-ready',
                    'cad':{'filesSha256':project.tree_hashes(workspace/'cad'),
                           'inputSha256':{}},'reviewedMotionInput':{'test':'reviewed'}}
+            if feature:
+                (workspace/'geometry').mkdir();(workspace/'geometry/manifest.json').write_text('{}')
+                state['status']='geometry-ready';state['cad']=None
+                state['featureGeometry']={'filesSha256':project.tree_hashes(workspace/'geometry'),'inputSha256':{}}
             def fake_build(source, out, data):
                 out.mkdir(); (out/'index.html').write_text('synthetic new output')
                 (out/'motion-preview-manifest.json').write_text('{}')
@@ -30,7 +40,7 @@ class MotionScheduling(unittest.TestCase):
                 with self.assertRaisesRegex(RuntimeError,'synthetic browser failure'):
                     project.resume_motion(workspace,state)
                 saved=json.loads((workspace/'pipeline-state.json').read_text())
-                self.assertEqual('cad-ready',saved['status'])
+                self.assertEqual('geometry-ready' if feature else 'cad-ready',saved['status'])
                 self.assertEqual('failed',saved['motionJob']['status'])
                 self.assertEqual({'test':'reviewed'},saved['reviewedMotionInput'])
                 self.assertNotIn('motionPreview',saved)

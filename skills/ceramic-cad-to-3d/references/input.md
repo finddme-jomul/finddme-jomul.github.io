@@ -133,7 +133,7 @@ compares STEP volume/bounds and GLB bounds with the reviewed source.
 All parts in this initial route must be feature-solid. Mixing vessel and feature
 parts, switching an existing vessel project into feature mode, P1 feature
 extraction, visually adopted feature CAD layout and motion/page rendering remain
-unsupported. Candidate views and section guides are now generated as described below. Page/motion commands explicitly reject geometry-only readiness.
+unsupported. Candidate views and section guides are now generated as described below. Full-page commands reject geometry-only readiness; motion-preview now accepts a reviewed feature part as described below.
 Do not reclassify it as cad-ready or attach a substitute rotational model.
 
 #### Feature CAD and wire candidates
@@ -161,3 +161,22 @@ need visual review and connection to the existing motion/material/page renderer.
 The project stays geometry-ready; drawing status is candidate, not complete CAD
 or page approval. Changing shape/runtime rebuilds the dependent drawing/guide;
 material-only revisions reuse solid files and regenerate the sheet deterministically.
+
+#### Feature motion review
+
+Use the existing motion input fields (review status/provenance, direction/tilt,
+body spin, axis precession, optional wireColor). For multiple feature parts,
+add `partId` naming the one part to inspect; a single part is selected implicitly.
+`motion-preview`, `resume`, `revise`, `verify` and failed-browser recovery share
+the existing motion lifecycle, with an explicit geometry hash dependency.
+The complete feature sheet is the starting view; only the selected front drawing
+transitions into that part's CAD-derived wire and neutral-clay review.
+
+Model and guide use the same centred X/depth frame. Vertical origin is preserved.
+Feature framing measures transformed bounds in camera space to include camera
+elevation; handled framing stays unchanged. Feature entry/visibility values live
+under `wire3d.featureVisibility` as a candidate, separately from adopted mug
+visibility. The browser gate checks four sizes, six points, source-front/mesh
+alignment, depth-view entry, wire visibility during the first half turn, full
+axis/body turn, clipping and reverse-scroll state. It does not establish visual
+adoption, material fidelity, whole-page or simultaneous multi-part scene support.

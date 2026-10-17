@@ -639,6 +639,43 @@
         "scope": "Sphere section surface/plane checks, SVG part mapping/frontBox coordinates, axis conversion and project revision lifecycle. Static browser gate is separate; motion not connected.",
         "browserCheck": "tests/check-feature-drawing.cjs"
       }
+    },
+    {
+      "id": "feature-axis-motion",
+      "state": "implemented-per-part-review-candidate",
+      "rule": "Reuse handled-scene axis/motion renderer for selected feature part; centre actual mesh and BRep guides together, fit camera-space transformed bounds. Full feature material/page/assembly pending.",
+      "consumer": [
+        "scripts/prepare_feature_motion.py",
+        "scripts/motion.py",
+        "assets/motion/handled-scene.mjs",
+        "scripts/project.py",
+        "scripts/stages.py"
+      ],
+      "verification": {
+        "suites": [
+          "motion-recovery",
+          "feature-project"
+        ],
+        "scope": "Lifecycle/recovery plus separate real browser evidence for smooth and offset faceted development inputs; four viewports x six points and reverse scroll. Not final-page adoption.",
+        "browserCheck": "scripts/check-motion.cjs"
+      }
+    },
+    {
+      "id": "scene-defaults",
+      "state": "implemented",
+      "profile": "sceneDefaults",
+      "rule": "Freeze central renderer colour/light/camera defaults and handled transition timing into each output. Preserve prior numeric values; wireColor remains project-overridable. Old outputs untouched.",
+      "consumer": [
+        "scripts/wire_color.py",
+        "assets/page-viewer.js",
+        "assets/multiple-scene.mjs",
+        "assets/motion/handled-scene.mjs"
+      ],
+      "verification": {
+        "suites": [],
+        "scope": "Isolated moon parity and handled before/after screenshot comparison; config packaging checked by preflight.",
+        "pendingReason": "Browser evidence is separate from decision suite; not all algorithmic constants are editable settings."
+      }
     }
   ],
   "sourceRepositoryCommit": "c84daff",

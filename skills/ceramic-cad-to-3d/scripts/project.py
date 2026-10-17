@@ -265,7 +265,8 @@ def build_motion(project: Path, state: dict, motion_data: dict) -> None:
             state['motionPreview'] = {
                 'manifest': (output / 'motion-preview-manifest.json').relative_to(ROOT).as_posix(),
                 'filesSha256': tree_hashes(output),
-                'cadManifestSha256': digest(project / 'cad/manifest.json')}
+                'cadManifestSha256': digest(project / ('geometry/manifest.json' if state.get('featureGeometry') else 'cad/manifest.json')),
+                **({'geometrySha256':tree_hashes(project/'geometry')} if state.get('featureGeometry') else {})}
             state['motionJob'] = {'status': 'complete'}
             save(project / 'pipeline-state.json', state)
         except Exception:
@@ -373,7 +374,7 @@ def main() -> None:
             raise
     else:
         state = state_for(project)
-        if state.get('featureGeometry') and args.action in ('page-review','page','motion-preview'):
+        if state.get('featureGeometry') and args.action in ('page-review','page'):
             raise ValueError('Feature geometry is not CAD/page-ready; sheet and wire integration pending')
         if args.action == 'page-review':
             import page_scheduler
@@ -453,7 +454,9 @@ def main() -> None:
 
             if state.get('motionPreview'):
                 entry=state['motionPreview']
-                if digest(project / 'cad/manifest.json') != entry['cadManifestSha256']:
+                if state.get('featureGeometry') and entry.get('geometrySha256') != tree_hashes(project/'geometry'):
+                    raise ValueError('Feature motion geometry dependency changed; use resume')
+                if digest(project / ('geometry/manifest.json' if state.get('featureGeometry') else 'cad/manifest.json')) != entry['cadManifestSha256']:
                     raise ValueError('Motion preview CAD source drift; rebuild the preview')
                 if tree_hashes(project / 'motion-preview') != entry['filesSha256']:
                     raise ValueError('Motion preview drift; rebuild from reviewed motion input')
@@ -586,9 +589,11 @@ def main() -> None:
             from rebuild import inputs
             if inputs(project/'input/config.json') == state['featureGeometry']['buildInputs']:
                 verify(project,state)
+                resume_motion(project,state)
                 return
             snapshot(project)
             build_features(project,state)
+            resume_motion(project,state)
             return
         elif state['status'] == 'cad-ready':
             verify(project, state)
@@ -612,6 +617,8 @@ def main() -> None:
             save(project / 'pipeline-state.json', state)
             record(project, f'CAD build stopped after intake or config update: {error}')
             raise
+    if state.get('status') == 'geometry-ready':
+        resume_motion(project,state)
     if state.get('status') == 'cad-ready':
         resume_motion(project, state)
         from page_scheduler import resume as resume_page
