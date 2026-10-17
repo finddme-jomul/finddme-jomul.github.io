@@ -184,3 +184,14 @@ Optional `assembly` contains `status`, `provenance`, normalized motion `start/du
 The common geometry gate checks121 movement poses for desktop/mobile starting positions and0.25mm horizontal CAD slices, plus exact CAD intersections at final poses, recording `assembly-check.json`. This is sampled collision evidence, not continuous-path or manufacturing certification; explicit clearance/targets remain reviewed inputs. Browser checks separately verify all vertices in frame, both surface classes and coating order, final target positions, and photo/empty ending. Do not infer nesting from overlapping bounding boxes alone. Arbitrary rotations, dynamic physics, automated packing and nonrotational instances are outside this assembly contract.
 
 Plate development uses user-described two glaze orders, provisional lower70% exterior-body boundaries (foot excluded), illustrative gray/black/ivory colors, and0.5mm nested clearance. The bisque photo is process evidence only. These values are input records, never shared defaults. Visual acceptance of prior CAD does not approve new glaze/assembly appearance.
+
+### Nonrotational feature stage
+
+`shape-build` now compiles reviewed feature JSON through the maintained entrypoint
+into a connected solid STEP/GLB with source hashes and geometry checks; see the
+[feature input contract](input.md#reviewed-nonrotational-feature-geometry-stage-only).
+Synthetic smooth and faceted inputs exercise the same compiler. This completes
+the initial solid feature compiler, not the general nonrotational project pipeline.
+Next connect part/source identity and lifecycle, CAD sheet/frontBox and curved
+wire guides, then existing material/motion/page generation. Hollow construction,
+external models and manufacturing verification remain unsupported.
