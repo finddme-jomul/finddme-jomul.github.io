@@ -51,6 +51,21 @@ class FeatureShape(unittest.TestCase):
         self.assertFalse(curved.is_inside((20,35,69)))
         self.assertTrue(curved.is_inside((20,35,31)))
 
+    def test_exterior_identity_excludes_hollow_inner_faces_and_rim(self):
+        import json
+        from build123d import export_gltf
+        from feature_surface import classify
+        data=spec([dict(id='body',operation='base',kind='box',originMm=[10,20,30],sizeMm=[20,30,40])])
+        with tempfile.TemporaryDirectory() as tmp:
+            source=Path(tmp)/'shape.json';mesh=Path(tmp)/'model.glb'
+            for hollow in (False,True):
+                if hollow:data.update(construction='hollow',hollowing=dict(thicknessMm=2,opening=dict(axis='Z',side='max'),cavityProbeMm=[20,35,50]))
+                source.write_text(json.dumps(data));model,_=build(data)
+                export_gltf(model,mesh,binary=True)
+                result=classify(source,mesh)
+                self.assertEqual(sum(result['primitiveExterior']),5 if hollow else 6)
+                self.assertEqual(result['primitiveExterior'].count(False),6 if hollow else 0)
+
     def test_nonrotational_loft_and_union(self):
         data=spec([dict(id='base',operation='base',kind='box',originMm=[-10,-10,0],sizeMm=[20,20,10]),
           dict(id='leaning-neck',operation='union',kind='loft',ruled=True,sections=[

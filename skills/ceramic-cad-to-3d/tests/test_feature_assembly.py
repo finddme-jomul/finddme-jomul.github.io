@@ -84,6 +84,20 @@ class FeatureAssembly(unittest.TestCase):
                     with self.assertRaisesRegex(ValueError,'one all-surface'):adapter.prepare(project,bad)
                     bad=copy.deepcopy(review);bad['parts'][0]['glazePreview']['clearcoat']=True
                     with self.assertRaisesRegex(ValueError,'roughness/clearcoat'):adapter.prepare(project,bad)
+                    layered=copy.deepcopy(review);layered['motion']['timing']['accentGlazeStart']=.6
+                    region={'surface':'exterior','minHeightMm':0,'maxHeightMm':5}
+                    layers=[{'order':1,'name':'black','application':'exterior-below-dashed-boundary'},{'order':2,'name':'clear','application':'full-coat'}]
+                    (project/'input/material.json').write_text(json.dumps({'clay':{'name':'clay'},'glazeLayers':layers}))
+                    for p in layered['parts']:
+                        p['glazePreview'].update(baseName='black',accentName='clear')
+                        p['coatings']={'status':'reviewed-provisional','provenance':'test','roughness':.5,'layers':[{'name':'black','region':region,'previewHex':'#222222'},{'name':'clear','region':{'surface':'all'},'previewHex':'#eeeeee'}],'fired':{'baseHex':'#eeeeee','region':region,'regionHex':'#777777'}}
+                    self.assertEqual(count,len(adapter.prepare(project,layered)['parts']))
+                    bad=copy.deepcopy(layered);bad['parts'][0]['coatings']['layers'].reverse()
+                    with self.assertRaisesRegex(ValueError,'names/order'):adapter.prepare(project,bad)
+                    bad=copy.deepcopy(layered);bad['parts'][0]['coatings']['layers'][0]['region']={'surface':'all'}
+                    with self.assertRaisesRegex(ValueError,'interior'):adapter.prepare(project,bad)
+                    (project/'input/material.json').write_text(json.dumps(material))
+
 
     def test_overlap_requires_opt_in_and_preserves_landing_order(self):
         timing={'baseGlazeStart':.4,'baseGlazeDuration':.2,'accentGlazeStart':None,'photoStart':.97}

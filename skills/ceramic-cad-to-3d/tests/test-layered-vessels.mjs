@@ -32,3 +32,12 @@ assert(Math.abs(softAt(0)-.169)<1e-12);assert(Math.abs(softAt(1)-.009)<1e-12);
 assert(softAt(.999)-softAt(1)<2e-9,'gentle end velocity');
 assert(softAt(.9)>softAt(.99)&&softAt(.99)>softAt(1));
 console.log('SOFT_LANDING_ENDPOINTS_OK');
+
+// Coarse feature triangles retain area/normals while bounding vertical colour interpolation.
+{
+ const {featureCoatingBands}=await import('../assets/scene/layered-vessels.mjs');
+ const r=featureCoatingBands([0,0,0,1,0,0,0,1,0],[0,0,1,0,0,1,0,0,1],[true,true,true],1);
+ let area=0;
+ for(let i=0;i<r.positions.length;i+=9){const a=r.positions.slice(i,i+3),b=r.positions.slice(i+3,i+6),c=r.positions.slice(i+6,i+9);area+=Math.abs((b[0]-a[0])*(c[1]-a[1])-(c[0]-a[0])*(b[1]-a[1]))/2;assert(Math.max(a[1],b[1],c[1])-Math.min(a[1],b[1],c[1])<=1/80+1e-8);}
+ assert(Math.abs(area-.5)<1e-8);assert(r.exterior.every(Boolean));assert(r.normals.every((n,i)=>n===(i%3===2?1:0)));
+}

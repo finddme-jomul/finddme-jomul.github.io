@@ -28,3 +28,25 @@ export function assemblyPosition(start, step, progress, mode='lift-place', landi
   if(p<2/3){const t=smooth(p*3-1);return [start[0]+(target[0]-start[0])*t,top,start[2]+(target[2]-start[2])*t];}
   return [target[0],top+(target[1]-top)*smooth(p*3-2),target[2]];
 }
+
+// Bound colour interpolation to <= 1/80 of height on coarse feature faces.
+// Geometry remains on the original triangles; CAD wire geometry is untouched.
+export function featureCoatingBands(positions,normals,flags,height){
+  const out=[],normalOut=[],exterior=[];
+  const clip=(poly,y,below)=>{
+    const result=[];
+    for(let i=0;i<poly.length;i++){
+      const a=poly[i],b=poly[(i+1)%poly.length],inside=v=>below?v[1]<=y:v[1]>=y;
+      if(inside(a))result.push(a);
+      if(inside(a)!==inside(b)){const t=(y-a[1])/(b[1]-a[1]);result.push(a.map((v,j)=>v+(b[j]-v)*t));}
+    }return result;
+  };
+  const emit=(poly,flag)=>{for(let i=1;i+1<poly.length;i++)for(const v of [poly[0],poly[i],poly[i+1]]){out.push(...v.slice(0,3));const n=Math.hypot(...v.slice(3));normalOut.push(...v.slice(3).map(x=>x/n));exterior.push(flag)}};
+  for(let i=0;i<positions.length;i+=9){
+    let poly=[0,3,6].map(j=>[...positions.slice(i+j,i+j+3),...normals.slice(i+j,i+j+3)]);
+    const lo=Math.min(...poly.map(v=>v[1])),hi=Math.max(...poly.map(v=>v[1]));
+    for(let k=1;k<80;k++){const y=height*k/80;if(y<=lo+1e-9||y>=hi-1e-9)continue;emit(clip(poly,y,true),flags[i/3]);poly=clip(poly,y,false);}
+    emit(poly,flags[i/3]);
+  }
+  return {positions:out,normals:normalOut,exterior};
+}

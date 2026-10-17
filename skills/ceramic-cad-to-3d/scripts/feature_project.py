@@ -96,7 +96,7 @@ def build(project, state):
             state['featureGeometry'] = {'filesSha256':tree_hashes(out), 'inputSha256':tree_hashes(project/'input'), 'buildInputs':current, 'drawingCandidate':True}
             state['status'] = 'geometry-ready'
             state['nextInput'] = 'Review feature drawing/curve guide; provide explicit material/motion input for page-review'
-            state['unsupportedStages'] = ['feature drawing visual adoption', 'partial/layered feature coatings', 'external models', 'publication']
+            state['unsupportedStages'] = ['feature drawing visual adoption', 'more than two feature coating layers', 'external models', 'publication']
             save(project/'pipeline-state.json',state)
         except Exception:
             shutil.rmtree(out)

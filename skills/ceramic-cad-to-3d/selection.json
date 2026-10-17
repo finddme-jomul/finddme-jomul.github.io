@@ -701,9 +701,12 @@
     {
       "id": "feature-multiple-page",
       "state": "implemented-review-candidate",
-      "rule": "Homogeneous feature-solid lists use the shared multiple renderer, source BRep guides, explicit single-coat materials and optional upright sequential placement. No instance-count-specific scripts.",
+      "rule": "Homogeneous feature-solid lists use the shared multiple renderer, source BRep guides, explicit one-coat or reviewed two-layer exterior/full-surface materials and optional upright sequential placement. Explicit layered feature-solids reviews also support one part. No instance-count-specific scripts.",
       "consumer": [
         "scripts/feature_multiple.py",
+        "scripts/feature_surface.py",
+        "assets/scene/layered-vessels.mjs",
+        "assets/page-viewer.js",
         "scripts/feature_assembly.py",
         "scripts/multiple_page.py",
         "assets/multiple-scene.mjs",

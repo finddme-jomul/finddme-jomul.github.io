@@ -10,15 +10,16 @@ from multiple_page import validate
 
 def prepare(project, review):
     config=json.loads((project/'input/config.json').read_text())
-    if config['compositionMode']!='multiple' or any(p.get('shapeKind')!='feature-solid' for p in config['parts']):
+    if config['compositionMode'] not in ('single','multiple') or any(p.get('shapeKind')!='feature-solid' for p in config['parts']):
         raise ValueError('Feature multiple pages require homogeneous feature-solid parts')
     if not review or review.get('renderer')!='feature-solids':
         raise ValueError('Explicit feature-solids renderer review required')
     from layered_review import apply_assembly_preset
     review=apply_assembly_preset(review)
     validate(review,[p['id'] for p in config['parts']])
-    if review['motion']['timing']['accentGlazeStart'] is not None:
-        raise ValueError('Feature pages currently support one all-surface glaze')
+    layered=all('coatings' in p for p in review['parts'])
+    if not layered and review['motion']['timing']['accentGlazeStart'] is not None:
+        raise ValueError('Feature one-coat pages require no second interval')
     if review.get('assembly'):
         t=review['motion']['timing']
         if any(t['dropStart']+p['motion']['dropDelay']+t['dropDuration']>=review['assembly']['start'] for p in review['parts']):
@@ -31,9 +32,9 @@ def prepare(project, review):
         sources={k:(ROOT/part[k]).resolve() for k in ('shape','material')}
         if any(not p.is_relative_to(project/'input') for p in sources.values()):raise ValueError('Archived feature inputs required')
         files.update(sources.values());material=json.loads(sources['material'].read_text());g=appearance['glazePreview']
-        if material.get('composition') or material.get('glazeLayers') or material.get('glaze',{}).get('layers') or appearance.get('coatings') or appearance['accentEnabled']:
+        if not layered and (material.get('composition') or material.get('glazeLayers') or material.get('glaze',{}).get('layers') or appearance.get('coatings') or appearance['accentEnabled']):
             raise ValueError('Feature pages currently support one all-surface glaze')
-        if g.get('clayName')!=material.get('clay',{}).get('name') or g.get('baseName')!=material.get('glaze',{}).get('name') or not g.get('clayName') or not g.get('baseName'):
+        if not layered and (g.get('clayName')!=material.get('clay',{}).get('name') or g.get('baseName')!=material.get('glaze',{}).get('name') or not g.get('clayName') or not g.get('baseName')):
             raise ValueError('Feature material names must match archived evidence')
         for key in ('roughness','clearcoat'):
             v=g.get(key)
@@ -42,6 +43,14 @@ def prepare(project, review):
             raise ValueError('Upright feature assembly requires whole turns; target rotations unsupported')
         manifest=json.loads((project/'geometry'/part['id']/'manifest.json').read_text())
         b={f'{side}{axis}':manifest['boundsMm'][side][i] for side in ('min','max') for i,axis in enumerate('XYZ')}
+        if layered:
+            from layered_review import coatings
+            evidence=material.get('glazeLayers',[])
+            if [l.get('order') for l in evidence]!=[1,2] or g.get('clayName')!=material.get('clay',{}).get('name') or not g.get('clayName') or appearance['accentEnabled']:
+                raise ValueError('Feature coatings require ordered archived layers, matching clay and accentEnabled false')
+            if any(l.get('application') not in ('full-coat','exterior-below-dashed-boundary') for l in evidence) or g.get('baseName')!=evidence[0]['name'] or g.get('accentName')!=evidence[1]['name']:
+                raise ValueError('Feature layer names/applications must match archived evidence')
+            coatings(appearance['coatings'],evidence,{'height':b['maxZ']-b['minZ']})
         parts.append({'id':part['id'],'appearance':appearance,'materialEvidence':material,'boundsMm':b,'dimensionsMm':{'height':b['maxZ']-b['minZ']},'step':project/'geometry'/part['id']/'model.step'})
     photo=(ROOT/review['photos']).resolve();files.add(photo)
     for item in load_photos(photo):files.add((ROOT/item['source']).resolve())
@@ -58,6 +67,14 @@ def install_part(project,part,out):
     for sheet in out.glob('sheet-*.svg'):sheet.unlink()
     # This page uses the parent shared sheet/spec; standalone motion metadata is unused.
     (out/'review-input.json').unlink()
+    region_meta={}
+    if 'coatings' in part['appearance']:
+        from feature_surface import classify
+        config=json.loads((project/'input/config.json').read_text())
+        source=next(p for p in config['parts'] if p['id']==part['id'])
+        regions=classify(ROOT/source['shape'],out/'model.glb')
+        (out/'surface-regions.json').write_text(json.dumps(regions,indent=2)+'\n')
+        region_meta={'surfaceRegions':{'file':'surface-regions.json','sourceGlbSha256':regions['sourceGlbSha256']}}
     (out/'material-evidence.json').write_text(json.dumps(part['materialEvidence'],ensure_ascii=False,indent=2)+'\n')
-    return {**part['appearance'],'shapeKind':'feature-solid','dimensionsMm':part['dimensionsMm'],'boundsMm':part['boundsMm'],
+    return {**part['appearance'],**region_meta,'shapeKind':'feature-solid','dimensionsMm':part['dimensionsMm'],'boundsMm':part['boundsMm'],
             'sourceStepSha256':sha(part['step'])}

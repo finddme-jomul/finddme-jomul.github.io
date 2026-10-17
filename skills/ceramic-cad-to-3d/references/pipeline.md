@@ -211,3 +211,7 @@ settings and the shared handled/feature transition timing; wire colour remains
 output so a global config edit cannot silently alter old pages. Original baseline
 assets remain immutable. Formula-specific constants still live with their
 algorithms; this change is not a claim that every numeric literal is configurable.
+
+### Feature layered page integration
+
+The explicit `feature-solids` list schema now supports one or multiple parts with two reviewed coating passes, consuming the same `coatingWeights`/fired-region code as layered vessels. `feature_surface.py` derives exterior membership from source CAD rather than radial profiles; the rendered mesh is subdivided only for feature coatings. See the [input contract](input.md#feature-partial-and-two-layer-coatings) for scope, material evidence, masks and approximation limits. Old one-coat review routes remain available.

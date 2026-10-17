@@ -190,7 +190,7 @@ evidence, colours are explicit #RRGGBB, roughness/clearcoat are in [0,1]. Option
 `motion.partId` must match the single archived part. An empty photo list ends on
 glaze; photo roles follow the existing actual/process evidence contract.
 
-Only one all-surface glaze is supported here. This schema rejects multiple feature parts; use the multiple schema below. Layered or partial feature coatings remain unsupported. Use
+Only one all-surface glaze is supported here. This schema rejects multiple feature parts; use the multiple schema below. For partial/two-layer feature coatings use the explicit list schema below, including for a single part. Use
 `resume`, `revise`, and `gallery` for dependency-driven regeneration; failed jobs
 retain the previous verified revision. `geometry-ready` and candidate drawing
 status remain separate from a browser-verified page and user visual adoption.
@@ -204,7 +204,7 @@ config part order/IDs. Each part supplies reviewed `motion`, `provenance`,
 `glazePreview`: `clayName`, `baseName`, `clayHex`, `baseHex`, `accentHex` (inactive),
 `roughness`, `clearcoat`. Names must match archived clay/glaze evidence; surface
 values are explicit provisional previews. Set `motion.timing.accentGlazeStart`
-to null: this route supports one full-surface coat, not vessel exterior bands.
+to null for one full-surface coat. Two-layer input follows the opt-in contract below.
 The existing reviewed timing/camera/framing/background/photo-list fields apply.
 
 Optional `assembly` uses the existing ordered steps, part IDs, start/duration,
@@ -273,3 +273,15 @@ motion as the default when creating a new review.
 ### Single solid page surface camera
 
 Single handled/feature page reviews optionally accept `motion.surfaceElevationDegrees` (finite 0–35, default 0). The camera transitions to this elevation as clay appears and retains it through glazing, making a reviewed hollow opening visible. It does not change the adopted wire entry view. Existing omitted-value reviews retain the original front-facing finish. Inspect desktop/mobile framing and the opening; 22° is the hollow development fixture value, not a universal adopted default.
+
+### Feature partial and two-layer coatings
+
+Use `renderer: feature-solids`, the existing list-based motion/camera schema, and a `coatings` object on **every** part. This explicit route supports both single (one part) and multiple projects; it uses the common multiple renderer even for one part. The older single whole-solid review schema remains one-coat and retains its motion.
+
+Archive each part's `material.clay.name` and `material.glazeLayers` with exactly two `{order: 1|2, name, application}` entries. Applications are `full-coat` or `exterior-below-dashed-boundary`. The latter requires a reviewed exterior height interval, not an automatically inferred dashed line. Match `glazePreview.clayName/baseName/accentName` to those names, keep `accentEnabled: false`, and supply the existing colours/roughness/clearcoat. Preview/fired colours are not chemical simulation.
+
+`coatings` reuses the layered-vessel contract: status/provenance/roughness, ordered `layers[{name, region, previewHex}]`, and `fired{baseHex, region, regionHex}`. Regions are `{surface: all}` or `{surface: exterior, minHeightMm, maxHeightMm}` measured from the CAD bottom. Use sequential base/accent time intervals, both ending before assembly/photos. For a full coat followed by a partial coat, unpainted areas retain the first preview colour; make that consistent with the reviewed fired base appearance.
+
+`surface-regions.json` binds primitive membership to source shape/GLB hashes. Each exterior primitive's vertices must lie on the original pre-hollow CAD boundary (0.0001mm tolerance); the removed opening face is excluded. Thus hollow inner walls/floor and opening rim are excluded from exterior coats, while original underside surfaces are included. A solid's decorative cut surfaces remain exterior; hidden cavities are not inferred. Only compiler-produced GLB layout is supported. Verify classification on new geometry; no external mesh or arbitrary face-ID selection is implied.
+
+Coarse feature triangles are subdivided in height without changing their surface or CAD wire guides. Vertex colour interpolation across a region boundary is bounded to 1/80 of the object's height; it is a visual approximation, not a physical coating edge. Existing rotational and one-coat outputs do not use this subdivision. The same browser gate checks both layer orders, inside/outside colour, rotation, framing and reverse scrolling. User visual adoption remains separate.
