@@ -192,8 +192,36 @@ evidence, colours are explicit #RRGGBB, roughness/clearcoat are in [0,1]. Option
 `motion.partId` must match the single archived part. An empty photo list ends on
 glaze; photo roles follow the existing actual/process evidence contract.
 
-Only one all-surface glaze is supported here. Multiple feature parts and layered
-or partial coating requests are rejected rather than silently flattened. Use
+Only one all-surface glaze is supported here. This schema rejects multiple feature parts; use the multiple schema below. Layered or partial feature coatings remain unsupported. Use
 `resume`, `revise`, and `gallery` for dependency-driven regeneration; failed jobs
 retain the previous verified revision. `geometry-ready` and candidate drawing
 status remain separate from a browser-verified page and user visual adoption.
+
+### Multiple feature page and upright assembly
+
+Use a homogeneous `compositionMode: "multiple"` feature-solid config with the
+existing multiple page review schema and `renderer: "feature-solids"`. Preserve
+config part order/IDs. Each part supplies reviewed `motion`, `provenance`,
+`accentEnabled: false`, the schema's accent placement fields (inactive), and
+`glazePreview`: `clayName`, `baseName`, `clayHex`, `baseHex`, `accentHex` (inactive),
+`roughness`, `clearcoat`. Names must match archived clay/glaze evidence; surface
+values are explicit provisional previews. Set `motion.timing.accentGlazeStart`
+to null: this route supports one full-surface coat, not vessel exterior bands.
+The existing reviewed timing/camera/framing/background/photo-list fields apply.
+
+Optional `assembly` uses the existing ordered steps, part IDs, start/duration,
+`targetPositionMm` and `liftMm`. Coordinates are scene Y-up mm, relative to each
+CAD bounding centre in X/depth and its lowest CAD Z as bottom zero. All parts
+must settle before assembly; physical scale must be 1 and all body/axis turns
+must be integers so final orientation is the original upright CAD orientation.
+No target rotation is supported. Steps are sequential lift/translate/lower.
+
+Geometry is centred consistently using CAD bounds, including off-origin inputs.
+The same renderer loads all GLB mesh primitives and actual BRep section guides.
+CAD collision verification samples 121 uniform poses plus phase boundaries for
+both layouts. Disjoint bounding boxes skip exact intersection; overlapping boxes
+use actual CAD common volume. Positive overlap rejects generation. This is not a
+continuous collision guarantee, stability/contact simulation or manufacturing
+clearance proof. Unreviewed arbitrary packing and shared-instance/group expansion
+are not implemented. Larger counts use the same lists; visual readability and
+performance still need review for that composition.

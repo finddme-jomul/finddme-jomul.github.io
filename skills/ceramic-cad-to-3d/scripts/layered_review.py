@@ -33,7 +33,7 @@ def assembly(spec, parts, timing):
     if spec is None: return
     if spec.get('status') != 'reviewed-provisional' or not spec.get('provenance'):
         raise ValueError('Assembly needs reviewed provenance')
-    coat_end = timing['accentGlazeStart'] + timing['accentGlazeDuration']
+    coat_end = (timing['baseGlazeStart'] + timing['baseGlazeDuration'] if timing['accentGlazeStart'] is None else timing['accentGlazeStart'] + timing['accentGlazeDuration'])
     if not coat_end < spec['start'] < spec['start']+spec['duration'] < timing['photoStart']:
         raise ValueError('Assembly must follow coatings and finish before handoff')
     if len(spec['steps']) != len(parts) or {s['partId'] for s in spec['steps']} != {p['id'] for p in parts}:
