@@ -23,6 +23,8 @@ def restore(output, cad_project=None, review=None):
         if not cad_project.is_relative_to(ROOT): raise ValueError('CAD project must be inside workspace')
         if json.loads((cad_project/'input/config.json').read_text())['compositionMode'] == 'multiple':
             from multiple_page import prepare
+        elif any(p.get('shapeKind') == 'handled-vessel' for p in json.loads((cad_project/'input/config.json').read_text())['parts']):
+            from handled_page import prepare
         prepared = prepare(cad_project, review=review)
     try:
         shutil.copytree(source,stage)
@@ -30,15 +32,20 @@ def restore(output, cad_project=None, review=None):
         shutil.copy2(ASSETS/'multiple-scene.mjs',stage/'multiple-scene.mjs')
         shutil.copytree(ASSETS/'scene',stage/'scene')
         shutil.copy2(ASSETS/'motion/axis-motion.mjs',stage/'scene/axis-motion.mjs')
+        shutil.copy2(ASSETS/'motion/handled-scene.mjs',stage/'handled-scene.mjs')
+        shutil.copy2(ASSETS/'motion/axis-motion.mjs',stage/'axis-motion.mjs')
         cad_inputs = None
         if prepared is not None:
             from selected_cad import install
             if prepared.get('mode') == 'multiple':
                 from multiple_page import install
+            elif prepared.get('mode') == 'handled':
+                from handled_page import install
             cad_inputs = install(prepared, stage)
         report_dir=output.with_name(output.name+'.verification')
         from browser_environment import run_browser
         checker = 'tests/check-multiple-page.cjs' if prepared and prepared.get('mode') == 'multiple' else ('tests/check-new-page.cjs' if review is not None else 'tests/check-selected-page.cjs')
+        if prepared and prepared.get('mode') == 'handled': checker = 'tests/check-handled-page.cjs'
         run_browser(checker,{
             'CERAMIC_BASELINE':'http://127.0.0.1:5173/@fs/ceramic-skill/assets/selected-page/index.html',
             'CERAMIC_CANDIDATE':'http://127.0.0.1:5173/'+stage.relative_to(ROOT).as_posix()+'/index.html',
