@@ -21,7 +21,7 @@ def restore(output, cad_project=None, review=None):
         from selected_cad import prepare
         cad_project = cad_project.resolve()
         if not cad_project.is_relative_to(ROOT): raise ValueError('CAD project must be inside workspace')
-        if json.loads((cad_project/'input/config.json').read_text())['compositionMode'] == 'multiple':
+        if json.loads((cad_project/'input/config.json').read_text())['compositionMode'] == 'multiple' or (review or {}).get('renderer') == 'layered-vessels':
             from multiple_page import prepare
         elif any(p.get('shapeKind') == 'handled-vessel' for p in json.loads((cad_project/'input/config.json').read_text())['parts']):
             from handled_page import prepare

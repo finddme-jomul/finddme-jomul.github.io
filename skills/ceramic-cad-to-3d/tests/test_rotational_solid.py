@@ -7,6 +7,22 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'scripts'))
 from jomul_handled_solid import make_rotational_solid
 
 class RotationalSolid(unittest.TestCase):
+    def test_assembly_checks_real_sections_not_overlapping_bounds_only(self):
+        from assembly_geometry import check
+        dims=dict(height=55,maxDiameter=180,openingDiameter=180,footDiameter=80,
+                  wallThickness=1,baseThickness=1,footHeight=10)
+        profile=[[40,0],[40,10],[60,20],[80,40],[90,55]]
+        smaller=[[r*.8,z] for r,z in profile]
+        small={**dims,'maxDiameter':144,'openingDiameter':144,'footDiameter':64}
+        parts=[{'id':'a','dimensionsMm':dims,'profile':profile,'appearance':{'motion':{'finalXDesktop':0,'finalXMobile':0}}},
+               {'id':'b','dimensionsMm':small,'profile':smaller,'appearance':{'motion':{'finalXDesktop':.25,'finalXMobile':.25}}}]
+        plan={'steps':[{'partId':'a','start':0,'duration':.1,'targetPositionMm':[0,0,0],'liftMm':0},
+                       {'partId':'b','start':.1,'duration':.9,'targetPositionMm':[0,11.5,0],'liftMm':100}]}
+        result=check(parts,plan)
+        self.assertEqual(0,result['finalIntersections'][0]['intersectionMm3'])
+        plan['steps'][1]['targetPositionMm']=[0,0,0]
+        with self.assertRaisesRegex(ValueError,'collision'):check(parts,plan)
+
     def test_raised_foot_has_open_underside_and_one_mm_floor(self):
         dims=dict(height=55,maxDiameter=80,openingDiameter=80,footDiameter=80,
                   wallThickness=1,baseThickness=1,footHeight=10)

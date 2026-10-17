@@ -277,14 +277,19 @@
         "scripts/project.py",
         "scripts/shared_sheet_poc.py",
         "scripts/jomul_handled_solid.py",
-        "scripts/rotational_section.py"
+        "scripts/rotational_section.py",
+        "scripts/layered_review.py",
+        "assets/scene/layered-vessels.mjs",
+        "scripts/assembly_geometry.py"
       ],
       "verification": {
         "suites": [
           "runtime",
-          "rotational-solid"
+          "rotational-solid",
+          "layered-vessels",
+          "multiple-page-input"
         ],
-        "scope": "One/two-part unchanged CAD sheets, source-derived STEP/GLB bounds and roundtrip, per-part placement, solid reuse on drawing changes, analytic cavity/floor checks; full-page framing pending; raised-foot open underside, separate one-mm floor, connected flared solid and shared CAD section"
+        "scope": "One/two-part unchanged CAD sheets, source-derived STEP/GLB bounds and roundtrip, per-part placement, solid reuse on drawing changes, analytic cavity/floor checks; full-page framing pending; raised-foot open underside, separate one-mm floor, connected flared solid and shared CAD section; explicit layered single/multiple regions and sequential assembly input, browser and CAD collision evidence separate"
       }
     },
     {

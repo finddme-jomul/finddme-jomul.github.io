@@ -9,7 +9,7 @@ const config = await fetch('./assets/project.json').then(async response => {
   if (!response.ok) throw new Error(`project settings HTTP ${response.status}`);
   return response.json();
 });
-if (config.compositionMode === 'multiple') {
+if (config.compositionMode === 'multiple' || config.renderer === 'layered-vessels') {
   const {startMultiple} = await import('./multiple-scene.mjs');
   await startMultiple(config);
 } else if (config.shapeKind === 'handled-vessel') {
