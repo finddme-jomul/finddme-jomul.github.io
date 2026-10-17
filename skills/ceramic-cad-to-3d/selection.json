@@ -272,18 +272,19 @@
     {
       "id": "composition",
       "state": "implemented",
-      "rule": "One vessel including its handle is one part; single/multiple share one CAD generator and source-derived STEP/GLB export. One/two rotational parts and handled geometry remain provisional previews, not manufacturing approval.",
+      "rule": "One vessel including its handle is one part; nonempty part lists share one CAD generator and source-derived STEP/GLB export. Explicit rotational footHeight separates a hollow raised foot from baseThickness; omitted footHeight preserves legacy geometry. Reviewed radial offsets and underside shape remain previews, not manufacturing approval.",
       "consumer": [
         "scripts/project.py",
         "scripts/shared_sheet_poc.py",
-        "scripts/jomul_handled_solid.py"
+        "scripts/jomul_handled_solid.py",
+        "scripts/rotational_section.py"
       ],
       "verification": {
         "suites": [
           "runtime",
           "rotational-solid"
         ],
-        "scope": "One/two-part unchanged CAD sheets, source-derived STEP/GLB bounds and roundtrip, per-part placement, solid reuse on drawing changes, analytic cavity/floor checks; full-page framing pending"
+        "scope": "One/two-part unchanged CAD sheets, source-derived STEP/GLB bounds and roundtrip, per-part placement, solid reuse on drawing changes, analytic cavity/floor checks; full-page framing pending; raised-foot open underside, separate one-mm floor, connected flared solid and shared CAD section"
       }
     },
     {

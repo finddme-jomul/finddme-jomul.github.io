@@ -356,6 +356,31 @@ class PortableRuntime(unittest.TestCase):
             review=json.loads((self.skill/'tests/fixtures/multiple/scene.json').read_text())
             with self.assertRaises(ValueError):validate(review,[p['id'] for p in data['parts']])
 
+    def test_15_raised_foot_revision_rebuilds_from_preserved_input(self):
+        data=json.loads(self.configs['single'].read_text())
+        part=data['parts'][0]
+        profile=self.workspace/'raised-profile.json'
+        profile.write_text(json.dumps([[40,z] for z in range(0,101,10)]))
+        dimensions=self.workspace/'raised-dimensions.json'
+        dims=dict(height=100,maxDiameter=80,openingDiameter=80,footDiameter=80,
+                  wallThickness=1,baseThickness=1,footHeight=10)
+        part.update(profile=str(profile),dimensions=str(dimensions),dimensionsKey='valuesMm')
+        config=self.workspace/'raised-config.json';config.write_text(json.dumps(data))
+        pid='85-raised-foot';project=self.project(pid)
+        for foot in (10,20):
+            dims['footHeight']=foot
+            dimensions.write_text(json.dumps({'valuesMm':dims}))
+            if foot==10:self.run_cli('new',pid,'--sketch',self.sketch,'--config',config)
+            else:self.run_cli('revise',pid,'--feedback','Change reviewed foot height','--config',config)
+            self.run_cli('verify',pid)
+            solid=json.loads((project/'cad/solid/manifest.json').read_text())['parts'][0]
+            self.assertEqual(foot+1,solid['checks']['floorHeightMm'])
+            self.assertTrue(solid['stepRoundTrip'])
+        self.assertEqual('build',json.loads((project/'pipeline-state.json').read_text())['lastBuildPlan']['solid'])
+        before=sha(project/'cad/solid/manifest.json')
+        self.run_cli('resume',pid)
+        self.assertEqual(before,sha(project/'cad/solid/manifest.json'))
+
     def test_14_multi_part_intake_keeps_questions_per_part(self):
         fixture=self.skill/'tests/fixtures/single'
         parts=[]

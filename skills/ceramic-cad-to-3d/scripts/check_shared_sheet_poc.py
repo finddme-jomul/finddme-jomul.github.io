@@ -157,13 +157,16 @@ def check(out: Path, config: Path) -> None:
             assert 0 < box["cy"] - box["height"] / 2 < box["cy"] + box["height"] / 2 < 1
             visible = [node.text or "" for node in nodes if node.tag.endswith("text")]
             labels = " ".join(visible)
+            if name in ('desktop', 'short'):
+                station_title = 'CAD PROFILE STATIONS / ' + ('INPUT' if 'footHeight' in dims else 'FIRED')
+                assert labels.count(station_title) == 1, (name, pid, 'dimension stage label')
             assert all(token in labels for token in ("FRONT ELEVATION", "PLAN", "SECTION", "ISOMETRIC", "CLAY", "GLAZE")), (name, pid, "view labels")
             if handle_path:
                 assert f'OVERALL {handle["overallWidthMm"]:g} mm' in labels, (name, pid, "overall width dimension")
             assert all(not re.search(r"[가-힣]", item) or item.startswith("CLAY /") or re.match(r"GLAZE \d+ /", item)
                        for item in visible), (name, pid, "Korean outside material names")
     text = (out / manifest["layouts"]["desktop"]["file"]).read_text()
-    assert text.count("CAD PROFILE STATIONS / FIRED") == len(project["parts"])
+    assert text.count("CAD PROFILE STATIONS / ") == len(project["parts"])
     for source_part in manifest["parts"]:
         for _, diameter in source_part["stationsMm"]:
             assert f"≈{diameter:.1f}" in text

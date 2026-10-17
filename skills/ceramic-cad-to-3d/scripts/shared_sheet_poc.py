@@ -135,6 +135,8 @@ def load_part(raw: dict) -> dict:
             f"{part_id}: profile opening mismatch")
     shape_kind = raw.get("shapeKind", "rotational-profile")
     require(shape_kind in ("rotational-profile", "handled-vessel"), f"{part_id}: unsupported shapeKind")
+    require(not (shape_kind == 'handled-vessel' and 'footHeight' in dims),
+            f'{part_id}: raised-foot handled solids are not supported')
     handle_path = ROOT / raw["handle"] if shape_kind == "handled-vessel" and "handle" in raw else None
     require((shape_kind == "handled-vessel") == (handle_path is not None),
             f"{part_id}: handled-vessel requires handle input")
@@ -202,6 +204,19 @@ def handle_path(part: dict, cx: float, base: float, scale: float, view: str) -> 
 
 
 def section(part: dict, cx: float, base: float, scale: float) -> str:
+    if 'footHeight' in part['dimensions']:
+        from rotational_section import raised_foot_section
+        points = raised_foot_section(part['profile'], part['dimensions'])
+        screen = [(cx+r*scale, base-z*scale) for r,z in points]
+        clip = f'raised-section-{part["id"]}'
+        polygon = ' '.join(f'{x:.2f},{y:.2f}' for x,y in screen)
+        width = max(x for x,y in screen)-cx
+        top = min(y for x,y in screen)
+        hatch = ''.join(line(cx,y,cx+width,y-width,'pale')
+                        for y in range(math.floor(top),math.ceil(base+width),6))
+        return (f'<defs><clipPath id="{clip}"><polygon points="{polygon}"/></clipPath></defs>'
+                + f'<g clip-path="url(#{clip})">{hatch}</g>'
+                + path(screen + [screen[0]], 'section'))
     wall = part["dimensions"]["wallThickness"]
     profile = part["profile"]
     outer = [(cx + r * scale, base - z * scale) for r, z in profile]
@@ -307,7 +322,13 @@ def plan_view(part: dict, cx: float, cy: float, radius: float,
 
 
 def iso_view(part: dict, cx: float, base: float, scale: float) -> str:
-    return (label(cx, base - part["dimensions"]["height"] * scale - 45,
+    title_y = base - part['dimensions']['height'] * scale - 45
+    if 'footHeight' in part['dimensions']:
+        shape = geometry(part['profile'], part['dimensions'], cx, base, scale, y_down=True)
+        curves = shape['sides'] + shape['rims']
+        curves += [ring[side] for ring in shape['rings'] for side in ('back','front')]
+        title_y = min(y for curve in curves for x,y in curve) - 16
+    return (label(cx, title_y,
                   "ISOMETRIC / CAD PROFILE", 12, "middle")
             + isometric(part, cx, base, scale))
 
@@ -402,7 +423,7 @@ def dimension_table(parts: list[dict], x: float, y: float, width: float, compact
 
 
 def station_table(part: dict, x: float, y: float) -> str:
-    rows = [label(x, y, "CAD PROFILE STATIONS / FIRED", 10),
+    rows = [label(x, y, "CAD PROFILE STATIONS / INPUT" if 'footHeight' in part['dimensions'] else "CAD PROFILE STATIONS / FIRED", 10),
             label(x, y + 21, "Z mm", 10), label(x + 91, y + 21, "OUTER Ø mm", 10),
             line(x, y + 27, x + 215, y + 27, "pale")]
     for index, (z, diameter) in enumerate(part["stationsMm"]):
@@ -418,13 +439,14 @@ def render_single_landscape(part: dict, page: tuple[int, int], fit_width=False) 
     w, h = page
     short = False
     scale = min(4.1, (h - (300 if short else 220)) / part["dimensions"]["height"])
-    if fit_width:
+    if fit_width or 'footHeight' in part['dimensions']:
         scale = min(scale, 640 / part['dimensions'].get('overallWidth', part['dimensions']['maxDiameter']))
     base = h - (95 if short else 165)
     cx = 510
     front, box = front_view(part, cx, base, scale, page, single_hero=True)
     divider = 1010
     iso_scale = 1.05 if short else 1.43
+    foot_detail_y = h * (.53 if 'footHeight' in part['dimensions'] else .73)
     body = [front, line(divider, 120, divider, h - 70, "pale"),
             iso_view(part, 1180, h * (.44 if short else .42), iso_scale),
             materials_view(part, 1350, 150 if short else 175, compact=short),
@@ -439,7 +461,7 @@ def render_single_landscape(part: dict, page: tuple[int, int], fit_width=False) 
                detail_view(part, 830, h * .40, True),
                line(cx + part["dimensions"]["footDiameter"] * scale / 2 + 7,
                     base - 5, 760, h * .70, "pale"),
-               detail_view(part, 830, h * .73, False)]),
+               detail_view(part, 830, foot_detail_y, False)]),
             station_table(part, 1055, 525),
             source_view(part, 1080, h - (80 if short else 105), compact=short)]
     return f'<g data-part="{esc(part["id"])}">{"".join(body)}</g>', {part["id"]: box}
@@ -518,7 +540,7 @@ def render_single_portrait(part: dict, page: tuple[int, int]) -> tuple[str, dict
     cx = 270 if part["handle"] else 345
     base = 600 if short else 690
     scale = min(3.4, (base - 180) / part["dimensions"]["height"],
-                490 / part["dimensions"]["maxDiameter"])
+                (400 if 'footHeight' in part['dimensions'] else 490) / part["dimensions"]["maxDiameter"])
     front, box = front_view(part, cx, base, scale, page,
                             single_hero=True, show_heading=False)
     divider = 645 if short else 730
@@ -527,7 +549,7 @@ def render_single_portrait(part: dict, page: tuple[int, int]) -> tuple[str, dict
     foot_y = 620 if short else 675
     plan_y = 765 if short else 900
     plan_r = 53 if short else 60
-    body = [label(70, 45, "01 / TARGET FIRED FORM", 17),
+    body = [label(70, 45, "01 / REVIEWED INPUT FORM" if 'footHeight' in part['dimensions'] else "01 / TARGET FIRED FORM", 17),
             label(70, 70, "FRONT ELEVATION / DIMENSIONS mm", 11),
             front,
             ("" if part["handle"] else line(

@@ -7,6 +7,43 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'scripts'))
 from jomul_handled_solid import make_rotational_solid
 
 class RotationalSolid(unittest.TestCase):
+    def test_raised_foot_has_open_underside_and_one_mm_floor(self):
+        dims=dict(height=55,maxDiameter=80,openingDiameter=80,footDiameter=80,
+                  wallThickness=1,baseThickness=1,footHeight=10)
+        profile=[[40,0],[40,10],[40,55]]
+        solid,checks=make_rotational_solid(profile,dims)
+        self.assertEqual(11,checks['floorHeightMm'])
+        self.assertFalse(solid.is_inside((0,0,5)))
+        self.assertTrue(solid.is_inside((39.5,0,5)))
+        self.assertTrue(solid.is_inside((0,0,10.5)))
+        self.assertFalse(solid.is_inside((0,0,11.5)))
+        expected=math.pi*(40**2*55-39**2*54)
+        self.assertAlmostEqual(solid.volume,expected,places=5)
+        for foot in (0,-1,54,True,float('nan')):
+            with self.subTest(foot=foot),self.assertRaises(ValueError):
+                make_rotational_solid(profile,{**dims,'footHeight':foot})
+        with self.assertRaises(ValueError):
+            make_rotational_solid(profile,dims,floor_policy='selected-visual-sampled')
+
+    def test_flared_raised_foot_stays_connected_and_draws_same_section(self):
+        from rotational_section import raised_foot_section
+        from shared_sheet_poc import section
+        dims=dict(height=55,maxDiameter=180,openingDiameter=180,footDiameter=80,
+                  wallThickness=1,baseThickness=1,footHeight=10)
+        profile=[[40,0],[40,10],[60,20],[80,40],[90,55]]
+        solid,_=make_rotational_solid(profile,dims)
+        self.assertTrue(solid.is_valid)
+        self.assertEqual(1,len(solid.solids()))
+        self.assertFalse(solid.is_inside((0,0,5)))
+        self.assertTrue(solid.is_inside((0,0,10.5)))
+        self.assertFalse(solid.is_inside((0,0,12)))
+        points=raised_foot_section(profile,dims)
+        self.assertIn((0,10),points)
+        self.assertIn((0,11),points)
+        svg=section({'id':'synthetic-foot','dimensions':dims,'profile':profile},0,100,1)
+        self.assertIn('0.00,90.00',svg)
+        self.assertIn('0.00,89.00',svg)
+
     def test_selected_visual_floor_does_not_replace_default_cad(self):
         dims=dict(height=100,maxDiameter=80,openingDiameter=80,footDiameter=80,
                   wallThickness=4,baseThickness=7)

@@ -117,6 +117,13 @@ def section(pdf, profile, dims, x, bottom, scale, exact_floor=False):
     path.lineTo(cx, bottom+floor*scale)
     path.lineTo(cx, bottom)
     path.close()
+    if 'footHeight' in dims:
+        from rotational_section import raised_foot_section
+        points = raised_foot_section(profile, dims)
+        path = pdf.beginPath()
+        path.moveTo(cx+points[0][0]*scale, bottom+points[0][1]*scale)
+        for r,z in points[1:]: path.lineTo(cx+r*scale, bottom+z*scale)
+        path.close()
     pdf.saveState()
     pdf.clipPath(path,stroke=0,fill=0)
     pdf.setStrokeColor(MUTED)
