@@ -9,6 +9,8 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
    const page=await browser.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
    await page.setViewport({width,height,deviceScaleFactor:1});await page.goto(process.env.CERAMIC_CANDIDATE,{waitUntil:'networkidle0'});
    await page.waitForFunction(()=>window.__mugMotion?.state?.target);
+   const guide=await page.evaluate(()=>fetch('./wire-guide.json').then(r=>r.json()));
+   assert.equal(guide.density.bodyProfileStride,4);assert.equal(guide.density.bodyMeridians,12);assert.equal(guide.density.bodyRingSegments,72);
    const info=await page.evaluate(()=>({end:window.__mugMotion.state.endProgress,photos:window.__mugMotion.pageConfig.ending==='photos'}));
    let step=0;
    for(const p of [0,.43*.72,.56*.72,.685*.72,.79*.72,.895*.72,.72,.79,.9,1,info.end,.79*.72]){
@@ -33,7 +35,7 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
     });
     assert(state.meshCount>0&&state.coatedMeshCount===state.meshCount&&state.vertices>0);
     assert(state.minX>=-1.001&&state.maxX<=1.001&&state.minY>=-1.001&&state.maxY<=1.001,`${layout}/${step}: handle clipped`);
-    assert(state.frontLoaded&&state.wireVertices>500&&state.wireVertices<6000);
+    assert(state.frontLoaded&&state.wireVertices>500&&state.wireVertices<50000);
     if(step===1){const box={x:(state.minX+1)*width/2,y:(1-state.maxY)*height/2,width:(state.maxX-state.minX)*width/2,height:(state.maxY-state.minY)*height/2};assert(Math.max(...Object.keys(box).map(k=>Math.abs(box[k]-state.front[k])))<1.5,'front/complete solid mismatch');}
     if(step===2)assert(state.lineOpacity>.8);
     if(step===6){assert.equal(state.coat,0);assert(Math.abs(state.body-state.expectedBody)<.02);}
@@ -42,6 +44,8 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
      const visiblePixels=await page.evaluate(()=>{
       const m=window.__mugMotion,canvas=document.createElement('canvas');canvas.width=m.renderer.domElement.width;canvas.height=m.renderer.domElement.height;
       const c=canvas.getContext('2d');m.renderer.render(m.scene,m.camera);c.drawImage(m.renderer.domElement,0,0);const coated=c.getImageData(0,0,canvas.width,canvas.height).data;
+      m.wire.visible=false;m.renderer.render(m.scene,m.camera);c.clearRect(0,0,canvas.width,canvas.height);c.drawImage(m.renderer.domElement,0,0);const noWire=c.getImageData(0,0,canvas.width,canvas.height).data;
+      for(let i=0;i<coated.length;i++)if(coated[i]!==noWire[i])throw Error('Invisible wire changes coating pixels');m.wire.visible=true;
       m.glazeMeshes.forEach(v=>v.visible=false);m.renderer.render(m.scene,m.camera);c.clearRect(0,0,canvas.width,canvas.height);c.drawImage(m.renderer.domElement,0,0);const bare=c.getImageData(0,0,canvas.width,canvas.height).data;
       m.glazeMeshes.forEach(v=>v.visible=true);m.renderer.render(m.scene,m.camera);
       let count=0;for(let i=3;i<coated.length;i+=4)if(coated[i]>bare[i]+40)count++;return count;

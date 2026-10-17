@@ -1,4 +1,6 @@
 import copy
+import json
+import math
 import sys
 import unittest
 from pathlib import Path
@@ -7,6 +9,21 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from handled_page import validate
 
 class HandledReview(unittest.TestCase):
+    def test_body_wire_has_dense_cad_rings_and_full_meridians(self):
+        from prepare_handled import body_wire_lines
+        density=json.loads((Path(__file__).resolve().parents[1]/'assets/accepted-profile.json').read_text())['wire3d']
+        profile=[(30+i, i*5) for i in range(10)]
+        lines=body_wire_lines(profile,density)
+        rings=[p for p,closed in lines if closed];meridians=[p for p,closed in lines if not closed]
+        self.assertEqual([p[0][2] for p in rings],[0,20,40,45])
+        self.assertEqual(len(meridians),12)
+        self.assertEqual(len({round(math.atan2(p[0][1],p[0][0]),8) for p in meridians}),12)
+        for p in rings:self.assertEqual(len(p),72)
+        for p in meridians:
+            self.assertEqual(len(p),len(profile))
+            for (x,y,z),(radius,height) in zip(p,profile):
+                self.assertAlmostEqual(math.hypot(x,y),radius);self.assertEqual(z,height)
+
     def test_explicit_material_and_motion_evidence(self):
         material={'clay':{'name':'잡토'},'glaze':{'name':'하늘보리 유약'}}
         review={'schemaVersion':1,'status':'reviewed-provisional','provenance':'test only',
