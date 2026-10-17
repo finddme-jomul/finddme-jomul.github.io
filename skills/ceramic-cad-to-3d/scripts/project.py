@@ -374,8 +374,8 @@ def main() -> None:
             raise
     else:
         state = state_for(project)
-        if state.get('featureGeometry') and args.action in ('page-review','page'):
-            raise ValueError('Feature geometry is not CAD/page-ready; sheet and wire integration pending')
+        if state.get('featureGeometry') and args.action == 'page':
+            raise ValueError('Legacy page is withdrawn; use page-review with an explicit single-feature review')
         if args.action == 'page-review':
             import page_scheduler
             data=json.loads(args.review.expanduser().resolve(strict=True).read_text())
@@ -590,10 +590,14 @@ def main() -> None:
             if inputs(project/'input/config.json') == state['featureGeometry']['buildInputs']:
                 verify(project,state)
                 resume_motion(project,state)
+                from page_scheduler import resume as resume_page
+                resume_page(project,state)
                 return
             snapshot(project)
             build_features(project,state)
             resume_motion(project,state)
+            from page_scheduler import resume as resume_page
+            resume_page(project,state)
             return
         elif state['status'] == 'cad-ready':
             verify(project, state)
@@ -619,6 +623,8 @@ def main() -> None:
             raise
     if state.get('status') == 'geometry-ready':
         resume_motion(project,state)
+        from page_scheduler import resume as resume_page
+        resume_page(project,state)
     if state.get('status') == 'cad-ready':
         resume_motion(project, state)
         from page_scheduler import resume as resume_page

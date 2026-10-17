@@ -41,6 +41,27 @@ class Scheduling(unittest.TestCase):
         with patch.object(selected_page,'restore',side_effect=self.renderer):scheduler.resume(self.p,self.state)
         self.assertNotEqual(old['output'],self.state['pageReview']['output']);self.assertEqual(before,project.tree_hashes(old_path))
         self.assertTrue(scheduler.current(self.p,self.state))
+    def test_feature_failure_retry_noop_and_geometry_dependency(self):
+        geometry=self.p/'geometry';geometry.mkdir();(geometry/'manifest.json').write_text('{}')
+        self.state['status']='geometry-ready';self.state['cad']=None
+        self.state['featureGeometry']={'inputSha256':project.tree_hashes(self.p/'input'),'filesSha256':project.tree_hashes(geometry)}
+        original=self.renderer
+        def feature_renderer(target,cad_project,review):
+            original(target,cad_project,review)
+            bridge=target/'cad-bridge.json';data=json.loads(bridge.read_text())
+            data['inputsSha256']['01-test/geometry/manifest.json']=sha(geometry/'manifest.json')
+            bridge.write_text(json.dumps(data))
+        self.renderer=feature_renderer
+        self.test_failure_retains_old_revision_retry_and_noop()
+        previous=self.state['pageReview']['output']
+        (geometry/'manifest.json').write_text('{"changed":true}')
+        with patch.object(selected_page,'restore') as render:
+            scheduler.resume(self.p,self.state);render.assert_not_called()
+        self.state['featureGeometry']['filesSha256']=project.tree_hashes(geometry)
+        with patch.object(selected_page,'restore',side_effect=self.renderer):scheduler.resume(self.p,self.state)
+        self.assertNotEqual(previous,self.state['pageReview']['output'])
+        self.assertEqual('complete',describe(self.p,self.state)['page']['status'])
+
     def test_cli_resume_and_gallery_use_registered_generator(self):
         with patch.object(selected_page,'restore',side_effect=self.renderer):scheduler.resume(self.p,self.state)
         self.photo.write_text('["changed source marker"]')

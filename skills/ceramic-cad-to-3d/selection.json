@@ -593,7 +593,7 @@
     {
       "id": "feature-shape-input",
       "state": "implemented-geometry-stage-only",
-      "rule": "Reviewed explicit solid feature data: revolve, loft, box, sphere, union and cut. Reject hollow intent; never substitute a rotational vessel. Project-page integration remains pending.",
+      "rule": "Reviewed explicit solid feature data: revolve, loft, box, sphere, union and cut. Reject hollow intent; never substitute a rotational vessel. Single-feature page candidates reuse the shared solid renderer.",
       "consumer": [
         "scripts/feature_shape.py",
         "scripts/run.py"
@@ -643,7 +643,7 @@
     {
       "id": "feature-axis-motion",
       "state": "implemented-per-part-review-candidate",
-      "rule": "Reuse handled-scene axis/motion renderer for selected feature part; centre actual mesh and BRep guides together, fit camera-space transformed bounds. Full feature material/page/assembly pending.",
+      "rule": "Reuse handled-scene axis/motion renderer for selected feature part; centre actual mesh and BRep guides together, fit camera-space transformed bounds. Single-feature material/page candidates supported; simultaneous assembly pending.",
       "consumer": [
         "scripts/prepare_feature_motion.py",
         "scripts/motion.py",
@@ -658,7 +658,8 @@
         ],
         "scope": "Lifecycle/recovery plus separate real browser evidence for smooth and offset faceted development inputs; four viewports x six points and reverse scroll. Not final-page adoption.",
         "browserCheck": "scripts/check-motion.cjs"
-      }
+      },
+      "consumers": []
     },
     {
       "id": "scene-defaults",
@@ -675,6 +676,26 @@
         "suites": [],
         "scope": "Isolated moon parity and handled before/after screenshot comparison; config packaging checked by preflight.",
         "pendingReason": "Browser evidence is separate from decision suite; not all algorithmic constants are editable settings."
+      }
+    },
+    {
+      "id": "feature-single-page",
+      "state": "implemented-review-candidate",
+      "rule": "Single explicit feature solid uses shared handled whole-page renderer, reviewed named clay/glaze and photo roles; preserve failed revisions and dependency-driven resume. Multiple feature pages remain unsupported.",
+      "consumer": [
+        "scripts/feature_page.py",
+        "scripts/handled_page.py",
+        "scripts/selected_page.py",
+        "scripts/page_scheduler.py",
+        "assets/page-viewer.js"
+      ],
+      "verification": {
+        "suites": [
+          "feature-project",
+          "page-recovery"
+        ],
+        "scope": "Shared scheduler recovery and single-feature browser development checks; not visual adoption or release.",
+        "browserCheck": "tests/check-handled-page.cjs"
       }
     }
   ],

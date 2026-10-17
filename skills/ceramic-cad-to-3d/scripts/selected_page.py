@@ -24,7 +24,9 @@ def restore(output, cad_project=None, review=None):
         from selected_cad import prepare
         cad_project = cad_project.resolve()
         if not cad_project.is_relative_to(ROOT): raise ValueError('CAD project must be inside workspace')
-        if json.loads((cad_project/'input/config.json').read_text())['compositionMode'] == 'multiple' or (review or {}).get('renderer') == 'layered-vessels':
+        if any(p.get('shapeKind')=='feature-solid' for p in json.loads((cad_project/'input/config.json').read_text())['parts']):
+            from feature_page import prepare
+        elif json.loads((cad_project/'input/config.json').read_text())['compositionMode'] == 'multiple' or (review or {}).get('renderer') == 'layered-vessels':
             from multiple_page import prepare
         elif any(p.get('shapeKind') == 'handled-vessel' for p in json.loads((cad_project/'input/config.json').read_text())['parts']):
             from handled_page import prepare
@@ -42,14 +44,14 @@ def restore(output, cad_project=None, review=None):
             from selected_cad import install
             if prepared.get('mode') == 'multiple':
                 from multiple_page import install
-            elif prepared.get('mode') == 'handled':
+            elif prepared.get('mode') in ('handled','feature'):
                 from handled_page import install
             cad_inputs = install(prepared, stage)
         install_wire_color(stage, wire_motion)
         report_dir=output.with_name(output.name+'.verification')
         from browser_environment import run_browser
         checker = 'tests/check-multiple-page.cjs' if prepared and prepared.get('mode') == 'multiple' else ('tests/check-new-page.cjs' if review is not None else 'tests/check-selected-page.cjs')
-        if prepared and prepared.get('mode') == 'handled': checker = 'tests/check-handled-page.cjs'
+        if prepared and prepared.get('mode') in ('handled','feature'): checker = 'tests/check-handled-page.cjs'
         run_browser(checker,{
             'CERAMIC_BASELINE':'http://127.0.0.1:5173/@fs/ceramic-skill/assets/selected-page/index.html',
             'CERAMIC_CANDIDATE':'http://127.0.0.1:5173/'+stage.relative_to(ROOT).as_posix()+'/index.html',

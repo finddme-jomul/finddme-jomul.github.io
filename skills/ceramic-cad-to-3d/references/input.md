@@ -132,8 +132,7 @@ compares STEP volume/bounds and GLB bounds with the reviewed source.
 
 All parts in this initial route must be feature-solid. Mixing vessel and feature
 parts, switching an existing vessel project into feature mode, P1 feature
-extraction, visually adopted feature CAD layout and motion/page rendering remain
-unsupported. Candidate views and section guides are now generated as described below. Full-page commands reject geometry-only readiness; motion-preview now accepts a reviewed feature part as described below.
+extraction and visually adopted feature CAD layout remain unsupported. Candidate views and section guides are generated as described below. Motion previews accept a reviewed feature part; single-feature page candidates require the explicit material review below.
 Do not reclassify it as cad-ready or attach a substitute rotational model.
 
 #### Feature CAD and wire candidates
@@ -180,3 +179,21 @@ visibility. The browser gate checks four sizes, six points, source-front/mesh
 alignment, depth-view entry, wire visibility during the first half turn, full
 axis/body turn, clipping and reverse-scroll state. It does not establish visual
 adoption, material fidelity, whole-page or simultaneous multi-part scene support.
+
+### Single-feature page review
+
+A `single` config with one `feature-solid` uses the existing handled review schema
+through `page-review`. Archived material evidence must contain `clay.name` and
+`glaze.name`. Review fields: `schemaVersion: 1`, `status: reviewed-provisional`,
+`provenance`, `motion` (reviewed motion fields plus `storyHeightVh: 300..1500`),
+`surface` (`clayName`, `glazeName`, `clayHex`, `glazeHex`, `roughness`, `clearcoat`,
+`provenance`), and workspace-relative `photos` JSON path. Names must match material
+evidence, colours are explicit #RRGGBB, roughness/clearcoat are in [0,1]. Optional
+`motion.partId` must match the single archived part. An empty photo list ends on
+glaze; photo roles follow the existing actual/process evidence contract.
+
+Only one all-surface glaze is supported here. Multiple feature parts and layered
+or partial coating requests are rejected rather than silently flattened. Use
+`resume`, `revise`, and `gallery` for dependency-driven regeneration; failed jobs
+retain the previous verified revision. `geometry-ready` and candidate drawing
+status remain separate from a browser-verified page and user visual adoption.

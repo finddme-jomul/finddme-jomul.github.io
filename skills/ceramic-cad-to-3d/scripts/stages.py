@@ -81,14 +81,20 @@ def describe(project, state):
         if entry.get('drawingCandidate'):
             result['drawing']={'status':'candidate' if valid else 'stale',
                                'outputs':['geometry/sheet-*.svg','geometry/drawing-manifest.json','geometry/*/wire-guide.json'],
-                               'reason':'BRep drawing and section guides; visual adoption and page alignment pending'}
-        result['cad'].update(status='blocked',reason='Feature drawing adoption/page alignment pending')
-        result['page'].update(status='blocked',reason='Feature full-page integration pending')
+                               'reason':'BRep drawing and section guides; visual adoption pending'}
+        result['cad'].update(status='blocked',reason='Feature drawing visual adoption pending')
+        result['page'].update(status='pending',reason='Register a single-feature page review with explicit materials')
+        if page and page.get('generator')=='selected-page':
+            from page_scheduler import current
+            result['page'].update(status='complete' if valid and current(project,state) else 'stale',
+                                  reason='Single-feature page candidate; visual adoption pending',output=page['output'])
+        if state.get('pageJob',{}).get('status') in ('failed','running'):
+            result['page'].update(status=state['pageJob']['status'],reason=state['pageJob'].get('error','Browser gate pending'))
         result['motion'].update(status='blocked',reason='Provide reviewed motion input for a feature part')
         if motion:
             motion_valid=(valid and motion.get('geometrySha256')==hashes(project/'geometry')
                           and hashes(project/'motion-preview')==motion['filesSha256'])
-            result['motion'].update(status='complete' if motion_valid else 'stale',reason='Feature motion preview; full page remains pending')
+            result['motion'].update(status='complete' if motion_valid else 'stale',reason='Feature motion preview; page tracked separately')
         if state.get('motionJob',{}).get('status') in ('failed','running'):
             result['motion'].update(status=state['motionJob']['status'],reason=state['motionJob'].get('error','Browser gate pending'))
     return result

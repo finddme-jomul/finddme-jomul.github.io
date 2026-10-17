@@ -56,7 +56,9 @@ def resume(project, state):
     # Never migrate withdrawn scene inputs implicitly.
     if state.get('pageGenerator')!='selected-page' or not state.get('reviewedPageInput'): return
     from stages import describe
-    if describe(project,state)['cad']['status']!='complete': return
+    stages=describe(project,state)
+    source='geometry' if state.get('featureGeometry') else 'cad'
+    if stages.get(source,{}).get('status')!='complete': return
     if current(project,state) and state.get('pageJob',{}).get('status')=='complete': return
     from project import snapshot
     snapshot(project)
