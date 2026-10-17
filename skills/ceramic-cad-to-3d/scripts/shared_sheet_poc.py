@@ -616,7 +616,17 @@ def render_multiple_portrait(parts: list[dict], page: tuple[int, int]) -> tuple[
     return "".join(body), boxes
 
 
-def render_part_panels(parts: list[dict], size_name: str, page: tuple[int, int]) -> tuple[str, dict]:
+def render_part_panels(parts: list[dict], size_name: str, page: tuple[int, int], layout=None) -> tuple[str, dict]:
+    require(layout is None or isinstance(layout, dict), 'CAD layout must be an object')
+    layout = layout or {}
+    order = layout.get('partOrder', [p['id'] for p in parts])
+    require(isinstance(order, list) and len(order) == len(parts)
+            and set(order) == {p['id'] for p in parts}, 'CAD layout must list each part exactly once')
+    require(set(layout) <= {'partOrder', 'lastRowAlignment'}, 'Unknown CAD panel layout field')
+    alignment = layout.get('lastRowAlignment', 'start')
+    require(alignment in ('start', 'center-front'), 'Unsupported CAD last row alignment')
+    by_id = {p['id']:p for p in parts}
+    parts = [by_id[pid] for pid in order]
     panel_w, panel_h = SIZES['single'][size_name]
     columns = 2 if size_name == 'desktop' else 1
     w, h = page
@@ -625,6 +635,8 @@ def render_part_panels(parts: list[dict], size_name: str, page: tuple[int, int])
         x, y = (index % columns) * panel_w, 100 + (index // columns) * panel_h
         drawing, local = (render_single_landscape(part, (panel_w, panel_h), fit_width=True)
                           if size_name == 'desktop' else render_single_portrait(part, (panel_w, panel_h)))
+        if alignment == 'center-front' and columns == 2 and len(parts) % columns == 1 and index == len(parts)-1:
+            x = w/2 - local[part['id']]['cx']*panel_w
         drawing = drawing.replace('<g data-part=',
             f'<g transform="translate({x},{y})" data-layout-x="{x}" data-layout-y="{y}" data-part=', 1)
         drawings.append(drawing)
@@ -646,7 +658,7 @@ def render(project: dict, parts: list[dict], size_name: str) -> tuple[str, dict]
                 label(55, 70, "FRONT · PLAN · SECTION · PROFILE ISOMETRIC / mm", 12)]),
             line(55, 92, w - 55, 92)]
     if len(parts) > 2:
-        drawing, boxes = render_part_panels(parts, size_name, (w,h))
+        drawing, boxes = render_part_panels(parts, size_name, (w,h), project.get('cadLayout'))
     elif w > h:
         drawing, boxes = (render_single_landscape(parts[0], (w, h)) if len(parts) == 1
                           else render_multiple_landscape(parts, (w, h)))
@@ -679,6 +691,7 @@ def build(config_path: Path, out: Path) -> dict:
             and adopted["responsiveFit"] == "contain-entire-sheet", "CAD presentation rule changed")
     project["cadProfile"] = adopted
     parts = [load_part(raw) for raw in project["parts"]]
+    require('cadLayout' not in project or len(parts) > 2, 'Explicit CAD panel layout requires at least three parts')
     require(len({p["id"] for p in parts}) == len(parts), "duplicate part ID")
     require(project["compositionMode"] == ("single" if len(parts) == 1 else "multiple"),
             "composition mode does not match parts")
