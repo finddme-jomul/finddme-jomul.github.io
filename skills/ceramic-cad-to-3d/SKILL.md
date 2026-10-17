@@ -88,7 +88,7 @@ unless the user explicitly requests a different style. The active profile
 `assembly.gentleStaggeredDrop` supplies soft-spin and overlapping descent and
 preserves the reviewed three-part timing reference. The generator rejects
 conflicting settings and excessive landing gaps between upper pieces (gap ≤ 20%
-of the shorter fall interval). Keep the direct-drop camera fixed over the full upright descent envelope during landing; per-frame fitting must not make descending or landed parts rise on screen. Check `tests/check-direct-drop.cjs` on desktop/mobile and reverse scroll. Keep rotation through landing and a gentle stop;
+of the shorter fall interval). Finish direct-drop camera staging during the initial CAD-to-3D descent, before glazing. Keep it fixed over the full upright descent envelope from glaze completion through landing; per-frame fitting must not make descending or landed parts rise on screen. Check `tests/check-direct-drop.cjs` on desktop/mobile and reverse scroll. Keep rotation through landing and a gentle stop;
 reduce gaps by overlapping falls, not by making each fall abrupt. Review drop
 heights, overall scroll duration and collision clearance for new shapes/counts.
 This adopts the motion, not specimen materials, arbitrary layouts or physical

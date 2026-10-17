@@ -10,10 +10,12 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
    const page=await browser.newPage();await page.setViewport({width,height});
    await page.goto(process.env.CERAMIC_CANDIDATE,{waitUntil:'networkidle0'});
    await page.waitForFunction(()=>window.__multiplePage?.loaded);
-   const assembly=await page.evaluate(()=>window.__multiplePage.spec.assembly);
+   const info=await page.evaluate(()=>({assembly:window.__multiplePage.spec.assembly,timing:window.__multiplePage.spec.motion.timing}));
+   const {assembly,timing}=info;
+   const begin=timing.accentGlazeStart===null?timing.baseGlazeStart+timing.baseGlazeDuration:timing.accentGlazeStart+timing.accentGlazeDuration;
    const samples=[];
    for(let i=0;i<=100;i++){
-    const t=assembly.start+assembly.duration*i/100;
+    const t=begin+(assembly.start+assembly.duration-begin)*i/100;
     await page.evaluate(t=>{const m=window.__multiplePage,s=m.spec.motion;scrollTo(0,(s.timing.cadEnd+(1-s.timing.cadEnd)*t)*(s.storyHeightVh-100)*innerHeight/100);},t);
     await page.waitForFunction(t=>Math.abs(window.__multiplePage.motionProgress-t)<.0003,{},t);
     samples.push(await page.evaluate(()=>{const m=window.__multiplePage;return {scrollY,t:m.motionProgress,camera:m.camera.position.toArray(),parts:m.vessels.map(v=>{const q=v.main.position.clone().project(m.camera);return {id:v.id,y:v.main.position.y,screenY:(1-q.y)*innerHeight/2,drop:v.state.drop,assembly:v.state.assembly};})};}));
@@ -26,14 +28,14 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
     const restored=await page.evaluate(()=>{const m=window.__multiplePage;return m.vessels.map(v=>{const q=v.main.position.clone().project(m.camera);return (1-q.y)*innerHeight/2;});});
     restored.forEach((y,i)=>assert(Math.abs(y-previous.parts[i].screenY)<1,'Reverse scroll must restore screen position'));
    }
-   results.push({layout,assembly,samples});await page.close();
+   results.push({layout,assembly,begin,samples});await page.close();
   }
   fs.mkdirSync(process.env.CERAMIC_REPORT,{recursive:true});
   fs.writeFileSync(process.env.CERAMIC_REPORT+'/trajectory.json',JSON.stringify(results,null,2));
   if(process.env.CERAMIC_ASSERT_DESCENT==='1')for(const row of results){
    for(let i=1;i<row.samples.length;i++){
     const a=row.samples[i-1],b=row.samples[i];
-    if(a.t<row.assembly.start-.002)continue;
+    if(a.t<row.begin-.002)continue;
     for(let j=0;j<b.parts.length;j++){
      assert(b.parts[j].y<=a.parts[j].y+1e-6,'World-space rise during direct drop');
      assert(b.parts[j].screenY>=a.parts[j].screenY-0.5,'Screen-space rise during direct drop: '+row.layout+' '+b.parts[j].id);
