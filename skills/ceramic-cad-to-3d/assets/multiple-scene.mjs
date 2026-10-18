@@ -19,13 +19,14 @@ import {exteriorAt,inRegion,coatingWeights,assemblyPosition,featureCoatingBands,
 export async function startMultiple(spec) {
   const host=document.querySelector('#viewer'),story=document.querySelector('#story');
   const sheet=document.querySelector('#cad-sheet'),image=document.querySelector('#cad-sheet-image');
+  const lighting=spec.motion.lighting??{};
   const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
   renderer.setPixelRatio(Math.min(devicePixelRatio,defaults.pixelRatioCap));
-  renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=defaults.exposure;
+  renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=lighting.exposure??defaults.exposure;
   host.appendChild(renderer.domElement);
   const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(defaults.fov,1,defaults.near,defaults.far);
   scene.add(new THREE.HemisphereLight(defaults.skyColor,defaults.groundColor,defaults.hemisphereIntensity));
-  for(const [x,y,z,power] of defaults.pointLights){const lamp=new THREE.PointLight(defaults.keyColor,power);lamp.position.set(x,y,z);scene.add(lamp);}
+  for(const [x,y,z,power] of defaults.pointLights){const lamp=new THREE.PointLight(defaults.keyColor,power*(lighting.pointLightScale??1));lamp.position.set(x,y,z);scene.add(lamp);}
   const timing=spec.motion.timing,layout=spec.motion.layout,glazeMotion=spec.motion.glaze;
   const assembly=spec.assembly,directDrop=assembly?.mode==='direct-drop',rotationEnd=assembly?assembly.start:timing.photoStart;
   const hasPhotos=spec.ending==='photos';

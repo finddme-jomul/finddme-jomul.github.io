@@ -22,6 +22,11 @@ def validate(review, ids):
         if isinstance(value, list):
             for item in value: finite(item)
     finite(review)
+    lighting=review['motion'].get('lighting',{})
+    if not isinstance(lighting,dict) or set(lighting)-{'exposure','pointLightScale'}:raise ValueError('Invalid lighting options')
+    for key,maximum in [('exposure',3),('pointLightScale',2)]:
+        value=lighting.get(key,1)
+        if isinstance(value,bool) or not isinstance(value,(int,float)) or not 0<=value<=maximum:raise ValueError('Invalid lighting '+key)
     if review.get('renderer') == 'layered-vessels' or any('coatings' in p for p in review['parts']):
         if any('coatings' not in p for p in review['parts']):
             raise ValueError('Layered vessel mode requires explicit coatings for every part')

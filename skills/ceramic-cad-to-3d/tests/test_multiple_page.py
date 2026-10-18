@@ -31,6 +31,14 @@ class MultipleReview(unittest.TestCase):
         bad=copy.deepcopy(plan);bad['start']=.6
         with self.assertRaises(ValueError):assembly(bad,[{'id':'a','motion':{'settledScale':1}}],timing)
 
+    def test_lighting_limits(self):
+        for value in [{'exposure':.9,'pointLightScale':.08},{}]:
+            self.review['motion']['lighting']=value
+            with patch('multiple_page.load_photos',return_value=[]):validate(self.review,self.ids)
+        for value in [{'exposure':-1},{'pointLightScale':3},{'exposure':True},{'unknown':1}]:
+            self.review['motion']['lighting']=value
+            with self.assertRaises(ValueError):validate(self.review,[p['id'] for p in self.review['parts']])
+
     def setUp(self):
         self.review=json.loads((Path(__file__).parent/'fixtures/multiple/scene.json').read_text())
         self.review['photos']='photos.json'

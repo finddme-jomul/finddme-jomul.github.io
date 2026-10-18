@@ -367,3 +367,7 @@ Click or Enter/Space opens the currently visible SVG in a modal with fit/enlarge
 ### Oriented direct-drop framing
 
 Optional `motion.framing.envelope: "radial-drop"` requires direct-drop assembly. `motion.camera.azimuthDegrees` defaults to0 and accepts −180…180;45 places the +X/+Z (previous lower-right) corner toward the viewer, while −45 places the −X/+Z (previous lower-left) corner toward the viewer. Existing elevation limit0…35 and occupancy fractions remain. The circumscribed radial envelope covers all upright yaw/fall positions and stays fixed after staging. Shape, part count, drop heights and landing times do not change. Grouped CAD fronts use one representative instance per source; additional copies appear as 3D instances.
+
+### Multiple scene lighting
+
+Optional `motion.lighting` accepts `exposure` (0–3; omitted uses the selected profile) and `pointLightScale` (0–2; default 1). Reduce these for bright white glazes when close point lights wash out surface detail. This changes illumination only, not glaze colours, roughness, geometry or timing.
