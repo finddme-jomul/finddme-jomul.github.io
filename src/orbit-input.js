@@ -39,6 +39,10 @@ export function bindOrbitInput({ wheelTarget, dragTarget, enabled, onDelta, onDr
     event.preventDefault();
   }, options);
   const end = (event) => {
+    // Touch implicitly captures the pressed card/face. Moving capture to the
+    // stage emits a bubbling lostpointercapture from that child; it is not
+    // the end of our drag. Only losing the stage's own capture ends it.
+    if (event.type === 'lostpointercapture' && event.target !== dragTarget) return;
     if (!drag || drag.id !== event.pointerId) return;
     if (drag.moved || drag.stopped) suppressClickUntil = performance.now() + 400;
     const samples = drag.samples;
