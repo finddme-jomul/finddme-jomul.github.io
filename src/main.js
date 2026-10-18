@@ -29,7 +29,7 @@ const count = orbitProjects.length;
 const mobileComposition = import.meta.env.DEV && new URLSearchParams(location.search).get('orbit-preview') === 'immersive'
   ? 'immersive'
   : 'balanced';
-let layoutKey;
+let layoutDirty = true;
 let layout;
 const cards = orbitProjects.map((project, index) => {
   const link = document.createElement('a');
@@ -79,9 +79,8 @@ function render(now) {
   }
   angle += (target - angle) * (motion.matches || dragging ? 1 : 1 - Math.exp(-elapsed / 130));
   // A shared tilted 3D space handles projection and occlusion for every tile.
-  const key = `${count}:${stage.clientWidth}:${stage.clientHeight}:${innerHeight}:${innerWidth}`;
-  if (layoutKey !== key) {
-    layoutKey = key;
+  if (layoutDirty) {
+    layoutDirty = false;
     layout = getCssOrbitLayout({count, width: stage.clientWidth, height: innerHeight, stageHeight: stage.clientHeight, headerHeight: innerWidth <= 700 ? 110 : 150, perspective: innerWidth <= 700 ? 950 : 1500, mobileComposition});
     const { size, fit, centerSize } = layout;
     section.style.setProperty('--orbit-fit', fit);
@@ -136,6 +135,7 @@ function render(now) {
 function setView(value) {
   velocity = 0;
   grid = value;
+  layoutDirty = true;
   document.documentElement.classList.toggle('orbit-mode', !grid);
   window.scrollTo({ top: 0, behavior: 'instant' });
   section.classList.toggle('is-grid', grid);
@@ -171,7 +171,9 @@ bindOrbitInput({
   },
   onDragState: value => { dragging = value; },
 });
-window.addEventListener('resize', updateTarget);
+const invalidateLayout = () => { layoutDirty = true; updateTarget(); };
+window.addEventListener('resize', invalidateLayout);
+new ResizeObserver(invalidateLayout).observe(stage);
 motion.addEventListener('change', () => setView(motion.matches));
 // Preserve old bookmarked hash URLs while using full-page navigation.
 const legacy = projects.find(project => location.hash === `#project/${project.id}`);
