@@ -42,30 +42,32 @@
       "mobileStartZ": 1.45,
       "desktopFocusDeltaZ": -0.15,
       "mobileFocusDeltaZ": -0.17,
-      "elevationDegrees": 35,
+      "elevationDegrees": 26,
       "azimuthDegrees": -45
     },
     "layout": {
       "desktopEntryY": 0.16,
       "mobileEntryY": 0.29,
       "entryZ": -0.24,
-      "dropBounceY": 0.007,
+      "dropBounceY": 0,
       "photoScaleStart": 0.94,
       "photoTopPercent": 48
     },
     "provenance": {
       "source": "User-approved planar feature extension; actual board integration, provisional palette and motion",
-      "clayPacing": "User: 흙 상태 장면이 길거나 많음. Shorten clay transition/hold and visually similar clear glaze; brown starts earlier. Board review candidate."
+      "clayPacing": "User: 흙 상태 장면이 길거나 많음. Shorten clay transition/hold and visually similar clear glaze; brown starts earlier. Board review candidate.",
+      "variation": "User requested individual phase/speed/axis changes; explicit deterministic instance values, seed 28103; board remains below pieces."
     },
     "framing": {
       "enabled": true,
-      "desktopWidthFraction": 0.95,
+      "desktopWidthFraction": 0.98,
       "mobileWidthFraction": 0.96,
-      "desktopHeightFraction": 0.94,
-      "mobileHeightFraction": 0.9,
+      "desktopHeightFraction": 0.98,
+      "mobileHeightFraction": 0.94,
       "minDistance": 0.2,
       "provenance": "User requests larger finished 3D; preserve fixed direct-drop envelope and landing timing",
-      "envelope": "radial-drop"
+      "envelope": "radial-drop",
+      "focusY": -0.015
     },
     "background": {
       "colors": {
@@ -93,7 +95,7 @@
       "provenance": "shared continuing axis/spin; preview values",
       "axisPrecessionTurns": 1,
       "axisRetainFraction": 0.35,
-      "maxAxisTiltDegrees": 8
+      "maxAxisTiltDegrees": 6
     },
     "photoHandoff": {
       "sequence": "scene-exit-then-photo-enter",
@@ -139,9 +141,9 @@
         "entryXMobile": 0,
         "finalXDesktop": 0,
         "finalXMobile": 0,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": 0,
+        "axisDriftZDegrees": 0,
+        "axisDriftXDegrees": 0,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -149,7 +151,10 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "fixedOrientation": true,
+        "entryYOffset": -0.12,
+        "entryZ": 0
       },
       "glazePreview": {
         "clayName": "백토",
@@ -597,7 +602,7 @@
         "maxY": 290.0,
         "maxZ": 22.0
       },
-      "sourceStepSha256": "085fb1369557d84d0f0fb04f44f9ab99de324cf82f3c383db93251dab5d0fee1"
+      "sourceStepSha256": "54c8352aa7a62b1301c3953934a7aec16097bee960ce5e61b2dfab837f50936a"
     },
     {
       "id": "white-rook-a1",
@@ -608,14 +613,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": -0.217,
-        "entryXMobile": -0.217,
+        "dropDelay": 0.016224531785864492,
+        "entryXDesktop": -0.2240986394903263,
+        "entryXMobile": -0.2240986394903263,
         "finalXDesktop": -0.217,
         "finalXMobile": -0.217,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": 15.80358576421163,
+        "axisDriftZDegrees": -3.720846072438876,
+        "axisDriftXDegrees": -7.704871078190234,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -623,7 +628,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 1.0636139182160804,
+        "entryYOffset": 0.07666531023984133,
+        "entryZ": 0.21978396533060934,
+        "spinPhaseDegrees": -132.07689069456,
+        "axisPhaseDegrees": 97.31164749361886
       },
       "glazePreview": {
         "clayName": "백토",
@@ -671,7 +682,7 @@
         "maxY": 19.500008555789105,
         "maxZ": 56.000004350242605
       },
-      "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d"
+      "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093"
     },
     {
       "id": "white-knight-b1",
@@ -682,14 +693,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": -0.155,
-        "entryXMobile": -0.155,
+        "dropDelay": 0.019081850795955268,
+        "entryXDesktop": -0.1672347462779809,
+        "entryXMobile": -0.1672347462779809,
         "finalXDesktop": -0.155,
         "finalXMobile": -0.155,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": 12.846391878765015,
+        "axisDriftZDegrees": -4.665332437152171,
+        "axisDriftXDegrees": -5.792093879240718,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -697,7 +708,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 1.0869642873221932,
+        "entryYOffset": 0.0734424086094253,
+        "entryZ": 0.2123448500055345,
+        "spinPhaseDegrees": -123.28352819991724,
+        "axisPhaseDegrees": 13.060806350487013
       },
       "glazePreview": {
         "clayName": "백토",
@@ -745,7 +762,7 @@
         "maxY": 19.499026424851607,
         "maxZ": 70.00000010000024
       },
-      "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d"
+      "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831"
     },
     {
       "id": "white-bishop-c1",
@@ -756,14 +773,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": -0.093,
-        "entryXMobile": -0.093,
+        "dropDelay": 0.021026492748034205,
+        "entryXDesktop": -0.0956485937728616,
+        "entryXMobile": -0.0956485937728616,
         "finalXDesktop": -0.093,
         "finalXMobile": -0.093,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": 17.601690814779896,
+        "axisDriftZDegrees": -0.5231011176021294,
+        "axisDriftXDegrees": 4.019562982100453,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -771,7 +788,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 0.8878286699308637,
+        "entryYOffset": 0.08271022911791459,
+        "entryZ": 0.2256082362031359,
+        "spinPhaseDegrees": -165.69098241549472,
+        "axisPhaseDegrees": 140.30248877678616
       },
       "glazePreview": {
         "clayName": "백토",
@@ -819,7 +842,7 @@
         "maxY": 19.5,
         "maxZ": 75.0
       },
-      "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8"
+      "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905"
     },
     {
       "id": "white-queen-d1",
@@ -830,14 +853,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": -0.031,
-        "entryXMobile": -0.031,
+        "dropDelay": 0.019161058893109158,
+        "entryXDesktop": -0.026725229503483806,
+        "entryXMobile": -0.026725229503483806,
         "finalXDesktop": -0.031,
         "finalXMobile": -0.031,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": 13.284327281328675,
+        "axisDriftZDegrees": -2.002863641749734,
+        "axisDriftXDegrees": -4.910006544230957,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -845,7 +868,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 0.945941616479306,
+        "entryYOffset": 0.07381564965913665,
+        "entryZ": 0.21015563270234353,
+        "spinPhaseDegrees": 144.40789351963298,
+        "axisPhaseDegrees": -31.937185376437384
       },
       "glazePreview": {
         "clayName": "백토",
@@ -893,7 +922,7 @@
         "maxY": 21.000011130754043,
         "maxZ": 85.0
       },
-      "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1"
+      "sourceStepSha256": "e18e0f60dbd1c8f96f9aacb9931f741a168894c04f10211e71a5c5213deb8a40"
     },
     {
       "id": "white-king-e1",
@@ -904,14 +933,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": 0.031,
-        "entryXMobile": 0.031,
+        "dropDelay": 0.008301095597404145,
+        "entryXDesktop": 0.022384396951353937,
+        "entryXMobile": 0.022384396951353937,
         "finalXDesktop": 0.031,
         "finalXMobile": 0.031,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": -15.936386450947936,
+        "axisDriftZDegrees": 1.0029309045937218,
+        "axisDriftXDegrees": 0.6754769006661956,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -919,7 +948,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 0.9134784052693974,
+        "entryYOffset": 0.05136682215833764,
+        "entryZ": 0.21559975646164525,
+        "spinPhaseDegrees": 91.13729603284793,
+        "axisPhaseDegrees": 82.22315489627988
       },
       "glazePreview": {
         "clayName": "백토",
@@ -967,7 +1002,7 @@
         "maxY": 22.000000082197076,
         "maxZ": 98.0
       },
-      "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1"
+      "sourceStepSha256": "a7e7ce76415e4c4317fbdbf8f8b0a9420873325c0a5e1404cb0984175f38d060"
     },
     {
       "id": "white-bishop-f1",
@@ -978,14 +1013,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": 0.093,
-        "entryXMobile": 0.093,
+        "dropDelay": 0.00782550229859175,
+        "entryXDesktop": 0.07960345109459127,
+        "entryXMobile": 0.07960345109459127,
         "finalXDesktop": 0.093,
         "finalXMobile": 0.093,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": -13.186460947234579,
+        "axisDriftZDegrees": -2.445803129630992,
+        "axisDriftXDegrees": 0.16473526009870554,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -993,7 +1028,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 1.0015605066111901,
+        "entryYOffset": 0.06595311138451726,
+        "entryZ": 0.22087665605314877,
+        "spinPhaseDegrees": 67.59562368937424,
+        "axisPhaseDegrees": -50.88124305728229
       },
       "glazePreview": {
         "clayName": "백토",
@@ -1041,7 +1082,7 @@
         "maxY": 19.5,
         "maxZ": 75.0
       },
-      "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8"
+      "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905"
     },
     {
       "id": "white-knight-g1",
@@ -1052,14 +1093,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": 0.155,
-        "entryXMobile": 0.155,
+        "dropDelay": 0.020671685515542947,
+        "entryXDesktop": 0.14574748326735656,
+        "entryXMobile": 0.14574748326735656,
         "finalXDesktop": 0.155,
         "finalXMobile": 0.155,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": -16.762304232428804,
+        "axisDriftZDegrees": 2.3875878411073828,
+        "axisDriftXDegrees": 7.52060310234409,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -1067,7 +1108,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 0.9985337186204875,
+        "entryYOffset": 0.04288870897741424,
+        "entryZ": 0.2102646619897741,
+        "spinPhaseDegrees": 135.20840420390135,
+        "axisPhaseDegrees": -102.68793998826808
       },
       "glazePreview": {
         "clayName": "백토",
@@ -1115,7 +1162,7 @@
         "maxY": 19.499026424851607,
         "maxZ": 70.00000010000024
       },
-      "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d"
+      "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831"
     },
     {
       "id": "white-rook-h1",
@@ -1126,14 +1173,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": 0.217,
-        "entryXMobile": 0.217,
+        "dropDelay": 0.012314965256423163,
+        "entryXDesktop": 0.2295205123687276,
+        "entryXMobile": 0.2295205123687276,
         "finalXDesktop": 0.217,
         "finalXMobile": 0.217,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": -19.889701867330267,
+        "axisDriftZDegrees": 0.029455917359773487,
+        "axisDriftXDegrees": 1.4966089912693459,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -1141,7 +1188,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 0.9410040007362763,
+        "entryYOffset": 0.09381542328672574,
+        "entryZ": 0.2280844151092711,
+        "spinPhaseDegrees": 133.2575387727769,
+        "axisPhaseDegrees": 4.856747501170645
       },
       "glazePreview": {
         "clayName": "백토",
@@ -1189,7 +1242,7 @@
         "maxY": 19.500008555789105,
         "maxZ": 56.000004350242605
       },
-      "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d"
+      "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093"
     },
     {
       "id": "white-pawn-a2",
@@ -1200,14 +1253,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": -0.217,
-        "entryXMobile": -0.217,
+        "dropDelay": 0.0006377106063861471,
+        "entryXDesktop": -0.2163766060861507,
+        "entryXMobile": -0.2163766060861507,
         "finalXDesktop": -0.217,
         "finalXMobile": -0.217,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": -13.160458304032126,
+        "axisDriftZDegrees": -2.889174365268107,
+        "axisDriftXDegrees": 5.047540690318202,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -1215,7 +1268,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 1.0061692411585075,
+        "entryYOffset": 0.08846953209477194,
+        "entryZ": 0.14847952806557188,
+        "spinPhaseDegrees": -9.619745667089319,
+        "axisPhaseDegrees": -146.09424508995028
       },
       "glazePreview": {
         "clayName": "백토",
@@ -1263,7 +1322,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
+      "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c"
     },
     {
       "id": "white-pawn-b2",
@@ -1274,14 +1333,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": -0.155,
-        "entryXMobile": -0.155,
+        "dropDelay": 0.011933349506694519,
+        "entryXDesktop": -0.16741547983067862,
+        "entryXMobile": -0.16741547983067862,
         "finalXDesktop": -0.155,
         "finalXMobile": -0.155,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": 19.696468229050325,
+        "axisDriftZDegrees": -5.199413368536392,
+        "axisDriftXDegrees": 1.8355156120440217,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -1289,7 +1348,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 0.9293565420503304,
+        "entryYOffset": 0.07616012209040435,
+        "entryZ": 0.16039667360110937,
+        "spinPhaseDegrees": -120.00298512152719,
+        "axisPhaseDegrees": -125.6232090700711
       },
       "glazePreview": {
         "clayName": "백토",
@@ -1337,7 +1402,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
+      "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c"
     },
     {
       "id": "white-pawn-c2",
@@ -1348,14 +1413,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": -0.093,
-        "entryXMobile": -0.093,
+        "dropDelay": 0.005262929096008208,
+        "entryXDesktop": -0.09107439630955202,
+        "entryXMobile": -0.09107439630955202,
         "finalXDesktop": -0.093,
         "finalXMobile": -0.093,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": 18.19376261669147,
+        "axisDriftZDegrees": 6.311896194494102,
+        "axisDriftXDegrees": 1.4802366048817301,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -1363,7 +1428,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 0.9805964065242839,
+        "entryYOffset": 0.035203898922083504,
+        "entryZ": 0.16040880928558632,
+        "spinPhaseDegrees": -56.821487411226826,
+        "axisPhaseDegrees": 67.32101305942322
       },
       "glazePreview": {
         "clayName": "백토",
@@ -1411,7 +1482,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
+      "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c"
     },
     {
       "id": "white-pawn-d2",
@@ -1422,14 +1493,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": -0.031,
-        "entryXMobile": -0.031,
+        "dropDelay": 0.004264930488514736,
+        "entryXDesktop": -0.0350745387154743,
+        "entryXMobile": -0.0350745387154743,
         "finalXDesktop": -0.031,
         "finalXMobile": -0.031,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": 16.59277560959815,
+        "axisDriftZDegrees": -6.748640534738937,
+        "axisDriftXDegrees": 1.1722230220808605,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -1437,7 +1508,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 1.0849926864351997,
+        "entryYOffset": 0.0826676230221112,
+        "entryZ": 0.15653797028693847,
+        "spinPhaseDegrees": 20.562348775809312,
+        "axisPhaseDegrees": -47.25413937274203
       },
       "glazePreview": {
         "clayName": "백토",
@@ -1485,7 +1562,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
+      "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c"
     },
     {
       "id": "white-pawn-e2",
@@ -1496,14 +1573,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": 0.031,
-        "entryXMobile": 0.031,
+        "dropDelay": 0.01863490683913449,
+        "entryXDesktop": 0.023862001870445657,
+        "entryXMobile": 0.023862001870445657,
         "finalXDesktop": 0.031,
         "finalXMobile": 0.031,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": -14.207637278436295,
+        "axisDriftZDegrees": 1.268753240598448,
+        "axisDriftXDegrees": -8.114846032389377,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -1511,7 +1588,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 0.8748684674507086,
+        "entryYOffset": 0.09073360135550873,
+        "entryZ": 0.1509147900007037,
+        "spinPhaseDegrees": 105.33756764481996,
+        "axisPhaseDegrees": 176.38577809244788
       },
       "glazePreview": {
         "clayName": "백토",
@@ -1559,7 +1642,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
+      "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c"
     },
     {
       "id": "white-pawn-f2",
@@ -1570,14 +1653,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": 0.093,
-        "entryXMobile": 0.093,
+        "dropDelay": 0.0071675294580944085,
+        "entryXDesktop": 0.07998029879471907,
+        "entryXMobile": 0.07998029879471907,
         "finalXDesktop": 0.093,
         "finalXMobile": 0.093,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": -15.860318525939606,
+        "axisDriftZDegrees": 0.6025458683901777,
+        "axisDriftXDegrees": -0.6476931775462695,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -1585,7 +1668,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 1.0637762013440752,
+        "entryYOffset": 0.0725959373150924,
+        "entryZ": 0.14653549755569303,
+        "spinPhaseDegrees": 52.021078638520635,
+        "axisPhaseDegrees": -116.43698590089684
       },
       "glazePreview": {
         "clayName": "백토",
@@ -1633,7 +1722,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
+      "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c"
     },
     {
       "id": "white-pawn-g2",
@@ -1644,14 +1733,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": 0.155,
-        "entryXMobile": 0.155,
+        "dropDelay": 0.021258962780030644,
+        "entryXDesktop": 0.16719867056664403,
+        "entryXMobile": 0.16719867056664403,
         "finalXDesktop": 0.155,
         "finalXMobile": 0.155,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": 14.98655370618643,
+        "axisDriftZDegrees": -0.4308022902095905,
+        "axisDriftXDegrees": -8.245776582099381,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -1659,7 +1748,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 1.0384945335022682,
+        "entryYOffset": 0.07177432467255956,
+        "entryZ": 0.1625049759279117,
+        "spinPhaseDegrees": -155.30886550035075,
+        "axisPhaseDegrees": 108.85561799298216
       },
       "glazePreview": {
         "clayName": "백토",
@@ -1707,7 +1802,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
+      "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c"
     },
     {
       "id": "white-pawn-h2",
@@ -1718,14 +1813,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": 0.217,
-        "entryXMobile": 0.217,
+        "dropDelay": 0.031324256309278424,
+        "entryXDesktop": 0.2279194572743733,
+        "entryXMobile": 0.2279194572743733,
         "finalXDesktop": 0.217,
         "finalXMobile": 0.217,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": -17.2243884123734,
+        "axisDriftZDegrees": -2.0708202531327924,
+        "axisDriftXDegrees": -5.783816909065015,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -1733,7 +1828,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 0.9055884215118909,
+        "entryYOffset": 0.0353048714156693,
+        "entryZ": 0.1489445779613221,
+        "spinPhaseDegrees": -43.79384770730772,
+        "axisPhaseDegrees": -159.1442097079386
       },
       "glazePreview": {
         "clayName": "백토",
@@ -1781,7 +1882,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
+      "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c"
     },
     {
       "id": "brown-rook-a8",
@@ -1792,14 +1893,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": -0.217,
-        "entryXMobile": -0.217,
+        "dropDelay": 0.02093122074535967,
+        "entryXDesktop": -0.21338043232806247,
+        "entryXMobile": -0.21338043232806247,
         "finalXDesktop": -0.217,
         "finalXMobile": -0.217,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": 19.16299122741276,
+        "axisDriftZDegrees": 2.949046661207511,
+        "axisDriftXDegrees": -1.6135099705201146,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -1807,7 +1908,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 0.8732295920126669,
+        "entryYOffset": 0.09474267534697767,
+        "entryZ": -0.2211208773270753,
+        "spinPhaseDegrees": -64.0707445671125,
+        "axisPhaseDegrees": 118.75670999620922
       },
       "glazePreview": {
         "clayName": "백토",
@@ -1855,7 +1962,7 @@
         "maxY": 19.500008555789105,
         "maxZ": 56.000004350242605
       },
-      "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d"
+      "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093"
     },
     {
       "id": "brown-knight-b8",
@@ -1866,14 +1973,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": -0.155,
-        "entryXMobile": -0.155,
+        "dropDelay": 0.014395710787085677,
+        "entryXDesktop": -0.14999724129668063,
+        "entryXMobile": -0.14999724129668063,
         "finalXDesktop": -0.155,
         "finalXMobile": -0.155,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": 12.811673186928626,
+        "axisDriftZDegrees": 0.7931876790683656,
+        "axisDriftXDegrees": -6.073308768459744,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -1881,7 +1988,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 0.8634554790065389,
+        "entryYOffset": 0.0915348657385203,
+        "entryZ": -0.22217972681350762,
+        "spinPhaseDegrees": -103.75737100418284,
+        "axisPhaseDegrees": 0.9391291483877922
       },
       "glazePreview": {
         "clayName": "백토",
@@ -1929,7 +2042,7 @@
         "maxY": 19.499026424851607,
         "maxZ": 70.00000010000024
       },
-      "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d"
+      "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831"
     },
     {
       "id": "brown-bishop-c8",
@@ -1940,14 +2053,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": -0.093,
-        "entryXMobile": -0.093,
+        "dropDelay": 0.0337287922733361,
+        "entryXDesktop": -0.09669055541123958,
+        "entryXMobile": -0.09669055541123958,
         "finalXDesktop": -0.093,
         "finalXMobile": -0.093,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": -14.162304974110082,
+        "axisDriftZDegrees": -5.3606857095383145,
+        "axisDriftXDegrees": 4.294994174191395,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -1955,7 +2068,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 0.8711594251088924,
+        "entryYOffset": 0.0356002752487518,
+        "entryZ": -0.20933405119650256,
+        "spinPhaseDegrees": -108.72399520202771,
+        "axisPhaseDegrees": 119.3274554124194
       },
       "glazePreview": {
         "clayName": "백토",
@@ -2003,7 +2122,7 @@
         "maxY": 19.5,
         "maxZ": 75.0
       },
-      "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8"
+      "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905"
     },
     {
       "id": "brown-queen-d8",
@@ -2014,14 +2133,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": -0.031,
-        "entryXMobile": -0.031,
+        "dropDelay": 0.00871551554434261,
+        "entryXDesktop": -0.019349603371436347,
+        "entryXMobile": -0.019349603371436347,
         "finalXDesktop": -0.031,
         "finalXMobile": -0.031,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": -12.430291989339985,
+        "axisDriftZDegrees": 4.821117485862894,
+        "axisDriftXDegrees": 8.967459211740131,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -2029,7 +2148,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 0.9433372899815541,
+        "entryYOffset": 0.09393961118392946,
+        "entryZ": -0.20736839812784372,
+        "spinPhaseDegrees": -119.93103949466769,
+        "axisPhaseDegrees": -92.31005115071764
       },
       "glazePreview": {
         "clayName": "백토",
@@ -2077,7 +2202,7 @@
         "maxY": 21.000011130754043,
         "maxZ": 85.0
       },
-      "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1"
+      "sourceStepSha256": "e18e0f60dbd1c8f96f9aacb9931f741a168894c04f10211e71a5c5213deb8a40"
     },
     {
       "id": "brown-king-e8",
@@ -2088,14 +2213,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": 0.031,
-        "entryXMobile": 0.031,
+        "dropDelay": 0.033135599414758084,
+        "entryXDesktop": 0.026671181814434314,
+        "entryXMobile": 0.026671181814434314,
         "finalXDesktop": 0.031,
         "finalXMobile": 0.031,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": 17.6302601901226,
+        "axisDriftZDegrees": -5.439370692836011,
+        "axisDriftXDegrees": 3.0373910725154403,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -2103,7 +2228,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 0.8778765719115983,
+        "entryYOffset": 0.042268027901805554,
+        "entryZ": -0.21063714644319007,
+        "spinPhaseDegrees": -153.05543492336906,
+        "axisPhaseDegrees": -88.03487305405392
       },
       "glazePreview": {
         "clayName": "백토",
@@ -2151,7 +2282,7 @@
         "maxY": 22.000000082197076,
         "maxZ": 98.0
       },
-      "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1"
+      "sourceStepSha256": "a7e7ce76415e4c4317fbdbf8f8b0a9420873325c0a5e1404cb0984175f38d060"
     },
     {
       "id": "brown-bishop-f8",
@@ -2162,14 +2293,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": 0.093,
-        "entryXMobile": 0.093,
+        "dropDelay": 0.0039104233654734255,
+        "entryXDesktop": 0.09137231347632213,
+        "entryXMobile": 0.09137231347632213,
         "finalXDesktop": 0.093,
         "finalXMobile": 0.093,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": -18.545498388659176,
+        "axisDriftZDegrees": 0.8950791995531997,
+        "axisDriftXDegrees": 1.8562778272780953,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -2177,7 +2308,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 0.9093074627650026,
+        "entryYOffset": 0.07777212733237751,
+        "entryZ": -0.21449021408680513,
+        "spinPhaseDegrees": 52.94496540424504,
+        "axisPhaseDegrees": -23.9549704016288
       },
       "glazePreview": {
         "clayName": "백토",
@@ -2225,7 +2362,7 @@
         "maxY": 19.5,
         "maxZ": 75.0
       },
-      "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8"
+      "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905"
     },
     {
       "id": "brown-knight-g8",
@@ -2236,14 +2373,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": 0.155,
-        "entryXMobile": 0.155,
+        "dropDelay": 0.01847004587909021,
+        "entryXDesktop": 0.16408634233156044,
+        "entryXMobile": 0.16408634233156044,
         "finalXDesktop": 0.155,
         "finalXMobile": 0.155,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": 19.95778470018749,
+        "axisDriftZDegrees": -1.9044532765064073,
+        "axisDriftXDegrees": -8.015362110033493,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -2251,7 +2388,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 0.8411189046797081,
+        "entryYOffset": 0.08168655157107363,
+        "entryZ": -0.21575622549786233,
+        "spinPhaseDegrees": -72.26754096702915,
+        "axisPhaseDegrees": -30.04100503311912
       },
       "glazePreview": {
         "clayName": "백토",
@@ -2299,7 +2442,7 @@
         "maxY": 19.499026424851607,
         "maxZ": 70.00000010000024
       },
-      "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d"
+      "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831"
     },
     {
       "id": "brown-rook-h8",
@@ -2310,14 +2453,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": 0.217,
-        "entryXMobile": 0.217,
+        "dropDelay": 0.0337963384688921,
+        "entryXDesktop": 0.2125129208988874,
+        "entryXMobile": 0.2125129208988874,
         "finalXDesktop": 0.217,
         "finalXMobile": 0.217,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": 16.782707371583776,
+        "axisDriftZDegrees": 2.4959653582713717,
+        "axisDriftXDegrees": 4.448792547874209,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -2325,7 +2468,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 1.0162142342415212,
+        "entryYOffset": 0.06263375845087922,
+        "entryZ": -0.20643186368239175,
+        "spinPhaseDegrees": 127.78243640594809,
+        "axisPhaseDegrees": -14.335557251827197
       },
       "glazePreview": {
         "clayName": "백토",
@@ -2373,7 +2522,7 @@
         "maxY": 19.500008555789105,
         "maxZ": 56.000004350242605
       },
-      "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d"
+      "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093"
     },
     {
       "id": "brown-pawn-a7",
@@ -2384,14 +2533,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": -0.217,
-        "entryXMobile": -0.217,
+        "dropDelay": 0.002078527575027841,
+        "entryXDesktop": -0.21612874995795403,
+        "entryXMobile": -0.21612874995795403,
         "finalXDesktop": -0.217,
         "finalXMobile": -0.217,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": -19.302131136994003,
+        "axisDriftZDegrees": 3.638882296285873,
+        "axisDriftXDegrees": 6.247690698592432,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -2399,7 +2548,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 1.000437954417295,
+        "entryYOffset": 0.0383090582286055,
+        "entryZ": -0.15527789229211414,
+        "spinPhaseDegrees": 124.86454162585534,
+        "axisPhaseDegrees": 53.27139542112798
       },
       "glazePreview": {
         "clayName": "백토",
@@ -2447,7 +2602,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
+      "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c"
     },
     {
       "id": "brown-pawn-b7",
@@ -2458,14 +2613,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": -0.155,
-        "entryXMobile": -0.155,
+        "dropDelay": 0.028817503631957606,
+        "entryXDesktop": -0.1639218496767442,
+        "entryXMobile": -0.1639218496767442,
         "finalXDesktop": -0.155,
         "finalXMobile": -0.155,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": 13.869719191709645,
+        "axisDriftZDegrees": -6.27252505028243,
+        "axisDriftXDegrees": -7.924121734114784,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -2473,7 +2628,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 1.022520502243423,
+        "entryYOffset": 0.041032388243016,
+        "entryZ": -0.14433321848979194,
+        "spinPhaseDegrees": 24.324402904038095,
+        "axisPhaseDegrees": 52.56050955611286
       },
       "glazePreview": {
         "clayName": "백토",
@@ -2521,7 +2682,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
+      "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c"
     },
     {
       "id": "brown-pawn-c7",
@@ -2532,14 +2693,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": -0.093,
-        "entryXMobile": -0.093,
+        "dropDelay": 0.02606940626278083,
+        "entryXDesktop": -0.08389499484180322,
+        "entryXMobile": -0.08389499484180322,
         "finalXDesktop": -0.093,
         "finalXMobile": -0.093,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": 13.054982548854284,
+        "axisDriftZDegrees": 0.9001170668092673,
+        "axisDriftXDegrees": -4.712601413632687,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -2547,7 +2708,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 0.9067659653132201,
+        "entryYOffset": 0.09373034685130464,
+        "entryZ": -0.1439999157399766,
+        "spinPhaseDegrees": 99.22245013368115,
+        "axisPhaseDegrees": 48.47861600688711
       },
       "glazePreview": {
         "clayName": "백토",
@@ -2595,7 +2762,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
+      "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c"
     },
     {
       "id": "brown-pawn-d7",
@@ -2606,14 +2773,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": -0.031,
-        "entryXMobile": -0.031,
+        "dropDelay": 0.01900772851327678,
+        "entryXDesktop": -0.04164963866878452,
+        "entryXMobile": -0.04164963866878452,
         "finalXDesktop": -0.031,
         "finalXMobile": -0.031,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": -15.702333624344352,
+        "axisDriftZDegrees": -3.1983287146447283,
+        "axisDriftXDegrees": 4.795092467420744,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -2621,7 +2788,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 0.880875544507227,
+        "entryYOffset": 0.06878573600669716,
+        "entryZ": -0.1484501199039848,
+        "spinPhaseDegrees": -159.7696459538448,
+        "axisPhaseDegrees": 55.27644091908914
       },
       "glazePreview": {
         "clayName": "백토",
@@ -2669,7 +2842,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
+      "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c"
     },
     {
       "id": "brown-pawn-e7",
@@ -2680,14 +2853,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": 0.031,
-        "entryXMobile": 0.031,
+        "dropDelay": 0.015800885296044065,
+        "entryXDesktop": 0.02194839973593351,
+        "entryXMobile": 0.02194839973593351,
         "finalXDesktop": 0.031,
         "finalXMobile": 0.031,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": 14.488017839002827,
+        "axisDriftZDegrees": 5.948901252449824,
+        "axisDriftXDegrees": 4.8654457075370825,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -2695,7 +2868,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 0.9949951766352452,
+        "entryYOffset": 0.07253258759787554,
+        "entryZ": -0.16059962981184114,
+        "spinPhaseDegrees": -29.511254113845524,
+        "axisPhaseDegrees": 34.980122200536755
       },
       "glazePreview": {
         "clayName": "백토",
@@ -2743,7 +2922,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
+      "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c"
     },
     {
       "id": "brown-pawn-f7",
@@ -2754,14 +2933,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": 0.093,
-        "entryXMobile": 0.093,
+        "dropDelay": 0.023177593432179032,
+        "entryXDesktop": 0.08287118911165352,
+        "entryXMobile": 0.08287118911165352,
         "finalXDesktop": 0.093,
         "finalXMobile": 0.093,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": -18.107259394558596,
+        "axisDriftZDegrees": -4.05451451551829,
+        "axisDriftXDegrees": 4.39104186827123,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -2769,7 +2948,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 1.093108645460019,
+        "entryYOffset": 0.09165237010951274,
+        "entryZ": -0.16223116057937015,
+        "spinPhaseDegrees": -39.8465861572264,
+        "axisPhaseDegrees": 34.405784032641975
       },
       "glazePreview": {
         "clayName": "백토",
@@ -2817,7 +3002,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
+      "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c"
     },
     {
       "id": "brown-pawn-g7",
@@ -2828,14 +3013,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": 0.155,
-        "entryXMobile": 0.155,
+        "dropDelay": 0.002265744908594889,
+        "entryXDesktop": 0.14944677879988955,
+        "entryXMobile": 0.14944677879988955,
         "finalXDesktop": 0.155,
         "finalXMobile": 0.155,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": 16.168026485212174,
+        "axisDriftZDegrees": 2.977492473917989,
+        "axisDriftXDegrees": 5.776950295225946,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -2843,7 +3028,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 0.9153296266197938,
+        "entryYOffset": 0.05356045466595517,
+        "entryZ": -0.15625449371979383,
+        "spinPhaseDegrees": 146.98207443120702,
+        "axisPhaseDegrees": 160.49772324947065
       },
       "glazePreview": {
         "clayName": "백토",
@@ -2891,7 +3082,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
+      "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c"
     },
     {
       "id": "brown-pawn-h7",
@@ -2902,14 +3093,14 @@
         "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
       },
       "motion": {
-        "dropDelay": 0.0,
-        "entryXDesktop": 0.217,
-        "entryXMobile": 0.217,
+        "dropDelay": 0.028512232580631056,
+        "entryXDesktop": 0.2130365461211219,
+        "entryXMobile": 0.2130365461211219,
         "finalXDesktop": 0.217,
         "finalXMobile": 0.217,
-        "axisTiltDegrees": 16,
-        "axisDriftZDegrees": 5,
-        "axisDriftXDegrees": -4,
+        "axisTiltDegrees": 13.767261706230272,
+        "axisDriftZDegrees": 1.9401343896499306,
+        "axisDriftXDegrees": -6.105682521750106,
         "turns": 1,
         "provenance": {
           "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
@@ -2917,7 +3108,13 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true,
+        "dropDurationScale": 0.8366027967044025,
+        "entryYOffset": 0.06958760515502513,
+        "entryZ": -0.14932661127129992,
+        "spinPhaseDegrees": -56.20960703192537,
+        "axisPhaseDegrees": -176.73685698472926
       },
       "glazePreview": {
         "clayName": "백토",
@@ -2965,7 +3162,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
+      "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c"
     }
   ],
   "renderer": "feature-solids",
@@ -2988,359 +3185,359 @@
           0,
           0
         ],
-        "dropHeightMm": 70
-      },
-      {
-        "partId": "white-rook-a1",
-        "start": 0.22,
-        "duration": 0.4,
-        "targetPositionMm": [
-          -217,
-          22,
-          217
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "white-knight-b1",
-        "start": 0.23032258064516128,
-        "duration": 0.4,
-        "targetPositionMm": [
-          -155,
-          22,
-          217
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "white-bishop-c1",
-        "start": 0.2406451612903226,
-        "duration": 0.4,
-        "targetPositionMm": [
-          -93,
-          22,
-          217
-        ],
-        "dropHeightMm": 100
+        "dropHeightMm": 25
       },
       {
         "partId": "white-queen-d1",
-        "start": 0.2509677419354839,
-        "duration": 0.4,
+        "start": 0.2,
+        "duration": 0.43,
         "targetPositionMm": [
           -31,
           22,
           217
         ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "white-king-e1",
-        "start": 0.26129032258064516,
-        "duration": 0.4,
-        "targetPositionMm": [
-          31,
-          22,
-          217
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "white-bishop-f1",
-        "start": 0.27161290322580645,
-        "duration": 0.4,
-        "targetPositionMm": [
-          93,
-          22,
-          217
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "white-knight-g1",
-        "start": 0.28193548387096773,
-        "duration": 0.4,
-        "targetPositionMm": [
-          155,
-          22,
-          217
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "white-rook-h1",
-        "start": 0.292258064516129,
-        "duration": 0.4,
-        "targetPositionMm": [
-          217,
-          22,
-          217
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "white-pawn-a2",
-        "start": 0.30258064516129035,
-        "duration": 0.4,
-        "targetPositionMm": [
-          -217,
-          22,
-          155
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "white-pawn-b2",
-        "start": 0.3129032258064516,
-        "duration": 0.4,
-        "targetPositionMm": [
-          -155,
-          22,
-          155
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "white-pawn-c2",
-        "start": 0.3232258064516129,
-        "duration": 0.4,
-        "targetPositionMm": [
-          -93,
-          22,
-          155
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "white-pawn-d2",
-        "start": 0.3335483870967742,
-        "duration": 0.4,
-        "targetPositionMm": [
-          -31,
-          22,
-          155
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "white-pawn-e2",
-        "start": 0.3438709677419355,
-        "duration": 0.4,
-        "targetPositionMm": [
-          31,
-          22,
-          155
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "white-pawn-f2",
-        "start": 0.35419354838709677,
-        "duration": 0.4,
-        "targetPositionMm": [
-          93,
-          22,
-          155
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "white-pawn-g2",
-        "start": 0.36451612903225805,
-        "duration": 0.4,
-        "targetPositionMm": [
-          155,
-          22,
-          155
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "white-pawn-h2",
-        "start": 0.3748387096774194,
-        "duration": 0.4,
-        "targetPositionMm": [
-          217,
-          22,
-          155
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "brown-rook-a8",
-        "start": 0.3851612903225806,
-        "duration": 0.4,
-        "targetPositionMm": [
-          -217,
-          22,
-          -217
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "brown-knight-b8",
-        "start": 0.39548387096774196,
-        "duration": 0.4,
-        "targetPositionMm": [
-          -155,
-          22,
-          -217
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "brown-bishop-c8",
-        "start": 0.4058064516129032,
-        "duration": 0.4,
-        "targetPositionMm": [
-          -93,
-          22,
-          -217
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "brown-queen-d8",
-        "start": 0.4161290322580645,
-        "duration": 0.4,
-        "targetPositionMm": [
-          -31,
-          22,
-          -217
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "brown-king-e8",
-        "start": 0.4264516129032258,
-        "duration": 0.4,
-        "targetPositionMm": [
-          31,
-          22,
-          -217
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "brown-bishop-f8",
-        "start": 0.4367741935483871,
-        "duration": 0.4,
-        "targetPositionMm": [
-          93,
-          22,
-          -217
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "brown-knight-g8",
-        "start": 0.44709677419354843,
-        "duration": 0.4,
-        "targetPositionMm": [
-          155,
-          22,
-          -217
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "brown-rook-h8",
-        "start": 0.45741935483870966,
-        "duration": 0.4,
-        "targetPositionMm": [
-          217,
-          22,
-          -217
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "brown-pawn-a7",
-        "start": 0.467741935483871,
-        "duration": 0.4,
-        "targetPositionMm": [
-          -217,
-          22,
-          -155
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "brown-pawn-b7",
-        "start": 0.4780645161290322,
-        "duration": 0.4,
-        "targetPositionMm": [
-          -155,
-          22,
-          -155
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "brown-pawn-c7",
-        "start": 0.48838709677419356,
-        "duration": 0.4,
-        "targetPositionMm": [
-          -93,
-          22,
-          -155
-        ],
-        "dropHeightMm": 100
-      },
-      {
-        "partId": "brown-pawn-d7",
-        "start": 0.4987096774193549,
-        "duration": 0.4,
-        "targetPositionMm": [
-          -31,
-          22,
-          -155
-        ],
-        "dropHeightMm": 100
+        "dropHeightMm": 83.84266303521127
       },
       {
         "partId": "brown-pawn-e7",
-        "start": 0.5090322580645161,
-        "duration": 0.4,
+        "start": 0.20806451612903226,
+        "duration": 0.4316129032258064,
         "targetPositionMm": [
           31,
           22,
           -155
         ],
-        "dropHeightMm": 100
+        "dropHeightMm": 68.1285470999804
+      },
+      {
+        "partId": "brown-bishop-f8",
+        "start": 0.2161290322580645,
+        "duration": 0.43322580645161296,
+        "targetPositionMm": [
+          93,
+          22,
+          -217
+        ],
+        "dropHeightMm": 70.25026342993017
+      },
+      {
+        "partId": "white-pawn-d2",
+        "start": 0.2241935483870968,
+        "duration": 0.43483870967741933,
+        "targetPositionMm": [
+          -31,
+          22,
+          155
+        ],
+        "dropHeightMm": 61.7743517446512
+      },
+      {
+        "partId": "brown-pawn-b7",
+        "start": 0.23225806451612904,
+        "duration": 0.43645161290322576,
+        "targetPositionMm": [
+          -155,
+          22,
+          -155
+        ],
+        "dropHeightMm": 63.96844780657495
+      },
+      {
+        "partId": "white-pawn-e2",
+        "start": 0.2403225806451613,
+        "duration": 0.4380645161290322,
+        "targetPositionMm": [
+          31,
+          22,
+          155
+        ],
+        "dropHeightMm": 82.79596776417131
+      },
+      {
+        "partId": "white-pawn-h2",
+        "start": 0.24838709677419357,
+        "duration": 0.4396774193548387,
+        "targetPositionMm": [
+          217,
+          22,
+          155
+        ],
+        "dropHeightMm": 70.97575928854287
+      },
+      {
+        "partId": "white-pawn-g2",
+        "start": 0.2564516129032258,
+        "duration": 0.44129032258064516,
+        "targetPositionMm": [
+          155,
+          22,
+          155
+        ],
+        "dropHeightMm": 69.34457931353447
       },
       {
         "partId": "brown-pawn-f7",
-        "start": 0.5193548387096774,
-        "duration": 0.4,
+        "start": 0.2645161290322581,
+        "duration": 0.4429032258064516,
         "targetPositionMm": [
           93,
           22,
           -155
         ],
-        "dropHeightMm": 100
+        "dropHeightMm": 63.39584650294512
       },
       {
-        "partId": "brown-pawn-g7",
-        "start": 0.5296774193548387,
-        "duration": 0.4,
+        "partId": "brown-pawn-d7",
+        "start": 0.2725806451612903,
+        "duration": 0.444516129032258,
         "targetPositionMm": [
-          155,
+          -31,
           22,
           -155
         ],
-        "dropHeightMm": 100
+        "dropHeightMm": 56.34979201249852
+      },
+      {
+        "partId": "white-bishop-f1",
+        "start": 0.2806451612903226,
+        "duration": 0.44612903225806455,
+        "targetPositionMm": [
+          93,
+          22,
+          217
+        ],
+        "dropHeightMm": 64.35172870034036
+      },
+      {
+        "partId": "brown-pawn-a7",
+        "start": 0.2887096774193548,
+        "duration": 0.447741935483871,
+        "targetPositionMm": [
+          -217,
+          22,
+          -155
+        ],
+        "dropHeightMm": 82.43580935554284
+      },
+      {
+        "partId": "brown-knight-b8",
+        "start": 0.2967741935483871,
+        "duration": 0.4493548387096774,
+        "targetPositionMm": [
+          -155,
+          22,
+          -217
+        ],
+        "dropHeightMm": 65.19054760558754
+      },
+      {
+        "partId": "brown-king-e8",
+        "start": 0.3048387096774194,
+        "duration": 0.4509677419354839,
+        "targetPositionMm": [
+          31,
+          22,
+          -217
+        ],
+        "dropHeightMm": 84.57247654877263
+      },
+      {
+        "partId": "white-rook-a1",
+        "start": 0.31290322580645163,
+        "duration": 0.4525806451612903,
+        "targetPositionMm": [
+          -217,
+          22,
+          217
+        ],
+        "dropHeightMm": 66.25733452878566
+      },
+      {
+        "partId": "white-pawn-f2",
+        "start": 0.3209677419354839,
+        "duration": 0.45419354838709675,
+        "targetPositionMm": [
+          93,
+          22,
+          155
+        ],
+        "dropHeightMm": 71.34920784575675
+      },
+      {
+        "partId": "white-knight-g1",
+        "start": 0.32903225806451614,
+        "duration": 0.4558064516129033,
+        "targetPositionMm": [
+          155,
+          22,
+          217
+        ],
+        "dropHeightMm": 66.41968781322718
+      },
+      {
+        "partId": "white-bishop-c1",
+        "start": 0.3370967741935484,
+        "duration": 0.4574193548387096,
+        "targetPositionMm": [
+          -93,
+          22,
+          217
+        ],
+        "dropHeightMm": 75.05653353192281
+      },
+      {
+        "partId": "white-knight-b1",
+        "start": 0.3451612903225807,
+        "duration": 0.4590322580645161,
+        "targetPositionMm": [
+          -155,
+          22,
+          217
+        ],
+        "dropHeightMm": 81.47985842370238
+      },
+      {
+        "partId": "brown-rook-a8",
+        "start": 0.35322580645161294,
+        "duration": 0.4606451612903225,
+        "targetPositionMm": [
+          -217,
+          22,
+          -217
+        ],
+        "dropHeightMm": 62.086155397770845
+      },
+      {
+        "partId": "white-pawn-c2",
+        "start": 0.3612903225806452,
+        "duration": 0.46225806451612894,
+        "targetPositionMm": [
+          -93,
+          22,
+          155
+        ],
+        "dropHeightMm": 82.13722333879333
+      },
+      {
+        "partId": "brown-knight-g8",
+        "start": 0.36935483870967745,
+        "duration": 0.4638709677419355,
+        "targetPositionMm": [
+          155,
+          22,
+          -217
+        ],
+        "dropHeightMm": 66.18211538420684
+      },
+      {
+        "partId": "brown-bishop-c8",
+        "start": 0.3774193548387097,
+        "duration": 0.4654838709677419,
+        "targetPositionMm": [
+          -93,
+          22,
+          -217
+        ],
+        "dropHeightMm": 70.18810590528257
+      },
+      {
+        "partId": "brown-queen-d8",
+        "start": 0.38548387096774195,
+        "duration": 0.46709677419354834,
+        "targetPositionMm": [
+          -31,
+          22,
+          -217
+        ],
+        "dropHeightMm": 67.02675502605112
+      },
+      {
+        "partId": "brown-rook-h8",
+        "start": 0.3935483870967742,
+        "duration": 0.4687096774193549,
+        "targetPositionMm": [
+          217,
+          22,
+          -217
+        ],
+        "dropHeightMm": 78.93380946062665
       },
       {
         "partId": "brown-pawn-h7",
-        "start": 0.54,
-        "duration": 0.4,
+        "start": 0.40161290322580645,
+        "duration": 0.4703225806451613,
         "targetPositionMm": [
           217,
           22,
           -155
         ],
-        "dropHeightMm": 100
+        "dropHeightMm": 78.59426164930727
+      },
+      {
+        "partId": "white-pawn-b2",
+        "start": 0.4096774193548387,
+        "duration": 0.47193548387096773,
+        "targetPositionMm": [
+          -155,
+          22,
+          155
+        ],
+        "dropHeightMm": 78.45380286686128
+      },
+      {
+        "partId": "white-pawn-a2",
+        "start": 0.41774193548387095,
+        "duration": 0.47354838709677427,
+        "targetPositionMm": [
+          -217,
+          22,
+          155
+        ],
+        "dropHeightMm": 78.75776863156413
+      },
+      {
+        "partId": "brown-pawn-g7",
+        "start": 0.4258064516129032,
+        "duration": 0.4751612903225807,
+        "targetPositionMm": [
+          155,
+          22,
+          -155
+        ],
+        "dropHeightMm": 80.18039079459759
+      },
+      {
+        "partId": "white-rook-h1",
+        "start": 0.43387096774193545,
+        "duration": 0.4767741935483871,
+        "targetPositionMm": [
+          217,
+          22,
+          217
+        ],
+        "dropHeightMm": 55.354170977413595
+      },
+      {
+        "partId": "white-king-e1",
+        "start": 0.44193548387096776,
+        "duration": 0.4783870967741936,
+        "targetPositionMm": [
+          31,
+          22,
+          217
+        ],
+        "dropHeightMm": 77.47167503928523
+      },
+      {
+        "partId": "brown-pawn-c7",
+        "start": 0.45,
+        "duration": 0.4799999999999999,
+        "targetPositionMm": [
+          -93,
+          22,
+          -155
+        ],
+        "dropHeightMm": 72.73884780545227
       }
     ]
   },
@@ -3363,7 +3560,7 @@
             "cy": 0.2625,
             "width": 0.2992592592592592,
             "height": 0.02043217579288029,
-            "sourceStepSha256": "085fb1369557d84d0f0fb04f44f9ab99de324cf82f3c383db93251dab5d0fee1",
+            "sourceStepSha256": "54c8352aa7a62b1301c3953934a7aec16097bee960ce5e61b2dfab837f50936a",
             "cameraLookAtMm": [
               0.0,
               0.0,
@@ -3392,7 +3589,7 @@
             "cy": 0.18916666666666665,
             "width": 0.07066694457215848,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
+            "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831",
             "cameraLookAtMm": [
               1.2936531845753052e-09,
               2.3803181647963356e-12,
@@ -3404,7 +3601,7 @@
             "cy": 0.18916666666666665,
             "width": 0.06596296296296295,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
+            "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905",
             "cameraLookAtMm": [
               0.0,
               0.0,
@@ -3416,7 +3613,7 @@
             "cy": 0.18916666666666665,
             "width": 0.06596296296296295,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
+            "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905",
             "cameraLookAtMm": [
               0.0,
               0.0,
@@ -3428,7 +3625,7 @@
             "cy": 0.18916666666666665,
             "width": 0.07066694457215848,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
+            "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831",
             "cameraLookAtMm": [
               1.2936531845753052e-09,
               2.3803181647963356e-12,
@@ -3440,7 +3637,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+            "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3452,7 +3649,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+            "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3464,7 +3661,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+            "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3476,7 +3673,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+            "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3488,7 +3685,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+            "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3500,7 +3697,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+            "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3512,7 +3709,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+            "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3524,7 +3721,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+            "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3536,7 +3733,7 @@
             "cy": 0.18916666666666665,
             "width": 0.07066694457215848,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
+            "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831",
             "cameraLookAtMm": [
               1.2936531845753052e-09,
               2.3803181647963356e-12,
@@ -3548,7 +3745,7 @@
             "cy": 0.18916666666666665,
             "width": 0.06596296296296295,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
+            "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905",
             "cameraLookAtMm": [
               0.0,
               0.0,
@@ -3560,7 +3757,7 @@
             "cy": 0.18916666666666665,
             "width": 0.06596296296296295,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
+            "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905",
             "cameraLookAtMm": [
               0.0,
               0.0,
@@ -3572,7 +3769,7 @@
             "cy": 0.18916666666666665,
             "width": 0.07066694457215848,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
+            "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831",
             "cameraLookAtMm": [
               1.2936531845753052e-09,
               2.3803181647963356e-12,
@@ -3584,7 +3781,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+            "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3596,7 +3793,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+            "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3608,7 +3805,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+            "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3620,7 +3817,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+            "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3632,7 +3829,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+            "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3644,7 +3841,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+            "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3656,7 +3853,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+            "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3668,7 +3865,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+            "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3697,7 +3894,7 @@
             "cy": 0.18916666666666665,
             "width": 0.08832173039591304,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
+            "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093",
             "cameraLookAtMm": [
               1.2938059512634936e-09,
               1.5489831639570184e-12,
@@ -3709,7 +3906,7 @@
             "cy": 0.18916666666666665,
             "width": 0.0626606330779054,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1",
+            "sourceStepSha256": "e18e0f60dbd1c8f96f9aacb9931f741a168894c04f10211e71a5c5213deb8a40",
             "cameraLookAtMm": [
               1.392715276438139e-09,
               1.644906433284632e-12,
@@ -3721,7 +3918,7 @@
             "cy": 0.18916666666666665,
             "width": 0.05693345568326946,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1",
+            "sourceStepSha256": "a7e7ce76415e4c4317fbdbf8f8b0a9420873325c0a5e1404cb0984175f38d060",
             "cameraLookAtMm": [
               1.4591687858001023e-09,
               2.220446049250313e-12,
@@ -3733,7 +3930,7 @@
             "cy": 0.18916666666666665,
             "width": 0.08832173039591304,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
+            "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093",
             "cameraLookAtMm": [
               1.2938059512634936e-09,
               1.5489831639570184e-12,
@@ -3745,7 +3942,7 @@
             "cy": 0.18916666666666665,
             "width": 0.08832173039591304,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
+            "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093",
             "cameraLookAtMm": [
               1.2938059512634936e-09,
               1.5489831639570184e-12,
@@ -3757,7 +3954,7 @@
             "cy": 0.18916666666666665,
             "width": 0.0626606330779054,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1",
+            "sourceStepSha256": "e18e0f60dbd1c8f96f9aacb9931f741a168894c04f10211e71a5c5213deb8a40",
             "cameraLookAtMm": [
               1.392715276438139e-09,
               1.644906433284632e-12,
@@ -3769,7 +3966,7 @@
             "cy": 0.18916666666666665,
             "width": 0.05693345568326946,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1",
+            "sourceStepSha256": "a7e7ce76415e4c4317fbdbf8f8b0a9420873325c0a5e1404cb0984175f38d060",
             "cameraLookAtMm": [
               1.4591687858001023e-09,
               2.220446049250313e-12,
@@ -3781,7 +3978,7 @@
             "cy": 0.18916666666666665,
             "width": 0.08832173039591304,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
+            "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093",
             "cameraLookAtMm": [
               1.2938059512634936e-09,
               1.5489831639570184e-12,
@@ -3808,7 +4005,7 @@
           "cy": 0.05082236842105263,
           "width": 0.21458333333333332,
           "height": 0.00514065335753176,
-          "sourceStepSha256": "085fb1369557d84d0f0fb04f44f9ab99de324cf82f3c383db93251dab5d0fee1",
+          "sourceStepSha256": "54c8352aa7a62b1301c3953934a7aec16097bee960ce5e61b2dfab837f50936a",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -3820,7 +4017,7 @@
           "cy": 0.30082236842105264,
           "width": 0.052582055153043435,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
+          "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -3832,7 +4029,7 @@
           "cy": 0.05082236842105263,
           "width": 0.04207133643002605,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
+          "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -3844,7 +4041,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03927083333333334,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
+          "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -3856,7 +4053,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03730480507354397,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1",
+          "sourceStepSha256": "e18e0f60dbd1c8f96f9aacb9931f741a168894c04f10211e71a5c5213deb8a40",
           "cameraLookAtMm": [
             1.392715276438139e-09,
             1.644906433284632e-12,
@@ -3868,7 +4065,7 @@
           "cy": 0.8008223684210526,
           "width": 0.03389514862657197,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1",
+          "sourceStepSha256": "a7e7ce76415e4c4317fbdbf8f8b0a9420873325c0a5e1404cb0984175f38d060",
           "cameraLookAtMm": [
             1.4591687858001023e-09,
             2.220446049250313e-12,
@@ -3880,7 +4077,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03927083333333334,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
+          "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -3892,7 +4089,7 @@
           "cy": 0.05082236842105263,
           "width": 0.04207133643002605,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
+          "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -3904,7 +4101,7 @@
           "cy": 0.30082236842105264,
           "width": 0.052582055153043435,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
+          "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -3916,7 +4113,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -3928,7 +4125,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -3940,7 +4137,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -3952,7 +4149,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -3964,7 +4161,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -3976,7 +4173,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -3988,7 +4185,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4000,7 +4197,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4012,7 +4209,7 @@
           "cy": 0.30082236842105264,
           "width": 0.052582055153043435,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
+          "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -4024,7 +4221,7 @@
           "cy": 0.05082236842105263,
           "width": 0.04207133643002605,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
+          "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -4036,7 +4233,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03927083333333334,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
+          "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4048,7 +4245,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03730480507354397,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1",
+          "sourceStepSha256": "e18e0f60dbd1c8f96f9aacb9931f741a168894c04f10211e71a5c5213deb8a40",
           "cameraLookAtMm": [
             1.392715276438139e-09,
             1.644906433284632e-12,
@@ -4060,7 +4257,7 @@
           "cy": 0.8008223684210526,
           "width": 0.03389514862657197,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1",
+          "sourceStepSha256": "a7e7ce76415e4c4317fbdbf8f8b0a9420873325c0a5e1404cb0984175f38d060",
           "cameraLookAtMm": [
             1.4591687858001023e-09,
             2.220446049250313e-12,
@@ -4072,7 +4269,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03927083333333334,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
+          "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4084,7 +4281,7 @@
           "cy": 0.05082236842105263,
           "width": 0.04207133643002605,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
+          "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -4096,7 +4293,7 @@
           "cy": 0.30082236842105264,
           "width": 0.052582055153043435,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
+          "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -4108,7 +4305,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4120,7 +4317,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4132,7 +4329,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4144,7 +4341,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4156,7 +4353,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4168,7 +4365,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4180,7 +4377,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4192,7 +4389,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4213,7 +4410,7 @@
           "cy": 0.02759637188208617,
           "width": 0.40555555555555556,
           "height": 0.0015069200093830635,
-          "sourceStepSha256": "085fb1369557d84d0f0fb04f44f9ab99de324cf82f3c383db93251dab5d0fee1",
+          "sourceStepSha256": "54c8352aa7a62b1301c3953934a7aec16097bee960ce5e61b2dfab837f50936a",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4225,7 +4422,7 @@
           "cy": 0.45616780045351474,
           "width": 0.23369802290241523,
           "height": 0.032879818594104306,
-          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
+          "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -4237,7 +4434,7 @@
           "cy": 0.170453514739229,
           "width": 0.18698371746678252,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
+          "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -4249,7 +4446,7 @@
           "cy": 0.5990249433106576,
           "width": 0.17453703703703705,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
+          "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4261,7 +4458,7 @@
           "cy": 0.7418820861678004,
           "width": 0.16579913366019544,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1",
+          "sourceStepSha256": "e18e0f60dbd1c8f96f9aacb9931f741a168894c04f10211e71a5c5213deb8a40",
           "cameraLookAtMm": [
             1.392715276438139e-09,
             1.644906433284632e-12,
@@ -4273,7 +4470,7 @@
           "cy": 0.8847392290249433,
           "width": 0.15064510500698652,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1",
+          "sourceStepSha256": "a7e7ce76415e4c4317fbdbf8f8b0a9420873325c0a5e1404cb0984175f38d060",
           "cameraLookAtMm": [
             1.4591687858001023e-09,
             2.220446049250313e-12,
@@ -4285,7 +4482,7 @@
           "cy": 0.5990249433106576,
           "width": 0.17453703703703705,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
+          "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4297,7 +4494,7 @@
           "cy": 0.170453514739229,
           "width": 0.18698371746678252,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
+          "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -4309,7 +4506,7 @@
           "cy": 0.45616780045351474,
           "width": 0.23369802290241523,
           "height": 0.032879818594104306,
-          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
+          "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -4321,7 +4518,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4333,7 +4530,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4345,7 +4542,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4357,7 +4554,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4369,7 +4566,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4381,7 +4578,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4393,7 +4590,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4405,7 +4602,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4417,7 +4614,7 @@
           "cy": 0.45616780045351474,
           "width": 0.23369802290241523,
           "height": 0.032879818594104306,
-          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
+          "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -4429,7 +4626,7 @@
           "cy": 0.170453514739229,
           "width": 0.18698371746678252,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
+          "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -4441,7 +4638,7 @@
           "cy": 0.5990249433106576,
           "width": 0.17453703703703705,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
+          "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4453,7 +4650,7 @@
           "cy": 0.7418820861678004,
           "width": 0.16579913366019544,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1",
+          "sourceStepSha256": "e18e0f60dbd1c8f96f9aacb9931f741a168894c04f10211e71a5c5213deb8a40",
           "cameraLookAtMm": [
             1.392715276438139e-09,
             1.644906433284632e-12,
@@ -4465,7 +4662,7 @@
           "cy": 0.8847392290249433,
           "width": 0.15064510500698652,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1",
+          "sourceStepSha256": "a7e7ce76415e4c4317fbdbf8f8b0a9420873325c0a5e1404cb0984175f38d060",
           "cameraLookAtMm": [
             1.4591687858001023e-09,
             2.220446049250313e-12,
@@ -4477,7 +4674,7 @@
           "cy": 0.5990249433106576,
           "width": 0.17453703703703705,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
+          "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4489,7 +4686,7 @@
           "cy": 0.170453514739229,
           "width": 0.18698371746678252,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
+          "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -4501,7 +4698,7 @@
           "cy": 0.45616780045351474,
           "width": 0.23369802290241523,
           "height": 0.032879818594104306,
-          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
+          "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -4513,7 +4710,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4525,7 +4722,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4537,7 +4734,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4549,7 +4746,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4561,7 +4758,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4573,7 +4770,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4585,7 +4782,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4597,7 +4794,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4618,7 +4815,7 @@
           "cy": 0.02822751322751323,
           "width": 0.40555555555555556,
           "height": 0.0017580733442802408,
-          "sourceStepSha256": "085fb1369557d84d0f0fb04f44f9ab99de324cf82f3c383db93251dab5d0fee1",
+          "sourceStepSha256": "54c8352aa7a62b1301c3953934a7aec16097bee960ce5e61b2dfab837f50936a",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4630,7 +4827,7 @@
           "cy": 0.4567989417989418,
           "width": 0.1853467078191569,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
+          "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -4642,7 +4839,7 @@
           "cy": 0.17108465608465606,
           "width": 0.14829743109434473,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
+          "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -4654,7 +4851,7 @@
           "cy": 0.5996560846560847,
           "width": 0.13842592592592592,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
+          "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4666,7 +4863,7 @@
           "cy": 0.7425132275132275,
           "width": 0.1314958646270516,
           "height": 0.030423280423280432,
-          "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1",
+          "sourceStepSha256": "e18e0f60dbd1c8f96f9aacb9931f741a168894c04f10211e71a5c5213deb8a40",
           "cameraLookAtMm": [
             1.392715276438139e-09,
             1.644906433284632e-12,
@@ -4678,7 +4875,7 @@
           "cy": 0.8853703703703704,
           "width": 0.11947715224692036,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1",
+          "sourceStepSha256": "a7e7ce76415e4c4317fbdbf8f8b0a9420873325c0a5e1404cb0984175f38d060",
           "cameraLookAtMm": [
             1.4591687858001023e-09,
             2.220446049250313e-12,
@@ -4690,7 +4887,7 @@
           "cy": 0.5996560846560847,
           "width": 0.13842592592592592,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
+          "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4702,7 +4899,7 @@
           "cy": 0.17108465608465606,
           "width": 0.14829743109434473,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
+          "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -4714,7 +4911,7 @@
           "cy": 0.4567989417989418,
           "width": 0.1853467078191569,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
+          "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -4726,7 +4923,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4738,7 +4935,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4750,7 +4947,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4762,7 +4959,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4774,7 +4971,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4786,7 +4983,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4798,7 +4995,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4810,7 +5007,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4822,7 +5019,7 @@
           "cy": 0.4567989417989418,
           "width": 0.1853467078191569,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
+          "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -4834,7 +5031,7 @@
           "cy": 0.17108465608465606,
           "width": 0.14829743109434473,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
+          "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -4846,7 +5043,7 @@
           "cy": 0.5996560846560847,
           "width": 0.13842592592592592,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
+          "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4858,7 +5055,7 @@
           "cy": 0.7425132275132275,
           "width": 0.1314958646270516,
           "height": 0.030423280423280432,
-          "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1",
+          "sourceStepSha256": "e18e0f60dbd1c8f96f9aacb9931f741a168894c04f10211e71a5c5213deb8a40",
           "cameraLookAtMm": [
             1.392715276438139e-09,
             1.644906433284632e-12,
@@ -4870,7 +5067,7 @@
           "cy": 0.8853703703703704,
           "width": 0.11947715224692036,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1",
+          "sourceStepSha256": "a7e7ce76415e4c4317fbdbf8f8b0a9420873325c0a5e1404cb0984175f38d060",
           "cameraLookAtMm": [
             1.4591687858001023e-09,
             2.220446049250313e-12,
@@ -4882,7 +5079,7 @@
           "cy": 0.5996560846560847,
           "width": 0.13842592592592592,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
+          "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4894,7 +5091,7 @@
           "cy": 0.17108465608465606,
           "width": 0.14829743109434473,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
+          "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -4906,7 +5103,7 @@
           "cy": 0.4567989417989418,
           "width": 0.1853467078191569,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
+          "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -4918,7 +5115,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4930,7 +5127,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4942,7 +5139,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4954,7 +5151,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4966,7 +5163,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4978,7 +5175,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4990,7 +5187,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5002,7 +5199,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5023,7 +5220,7 @@
           "cy": 0.05082236842105263,
           "width": 0.21458333333333332,
           "height": 0.00514065335753176,
-          "sourceStepSha256": "085fb1369557d84d0f0fb04f44f9ab99de324cf82f3c383db93251dab5d0fee1",
+          "sourceStepSha256": "54c8352aa7a62b1301c3953934a7aec16097bee960ce5e61b2dfab837f50936a",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -5035,7 +5232,7 @@
           "cy": 0.30082236842105264,
           "width": 0.052582055153043435,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
+          "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -5047,7 +5244,7 @@
           "cy": 0.05082236842105263,
           "width": 0.04207133643002605,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
+          "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -5059,7 +5256,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03927083333333334,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
+          "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -5071,7 +5268,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03730480507354397,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1",
+          "sourceStepSha256": "e18e0f60dbd1c8f96f9aacb9931f741a168894c04f10211e71a5c5213deb8a40",
           "cameraLookAtMm": [
             1.392715276438139e-09,
             1.644906433284632e-12,
@@ -5083,7 +5280,7 @@
           "cy": 0.8008223684210526,
           "width": 0.03389514862657197,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1",
+          "sourceStepSha256": "a7e7ce76415e4c4317fbdbf8f8b0a9420873325c0a5e1404cb0984175f38d060",
           "cameraLookAtMm": [
             1.4591687858001023e-09,
             2.220446049250313e-12,
@@ -5095,7 +5292,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03927083333333334,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
+          "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -5107,7 +5304,7 @@
           "cy": 0.05082236842105263,
           "width": 0.04207133643002605,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
+          "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -5119,7 +5316,7 @@
           "cy": 0.30082236842105264,
           "width": 0.052582055153043435,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
+          "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -5131,7 +5328,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5143,7 +5340,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5155,7 +5352,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5167,7 +5364,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5179,7 +5376,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5191,7 +5388,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5203,7 +5400,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5215,7 +5412,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5227,7 +5424,7 @@
           "cy": 0.30082236842105264,
           "width": 0.052582055153043435,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
+          "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -5239,7 +5436,7 @@
           "cy": 0.05082236842105263,
           "width": 0.04207133643002605,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
+          "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -5251,7 +5448,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03927083333333334,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
+          "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -5263,7 +5460,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03730480507354397,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1",
+          "sourceStepSha256": "e18e0f60dbd1c8f96f9aacb9931f741a168894c04f10211e71a5c5213deb8a40",
           "cameraLookAtMm": [
             1.392715276438139e-09,
             1.644906433284632e-12,
@@ -5275,7 +5472,7 @@
           "cy": 0.8008223684210526,
           "width": 0.03389514862657197,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1",
+          "sourceStepSha256": "a7e7ce76415e4c4317fbdbf8f8b0a9420873325c0a5e1404cb0984175f38d060",
           "cameraLookAtMm": [
             1.4591687858001023e-09,
             2.220446049250313e-12,
@@ -5287,7 +5484,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03927083333333334,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
+          "sourceStepSha256": "451d6a0345c6ff1123d0b44d9c48ee9221029330712cda4e308950c9fd724905",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -5299,7 +5496,7 @@
           "cy": 0.05082236842105263,
           "width": 0.04207133643002605,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
+          "sourceStepSha256": "a6f6ae79d52a60410c8da004d4930dd98207055f69b93e368d9585cd79e34831",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -5311,7 +5508,7 @@
           "cy": 0.30082236842105264,
           "width": 0.052582055153043435,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
+          "sourceStepSha256": "c5e41689406939c6c394cf802efcad58eceae07c684f914c2cbf7dae47daf093",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -5323,7 +5520,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5335,7 +5532,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5347,7 +5544,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5359,7 +5556,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5371,7 +5568,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5383,7 +5580,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5395,7 +5592,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5407,7 +5604,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
+          "sourceStepSha256": "55fd130a389a7aa60070952e4d60bbe22ce7ae3a793425323eabd132212e508c",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
