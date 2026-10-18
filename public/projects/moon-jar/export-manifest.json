@@ -12,6 +12,11 @@
     "gallery.css": "52993d3e19ec1e049e3f728c284cc165202c3b15db59653645f1015dcefbbffa",
     "gallery.js": "d64da585e8c08260d0c47a3f9d10d50ff41314cd13de9d35f87a8e07439f2eb1",
     "index.html": "41fe3fc890d29e37828adeac0b040a2647b9e65debb49c4f26d28bea87e99417",
-    "viewer.js": "41062c1640b064ea87f9cb02cf45cd5cb466a9170a3529d4dbe805c8efe13634"
+    "viewer.js": "a9ee417475387b2e22509587f3016d5d60acdc55467b4563b725a5f8785f5cee"
+  },
+  "hostPacing": {
+    "module": "/project-scroll.mjs",
+    "policy": "/project-scroll-map.mjs",
+    "scope": "site export only; original approval evidence unchanged"
   }
 }
