@@ -23,10 +23,12 @@ def validate(review, ids):
             for item in value: finite(item)
     finite(review)
     lighting=review['motion'].get('lighting',{})
-    if not isinstance(lighting,dict) or set(lighting)-{'exposure','pointLightScale'}:raise ValueError('Invalid lighting options')
-    for key,maximum in [('exposure',3),('pointLightScale',2)]:
+    if not isinstance(lighting,dict) or set(lighting)-{'exposure','pointLightScale','softPartIds','softPointLightScale'}:raise ValueError('Invalid lighting options')
+    for key,maximum in [('exposure',3),('pointLightScale',2),('softPointLightScale',1)]:
         value=lighting.get(key,1)
         if isinstance(value,bool) or not isinstance(value,(int,float)) or not 0<=value<=maximum:raise ValueError('Invalid lighting '+key)
+    soft_ids=lighting.get('softPartIds',[])
+    if not isinstance(soft_ids,list) or any(pid not in ids for pid in soft_ids):raise ValueError('Unknown soft-light part ID')
     if review.get('renderer') == 'layered-vessels' or any('coatings' in p for p in review['parts']):
         if any('coatings' not in p for p in review['parts']):
             raise ValueError('Layered vessel mode requires explicit coatings for every part')
