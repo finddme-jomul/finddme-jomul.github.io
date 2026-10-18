@@ -36,11 +36,11 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
          const coat=v.part.coatings,linear=h=>{const n=parseInt(h,16)/255;return n<=.04045?n/12.92:((n+.055)/1.055)**2.4};
          let maxError=0,inside=0,outside=0;
          for(let i=0;i<v.values.length;i++){
-           const q=v.values[i],region=coat.fired.region,hit=q.exterior&&q.heightMm>=region.minHeightMm-.001&&q.heightMm<=region.maxHeightMm+.001;
+           const q=v.values[i],contains=r=>r.surface==='all'||(r.surface==='planar-xy'?!!q.surface&&q.exterior&&q.surface.normalZ>.9999&&Math.abs(q.surface.z-r.planeZMm)<.001&&r.rectanglesMm.some(([a,b,c,d])=>q.surface.x>=a&&q.surface.x<=c&&q.surface.y>=b&&q.surface.y<=d):q.exterior&&q.heightMm>=r.minHeightMm-.001&&q.heightMm<=r.maxHeightMm+.001),hit=contains(coat.fired.region);
            if(q.exterior)outside++;else inside++;
            let color;
-           if(v.state.accent>.999)color=hit?coat.fired.regionHex:coat.fired.baseHex;
-           else {const r=coat.layers[0].region;const coated=r.surface==='all'||q.exterior&&q.heightMm>=r.minHeightMm-.001&&q.heightMm<=r.maxHeightMm+.001;color=coated?coat.layers[0].previewHex:v.part.glazePreview.clayHex;}
+           if(v.state.accent>.999)color=contains(coat.layers[1].region)?(hit?coat.fired.regionHex:coat.fired.baseHex):contains(coat.layers[0].region)?coat.layers[0].previewHex:v.part.glazePreview.clayHex;
+           else {const r=coat.layers[0].region;const coated=contains(r);color=coated?coat.layers[0].previewHex:v.part.glazePreview.clayHex;}
            for(let c=0;c<3;c++)maxError=Math.max(maxError,Math.abs(colours[i*3+c]-linear(color.slice(1+c*2,3+c*2))));
          }
          materialCheck={maxError,inside,outside,featureRegion:v.feature};

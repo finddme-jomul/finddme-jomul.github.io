@@ -54,9 +54,9 @@ def prepare(project, review):
             evidence=material.get('glazeLayers',[])
             if [l.get('order') for l in evidence]!=[1,2] or g.get('clayName')!=material.get('clay',{}).get('name') or not g.get('clayName') or appearance['accentEnabled']:
                 raise ValueError('Feature coatings require ordered archived layers, matching clay and accentEnabled false')
-            if any(l.get('application') not in ('full-coat','exterior-below-dashed-boundary') for l in evidence) or g.get('baseName')!=evidence[0]['name'] or g.get('accentName')!=evidence[1]['name']:
+            if any(l.get('application') not in ('full-coat','exterior-below-dashed-boundary','planar-regions') for l in evidence) or g.get('baseName')!=evidence[0]['name'] or g.get('accentName')!=evidence[1]['name']:
                 raise ValueError('Feature layer names/applications must match archived evidence')
-            coatings(appearance['coatings'],evidence,{'height':b['maxZ']-b['minZ']})
+            coatings(appearance['coatings'],evidence,{'height':b['maxZ']-b['minZ'],'bounds':b})
         parts.append({'id':part['id'],'appearance':appearance,'materialEvidence':material,'boundsMm':b,'dimensionsMm':{'height':b['maxZ']-b['minZ']},'step':project/'geometry'/part['id']/'model.step'})
     photo=(ROOT/review['photos']).resolve();files.add(photo)
     for item in load_photos(photo):files.add((ROOT/item['source']).resolve())
