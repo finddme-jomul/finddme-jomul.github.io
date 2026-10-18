@@ -8,6 +8,7 @@ import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {smooth,clamp,continuingAxis,glazeRevealAt,glazeSpinAt,sprayCoverage} from './scene/glaze-motion.mjs';
 import {applyAxisPose} from './scene/axis-motion.mjs';
+import {fitOrientedPoints,radialEnvelopePoints} from './scene/oriented-framing.mjs';
 import {fitComposition} from './scene/composition-framing.mjs';
 import {backgroundAt} from './scene/background-transition.mjs';
 import {installGallery} from './gallery.js';
@@ -131,7 +132,12 @@ export async function startMultiple(spec) {
     return {bounds:{min:{x:x-radius,y,z:z-radius},max:{x:x+radius,y:y+step.dropHeightMm/1000+v.height,z:z+radius}},position:{x:0,y:0,z:0},scale:1};
   }):null;
   const cadPages=installCadPages({spec,sheet,image,requestFrame});
+  const frontSources=new Set(),frontRepresentatives=new Set();
+  for(const v of vessels){const source=v.part.sourcePartId||v.id;if(!frontSources.has(source)){frontSources.add(source);frontRepresentatives.add(v.id)}}
+  const radialPoints=directDrop?radialEnvelopePoints(dropBounds):null;
   function frontPlacement(v,p){
+    if(cadPages&&!frontRepresentatives.has(v.id)){v.front.style.opacity='0';return;}
+
     if(p<timing.frontMoveStart||p>=timing.frontFadeStart+timing.frontFadeDuration){v.front.style.opacity='0';return;}
     const entry=cadPages?.entry||spec.sheets[layoutKey],box=entry.frontBoxes[v.id],rect=image.getBoundingClientRect();
     if(!box){v.front.style.opacity='0';return;}
@@ -201,6 +207,21 @@ export async function startMultiple(spec) {
         }
         if(overflow<=1.001)break;distance*=overflow*1.01;
       }
+    }
+    if(f.envelope==='radial-drop'){
+      // Fixed full fall envelope: no camera movement from glazing through landing.
+      const staging=smooth((p-timing.wireFadeStart)/timing.wireFadeDuration);
+      const elevation=THREE.MathUtils.degToRad(spec.motion.camera.elevationDegrees||0)*staging;
+      const azimuth=THREE.MathUtils.degToRad(spec.motion.camera.azimuthDegrees||0)*staging;
+      const lockedFit=fitOrientedPoints(radialPoints,{centerX:fit.centerX,centerY:fit.centerY,aspect:camera.aspect,fovDegrees:camera.fov,elevation,azimuth,widthFraction:small?f.mobileWidthFraction:f.desktopWidthFraction,heightFraction:small?f.mobileHeightFraction:f.desktopHeightFraction,minDistance:f.minDistance});
+      const previousDistance=camera.position.distanceTo(new THREE.Vector3(fit.centerX,fit.centerY,0));
+      let distance=previousDistance*(1-lockCamera)+lockedFit*lockCamera;
+      if(lockCamera<1){
+        const visiblePoints=[];for(const {bounds:b} of bounds)for(const x of [b.min.x,b.max.x])for(const y of [b.min.y,b.max.y])for(const z of [b.min.z,b.max.z])visiblePoints.push([x,y,z]);
+        distance=Math.max(distance,fitOrientedPoints(visiblePoints,{centerX:fit.centerX,centerY:fit.centerY,aspect:camera.aspect,fovDegrees:camera.fov,elevation,azimuth,widthFraction:small?f.mobileWidthFraction:f.desktopWidthFraction,heightFraction:small?f.mobileHeightFraction:f.desktopHeightFraction,minDistance:f.minDistance}));
+      }
+      camera.position.set(fit.centerX+distance*Math.sin(azimuth)*Math.cos(elevation),fit.centerY+distance*Math.sin(elevation),distance*Math.cos(azimuth)*Math.cos(elevation));
+      camera.lookAt(fit.centerX,fit.centerY,0);camera.updateMatrixWorld();
     }
     sheet.style.opacity=String(1-smooth((p-timing.sheetFadeStart)/timing.sheetFadeDuration));
     for(const v of vessels)frontPlacement(v,p);
