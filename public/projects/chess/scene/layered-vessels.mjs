@@ -23,7 +23,7 @@ export function landingEase(value){const t=clamp(value);return t*t*t*(10+t*(-15+
 // Lift, translate above the other objects, lower. Pure progress allows reverse scroll.
 export function assemblyPosition(start, step, progress, mode='lift-place', landing=null) {
   const p=clamp((progress-step.start)/step.duration),target=step.targetPositionMm.map(v=>v/1000);
-  if(mode==='direct-drop')return [target[0],target[1]+step.dropHeightMm/1000*(1-(landing==='soft-spin'?landingEase(p):smooth(p))),target[2]];
+  if(mode==='direct-drop'){const remaining=1-(landing==='soft-spin'?landingEase(p):smooth(p)),[dx,dz]=step.approachOffsetMm??[0,0];return [target[0]+dx/1000*remaining,target[1]+step.dropHeightMm/1000*remaining,target[2]+dz/1000*remaining];}
   const top=Math.max(start[1],target[1])+step.liftMm/1000;
   if(p<1/3)return [start[0],start[1]+(top-start[1])*smooth(p*3),start[2]];
   if(p<2/3){const t=smooth(p*3-1);return [start[0]+(target[0]-start[0])*t,top,start[2]+(target[2]-start[2])*t];}
