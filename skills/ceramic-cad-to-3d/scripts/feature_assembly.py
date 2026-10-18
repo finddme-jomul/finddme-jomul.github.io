@@ -2,6 +2,7 @@
 import math
 from build123d import import_step, Vector, Axis
 from assembly_geometry import position, smooth
+from drop_pose import pose as drop_pose, transform
 
 
 def check(parts,spec,motion=None):
@@ -29,15 +30,17 @@ def check(parts,spec,motion=None):
                     step=steps[p['id']];now=spec['start']+spec['duration']*t
                     end=spec['start']+spec['duration']*(step['start']+step['duration']);start=motion['timing']['baseGlazeStart']
                     angle=360*smooth((now-start)/(end-start))*(motion['glaze']['spinTurns']+motion['glaze']['axisPrecessionTurns'])
-                c,s=abs(math.cos(math.radians(angle))),abs(math.sin(math.radians(angle)))
-                rx,ry=(width*c+depth*s)/2,(width*s+depth*c)/2
-                # Rotated source AABB encloses the CAD solid at every upright yaw.
-                # No kernel transforms are needed when these conservative boxes separate.
-                poses.append((x,-z,y,angle));boxes.append(((x-rx,-z-ry,y),(x+rx,-z+ry,y+height)))
+                angles=(angle,0,0,0)
+                m=p['appearance']['motion']
+                if m.get('fixedOrientation'):angles=(0,0,0,0)
+                elif m.get('varyingDropAxis'):angles=drop_pose(m,motion['glaze'],motion['timing'],spec,steps[p['id']],spec['start']+spec['duration']*t)
+                corners=[transform(px,py,pz,angles) for px in (-width/2,width/2) for py in (-depth/2,depth/2) for pz in (-height/2,height/2)]
+                offset=(x,-z,y+height/2)
+                poses.append((*offset,angles));boxes.append(tuple(tuple(offset[k]+fn(q[k] for q in corners) for k in range(3)) for fn in (min,max)))
             def posed(index):
                 if index not in moved:
-                    x,y,z,angle=poses[index]
-                    moved[index]=solids[index].rotate(Axis.Z,angle).translate(Vector(x,y,z))
+                    x,y,z,angles=poses[index];body,orbit,tx,tz=angles
+                    moved[index]=solids[index].translate(Vector(0,0,-dimensions[index][2]/2)).rotate(Axis.Z,body).rotate(Axis.Y,-tz).rotate(Axis.X,tx).rotate(Axis.Z,orbit).translate(Vector(x,y,z))
                 return moved[index]
             for i in range(len(parts)):
                 for j in range(i+1,len(parts)):
@@ -48,5 +51,5 @@ def check(parts,spec,motion=None):
                         common=posed(i).intersect(posed(j));volume=0 if common is None else (common.volume if hasattr(common,"volume") else sum(s.volume for s in common));intersections+=1
                     if volume>1e-5:raise ValueError(f'Feature assembly collision {parts[i]["id"]}/{parts[j]["id"]} {screen} progress={t:g}')
                     if t==1 and screen=='Desktop':final.append({'parts':[parts[i]['id'],parts[j]['id']],'intersectionMm3':volume})
-    return {'scope':'Upright placement (including configured soft spin); sampled CAD intersections with disjoint-bounds broad phase, not continuous collision/manufacturing proof',
+    return {'scope':'Placement with configured body spin and varying axis; sampled CAD intersections with disjoint-bounds broad phase, not continuous collision/manufacturing proof',
             'posesPerLayout':len(samples),'pairChecks':checks,'cadIntersections':intersections,'finalIntersections':final,'targets':spec['steps']}
