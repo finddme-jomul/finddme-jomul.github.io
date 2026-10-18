@@ -3,6 +3,7 @@ import { projects } from './projects/index.js';
 import { bindOrbitInput } from './orbit-input.js';
 import { mountAsciiCenter } from './ascii-center.js';
 import { advanceCoast } from './orbit-motion.js';
+import { orbitFacing } from './orbit-facing.js';
 import { getCssOrbitLayout } from './css-orbit-layout.js';
 
 const $ = (selector) => document.querySelector(selector);
@@ -97,17 +98,17 @@ function render(now) {
     const theta = (i - angle) * Math.PI * 2 / count + Math.PI / 6;
     const x = Math.sin(theta) * radius;
     const z = Math.cos(theta) * radius;
-    // Radial planes: tiles turn edge-on at the front/back of the ring.
-    const yaw = theta * 180 / Math.PI + 90;
+    // Open front-facing tiles continuously as they move around the ring.
+    const rotation = grid ? 0 : orbitFacing(theta);
+    const yaw = rotation * 180 / Math.PI;
     // A nearly edge-on card otherwise reads as a pole through the centerpiece.
-    const edgeT = grid ? 1 : Math.max(0, Math.min(1, (Math.abs(Math.sin(theta)) - (mobile ? .02 : .10)) / (mobile ? .30 : .14)));
+    const edgeT = grid ? 1 : Math.max(0, Math.min(1, (Math.abs(Math.cos(rotation)) - (mobile ? .02 : .10)) / (mobile ? .30 : .14)));
     card.style.setProperty('--edge-on-visibility', edgeT * edgeT * (3 - 2 * edgeT));
     // Fully edge-on cards are invisible but could still intercept the centre button.
     card.style.pointerEvents = !grid && edgeT < .05 ? 'none' : '';
     card.style.transform = grid ? '' : `translate(-50%, -50%) translate3d(${x}px, 0, ${z}px) rotateY(${yaw}deg)`;
     // World-space upper-left light; transform it into each face's local frame.
     // This is a restrained CSS reflection approximation, not optical ray tracing.
-    const rotation = grid ? 0 : theta + Math.PI / 2;
     const tilt = grid ? 0 : -20 * Math.PI / 180;
     const lightX = -0.5;
     const localZ = 0.65 * Math.sin(tilt) + 0.57 * Math.cos(tilt);
