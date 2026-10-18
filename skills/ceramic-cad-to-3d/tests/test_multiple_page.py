@@ -39,6 +39,11 @@ class MultipleReview(unittest.TestCase):
             self.review['motion']['lighting']=value
             with self.assertRaises(ValueError):validate(self.review,[p['id'] for p in self.review['parts']])
 
+    def test_variation_invalid_values(self):
+        for field,value in [('dropDurationScale',0),('spinPhaseDegrees',361),('entryYOffset',3),('fixedOrientation','true'),('varyingDropAxis',True)]:
+            r=copy.deepcopy(self.review);r['parts'][0]['motion'][field]=value
+            with self.assertRaises(ValueError):validate(r,self.ids)
+
     def setUp(self):
         self.review=json.loads((Path(__file__).parent/'fixtures/multiple/scene.json').read_text())
         self.review['photos']='photos.json'

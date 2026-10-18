@@ -10,6 +10,14 @@ from assembly_geometry import position, landing_ease
 from layered_review import assembly, apply_assembly_preset
 
 class FeatureAssembly(unittest.TestCase):
+    def test_render_cad_pose_fixture(self):
+        import json
+        from drop_pose import pose,transform
+        for r in json.loads((Path(__file__).parent/'fixtures/drop-pose.json').read_text()):
+            a=pose(r['m'],r['g'],r['timing'],r['assembly'],r['step'],r['time'],r['drop'],r['settle'])
+            for actual,expected in zip(a,r['angles']):self.assertAlmostEqual(actual,expected,places=9)
+            for actual,expected in zip(transform(*r['point'],a),r['transformed']):self.assertAlmostEqual(actual,expected,places=9)
+
     def test_adopted_preset_preserves_reference_and_rejects_regression(self):
         spec={'preset':'gentle-staggered','steps':[{'start':0,'duration':.22},{'start':.22,'duration':.60},{'start':.34,'duration':.60}]}
         review={'assembly':spec};original=copy.deepcopy(review)
