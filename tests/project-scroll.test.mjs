@@ -9,7 +9,7 @@ test('all projects preserve desktop distances and reversibly compress mobile pro
   for(let v=0;v<2000;v+=.5){assert.equal(toPhysical(v,b,false),v);const p=toPhysical(v,b,true);assert.ok(p>previous);previous=p;assert.ok(Math.abs(toTimeline(p,b,true)-v)<1e-9);}
  }
 });
-test('chess mobile proposal is about 1040vh, keeping the complete timeline',()=>{
+test('chess mobile pacing shortens CAD and gives 3D more scroll distance',()=>{
  const s=JSON.parse(fs.readFileSync(new URL('../public/projects/chess/assets/project.json',import.meta.url)));
- const b=cadBoundary(s);assert.equal(b,756);assert.ok(Math.abs(toPhysical(1603.78,b,true)-1036.515)<.01);
+ const b=cadBoundary(s);assert.equal(b,756);assert.ok(Math.abs(toPhysical(1603.78,b,true)-1044.2075)<.01);
 });

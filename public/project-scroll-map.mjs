@@ -1,5 +1,5 @@
 // Site-wide mobile pacing; desktop and the reviewed animation timeline stay intact.
-export const mobilePacing = Object.freeze({ breakpoint: 700, cadScale: .53, motionScale: .75 });
+export const mobilePacing = Object.freeze({ breakpoint: 700, cadScale: .40, motionScale: .875 });
 export function cadBoundary(spec) {
   const base = spec.motion.storyHeightVh - 100;
   const fraction = spec.motion.timing?.cadEnd ?? (spec.shapeKind === 'handled-vessel' ? .54 * .72 : 500 / 1200);
