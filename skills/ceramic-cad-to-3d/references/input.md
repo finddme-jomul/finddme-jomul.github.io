@@ -344,3 +344,20 @@ constraint does not apply to unused finalX fields in that mode. Shared collision
 checks analytically rotate cached source bounds before pair testing; they still use actual CAD
 intersection for overlapping bounds. Repetition does not imply automatic
 packing, arbitrary target rotations or manufacturing approval.
+
+
+## Landscape CAD pages and enlargement (feature multiple pages)
+
+Optional `cadPresentation` in the feature page review partitions **source CAD IDs**, not repeated instance IDs, into one to three groups with up to three sources each:
+
+```json
+{"cadPresentation":{"clickToZoom":true,"groups":[
+  {"id":"board","title":"체스판","partIds":["board"]},
+  {"id":"small-pieces","title":"폰 · 나이트 · 비숍","partIds":["pawn","knight","bishop"]},
+  {"id":"tall-pieces","title":"룩 · 퀸 · 킹","partIds":["rook","queen","king"]}
+]}}
+```
+
+Each source must appear exactly once. The generator recomposes the archived BRep views into 1800×1000 SVG pages with retained source front boxes; it does not infer a new shape. Scroll distributes pages through the initial fully visible CAD interval (`sheetFadeStart`), and navigation buttons jump to the corresponding interval. The last page supplies visible front cutouts during the existing transition. Parts absent from that page do not invent front cutouts; all reviewed scene instances still enter the 3D stage. No extra clay or landing time is added.
+
+Click or Enter/Space opens the currently visible SVG in a modal with fit/enlarge, scrollable detail, close and Esc. Closing restores focus and page scroll position. Grouped presentation is opt-in; existing review inputs retain their original sheet layout.

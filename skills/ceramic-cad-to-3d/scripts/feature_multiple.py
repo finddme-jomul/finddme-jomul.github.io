@@ -14,6 +14,8 @@ def prepare(project, review):
         raise ValueError('Feature multiple pages require homogeneous feature-solid parts')
     if not review or review.get('renderer')!='feature-solids':
         raise ValueError('Explicit feature-solids renderer review required')
+    from cad_pages import validate as validate_cad_pages
+    validate_cad_pages(review.get("cadPresentation"),[p["id"] for p in config["parts"]])
     from feature_instances import expand, material_variant, alias_sheet
     config,review=expand(config,review)
     from layered_review import apply_assembly_preset

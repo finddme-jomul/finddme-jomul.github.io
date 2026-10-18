@@ -10,6 +10,7 @@ from ceramic_paths import SKILL, ROOT
 from browser_environment import node_command
 
 SUITES = {
+    'cad-pages': [sys.executable, str(SKILL/'tests/test_cad_pages.py')],
     'feature-instances': [sys.executable, str(SKILL/'tests/test_feature_instances.py')],
     'planar-coatings-contract': [sys.executable, str(SKILL/'tests/test_planar_coatings.py')],
     'planar-coatings-mesh': node_command(SKILL/'tests/test-planar-coatings.mjs'),

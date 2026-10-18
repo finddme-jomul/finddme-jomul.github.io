@@ -20,7 +20,7 @@ This freezes scope, not visual approval or a claim of release readiness.
 | Photos | Existing zero/one/multiple photo paths; seeded scatter sizes/positions are user-adopted. |
 
 Deferred, retained as uncompleted requests: mixed rotational/handled/feature
-projects; shared instances and CAD groups; target-rotation assembly; STL/GLB
+projects; target-rotation assembly; STL/GLB
 import and imported-model partial-coating surface identity. Arbitrary sculpting,
 more-than-two feature coats, manufacturing certification and host-site publication
 are outside v1. The generated page is the project body; host navigation/listing
@@ -66,7 +66,7 @@ restart completed count-generalization, plate nesting or knight feasibility work
 | 10 Feedback | User correction, prior state → minimal affected rebuild and exact rollback path | Record adopted feedback in the input/profile and consumer first, then regenerate and verify. Do not reverse-engineer a rollback from remembered values. |
 | 11 Package/E2E | All stages and new project input → reusable skill release | Still incomplete. Moon is development, mug is single validation, bowls are multiple validation; reserve chess for final evaluation. |
 
-`single` and `multiple` use one workflow selected by the number of finished vessel instances. A handle is a subcomponent of one vessel, not another `part`. Each independent part keeps its own evidence, CAD, material, and ID. Shared model-instance input is deferred beyond v1. Do not copy one part's uncertain values or one photograph to another.
+`single` and `multiple` use one workflow selected by the number of finished vessel instances. A handle is a subcomponent of one vessel, not another `part`. Each independent part keeps its own evidence, CAD, material, and ID. Reviewed source instances were subsequently authorized for the standard 32-piece integration. Do not copy one part's uncertain values or one photograph to another.
 
 ## Selected visual baselines and current limits
 
@@ -323,3 +323,10 @@ User approved “평면 유약 영역을 공통 기능으로 추가한 뒤 체�
 User selected “실제 체스 구성인 총 32개”. Preserve six source shape definitions plus the board and explicit standard-square placements; repeated scene instances use the common feature adapter. Shorter board clay timing was adopted at revision d440756fac374169804350591a95266e. New piece silhouette and internal head details remain provisional; this work does not adopt an unreviewed 32-piece result.
 
 Scoped integration evidence: the standard set generated through `page-review` with 33 scene elements sharing seven geometry bundles and retaining individual material evidence. Four viewports passed 48 scene checks and 64 assembly samples; CAD checked 249 poses per layout and 262,944 pairs, with no intersections in the sampled path or 528 final pairs. The previously adopted assembly passed its scene/assembly gates and 48/48 screenshot pixel comparisons with the current modules. This is development evidence, not unused-input evaluation or a full release check. Software-browser checks isolate each viewport and allow 120 seconds for loading large scenes; they do not certify interactive performance on every device.
+
+
+## Authorized chess usability correction
+
+After the 32-piece integration the user reported severe scroll stutter and requested three landscape CAD groups, click-to-enlarge and a slimmer bishop. This explicitly permits grouped CAD presentation in the frozen scope. Use the common input/runtime contracts, never a chess-only page script. Preserve the accepted shortened clay stage and gentle landing. Frame correctness is not performance evidence: record before/after measurements and check idle rendering. Source shape changes remain reviewed project inputs; the bishop correction keeps overall 39×39×75mm with the widest point at its pedestal, while body/head proportions remain proposals.
+
+Performance invariant: preserve the existing transparent DoubleSide front/back passes. A forceSinglePass optimization produced edge-coverage artifacts at ceramic bases and was rejected; warm the original passes before interaction instead.
