@@ -19,12 +19,12 @@ const sourceProjects = [
   workshop_table,
   clay_vessels,
   drawing_session,
+  flower_vase_drawing,
   book_cover,
   plant_pot,
   sudoku_pencil,
   coffee_cup,
   ceramics_display,
-  flower_vase_drawing,
 ];
 const featured = [
   [sudoku_pencil, '00', '체스', 'chess'],
