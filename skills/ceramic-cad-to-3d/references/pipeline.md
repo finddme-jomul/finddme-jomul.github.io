@@ -313,3 +313,7 @@ User rejected the post-glaze camera rise in revision d6edb399b56341009949559e75c
 ## Adopted closure presentation — 2026-10-18
 
 User reply: “응 이걸로 가자. 다음 작업으로 넘어가자”. Applies to the corrected CAD→wire presentation and final landing at `90-feature-assembly/page-revisions/1ba00fb8db46437ba9c318edc6250376`. Initial camera staging finishes before glazing; the camera stays fixed through final landing, preserving soft spin and short landing gaps. Earlier `d6edb399b56341009949559e75ccce57` remains rejected for pre-landing re-ascent. This accepts presentation of the reviewed output, not synthetic material/shape manufacturing facts or held-out E2E. Preserve its exact files rather than regenerating it for approval metadata changes. Scatter sizes/positions were adopted separately. New unused-input evaluation and release remain pending.
+
+## Authorized planar-region extension
+
+User approved “평면 유약 영역을 공통 기능으로 추가한 뒤 체스판까지 검증”. This overrides the v1 freeze only for planar glaze regions; see input.md#planar-xy-glaze-regions-feature-solids. Actual chess inputs now exercise feature development/integration and cannot be attested unused for the changed runtime. Preserve previous approved presentation and the final release evidence gate.

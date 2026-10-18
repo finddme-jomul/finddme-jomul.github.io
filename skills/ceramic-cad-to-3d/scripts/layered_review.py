@@ -3,8 +3,22 @@ import math
 import re
 
 
-def region(value, height):
+def region(value, height, bounds=None):
+    if value.get('surface') == 'planar-xy':
+        finite = lambda v: isinstance(v, (int, float)) and not isinstance(v, bool) and math.isfinite(v)
+        if bounds is None or set(value) != {'surface', 'planeZMm', 'rectanglesMm'}:
+            raise ValueError('Planar XY coatings require feature bounds, planeZMm and rectanglesMm')
+        z, rects = value['planeZMm'], value['rectanglesMm']
+        if not finite(z) or not bounds['minZ'] <= z <= bounds['maxZ'] or not isinstance(rects, list) or not 1 <= len(rects) <= 256:
+            raise ValueError('Invalid planar coating plane or rectangle count')
+        for rect in rects:
+            if (not isinstance(rect, list) or len(rect) != 4 or not all(finite(v) for v in rect)
+                    or not bounds['minX'] <= rect[0] < rect[2] <= bounds['maxX']
+                    or not bounds['minY'] <= rect[1] < rect[3] <= bounds['maxY']):
+                raise ValueError('Planar rectangles use CAD [minX,minY,maxX,maxY] within part bounds')
+        return
     if value == {'surface': 'all'}:
+
         return
     if (set(value) != {'surface', 'minHeightMm', 'maxHeightMm'} or value['surface'] != 'exterior'
             or not 0 <= value['minHeightMm'] < value['maxHeightMm'] <= height):
@@ -18,12 +32,16 @@ def coatings(spec, evidence, dims):
     if len(layers) != 2 or [l['name'] for l in layers] != [l['name'] for l in evidence]:
         raise ValueError('Coating names/order must match archived material evidence')
     for layer, source in zip(layers, evidence):
-        region(layer['region'], dims['height'])
+        region(layer['region'], dims['height'], dims.get('bounds'))
         if source['application'] == 'exterior-below-dashed-boundary' and layer['region']['surface'] != 'exterior':
             raise ValueError('Exterior coating cannot paint the interior')
+        if source['application'] == 'planar-regions' and layer['region']['surface'] != 'planar-xy':
+            raise ValueError('Planar application requires explicit planar regions')
+        if layer['region']['surface'] == 'planar-xy' and source['application'] != 'planar-regions':
+            raise ValueError('Planar region requires matching material evidence')
         if source['application'] == 'full-coat' and layer['region']['surface'] != 'all':
             raise ValueError('Full coat evidence requires all surfaces')
-    region(spec['fired']['region'], dims['height'])
+    region(spec['fired']['region'], dims['height'], dims.get('bounds'))
     for color in [l['previewHex'] for l in layers]+[spec['fired']['baseHex'], spec['fired']['regionHex']]:
         if not re.fullmatch(r'#[0-9a-fA-F]{6}',color): raise ValueError('Invalid coating preview colour')
     if not 0 <= spec['roughness'] <= 1: raise ValueError('Invalid coating roughness')

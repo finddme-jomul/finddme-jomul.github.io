@@ -299,3 +299,22 @@ The STEP/STP filename must be adjacent to the source shape JSON. Preserve exact 
 Only one connected valid positive-volume BRep solid with no extra faces/edges is supported per part. Assemblies/disconnected solids, open shells and mesh formats are rejected. Use separate reviewed parts for multiple objects. The original geometry is tessellated/exported through the common compiler and gains the same drawing/frontBox/wire, lifecycle and one-coat page path. Imported partial/two-layer coatings are explicitly rejected because no pre-hollow exterior identity has been supplied; never classify the inner wall as exterior by guessing.
 
 `new/revise/resume --config` archives the exact STEP and original source JSON, plus a normalized shape JSON referencing the archived STEP. Model bytes are included in rebuild/page dependencies. Source-file changes require a newly reviewed hash and bounds; mismatches fail without replacing prior geometry. Existing projects remain reproducible after the original external file is removed. Standalone shape-build also preserves raw source bytes as `imported-source.step` and records the original source JSON; it does not rewrite the original filename in that JSON. To replay a standalone bundle, place those preserved STEP bytes beside its source JSON under the declared filename.
+
+### Planar XY glaze regions (feature solids)
+
+User-authorized v1 scope extension. In the explicit `feature-solids` two-pass review,
+`region: {"surface":"planar-xy","planeZMm":22,"rectanglesMm":[[-30,-20,30,20]]}`
+selects the union of 1–256 rectangles `[minX,minY,maxX,maxY]` in original CAD
+coordinates (millimetres, Z-up), on exterior horizontal upward-facing faces at
+the specified CAD Z plane. Regions and plane must lie within part bounds.
+Layer material evidence uses `application: planar-regions`; names and pass order
+still match the archived evidence. `fired.region` accepts the same mask.
+
+This supports flat painted areas and grooved slabs without creating separate
+tiles. Triangle clipping preserves hard boundaries; centered web coordinates
+are converted back to CAD coordinates. Side walls, lower groove floors and
+undersides are excluded. Existing all-surface and exterior-height inputs retain
+their behavior. Imported STEP, rotational-vessel planar masks, arbitrary curved
+UV painting and inclined planes remain unsupported. Palette, pass order and
+glaze application outside the mask require reviewed project inputs. Two passes
+are a visualization, not a chemical firing simulation.

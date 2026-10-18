@@ -701,7 +701,7 @@
     {
       "id": "feature-multiple-page",
       "state": "implemented-review-candidate",
-      "rule": "Homogeneous feature-solid lists use the shared multiple renderer, source BRep guides, explicit one-coat or reviewed two-layer exterior/full-surface materials and optional upright sequential placement. Explicit layered feature-solids reviews also support one part. No instance-count-specific scripts.",
+      "rule": "Homogeneous feature-solid lists use the shared multiple renderer, source BRep guides, explicit one-coat or reviewed two-layer exterior/full-surface or explicit CAD XY planar rectangle materials and optional upright sequential placement. Explicit layered feature-solids reviews also support one part. No instance-count-specific scripts.",
       "consumer": [
         "scripts/feature_multiple.py",
         "scripts/feature_surface.py",
@@ -716,9 +716,11 @@
         "suites": [
           "feature-assembly",
           "multiple-page-input",
-          "page-recovery"
+          "page-recovery",
+          "planar-coatings-contract",
+          "planar-coatings-mesh"
         ],
-        "scope": "CAD sampled collisions and shared review/recovery contracts; separate browser development evidence required. Not continuous collision or visual adoption.",
+        "scope": "CAD sampled collisions and shared review/recovery contracts; separate browser development evidence required. Not continuous collision or visual adoption. Planar region bounds, hard-edge triangle areas, translated CAD coordinates and non-top exclusions; actual board browser verification remains separate.",
         "browserCheck": "tests/check-multiple-page.cjs"
       }
     },

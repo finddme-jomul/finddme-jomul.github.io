@@ -11,7 +11,7 @@ import {fitComposition} from './scene/composition-framing.mjs';
 import {backgroundAt} from './scene/background-transition.mjs';
 import {installGallery} from './gallery.js';
 import {galleryProfile} from './gallery-config.js';
-import {exteriorAt,inRegion,coatingWeights,assemblyPosition,featureCoatingBands} from './scene/layered-vessels.mjs';
+import {exteriorAt,inRegion,coatingWeights,assemblyPosition,featureCoatingBands,featurePlanarRegions} from './scene/layered-vessels.mjs';
 
 export async function startMultiple(spec) {
   const host=document.querySelector('#viewer'),story=document.querySelector('#story');
@@ -48,7 +48,7 @@ export async function startMultiple(spec) {
     const meshes=[];gltf.scene.traverse(n=>{if(n.isMesh)meshes.push(n)});
     if(!meshes.length||!feature&&meshes.length!==1)throw Error('Missing complete mesh');
     gltf.scene.updateMatrixWorld(true);
-    let geometry;let exteriorFlags=[];
+    let geometry;let exteriorFlags=[];let surfaces=null;
     if(regions&&regions.primitiveExterior.length!==meshes.length)throw Error('Feature surface primitive mismatch');
     const offset=feature?[(part.boundsMm.minX+part.boundsMm.maxX)/2000,part.boundsMm.minZ/1000,-(part.boundsMm.minY+part.boundsMm.maxY)/2000]:[0,0,0];
     if(feature){
@@ -57,7 +57,8 @@ export async function startMultiple(spec) {
       geometry.translate(-offset[0],-offset[1],-offset[2]);
     }else{const original=meshes[0];original.updateWorldMatrix(true,false);geometry=original.geometry.clone().applyMatrix4(original.matrixWorld);}
     if(feature&&part.coatings){
-      const refined=featureCoatingBands(geometry.attributes.position.array,geometry.attributes.normal.array,exteriorFlags,part.dimensionsMm.height/1000);
+      let refined=featureCoatingBands(geometry.attributes.position.array,geometry.attributes.normal.array,exteriorFlags,part.dimensionsMm.height/1000);
+      refined=featurePlanarRegions(refined,[...part.coatings.layers.map(l=>l.region),part.coatings.fired.region],offset);surfaces=refined.surfaces;
       geometry.dispose();geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(refined.positions,3));geometry.setAttribute('normal',new THREE.Float32BufferAttribute(refined.normals,3));exteriorFlags=refined.exterior;
     }
     geometry.computeBoundingBox();
@@ -69,7 +70,7 @@ export async function startMultiple(spec) {
     const positions=geometry.attributes.position,values=[];
     for(let i=0;i<positions.count;i++){
       const fraction=clamp(positions.getY(i)/height),angle=Math.atan2(positions.getZ(i),positions.getX(i));
-      values.push({fraction,heightMm:positions.getY(i)*1000,exterior:feature?exteriorFlags[i]:exteriorAt(profile,Math.hypot(positions.getX(i),positions.getZ(i))*1000,positions.getY(i)*1000),coverage:sprayCoverage(angle,fraction,part.accentCenterAngle,part.accentWidthScale),base:base.clone().lerp(warm,.2+.09*Math.sin(angle*5+fraction*12)),accent:accent.clone().lerp(accentWarm,g.accentWarmMix||0)});
+      values.push({surface:surfaces?.[i],fraction,heightMm:positions.getY(i)*1000,exterior:feature?exteriorFlags[i]:exteriorAt(profile,Math.hypot(positions.getX(i),positions.getZ(i))*1000,positions.getY(i)*1000),coverage:sprayCoverage(angle,fraction,part.accentCenterAngle,part.accentWidthScale),base:base.clone().lerp(warm,.2+.09*Math.sin(angle*5+fraction*12)),accent:accent.clone().lerp(accentWarm,g.accentWarmMix||0)});
     }
     const colours=new THREE.BufferAttribute(new Float32Array(positions.count*3),3);geometry.setAttribute('color',colours);
     const material=new (feature?THREE.MeshPhysicalMaterial:THREE.MeshStandardMaterial)({vertexColors:true,roughness:.9,side:THREE.DoubleSide,transparent:true,opacity:0});
@@ -90,8 +91,8 @@ export async function startMultiple(spec) {
         const v=values[i],b=glazeRevealAt(v.fraction,baseP,timing.surfaceSweepWidth,glazeMotion.direction),a=part.accentEnabled?glazeRevealAt(v.fraction,accentP,timing.surfaceSweepWidth,glazeMotion.direction)*v.coverage*b:0;
         let c=clay.clone().lerp(feature?base:v.base,b).lerp(v.accent,a);
         if(part.coatings){
-          const coat=part.coatings,[first,second]=coatingWeights(coat,v.exterior,v.heightMm,part.dimensionsMm.height,baseP,accentP,timing.surfaceSweepWidth);
-          const finish=inRegion(coat.fired.region,v.exterior,v.heightMm)?coat.fired.regionHex:coat.fired.baseHex;
+          const coat=part.coatings,[first,second]=coatingWeights(coat,v.exterior,v.heightMm,part.dimensionsMm.height,baseP,accentP,timing.surfaceSweepWidth,v.surface);
+          const finish=inRegion(coat.fired.region,v.exterior,v.heightMm,v.surface)?coat.fired.regionHex:coat.fired.baseHex;
           c=clay.clone().lerp(new THREE.Color(coat.layers[0].previewHex),first).lerp(new THREE.Color(finish),second);
         }
         colours.setXYZ(i,c.r,c.g,c.b);
