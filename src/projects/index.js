@@ -12,7 +12,7 @@ import { project as coffee_cup } from './09-coffee-cup/project.js';
 import { project as ceramics_display } from './10-ceramics-display/project.js';
 import { project as flower_vase_drawing } from './11-flower-vase-drawing/project.js';
 
-export const projects = [
+const sourceProjects = [
   portrait_drawing,
   white_vessels,
   table_plates,
@@ -25,7 +25,21 @@ export const projects = [
   coffee_cup,
   ceramics_display,
   flower_vase_drawing,
-].sort((a, b) => Number(a.number) - Number(b.number));
+];
+const featured = [
+  [sudoku_pencil, '00', '체스', 'chess'],
+  [white_vessels, '01', '달항아리', 'moon-jar'],
+  [table_plates, '02', '접시 세 개', 'plates'],
+  [drawing_session, '03', '머그컵', 'mug'],
+  [plant_pot, '04', '그릇', 'bowls'],
+];
+const selected = new Set(featured.map(([project]) => project.id));
+export const projects = [
+  ...featured.map(([project, number, title, slug]) => ({...project, number, title, href: `/projects/${slug}/`})),
+  ...sourceProjects.filter(project => !selected.has(project.id)).map((project, index) => ({
+    ...project, number: String(index + 5).padStart(2, '0'), href: `/projects/${project.id}/`,
+  })),
+];
 
 const numbers = projects.map(project => project.number);
 if (numbers.some(number => !/^\d{2,}$/.test(number)) || new Set(numbers).size !== numbers.length) {

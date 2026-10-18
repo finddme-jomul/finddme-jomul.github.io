@@ -20,7 +20,6 @@ let grid = motion.matches;
 let angle = 0;
 let target = 0;
 let raf = 0;
-let lastFocus;
 const orbitProjects = projects.slice(0, 12);
 const count = orbitProjects.length;
 const mobileComposition = import.meta.env.DEV && new URLSearchParams(location.search).get('orbit-preview') === 'immersive'
@@ -31,7 +30,7 @@ let layout;
 const cards = orbitProjects.map((project, index) => {
   const link = document.createElement('a');
   link.className = 'work-card';
-  link.href = `#project/${project.id}`;
+  link.href = project.href;
   link.style.setProperty('--tone', project.tone);
   link.setAttribute('aria-label', `${project.title} 프로젝트 보기`);
   link.style.setProperty('--tile-image', `url("${project.cover}")`);
@@ -137,38 +136,12 @@ stage.addEventListener('keydown', (event) => {
 bindOrbitInput({
   wheelTarget: section,
   dragTarget: stage,
-  enabled: () => !grid && !$('#project-dialog').open,
+  enabled: () => !grid,
   onDelta: step,
 });
 window.addEventListener('resize', updateTarget);
 motion.addEventListener('change', () => setView(motion.matches));
-const dialog = $('#project-dialog');
-function syncProject() {
-  const project = projects.find((item) => location.hash === `#project/${item.id}`);
-  if (!project) {
-    if (dialog.open) dialog.close();
-    return;
-  }
-  $('#project-title').textContent = project.title;
-  $('#project-description').textContent = project.description;
-  $('#project-image').src = project.cover;
-  $('#project-image').alt = project.coverAlt || project.assets?.photo?.[0]?.alt || `${project.title} 대표 이미지`;
-  $('.project-image').style.background = project.tone;
-  for (const label of dialog.querySelectorAll('[data-asset]')) {
-    const kind = label.dataset.asset;
-    label.textContent = project.assets[kind]?.length ? '등록됨' : kind === 'actual' ? '확인 전' : '미등록';
-  }
-  if (!dialog.open) { lastFocus = document.activeElement; dialog.showModal(); }
-  document.body.classList.add('modal-open');
-}
-function closeProject() {
-  history.replaceState(null, '', location.pathname + location.search);
-  dialog.close();
-}
-$('.close').addEventListener('click', closeProject);
-dialog.addEventListener('cancel', (event) => { event.preventDefault(); closeProject(); });
-dialog.addEventListener('click', (event) => { if (event.target === dialog) { const r = dialog.getBoundingClientRect(); if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) closeProject(); } });
-dialog.addEventListener('close', () => { document.body.classList.remove('modal-open'); lastFocus?.focus({ preventScroll: true }); });
-window.addEventListener('hashchange', syncProject);
+// Preserve old bookmarked hash URLs while using full-page navigation.
+const legacy = projects.find(project => location.hash === `#project/${project.id}`);
+if (legacy) location.replace(legacy.href);
 setView(grid);
-syncProject();
