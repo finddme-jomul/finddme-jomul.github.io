@@ -47,7 +47,12 @@
     "scene/layered-vessels.mjs": "b1003df3d38a9d42c4ff938e1ea087176cf4abbf2e71063a16a4498396b3a19f",
     "scene/oriented-framing.mjs": "cf429bd19371e21ce95ff4f0d1eccf66a135d5888b48e210764f85e4717f6fbd",
     "scene-defaults.mjs": "64f56619efe594349a4d71a3b44f88367af8132e05bf79713a662feef8d0e609",
-    "viewer.js": "af11342232d1593369cf5abb321cd09263d189a0d307fbb831c501abae584bc4",
+    "viewer.js": "a494a699b28633455cf6e595458e8f6d682ca98630750964cb75f6b92734c6b4",
     "wire-color.mjs": "05d0dc90c698e27a3156e6ed223cef1056133ee13624bc085993897bd95a5324"
+  },
+  "hostPacing": {
+    "module": "/project-scroll.mjs",
+    "policy": "/project-scroll-map.mjs",
+    "scope": "site export only; original approval evidence unchanged"
   }
 }

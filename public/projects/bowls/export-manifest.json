@@ -21,6 +21,11 @@
     "scene/background-transition.mjs": "7023122b744c7b5897df30207c14472c84dae90fb5e501cb3a54da651fad9fb4",
     "scene/composition-framing.mjs": "c168b28f84dbd27a7ab75d0248d27b315911b5f31a40a1584117ab5163984736",
     "scene/glaze-motion.mjs": "3c3efb83de4dadbafad7397d99217f563be7e484ea75af24ee14d05a1b7649d6",
-    "viewer.js": "af897eb140598a7efd9383b9f821fd43e9d7a08e93ea782835e8fe40107e99de"
+    "viewer.js": "c15fcb236d4cd42e88df3fd0c0afa32081bceea546a60d6380c9cc9b360bd4f6"
+  },
+  "hostPacing": {
+    "module": "/project-scroll.mjs",
+    "policy": "/project-scroll-map.mjs",
+    "scope": "site export only; original approval evidence unchanged"
   }
 }
