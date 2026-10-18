@@ -147,12 +147,21 @@ export async function startMultiple(spec) {
     let radius=0;for(let i=0;i<a.count;i++)radius=Math.max(radius,Math.hypot(a.getX(i),a.getZ(i)));
     if(v.part.motion.varyingDropAxis)radius+=v.height/2*Math.sin(THREE.MathUtils.degToRad(glazeMotion.maxAxisTiltDegrees));
     const [x,y,z]=step.targetPositionMm.map(n=>n/1000);
-    return {bounds:{min:{x:x-radius,y,z:z-radius},max:{x:x+radius,y:y+step.dropHeightMm/1000+v.height,z:z+radius}},position:{x:0,y:0,z:0},scale:1};
+    const [dx,dz]=(step.approachOffsetMm??[0,0]).map(n=>n/1000);
+    return {bounds:{min:{x:Math.min(x,x+dx)-radius,y,z:Math.min(z,z+dz)-radius},max:{x:Math.max(x,x+dx)+radius,y:y+step.dropHeightMm/1000+v.height,z:Math.max(z,z+dz)+radius}},position:{x:0,y:0,z:0},scale:1};
   }):null;
   const cadPages=installCadPages({spec,sheet,image,requestFrame});
   const frontSources=new Set(),frontRepresentatives=new Set();
   for(const v of vessels){const source=v.part.sourcePartId||v.id;if(!frontSources.has(source)){frontSources.add(source);frontRepresentatives.add(v.id)}}
   const radialPoints=directDrop?vessels.flatMap((v,i)=>{
+    const offset=assembly.steps.find(s=>s.partId===v.id).approachOffsetMm??[0,0];
+    if(offset.some(n=>n!==0)){
+      // Convex sweep of two radial envelopes covers the entire diagonal approach.
+      const b=dropBounds[i].bounds,[dx,dz]=offset.map(n=>n/1000);
+      return radialEnvelopePoints([0,1].map(k=>({bounds:{
+        min:{x:b.min.x-Math.min(0,dx)+k*dx,y:b.min.y,z:b.min.z-Math.min(0,dz)+k*dz},
+        max:{x:b.max.x-Math.max(0,dx)+k*dx,y:b.max.y,z:b.max.z-Math.max(0,dz)+k*dz}}})));
+    }
     if(!v.part.motion.fixedOrientation)return radialEnvelopePoints([dropBounds[i]]);
     const b=v.geometry.boundingBox,s=assembly.steps.find(s=>s.partId===v.id),[x,y,z]=s.targetPositionMm.map(n=>n/1000),points=[];
     for(const px of [b.min.x,b.max.x])for(const pz of [b.min.z,b.max.z])for(const py of [0,v.height+s.dropHeightMm/1000])points.push([x+px,y+py,z+pz]);
@@ -186,8 +195,8 @@ export async function startMultiple(spec) {
     for(const v of vessels){
       const m=v.part.motion,drop=smooth((motionP-timing.dropStart-m.dropDelay)/(timing.dropDuration*(m.dropDurationScale??1))),settle=smooth((motionP-timing.settleStart-m.dropDelay)/timing.settleDuration);
       const initialX=small?m.entryXMobile:m.entryXDesktop,step=assembly?.steps.find(s=>s.partId===v.id);
-      const finalX=directDrop?step.targetPositionMm[0]/1000:(small?m.finalXMobile:m.finalXDesktop);
-      const hoverY=directDrop?(step.targetPositionMm[1]+step.dropHeightMm)/1000:0,finalZ=directDrop?step.targetPositionMm[2]/1000:0;
+      const finalX=directDrop?(step.targetPositionMm[0]+(step.approachOffsetMm?.[0]??0))/1000:(small?m.finalXMobile:m.finalXDesktop);
+      const hoverY=directDrop?(step.targetPositionMm[1]+step.dropHeightMm)/1000:0,finalZ=directDrop?(step.targetPositionMm[2]+(step.approachOffsetMm?.[1]??0))/1000:0;
       v.main.position.set(initialX+(finalX-initialX)*drop,((small?layout.mobileEntryY:layout.desktopEntryY)+(m.entryYOffset??0))*(1-drop)+(hoverY+v.height*m.settledScale/2)*drop+Math.sin(drop*Math.PI*3)*layout.dropBounceY*(1-drop),(m.entryZ??layout.entryZ)*(1-drop)+finalZ*drop);
       const entryScale=small?m.cadToWireScaleMobile:m.cadToWireScale;v.main.scale.setScalar(entryScale+(m.settledScale-entryScale)*drop);
       const lastCoat=timing.accentGlazeStart===null?timing.baseGlazeStart+timing.baseGlazeDuration:timing.accentGlazeStart+timing.accentGlazeDuration;
