@@ -2,6 +2,7 @@ import './style.css';
 import { projects } from './projects/index.js';
 import { bindOrbitInput } from './orbit-input.js';
 import { mountAsciiCenter } from './ascii-center.js';
+import { advanceCoast } from './orbit-motion.js';
 import { getCssOrbitLayout } from './css-orbit-layout.js';
 
 const $ = (selector) => document.querySelector(selector);
@@ -22,6 +23,7 @@ let target = 0;
 let raf = 0;
 let previousFrame = 0;
 let dragging = false;
+let velocity = 0;
 const orbitProjects = projects.slice(0, 12);
 const count = orbitProjects.length;
 const mobileComposition = import.meta.env.DEV && new URLSearchParams(location.search).get('orbit-preview') === 'immersive'
@@ -63,6 +65,12 @@ function render(now) {
   const elapsed = previousFrame ? Math.min(64, now - previousFrame) : 1000 / 60;
   previousFrame = now;
   const mobile = innerWidth <= 700;
+  if (velocity && !dragging && !grid && !motion.matches) {
+    const coast = advanceCoast(velocity, elapsed);
+    target += coast.distance;
+    angle = target;
+    velocity = coast.velocity;
+  }
   // Rebase both together so long sessions retain floating-point precision.
   if (Math.abs(angle) > count * 100) {
     const turns = Math.trunc(angle / count) * count;
@@ -122,17 +130,18 @@ function render(now) {
     }
     card.classList.toggle('is-active', i === index);
   });
-  if (Math.abs(target - angle) > 0.001) raf = requestAnimationFrame(render);
+  if (velocity || Math.abs(target - angle) > 0.001) raf = requestAnimationFrame(render);
   else previousFrame = 0;
 }
 function setView(value) {
+  velocity = 0;
   grid = value;
   document.documentElement.classList.toggle('orbit-mode', !grid);
   window.scrollTo({ top: 0, behavior: 'instant' });
   section.classList.toggle('is-grid', grid);
   updateTarget();
 }
-function step(delta) { target += delta; updateTarget(); }
+function step(delta) { velocity = 0; target += delta; updateTarget(); }
 $('#previous').addEventListener('click', () => step(-1));
 $('#next').addEventListener('click', () => step(1));
 stage.addEventListener('keydown', (event) => {
@@ -148,6 +157,18 @@ bindOrbitInput({
   enabled: () => !grid,
   onDelta: step,
   dragButtonSelector: ".orbit-center",
+  pixelsPerStep: 120,
+  onGrab: () => {
+    const moving = Math.abs(velocity) > .0001;
+    velocity = 0; target = angle;
+    return moving;
+  },
+  onRelease: speed => {
+    // Units are cards/ms; cap extreme event spikes while allowing a long flick.
+    velocity = motion.matches ? 0 : Math.max(-.025, Math.min(.025, speed));
+    if (Math.abs(velocity) < .0003) velocity = 0;
+    updateTarget();
+  },
   onDragState: value => { dragging = value; },
 });
 window.addEventListener('resize', updateTarget);
