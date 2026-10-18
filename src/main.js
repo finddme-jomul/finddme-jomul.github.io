@@ -20,6 +20,8 @@ let grid = motion.matches;
 let angle = 0;
 let target = 0;
 let raf = 0;
+let previousFrame = 0;
+let dragging = false;
 const orbitProjects = projects.slice(0, 12);
 const count = orbitProjects.length;
 const mobileComposition = import.meta.env.DEV && new URLSearchParams(location.search).get('orbit-preview') === 'immersive'
@@ -36,7 +38,7 @@ const cards = orbitProjects.map((project, index) => {
   link.style.setProperty('--tile-image', `url("${project.cover}")`);
   link.innerHTML = `<span class="tile-edge edge-one" aria-hidden="true"></span><span class="tile-edge edge-two" aria-hidden="true"></span><span class="tile-edge edge-three" aria-hidden="true"></span><div class="sheet-art"><span class="sun-spark" aria-hidden="true"></span><img src="${project.cover}" alt="${project.coverAlt || project.assets?.photo?.[0]?.alt || `${project.title} 대표 이미지`}" width="512" height="640"></div><span class="tile-back" aria-hidden="true"><span class="sun-spark"></span></span>`;
   link.addEventListener('focus', () => {
-    if (!grid) {
+    if (!grid && link.matches(':focus-visible')) {
       const nearest = target + ((((index - target) % count) + count + count / 2) % count - count / 2);
       target = nearest;
       updateTarget();
@@ -56,27 +58,31 @@ const lightPatches = cards.map(() => {
 function updateTarget() {
   if (!raf) raf = requestAnimationFrame(render);
 }
-function render() {
+function render(now) {
   raf = 0;
+  const elapsed = previousFrame ? Math.min(64, now - previousFrame) : 1000 / 60;
+  previousFrame = now;
+  const mobile = innerWidth <= 700;
   // Rebase both together so long sessions retain floating-point precision.
   if (Math.abs(angle) > count * 100) {
     const turns = Math.trunc(angle / count) * count;
     angle -= turns;
     target -= turns;
   }
-  angle += (target - angle) * (motion.matches ? 1 : 0.12);
+  angle += (target - angle) * (motion.matches || dragging ? 1 : 1 - Math.exp(-elapsed / 130));
   // A shared tilted 3D space handles projection and occlusion for every tile.
   const key = `${count}:${stage.clientWidth}:${stage.clientHeight}:${innerHeight}:${innerWidth}`;
   if (layoutKey !== key) {
     layoutKey = key;
     layout = getCssOrbitLayout({count, width: stage.clientWidth, height: innerHeight, stageHeight: stage.clientHeight, headerHeight: innerWidth <= 700 ? 110 : 150, perspective: innerWidth <= 700 ? 950 : 1500, mobileComposition});
+    const { size, fit, centerSize } = layout;
+    section.style.setProperty('--orbit-fit', fit);
+    section.style.setProperty('--center-size', `${centerSize}px`);
+    section.dataset.orbitRadius = layout.radius.toFixed(2);
+    section.dataset.orbitFit = fit.toFixed(4);
+    section.style.setProperty('--tile-size', `${size}px`);
   }
-  const { radius, size, fit, centerSize } = layout;
-  section.style.setProperty('--orbit-fit', fit);
-  section.style.setProperty('--center-size', `${centerSize}px`);
-  section.dataset.orbitRadius = radius.toFixed(2);
-  section.dataset.orbitFit = fit.toFixed(4);
-  section.style.setProperty('--tile-size', `${size}px`);
+  const { radius, size, centerSize } = layout;
   if (!grid) asciiCenter.render(-angle * Math.PI * 2 / count, centerSize);
   const index = ((Math.round(angle) % count) + count) % count;
   cards.forEach((card, i) => {
@@ -86,7 +92,7 @@ function render() {
     // Radial planes: tiles turn edge-on at the front/back of the ring.
     const yaw = theta * 180 / Math.PI + 90;
     // A nearly edge-on card otherwise reads as a pole through the centerpiece.
-    const edgeT = grid ? 1 : Math.max(0, Math.min(1, (Math.abs(Math.sin(theta)) - .10) / .14));
+    const edgeT = grid ? 1 : Math.max(0, Math.min(1, (Math.abs(Math.sin(theta)) - (mobile ? .02 : .10)) / (mobile ? .30 : .14)));
     card.style.setProperty('--edge-on-visibility', edgeT * edgeT * (3 - 2 * edgeT));
     // Fully edge-on cards are invisible but could still intercept the centre button.
     card.style.pointerEvents = !grid && edgeT < .05 ? 'none' : '';
@@ -99,22 +105,25 @@ function render() {
     const localZ = 0.65 * Math.sin(tilt) + 0.57 * Math.cos(tilt);
     const facing = lightX * Math.sin(rotation) + localZ * Math.cos(rotation);
     const across = lightX * Math.cos(rotation) - localZ * Math.sin(rotation);
-    card.style.setProperty('--glint-x', `${50 + across * 38}%`);
-    card.style.setProperty('--back-glint-x', `${50 - across * 38}%`);
-    card.style.setProperty('--front-light', (0.16 + Math.max(0, facing) * 0.55).toFixed(3));
-    card.style.setProperty('--back-light', (0.16 + Math.max(0, -facing) * 0.55).toFixed(3));
-    // Narrow specular peak: brief glints as a face passes the light/view half-vector.
-    const specular = Math.pow(Math.abs(Math.cos(rotation + 0.4)), 24);
-    card.style.setProperty('--spark', (0.04 + specular * 0.96).toFixed(3));
-    card.style.setProperty('--spark-x', `${30 + across * 24}%`);
-    const patch = lightPatches[i];
-    patch.style.width = `${size * (0.85 + Math.abs(facing) * 0.65)}px`;
-    patch.style.height = `${size * 0.78}px`;
-    patch.style.transform = `translate(-50%, -50%) translate3d(${x + size * 0.48}px, ${size * 0.78}px, ${z + size * 0.22}px) rotateX(90deg) rotateZ(${Math.sin(theta) * 30}deg)`;
-    patch.style.opacity = (0.35 + Math.abs(facing) * 0.5).toFixed(3);
+    if (!mobile) {
+      card.style.setProperty('--glint-x', `${50 + across * 38}%`);
+      card.style.setProperty('--back-glint-x', `${50 - across * 38}%`);
+      card.style.setProperty('--front-light', (0.16 + Math.max(0, facing) * 0.55).toFixed(3));
+      card.style.setProperty('--back-light', (0.16 + Math.max(0, -facing) * 0.55).toFixed(3));
+      // Narrow specular peak: brief glints as a face passes the light/view half-vector.
+      const specular = Math.pow(Math.abs(Math.cos(rotation + 0.4)), 24);
+      card.style.setProperty('--spark', (0.04 + specular * 0.96).toFixed(3));
+      card.style.setProperty('--spark-x', `${30 + across * 24}%`);
+      const patch = lightPatches[i];
+      patch.style.width = `${size * (0.85 + Math.abs(facing) * 0.65)}px`;
+      patch.style.height = `${size * 0.78}px`;
+      patch.style.transform = `translate(-50%, -50%) translate3d(${x + size * 0.48}px, ${size * 0.78}px, ${z + size * 0.22}px) rotateX(90deg) rotateZ(${Math.sin(theta) * 30}deg)`;
+      patch.style.opacity = (0.35 + Math.abs(facing) * 0.5).toFixed(3);
+    }
     card.classList.toggle('is-active', i === index);
   });
   if (Math.abs(target - angle) > 0.001) raf = requestAnimationFrame(render);
+  else previousFrame = 0;
 }
 function setView(value) {
   grid = value;
@@ -138,6 +147,8 @@ bindOrbitInput({
   dragTarget: stage,
   enabled: () => !grid,
   onDelta: step,
+  dragButtonSelector: ".orbit-center",
+  onDragState: value => { dragging = value; },
 });
 window.addEventListener('resize', updateTarget);
 motion.addEventListener('change', () => setView(motion.matches));
