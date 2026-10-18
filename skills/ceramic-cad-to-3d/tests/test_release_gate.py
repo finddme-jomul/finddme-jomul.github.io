@@ -113,6 +113,27 @@ class ReleaseGate(unittest.TestCase):
         (project/'pipeline-state.json').write_text(json.dumps(state))
         with self.assertRaisesRegex(ValueError,'Incomplete browser'):self.run_gate()
 
+    def test_integration_requires_authorization_and_history(self):
+        self.data['evaluationPolicy']='integration'
+        with self.assertRaises(KeyError):self.run_gate()
+        self.data['evaluationPolicyDecision']=self.write('policy.json',{'status':'user-authorized','policy':'integration','quote':'Synthetic authorization','sourceMessage':'unit test'})
+        for case in self.data['cases']:
+            case['evaluationAttestation']=self.change_record(case['evaluationAttestation'],unusedBeforeEvaluation=False,developmentHistory='Synthetic development history')
+        result=self.run_gate()
+        self.assertFalse(result['heldOutEvaluation'])
+        self.assertEqual(result['status'],'passed-within-v1-scope')
+        self.data['cases'][0]['evaluationAttestation']=self.change_record(self.data['cases'][0]['evaluationAttestation'],developmentHistory='')
+        with self.assertRaisesRegex(ValueError,'development history'):self.run_gate()
+
+    def test_technical_mode_does_not_imply_visual_release(self):
+        for case in self.data['cases']:case.pop('visualApproval')
+        self.write('release.json',self.data)
+        result=gate.check(self.root/'release.json',technical=True)
+        self.assertEqual(result['status'],'technical-checks-passed')
+        self.assertEqual(len(result['visualReviewPending']),2)
+        self.assertEqual(self.verify.call_count,2)
+        with self.assertRaises(KeyError):self.run_gate()
+
     def test_evidence_cannot_escape_workspace(self):
         self.data['decisions']={'path':'../outside.json','sha256':'0'*64}
         with self.assertRaisesRegex(ValueError,'inside workspace'):self.run_gate()
