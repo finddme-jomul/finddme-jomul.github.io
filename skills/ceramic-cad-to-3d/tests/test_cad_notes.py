@@ -27,3 +27,5 @@ class CadNotes(unittest.TestCase):
             self.assertIn(note,[e.text for e in svg.iter()])
             self.assertEqual(result['pages'][0]['dimensionNotes'],[note])
             self.assertEqual(len([e for e in svg.iter() if e.get('data-view')]),6)
+
+if __name__=='__main__':unittest.main()

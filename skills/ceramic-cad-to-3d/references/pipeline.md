@@ -262,9 +262,16 @@ External STEP uses the common feature compiler with an explicit imported constru
 
 User adopted the existing multiple-photo sizes/positions (bounded-scatter-v1). This does not adopt feature CAD/wire or landing. The same user reported apparent re-ascent during final direct-drop landing. Keep the approved soft spin and short gaps; use a deterministic full-path camera envelope during landing so per-frame reframing cannot lift stationary/descending pieces on screen. Inspect forward/reverse desktop/mobile trajectories. Chess sketches do not exist yet; unused final evaluation input remains unavailable.
 
+## Current closure policy — integration E2E
+
+The user chose to finish with the chess integration evidence rather than require another unused sketch (conversation: “독립 E2E는 체스로 한 거 아니야?” followed by “쭉 한번에 진행해 줄 수 있어?” after the integration closure plan). Chess single-board and multiple-set cases may be used, with development/tuning history disclosed. Do not claim held-out performance. Do not add new features or new input requirements to closure. Historical unused-input requirements below are the stricter optional evaluation policy, not a mandatory requirement for this authorized integration closure.
+
 ## V1 release evidence gate
 
 Run `scripts/run.py --workspace ROOT preflight --release --evidence FILE.json`.
+Add `--technical` to check all technical evidence while listing missing/invalid per-output visual approvals. This emits `CERAMIC_TECHNICAL_OK`, never `CERAMIC_RELEASE_OK`; it does not approve a page. The normal release gate still requires real approvals for the exact output hashes.
+
+The evidence may specify `evaluationPolicy: "integration"` plus an `evaluationPolicyDecision` artifact with `policy: "integration"`, `status: "user-authorized"`, actual `quote` and `sourceMessage`. Each attestation must disclose a nonempty `developmentHistory` and the truthful boolean `unusedBeforeEvaluation`. Omitted policy defaults to `unused-input`, retaining its strict unused-input requirement. Integration output is explicitly labelled `heldOutEvaluation: false`. Both policies require current runtime, complete single/multiple outputs, all regression suites, browser gates, source hashes and geometry verification.
 This read-only command verifies existing artifacts and invokes project `verify`;
 it never generates pages, clears pending stages or publishes a site. It reports
 `CERAMIC_RELEASE_OK` only for the frozen scope and named evaluation outputs.
@@ -290,11 +297,11 @@ inside the workspace and match real bytes, including symlink resolution.
   all 12 scenes at desktop/short/mobile/mobile-short. Project geometry `verify`
   must pass. Cases use separate projects; a shared sketch is permitted.
 - The evaluation attestation contains current `runtimeSha256`,
-  `unusedBeforeEvaluation: true`, `reviewer`, `sourceMessage`, and a `source`
+  truthful `unusedBeforeEvaluation` (`true` required only by `unused-input` policy), `reviewer`, `sourceMessage`, and a `source`
   artifact ref matching the archived sketch. This is an audited human/agent
   provenance statement, not a machine proof of historical non-use. Never label
   existing development inputs held-out; if evaluation drives code tuning, record
-  that change and obtain unused input before claiming held-out success.
+  that change. Obtain unused input only when claiming held-out success; integration closure discloses the development history instead.
 - Each case's visual approval contains `status: user-approved`, actual `quote`,
   `sourceMessage`, matching `project`/`revision`, and `outputFilesSha256` copied
   from that reviewed revision. Approval cannot be transferred to altered output.
