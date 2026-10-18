@@ -373,3 +373,11 @@ Optional `motion.framing.envelope: "radial-drop"` requires direct-drop assembly.
 Optional `motion.lighting` accepts `exposure` (0–3; omitted uses the selected profile) and `pointLightScale` (0–2; default 1). Reduce these for bright white glazes when close point lights wash out surface detail. This changes illumination only, not glaze colours, roughness, geometry or timing.
 
 `softPartIds` optionally names expanded scene part IDs whose direct illumination alone is multiplied by `softPointLightScale` (0–1, default 1). Other parts and ambient lighting retain their original response. Use this when reducing glare on white pieces must preserve adjacent dark glaze appearance.
+
+### Varied direct-drop staging
+
+Optional per-part motion inputs (including instance overrides): `fixedOrientation` keeps a wide foundation horizontal; `entryYOffset` and `entryZ` set distinct entry staging in metres; `dropDurationScale` (0.5–1.5, default 1) varies initial fall speed. `varyingDropAxis` retains a changing axis into the soft landing, becoming upright by 70% of the individual landing. `spinPhaseDegrees` and `axisPhaseDegrees` (−360…360, default0) vary starting orientation and ease to the exact final whole-turn orientation. These pose options require feature soft-spin direct-drop. Set explicit values in reviewed inputs, not random values at render time. All assembly poses are checked with the same transformed CAD rig. The existing gentle-staggered landing-gap contract still applies; reorder step IDs to avoid row-by-row departures.
+
+For a fixed-orientation foundation, oriented framing uses its rectangular bounds instead of an all-yaw circle. The camera remains fixed from glazing through landing. Keep the foundation below the other pieces at CAD entry and through clay reveal; clipping tests alone do not prove visibility.
+
+Optional `motion.framing.focusY` (metres, −2…2) sets the fixed radial-drop view target height; staging blends into it before landing. Use it to balance the composition vertically without enlarging physical dimensions or moving the camera during landing.

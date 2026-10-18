@@ -60,6 +60,11 @@ def validate(review, ids):
         for key in ('axisTiltDegrees','axisDriftZDegrees','axisDriftXDegrees'):
             if not -90 <= m[key] <= 90: raise ValueError('Invalid part axis')
         if not 0 <= m['dropDelay'] <= .2: raise ValueError('Invalid drop delay')
+        for key,lo,hi in [('dropDurationScale',.5,1.5),('entryYOffset',-2,2),('entryZ',-2,2),('spinPhaseDegrees',-360,360),('axisPhaseDegrees',-360,360)]:
+            if key in m and (isinstance(m[key],bool) or not isinstance(m[key],(int,float)) or not lo<=m[key]<=hi):raise ValueError('Invalid part '+key)
+        for key in ('fixedOrientation','varyingDropAxis'):
+            if key in m and not isinstance(m[key],bool):raise ValueError('Invalid '+key)
+        if (m.get('varyingDropAxis') or m.get('fixedOrientation')) and ((review.get('assembly') or {}).get('mode')!='direct-drop' or (review.get('assembly') or {}).get('landing')!='soft-spin'):raise ValueError('Drop pose options require soft-spin direct-drop')
         g=p['glazePreview']
         for key in ('baseWarmHex','accentWarmHex'):
             if key in g and not re.fullmatch(r'#[0-9a-fA-F]{6}',g[key]): raise ValueError('Invalid glaze colour')
@@ -68,6 +73,7 @@ def validate(review, ids):
     if m['camera']['fov'] != 32:
         raise ValueError('Current multiple review uses the selected 32-degree camera')
     framing=m['framing']
+    if 'focusY' in framing and (isinstance(framing['focusY'],bool) or not isinstance(framing['focusY'],(int,float)) or not -2<=framing['focusY']<=2):raise ValueError('Invalid framing focusY')
     if not framing['enabled']: raise ValueError('Multiple review requires transformed bounds framing')
     for key in ('desktopWidthFraction','mobileWidthFraction','desktopHeightFraction','mobileHeightFraction'):
         if not .1<=framing[key]<=.98: raise ValueError('Invalid framing fraction')

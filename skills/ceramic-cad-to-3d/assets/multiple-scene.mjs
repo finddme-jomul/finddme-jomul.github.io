@@ -1,3 +1,4 @@
+import {dropPose} from './scene/drop-pose.mjs';
 import {createCadScroll} from './scene/cad-scroll.mjs';
 import {installCadPages} from './scene/cad-pages.mjs';
 import {sceneDefaults} from './scene-defaults.mjs';
@@ -144,13 +145,19 @@ export async function startMultiple(spec) {
   const dropBounds=directDrop?vessels.map(v=>{
     const step=assembly.steps.find(s=>s.partId===v.id),a=v.geometry.attributes.position;
     let radius=0;for(let i=0;i<a.count;i++)radius=Math.max(radius,Math.hypot(a.getX(i),a.getZ(i)));
+    if(v.part.motion.varyingDropAxis)radius+=v.height/2*Math.sin(THREE.MathUtils.degToRad(glazeMotion.maxAxisTiltDegrees));
     const [x,y,z]=step.targetPositionMm.map(n=>n/1000);
     return {bounds:{min:{x:x-radius,y,z:z-radius},max:{x:x+radius,y:y+step.dropHeightMm/1000+v.height,z:z+radius}},position:{x:0,y:0,z:0},scale:1};
   }):null;
   const cadPages=installCadPages({spec,sheet,image,requestFrame});
   const frontSources=new Set(),frontRepresentatives=new Set();
   for(const v of vessels){const source=v.part.sourcePartId||v.id;if(!frontSources.has(source)){frontSources.add(source);frontRepresentatives.add(v.id)}}
-  const radialPoints=directDrop?radialEnvelopePoints(dropBounds):null;
+  const radialPoints=directDrop?vessels.flatMap((v,i)=>{
+    if(!v.part.motion.fixedOrientation)return radialEnvelopePoints([dropBounds[i]]);
+    const b=v.geometry.boundingBox,s=assembly.steps.find(s=>s.partId===v.id),[x,y,z]=s.targetPositionMm.map(n=>n/1000),points=[];
+    for(const px of [b.min.x,b.max.x])for(const pz of [b.min.z,b.max.z])for(const py of [0,v.height+s.dropHeightMm/1000])points.push([x+px,y+py,z+pz]);
+    return points;
+  }):null;
   function frontPlacement(v,p){
     if(cadPages&&!frontRepresentatives.has(v.id)){v.front.style.opacity='0';return;}
 
@@ -177,11 +184,11 @@ export async function startMultiple(spec) {
     cadPages?.update(p);
     const bounds=[];
     for(const v of vessels){
-      const m=v.part.motion,drop=smooth((motionP-timing.dropStart-m.dropDelay)/timing.dropDuration),settle=smooth((motionP-timing.settleStart-m.dropDelay)/timing.settleDuration);
+      const m=v.part.motion,drop=smooth((motionP-timing.dropStart-m.dropDelay)/(timing.dropDuration*(m.dropDurationScale??1))),settle=smooth((motionP-timing.settleStart-m.dropDelay)/timing.settleDuration);
       const initialX=small?m.entryXMobile:m.entryXDesktop,step=assembly?.steps.find(s=>s.partId===v.id);
       const finalX=directDrop?step.targetPositionMm[0]/1000:(small?m.finalXMobile:m.finalXDesktop);
       const hoverY=directDrop?(step.targetPositionMm[1]+step.dropHeightMm)/1000:0,finalZ=directDrop?step.targetPositionMm[2]/1000:0;
-      v.main.position.set(initialX+(finalX-initialX)*drop,(small?layout.mobileEntryY:layout.desktopEntryY)*(1-drop)+(hoverY+v.height*m.settledScale/2)*drop+Math.sin(drop*Math.PI*3)*layout.dropBounceY*(1-drop),layout.entryZ*(1-drop)+finalZ*drop);
+      v.main.position.set(initialX+(finalX-initialX)*drop,((small?layout.mobileEntryY:layout.desktopEntryY)+(m.entryYOffset??0))*(1-drop)+(hoverY+v.height*m.settledScale/2)*drop+Math.sin(drop*Math.PI*3)*layout.dropBounceY*(1-drop),(m.entryZ??layout.entryZ)*(1-drop)+finalZ*drop);
       const entryScale=small?m.cadToWireScaleMobile:m.cadToWireScale;v.main.scale.setScalar(entryScale+(m.settledScale-entryScale)*drop);
       const lastCoat=timing.accentGlazeStart===null?timing.baseGlazeStart+timing.baseGlazeDuration:timing.accentGlazeStart+timing.accentGlazeDuration;
       const axis=continuingAxis(m.axisTiltDegrees,m.axisDriftZDegrees,m.axisDriftXDegrees,drop,settle,smooth((motionP-lastCoat)/(rotationEnd-lastCoat)),glazeMotion.axisRetainFraction,glazeMotion.maxAxisTiltDegrees);
@@ -191,6 +198,8 @@ export async function startMultiple(spec) {
       const spinAt=turns=>softSpin?smooth((motionP-timing.baseGlazeStart)/(spinEnd-timing.baseGlazeStart))*turns:glazeSpinAt(motionP,timing.baseGlazeStart,spinEnd,turns);
       const turns=spinAt(glazeMotion.spinTurns);
       applyAxisPose(v,{bodyY:(drop*m.turns+turns)*2*Math.PI,orbitY:(drop*m.orbitTurns+spinAt(glazeMotion.axisPrecessionTurns))*2*Math.PI,tiltX:THREE.MathUtils.degToRad(axis.xDegrees)*axisFade,tiltZ:THREE.MathUtils.degToRad(axis.zDegrees)*axisFade});
+      if(m.fixedOrientation)applyAxisPose(v,{bodyY:0,orbitY:0,tiltX:0,tiltZ:0});
+      else if(directDrop&&m.varyingDropAxis)applyAxisPose(v,dropPose(m,glazeMotion,timing,assembly,step,motionP,drop,settle,axisFade));
       const clay=smooth((motionP-timing.clayStart-m.dropDelay)/timing.clayDuration),base=smooth((motionP-timing.baseGlazeStart)/timing.baseGlazeDuration),accent=timing.accentGlazeStart===null?0:smooth((motionP-timing.accentGlazeStart)/timing.accentGlazeDuration);
       v.material.opacity=clay;v.material.depthWrite=clay>.98;v.wireMaterial.opacity=(1-clay)*smooth((p-timing.wireFadeStart)/timing.wireFadeDuration);v.material.visible=clay>0;v.wireMaterial.visible=v.wireMaterial.opacity>0;if(clay>0)v.paint(base,accent);v.state={drop,clay,base,accent,turns};
       if(assembly&&motionP>=assembly.start){
@@ -225,19 +234,20 @@ export async function startMultiple(spec) {
       }
     }
     if(f.envelope==='radial-drop'){
+      const focusY=fit.centerY+((f.focusY??fit.centerY)-fit.centerY)*lockCamera;
       // Fixed full fall envelope: no camera movement from glazing through landing.
       const staging=smooth((p-timing.wireFadeStart)/timing.wireFadeDuration);
       const elevation=THREE.MathUtils.degToRad(spec.motion.camera.elevationDegrees||0)*staging;
       const azimuth=THREE.MathUtils.degToRad(spec.motion.camera.azimuthDegrees||0)*staging;
-      const lockedFit=fitOrientedPoints(radialPoints,{centerX:fit.centerX,centerY:fit.centerY,aspect:camera.aspect,fovDegrees:camera.fov,elevation,azimuth,widthFraction:small?f.mobileWidthFraction:f.desktopWidthFraction,heightFraction:small?f.mobileHeightFraction:f.desktopHeightFraction,minDistance:f.minDistance});
-      const previousDistance=camera.position.distanceTo(new THREE.Vector3(fit.centerX,fit.centerY,0));
+      const lockedFit=fitOrientedPoints(radialPoints,{centerX:fit.centerX,centerY:focusY,aspect:camera.aspect,fovDegrees:camera.fov,elevation,azimuth,widthFraction:small?f.mobileWidthFraction:f.desktopWidthFraction,heightFraction:small?f.mobileHeightFraction:f.desktopHeightFraction,minDistance:f.minDistance});
+      const previousDistance=camera.position.distanceTo(new THREE.Vector3(fit.centerX,focusY,0));
       let distance=previousDistance*(1-lockCamera)+lockedFit*lockCamera;
       if(lockCamera<1){
         const visiblePoints=[];for(const {bounds:b} of bounds)for(const x of [b.min.x,b.max.x])for(const y of [b.min.y,b.max.y])for(const z of [b.min.z,b.max.z])visiblePoints.push([x,y,z]);
-        distance=Math.max(distance,fitOrientedPoints(visiblePoints,{centerX:fit.centerX,centerY:fit.centerY,aspect:camera.aspect,fovDegrees:camera.fov,elevation,azimuth,widthFraction:small?f.mobileWidthFraction:f.desktopWidthFraction,heightFraction:small?f.mobileHeightFraction:f.desktopHeightFraction,minDistance:f.minDistance}));
+        distance=Math.max(distance,fitOrientedPoints(visiblePoints,{centerX:fit.centerX,centerY:focusY,aspect:camera.aspect,fovDegrees:camera.fov,elevation,azimuth,widthFraction:small?f.mobileWidthFraction:f.desktopWidthFraction,heightFraction:small?f.mobileHeightFraction:f.desktopHeightFraction,minDistance:f.minDistance}));
       }
-      camera.position.set(fit.centerX+distance*Math.sin(azimuth)*Math.cos(elevation),fit.centerY+distance*Math.sin(elevation),distance*Math.cos(azimuth)*Math.cos(elevation));
-      camera.lookAt(fit.centerX,fit.centerY,0);camera.updateMatrixWorld();
+      camera.position.set(fit.centerX+distance*Math.sin(azimuth)*Math.cos(elevation),focusY+distance*Math.sin(elevation),distance*Math.cos(azimuth)*Math.cos(elevation));
+      camera.lookAt(fit.centerX,focusY,0);camera.updateMatrixWorld();
     }
     sheet.style.opacity=String(1-smooth((p-timing.sheetFadeStart)/timing.sheetFadeDuration));
     for(const v of vessels)frontPlacement(v,p);
