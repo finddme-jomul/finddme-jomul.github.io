@@ -103,8 +103,25 @@
       "provenance": "user-approved-order;distances-reproduce-bowl-poc-not-general-default"
     },
     "lighting": {
-      "exposure": 0.9,
-      "pointLightScale": 0.08
+      "softPartIds": [
+        "white-rook-a1",
+        "white-knight-b1",
+        "white-bishop-c1",
+        "white-queen-d1",
+        "white-king-e1",
+        "white-bishop-f1",
+        "white-knight-g1",
+        "white-rook-h1",
+        "white-pawn-a2",
+        "white-pawn-b2",
+        "white-pawn-c2",
+        "white-pawn-d2",
+        "white-pawn-e2",
+        "white-pawn-f2",
+        "white-pawn-g2",
+        "white-pawn-h2"
+      ],
+      "softPointLightScale": 0.08
     }
   },
   "parts": [
