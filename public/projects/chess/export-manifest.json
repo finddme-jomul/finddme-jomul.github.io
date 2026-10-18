@@ -1,5 +1,5 @@
 {
-  "sourceRevision": "5f884b9a319b4108bb3d2bc44f6f2134",
+  "sourceRevision": "8e5d6babd21e42acae933e80eddf4928",
   "files": {
     "assets/board/front-view.svg": "36cc67ff6d1cb47500b2f37a7ea929ad742f3cdd708aade5cf71c2fdffa1f931",
     "assets/board/model.glb": "f082a40e3b87cc9e2c5a3afdb6486e4c44531c55c2a0658ba9854f9a0021188e",
@@ -48,29 +48,5 @@
     "scene-defaults.mjs": "64f56619efe594349a4d71a3b44f88367af8132e05bf79713a662feef8d0e609",
     "viewer.js": "5fe002fb1320c7872dfe242bba0d3ecf6fd2caaf56eac5e4116cd857f8f860b0",
     "wire-color.mjs": "05d0dc90c698e27a3156e6ed223cef1056133ee13624bc085993897bd95a5324"
-  },
-  "presentationOverrides": {
-    "motion.lighting": {
-      "softPartIds": [
-        "white-rook-a1",
-        "white-knight-b1",
-        "white-bishop-c1",
-        "white-queen-d1",
-        "white-king-e1",
-        "white-bishop-f1",
-        "white-knight-g1",
-        "white-rook-h1",
-        "white-pawn-a2",
-        "white-pawn-b2",
-        "white-pawn-c2",
-        "white-pawn-d2",
-        "white-pawn-e2",
-        "white-pawn-f2",
-        "white-pawn-g2",
-        "white-pawn-h2"
-      ],
-      "softPointLightScale": 0.08
-    },
-    "verification": "site browser check; geometry unchanged"
   }
 }
