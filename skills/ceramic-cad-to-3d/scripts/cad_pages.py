@@ -14,6 +14,8 @@ def validate(presentation,ids):
         if not isinstance(g.get('id'),str) or not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*',g['id']):raise ValueError('Invalid CAD group ID')
         if not isinstance(g.get('title'),str) or not g['title'].strip():raise ValueError('CAD group title required')
         if not isinstance(g.get('partIds'),list) or not 1<=len(g['partIds'])<=3:raise ValueError('CAD group requires one to three source parts')
+        notes=g.get('dimensionNotes',[])
+        if not isinstance(notes,list) or len(notes)>3 or any(not isinstance(n,str) or not n.strip() or len(n)>180 for n in notes):raise ValueError('CAD dimensionNotes requires up to three nonempty lines (180 characters each)')
         extra=g.get('extraScrollVh',0)
         if isinstance(extra,bool) or not isinstance(extra,(int,float)) or not math.isfinite(extra) or not 0<=extra<=500:raise ValueError('CAD extraScrollVh must be finite, between 0 and 500')
         flat.extend(g['partIds']);names.append(g['id'])
@@ -31,14 +33,15 @@ def install(project,stage,presentation,parts):
         body=[f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">','<style>text{fill:#55514e;font-family:Arial,sans-serif}.fine{stroke:#55514e;stroke-width:.7}</style>',f'<rect width="{width}" height="{height}" fill="white"/>']
         for i,pid in enumerate(group['partIds']):
             x=i*pw;body.extend([f'<g data-part="{esc(pid)}">',label(x+24,35,pid.upper(),20)])
-            cols=3 if len(group['partIds'])==1 else 2;rows=2 if cols==3 else 3;vw=(pw-40)/cols;vh=(height-120)/rows
+            note_space=80 if group.get('dimensionNotes') else 0
+            cols=3 if len(group['partIds'])==1 else 2;rows=2 if cols==3 else 3;vw=(pw-40)/cols;vh=(height-120-note_space)/rows
             for j,key in enumerate(('front','plan','side','section','isometric','wire')):
                 source=next(g for g in sources[pid] if g.get('data-view')==key);view={'visible':[],'hidden':[]}
                 for path in source:
                     if path.tag!=NS+'polyline':continue
                     points=[[float(v) for v in pair.split(',')] for pair in path.get('points').split()]
                     view['hidden' if path.get('stroke-dasharray') else 'visible'].append([[a,-b,0] for a,b in points])
-                drawing,box=draw_view(view,(x+20+j%cols*vw,55+j//cols*vh,vw,vh),{'section':'SECTION','wire':'CAD SECTION GUIDE'}.get(key,key.upper()))
+                drawing,box=draw_view(view,(x+20+j%cols*vw,55+note_space+j//cols*vh,vw,vh),{'section':'SECTION','wire':'CAD SECTION GUIDE'}.get(key,key.upper()))
                 body.append(f'<g data-view="{key}">{drawing}</g>')
                 if key=='front':
                     original=manifest['layouts']['desktop']['frontBoxes'][pid]
@@ -46,6 +49,8 @@ def install(project,stage,presentation,parts):
                     bounds=json.loads((project/'geometry'/pid/'manifest.json').read_text())['boundsMm'];w=bounds['max'][0]-bounds['min'][0];h=bounds['max'][2]-bounds['min'][2]
                     body.append(label(x+24,height-28,f'W {w:.2f} / H {h:.2f} mm',14))
             body.append('</g>')
+        for n,note in enumerate(group.get('dimensionNotes',[])):
+            body.append(label(24,76+n*20,note,16))
         body.append('</svg>');filename=f'cad-group-{group["id"]}.svg';(stage/'assets'/filename).write_text(''.join(body))
         alias={p['id']:boxes[p.get('sourcePartId',p['id'])] for p in parts if p.get('sourcePartId',p['id']) in boxes}
         pages.append({**group,'file':filename,'pagePx':[width,height],'frontBoxes':alias})
