@@ -21,7 +21,12 @@
     "sheet-desktop.svg": "c848595f8fea02221e85b94e7fbebff5e381e4f6221a11da1fd48117db61c793",
     "sheet-mobile-short.svg": "d75211c677e9185d9bf0f011e399198091187b43f775536148ac490e3c9cb8cb",
     "sheet-mobile.svg": "c13eda0609515ddad90224420641317e327334c4367e36376667eb98c890e255",
-    "viewer.js": "32b586a4e360fcf99b63d7512d596a6b875e945e19fe0814d568ee215f8de268",
+    "viewer.js": "56f0f5c175e9a82a578675020f5aa6d7fcfdd4c6927f2677cea0057c90daa9ce",
     "wire-guide.json": "1f56b24dfe1f3f3efe553c8c0ddf5450caa3730ccd84f8f31cf86c374ce3d8e3"
+  },
+  "hostPacing": {
+    "module": "/project-scroll.mjs",
+    "policy": "/project-scroll-map.mjs",
+    "scope": "site export only; original approval evidence unchanged"
   }
 }

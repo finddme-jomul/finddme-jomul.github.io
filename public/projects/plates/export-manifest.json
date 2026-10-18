@@ -27,6 +27,11 @@
     "scene/composition-framing.mjs": "c168b28f84dbd27a7ab75d0248d27b315911b5f31a40a1584117ab5163984736",
     "scene/glaze-motion.mjs": "3c3efb83de4dadbafad7397d99217f563be7e484ea75af24ee14d05a1b7649d6",
     "scene/layered-vessels.mjs": "96b2e5bfcafedd9721c1690939478cfb9bd85dfc0ee26db2ddec9ddb0871bac8",
-    "viewer.js": "b60327e2265e58b6879cd3fbe2733e59d997d5162efa9c9233909e0f5729cd15"
+    "viewer.js": "5ba79522a364c5a4be7c53ad6d599ef5f794f8365b45e74afd623af3d7b7f26e"
+  },
+  "hostPacing": {
+    "module": "/project-scroll.mjs",
+    "policy": "/project-scroll-map.mjs",
+    "scope": "site export only; original approval evidence unchanged"
   }
 }
