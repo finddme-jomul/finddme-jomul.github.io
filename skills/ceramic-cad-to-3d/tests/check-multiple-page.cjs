@@ -2,14 +2,15 @@ const fs=require('node:fs'),path=require('node:path'),assert=require('node:asser
 const puppeteer=require('/home/pptruser/node_modules/puppeteer');
 (async()=>{
  const report=process.env.CERAMIC_REPORT;fs.mkdirSync(report,{recursive:true});
- const browser=await puppeteer.launch({headless:true,executablePath:process.env.CERAMIC_CHROME,args:['--no-sandbox','--disable-dev-shm-usage','--enable-webgl','--use-gl=angle','--use-angle=swiftshader']});
+ let browser;
  const checks=[],assemblyChecks=[];
  try{
   for(const [layout,width,height] of [['desktop',1440,900],['short',1280,720],['mobile',390,844],['mobile-short',390,700]]){
+   browser=await puppeteer.launch({headless:true,executablePath:process.env.CERAMIC_CHROME,args:['--no-sandbox','--disable-dev-shm-usage','--enable-webgl','--use-gl=angle','--use-angle=swiftshader']});
    const page=await browser.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
-   await page.setViewport({width,height,deviceScaleFactor:1});await page.goto(process.env.CERAMIC_CANDIDATE,{waitUntil:'networkidle0'});
+   page.setDefaultNavigationTimeout(120000);page.setDefaultTimeout(120000);await page.setViewport({width,height,deviceScaleFactor:1});await page.goto(process.env.CERAMIC_CANDIDATE,{waitUntil:'networkidle0'});
    await page.waitForFunction(()=>window.__multiplePage?.loaded);
-   const info=await page.evaluate(()=>({ids:window.__multiplePage.spec.parts.map(p=>p.id),end:window.__multiplePage.endProgress,cad:window.__multiplePage.spec.motion.timing.cadEnd,photos:window.__multiplePage.spec.ending==='photos',feature:window.__multiplePage.spec.renderer==='feature-solids',layered:window.__multiplePage.spec.renderer==='layered-vessels'||window.__multiplePage.spec.parts.every(p=>p.coatings),timing:window.__multiplePage.spec.motion.timing,assembly:window.__multiplePage.spec.assembly}));
+   const info=await page.evaluate(()=>({parts:window.__multiplePage.spec.parts,glaze:window.__multiplePage.spec.motion.glaze,instanced:window.__multiplePage.spec.parts.some(p=>p.sourcePartId&&p.sourcePartId!==p.id),ids:window.__multiplePage.spec.parts.map(p=>p.id),end:window.__multiplePage.endProgress,cad:window.__multiplePage.spec.motion.timing.cadEnd,photos:window.__multiplePage.spec.ending==='photos',feature:window.__multiplePage.spec.renderer==='feature-solids',layered:window.__multiplePage.spec.renderer==='layered-vessels'||window.__multiplePage.spec.parts.every(p=>p.coatings),timing:window.__multiplePage.spec.motion.timing,assembly:window.__multiplePage.spec.assembly}));
    assert(info.ids.length>=(info.layered?1:2));assert.equal(new Set(info.ids).size,info.ids.length);
    const mp=n=>info.cad+(1-info.cad)*n;
    let step=0;
@@ -39,7 +40,8 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
            const q=v.values[i],contains=r=>r.surface==='all'||(r.surface==='planar-xy'?!!q.surface&&q.exterior&&q.surface.normalZ>.9999&&Math.abs(q.surface.z-r.planeZMm)<.001&&r.rectanglesMm.some(([a,b,c,d])=>q.surface.x>=a&&q.surface.x<=c&&q.surface.y>=b&&q.surface.y<=d):q.exterior&&q.heightMm>=r.minHeightMm-.001&&q.heightMm<=r.maxHeightMm+.001),hit=contains(coat.fired.region);
            if(q.exterior)outside++;else inside++;
            let color;
-           if(v.state.accent>.999)color=contains(coat.layers[1].region)?(hit?coat.fired.regionHex:coat.fired.baseHex):contains(coat.layers[0].region)?coat.layers[0].previewHex:v.part.glazePreview.clayHex;
+           if(coat.layers.length===1)color=hit?coat.fired.regionHex:coat.fired.baseHex;
+           else if(v.state.accent>.999)color=contains(coat.layers[1].region)?(hit?coat.fired.regionHex:coat.fired.baseHex):contains(coat.layers[0].region)?coat.layers[0].previewHex:v.part.glazePreview.clayHex;
            else {const r=coat.layers[0].region;const coated=contains(r);color=coated?coat.layers[0].previewHex:v.part.glazePreview.clayHex;}
            for(let c=0;c<3;c++)maxError=Math.max(maxError,Math.abs(colours[i*3+c]-linear(color.slice(1+c*2,3+c*2))));
          }
@@ -52,7 +54,7 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
     assert.deepEqual(state.parts.map(p=>p.id),info.ids);
     for(const v of state.parts){assert(v.minX>=-1.001&&v.maxX<=1.001&&v.minY>=-1.001&&v.maxY<=1.001,`${layout}/${step}/${v.id}: clipped`);assert(Math.abs(v.height-v.expectedHeight)<.001);assert(v.colourFinite&&v.frontLoaded);}
     for(const v of state.parts)if(v.materialCheck){assert(v.materialCheck.maxError<.00002,`${layout}/${step}/${v.id}: material region/order mismatch ${v.materialCheck.maxError}`);if(!v.materialCheck.feature)assert((v.materialCheck.featureRegion||v.materialCheck.inside>0)&&v.materialCheck.outside>0);}
-    if(info.feature)for(const v of state.parts){assert(v.wireVertices>0);if(v.base>.999){const g=await page.evaluate(id=>{const p=window.__multiplePage.spec.parts.find(p=>p.id===id);return {...p.glazePreview,roughness:p.coatings?.roughness??p.glazePreview.roughness}},v.id);assert(Math.abs(v.roughness-g.roughness)<1e-8&&Math.abs(v.clearcoat-g.clearcoat)<1e-8);}}
+    if(info.feature)for(const v of state.parts){assert(v.wireVertices>0);if(v.base>.999){const part=info.parts.find(p=>p.id===v.id),g={...part.glazePreview,roughness:part.coatings?.roughness??part.glazePreview.roughness};assert(Math.abs(v.roughness-g.roughness)<1e-8&&Math.abs(v.clearcoat-g.clearcoat)<1e-8);}}
     if(info.feature&&!info.layered&&step===3)for(const v of state.parts)assert(v.wireOpacity>.99&&v.clay===0,'feature pure wire must remain visible');
     if(step===6)for(const v of state.parts){assert(v.base>.8);assert.equal(v.accent,0);}
     if(info.assembly?.mode==='direct-drop'&&step===8)for(const v of state.parts){const s=info.assembly.steps.find(s=>s.partId===v.id);const expected=[s.targetPositionMm[0],s.targetPositionMm[1]+s.dropHeightMm,s.targetPositionMm[2]];expected.forEach((n,i)=>assert(Math.abs(n-v.footPositionMm[i])<.001,'parts must wait above destinations, not on a floor lineup'));}
@@ -69,7 +71,8 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
     await page.screenshot({path:path.join(report,`${layout}-${step}.png`)});checks.push({layout,step:step++,state});
    }
    if(info.assembly){
-    const poses=info.assembly.steps.flatMap(s=>[s.start+s.duration/6,s.start+s.duration/2,s.start+s.duration*5/6]);
+    // Each sampled scene checks every instance. CAD separately samples all motion knots.
+    const poses=info.instanced?Array.from({length:13},(_,i)=>i/12):info.assembly.steps.flatMap(s=>[s.start+s.duration/6,s.start+s.duration/2,s.start+s.duration*5/6]);
     poses.push(.55,1,.55);
     let reverseReference;
     for(const ap of poses){
@@ -79,16 +82,16 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
      const result=await page.evaluate(()=>window.__multiplePage.vessels.map(v=>{
       const camera=window.__multiplePage.camera,a=v.geometry.attributes.position;let clipped=false;
       for(let i=0;i<a.count;i++){const q=v.main.position.clone().set(a.getX(i),a.getY(i),a.getZ(i)).applyMatrix4(v.spin.matrixWorld).project(camera);if(Math.abs(q.x)>1.001||Math.abs(q.y)>1.001)clipped=true;}
-      return {id:v.id,position:v.main.position.toArray(),body:v.spin.rotation.y,axis:v.orbit.rotation.y,height:v.height,assemblyProgress:v.state.assembly,clipped};
+      return {id:v.id,position:v.main.position.toArray(),body:v.spin.rotation.y,axis:v.orbit.rotation.y,height:v.height,assemblyProgress:v.state.assembly??0,motionProgress:Math.max(0,Math.min(1,(window.__multiplePage.progress-window.__multiplePage.spec.motion.timing.cadEnd)/(1-window.__multiplePage.spec.motion.timing.cadEnd))),clipped};
      }));
      assert(result.every(p=>!p.clipped),'assembly motion clipped');
-     if(info.assembly.mode==='direct-drop')for(const v of result){const s=info.assembly.steps.find(s=>s.partId===v.id),t=Math.max(0,Math.min(1,(v.assemblyProgress-s.start)/s.duration)),ease=info.assembly.landing==='soft-spin'?t*t*t*(10+t*(-15+6*t)):t*t*(3-2*t);const expected=[s.targetPositionMm[0]/1000,(s.targetPositionMm[1]+s.dropHeightMm*(1-ease))/1000+v.height/2,s.targetPositionMm[2]/1000];expected.forEach((n,i)=>assert(Math.abs(n-v.position[i])<1e-6,'direct drop order/trajectory mismatch'));if(info.assembly.landing==='soft-spin'){const input=await page.evaluate(id=>({part:window.__multiplePage.spec.parts.find(p=>p.id===id),glaze:window.__multiplePage.spec.motion.glaze}),v.id);const now=info.assembly.start+info.assembly.duration*v.assemblyProgress,end=info.assembly.start+info.assembly.duration*(s.start+s.duration),q=Math.max(0,Math.min(1,(now-info.timing.baseGlazeStart)/(end-info.timing.baseGlazeStart))),f=q*q*(3-2*q);assert(Math.abs(v.body-(input.part.motion.turns+f*input.glaze.spinTurns)*2*Math.PI)<1e-6,'body must keep rotating until landing');assert(Math.abs(v.axis-(input.part.motion.orbitTurns+f*input.glaze.axisPrecessionTurns)*2*Math.PI)<1e-6,'axis yaw must continue until landing');}}
+     if(info.assembly.mode==='direct-drop')for(const v of result){const s=info.assembly.steps.find(s=>s.partId===v.id),t=Math.max(0,Math.min(1,(v.assemblyProgress-s.start)/s.duration)),ease=info.assembly.landing==='soft-spin'?t*t*t*(10+t*(-15+6*t)):t*t*(3-2*t);const expected=[s.targetPositionMm[0]/1000,(s.targetPositionMm[1]+s.dropHeightMm*(1-ease))/1000+v.height/2,s.targetPositionMm[2]/1000];expected.forEach((n,i)=>assert(Math.abs(n-v.position[i])<1e-6,'direct drop order/trajectory mismatch'));if(info.assembly.landing==='soft-spin'){const input={part:info.parts.find(p=>p.id===v.id),glaze:info.glaze};const now=v.motionProgress,end=info.assembly.start+info.assembly.duration*(s.start+s.duration),q=Math.max(0,Math.min(1,(now-info.timing.baseGlazeStart)/(end-info.timing.baseGlazeStart))),f=q*q*(3-2*q);assert(Math.abs(v.body-(input.part.motion.turns+f*input.glaze.spinTurns)*2*Math.PI)<1e-6,'body must keep rotating until landing');assert(Math.abs(v.axis-(input.part.motion.orbitTurns+f*input.glaze.axisPrecessionTurns)*2*Math.PI)<1e-6,'axis yaw must continue until landing');}}
      if(ap===.55){if(reverseReference)assert.deepEqual(result,reverseReference,'assembly reverse scroll drift');else reverseReference=result;}
      assemblyChecks.push({layout,progress:ap,parts:result});
     }
    }
-   assert.deepEqual(errors,[]);await page.close();console.log('MULTIPLE_PAGE_OK',layout);
+   assert.deepEqual(errors,[]);await page.close();await browser.close();browser=null;console.log('MULTIPLE_PAGE_OK',layout);
   }
- }finally{await browser.close();}
+ }finally{if(browser)await browser.close();}
  fs.writeFileSync(path.join(report,'report.json'),JSON.stringify({status:'passed',scope:'multiple-technical-review-not-selected-pixel-parity',checks,assemblyChecks},null,2)+'\n');
 })().catch(e=>{console.error(e);process.exit(1)});

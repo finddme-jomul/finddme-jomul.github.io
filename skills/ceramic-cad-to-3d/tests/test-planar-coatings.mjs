@@ -17,3 +17,4 @@ assert.equal(inRegion(region,false,22,{x:130,y:240,z:22,normalZ:1}),false);
 assert.deepEqual(coatingWeights({layers:[{region:{surface:'all'}},{region}]},true,22,22,1,1,.04,{x:130,y:240,z:22,normalZ:1}),[1,1]);
 assert.deepEqual(featurePlanarRegions(mesh,[{surface:'all'}],[0,0,0]).positions,mesh.positions);
 console.log('Planar masks: area, translated coordinates, hard edges, surface exclusions and layer weights passed');
+assert.deepEqual(coatingWeights({layers:[{region:{surface:'all'}}]},true,22,22,1,1,.04),[1,0],'one-pass features must not invent a second application');

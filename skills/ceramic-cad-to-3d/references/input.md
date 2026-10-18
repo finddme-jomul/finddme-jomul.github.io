@@ -318,3 +318,29 @@ their behavior. Imported STEP, rotational-vessel planar masks, arbitrary curved
 UV painting and inclined planes remain unsupported. Palette, pass order and
 glaze application outside the mask require reviewed project inputs. Two passes
 are a visualization, not a chemical firing simulation.
+
+### Repeated feature instances and material variants
+
+For a feature-solid project, config parts remain unique CAD definitions. An
+optional page review `instances` list contains `{id, sourcePartId, appearance}`.
+The review's `parts` still describes each CAD definition once; instances expand
+those defaults without mutation. Model/front/wire files and browser load promises are shared per source, while material evidence and mutable mesh colors remain per instance. Each source must be used; IDs must be unique.
+An explicit assembly must reference every instance ID exactly once. CAD views
+and frontBox coordinates retain the source identity; the scene uses instance IDs.
+Appearance overrides accept motion, glazePreview, coatings, materialVariant and
+provenance. Existing dimension/material/motion checks apply after expansion.
+
+An archived material can contain `provenance` and `variants: {key: material}`;
+`materialVariant` chooses that complete evidence record before validating names
+and glaze order. It cannot invent unarchived material names. Feature coatings
+may have one all-surface layer or two layers. One-layer fired appearance uses
+that first pass and requires an all-surface fired region. A page containing
+layered feature appearances retains the existing two time intervals, with
+one-layer instances inactive in the second pass. Rotational one-layer inputs
+and imported partial surfaces remain outside this extension.
+
+Direct-drop targets specify actual placement; the old left-to-right lineup
+constraint does not apply to unused finalX fields in that mode. Shared collision
+checks analytically rotate cached source bounds before pair testing; they still use actual CAD
+intersection for overlapping bounds. Repetition does not imply automatic
+packing, arbitrary target rotations or manufacturing approval.

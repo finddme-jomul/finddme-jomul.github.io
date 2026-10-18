@@ -237,7 +237,7 @@ with the project; static mapping and section geometry are checked. Single-featur
 ### Feature motion and shared defaults
 
 Feature parts now consume the existing handled-scene/axis renderer through an
-input adapter. This is per-part CAD→wire→neutral-clay motion review; single-feature whole pages can additionally consume explicit materials/glaze/photos through page-review. Homogeneous multiple feature pages now use the common multiple renderer and optional upright sequential assembly; mixed families/instances and target rotations remain pending.
+input adapter. This is per-part CAD→wire→neutral-clay motion review; single-feature whole pages can additionally consume explicit materials/glaze/photos through page-review. Homogeneous multiple feature pages now use the common multiple renderer and optional upright sequential assembly; reviewed source instances are supported by the instance contract below; mixed families and target rotations remain pending.
 Geometry-dependent state/recovery uses the existing project commands. Smooth and
 offset faceted development inputs exercise actual browser alignment/framing and
 reverse scroll; numerical success is not user visual adoption.
@@ -317,3 +317,9 @@ User reply: “응 이걸로 가자. 다음 작업으로 넘어가자”. Applie
 ## Authorized planar-region extension
 
 User approved “평면 유약 영역을 공통 기능으로 추가한 뒤 체스판까지 검증”. This overrides the v1 freeze only for planar glaze regions; see input.md#planar-xy-glaze-regions-feature-solids. Actual chess inputs now exercise feature development/integration and cannot be attested unused for the changed runtime. Preserve previous approved presentation and the final release evidence gate.
+
+## Standard chess instance integration
+
+User selected “실제 체스 구성인 총 32개”. Preserve six source shape definitions plus the board and explicit standard-square placements; repeated scene instances use the common feature adapter. Shorter board clay timing was adopted at revision d440756fac374169804350591a95266e. New piece silhouette and internal head details remain provisional; this work does not adopt an unreviewed 32-piece result.
+
+Scoped integration evidence: the standard set generated through `page-review` with 33 scene elements sharing seven geometry bundles and retaining individual material evidence. Four viewports passed 48 scene checks and 64 assembly samples; CAD checked 249 poses per layout and 262,944 pairs, with no intersections in the sampled path or 528 final pairs. The previously adopted assembly passed its scene/assembly gates and 48/48 screenshot pixel comparisons with the current modules. This is development evidence, not unused-input evaluation or a full release check. Software-browser checks isolate each viewport and allow 120 seconds for loading large scenes; they do not certify interactive performance on every device.

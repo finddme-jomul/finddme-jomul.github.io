@@ -66,7 +66,7 @@ def validate(review, ids):
     if not 0<t['photoDuration']<=1-t['photoStart']: raise ValueError('Invalid scene exit')
     for screen in ('Desktop','Mobile'):
         positions=[p['motion']['finalX'+screen] for p in review['parts']]
-        if any(a>=b for a,b in zip(positions,positions[1:])):
+        if (review.get('assembly') or {}).get('mode')!='direct-drop' and any(a>=b for a,b in zip(positions,positions[1:])):
             raise ValueError('Preserve reviewed left-to-right part order')
     photo=(ROOT/review['photos']).resolve()
     if not photo.is_relative_to(ROOT): raise ValueError('Photos must be inside workspace')
@@ -129,12 +129,13 @@ def install(prepared,stage):
     for entry in prepared['sheetManifest']['layouts'].values():
         shutil.copy2(project/('geometry' if feature else 'cad')/entry['file'],stage/'assets'/entry['file'])
     from selected_surface import render
-    rendered=[]
+    rendered=[];geometry_assets={}
     for p in prepared['parts']:
         out=stage/'assets'/p['id'];out.mkdir()
         if feature:
             from feature_multiple import install_part
-            rendered.append(install_part(project,p,out))
+            asset_id=geometry_assets.setdefault(p.get('sourcePartId',p['id']),p['id'])
+            rendered.append(install_part(project,p,out,stage/'assets'/asset_id))
             continue
         (out/'outer-profile.json').write_text(json.dumps(p['profile'])+'\n')
         (out/'front-view.svg').write_text(p['frontSvg'])
@@ -159,12 +160,12 @@ def install(prepared,stage):
     document=re.sub(r'alt="[^"]*기술 도면:[^"]*"','alt="CAD technical drawing"',document)
     document=document.replace('./assets/cad-sheet.png','./assets/sheet-desktop.svg')
     a=document.index('<div class="cad-main"');b=document.index('</div>',a)+6
-    document=document[:a]+''.join(f'<div class="cad-main" data-part="{p["id"]}" aria-hidden="true"><img src="./assets/{p["id"]}/front-view.svg" alt=""></div>' for p in prepared['parts'])+document[b:]
+    document=document[:a]+''.join(f'<div class="cad-main" data-part="{p["id"]}" aria-hidden="true"><img src="./assets/{p.get("geometryAssetId",p["id"])}/front-view.svg" alt=""></div>' for p in rendered)+document[b:]
     document=document.replace('</style>','.cad-sheet img{left:50%;top:50%;width:100%;height:100%;object-fit:contain;transform:translate(-50%,-50%)}\n</style>')
     (stage/'index.html').write_text(document)
     for name in ('model.glb','front-view.svg','outer-profile.json','cad-sheet.png','actual-photo.webp','process-photo.webp'):
         (stage/'assets'/name).unlink(missing_ok=True)
     return {'mode':'multiple','review':review,'inputsSha256':prepared['inputsSha256'],
-            **({'generated':[f'assets/{p["id"]}/{name}' for p in prepared['parts'] for name in (('front-view.svg','wire-guide.json','model.glb','material-evidence.json','surface-regions.json') if 'coatings' in p['appearance'] else ('front-view.svg','wire-guide.json','model.glb','material-evidence.json'))],
+            **({'generated':[f'assets/{p["id"]}/{name}' for p in prepared['parts'] for name in ('front-view.svg','wire-guide.json','model.glb','material-evidence.json','surface-regions.json') if (stage/'assets'/p['id']/name).is_file()],
                 'retainedReference':['shared multiple scene, per-part complete CAD solids and BRep guides']} if feature else {}),
             'scope':'Multiple feature solids; upright assembly candidate; visual adoption pending' if feature else 'Multiple rotational vessels; provisional materials and scene; visual review pending'}

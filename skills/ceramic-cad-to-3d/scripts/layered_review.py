@@ -29,7 +29,7 @@ def coatings(spec, evidence, dims):
     if spec.get('status') != 'reviewed-provisional' or not spec.get('provenance'):
         raise ValueError('Coatings require reviewed preview provenance')
     layers = spec['layers']
-    if len(layers) != 2 or [l['name'] for l in layers] != [l['name'] for l in evidence]:
+    if len(layers) not in ((1,2) if dims.get('bounds') else (2,)) or [l['name'] for l in layers] != [l['name'] for l in evidence]:
         raise ValueError('Coating names/order must match archived material evidence')
     for layer, source in zip(layers, evidence):
         region(layer['region'], dims['height'], dims.get('bounds'))
@@ -42,6 +42,8 @@ def coatings(spec, evidence, dims):
         if source['application'] == 'full-coat' and layer['region']['surface'] != 'all':
             raise ValueError('Full coat evidence requires all surfaces')
     region(spec['fired']['region'], dims['height'], dims.get('bounds'))
+    if len(layers)==1 and (layers[0]['region']!={'surface':'all'} or spec['fired']['region']!={'surface':'all'}):
+        raise ValueError('Single feature coating currently requires all surfaces')
     for color in [l['previewHex'] for l in layers]+[spec['fired']['baseHex'], spec['fired']['regionHex']]:
         if not re.fullmatch(r'#[0-9a-fA-F]{6}',color): raise ValueError('Invalid coating preview colour')
     if not 0 <= spec['roughness'] <= 1: raise ValueError('Invalid coating roughness')
