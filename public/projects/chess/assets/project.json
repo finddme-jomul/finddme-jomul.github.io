@@ -42,7 +42,8 @@
       "mobileStartZ": 1.45,
       "desktopFocusDeltaZ": -0.15,
       "mobileFocusDeltaZ": -0.17,
-      "elevationDegrees": 35
+      "elevationDegrees": 35,
+      "azimuthDegrees": 45
     },
     "layout": {
       "desktopEntryY": 0.16,
@@ -60,10 +61,11 @@
       "enabled": true,
       "desktopWidthFraction": 0.95,
       "mobileWidthFraction": 0.96,
-      "desktopHeightFraction": 0.86,
-      "mobileHeightFraction": 0.78,
+      "desktopHeightFraction": 0.94,
+      "mobileHeightFraction": 0.9,
       "minDistance": 0.2,
-      "provenance": "User requests larger finished 3D; preserve fixed direct-drop envelope and landing timing"
+      "provenance": "User requests larger finished 3D; preserve fixed direct-drop envelope and landing timing",
+      "envelope": "radial-drop"
     },
     "background": {
       "colors": {
@@ -574,7 +576,7 @@
         "maxY": 290.0,
         "maxZ": 22.0
       },
-      "sourceStepSha256": "8838d5b8354177de55fc7f1669b502c13e93be247fd91c46bdcbafd71c066784"
+      "sourceStepSha256": "085fb1369557d84d0f0fb04f44f9ab99de324cf82f3c383db93251dab5d0fee1"
     },
     {
       "id": "white-rook-a1",
@@ -648,7 +650,7 @@
         "maxY": 19.500008555789105,
         "maxZ": 56.000004350242605
       },
-      "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a"
+      "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d"
     },
     {
       "id": "white-knight-b1",
@@ -722,7 +724,7 @@
         "maxY": 19.499026424851607,
         "maxZ": 70.00000010000024
       },
-      "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30"
+      "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d"
     },
     {
       "id": "white-bishop-c1",
@@ -796,7 +798,7 @@
         "maxY": 19.5,
         "maxZ": 75.0
       },
-      "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff"
+      "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8"
     },
     {
       "id": "white-queen-d1",
@@ -870,7 +872,7 @@
         "maxY": 21.000011130754043,
         "maxZ": 85.0
       },
-      "sourceStepSha256": "b9df9d6b517f044f93f35f9d5c4b1c53f7e00d95e6f897d3dd3d229c03ddce27"
+      "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1"
     },
     {
       "id": "white-king-e1",
@@ -944,7 +946,7 @@
         "maxY": 22.000000082197076,
         "maxZ": 98.0
       },
-      "sourceStepSha256": "3697e5ab5c8e58dfa0301e8be22ca6d5e8c9c8b3c9525713c0a362453a8fa38c"
+      "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1"
     },
     {
       "id": "white-bishop-f1",
@@ -1018,7 +1020,7 @@
         "maxY": 19.5,
         "maxZ": 75.0
       },
-      "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff"
+      "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8"
     },
     {
       "id": "white-knight-g1",
@@ -1092,7 +1094,7 @@
         "maxY": 19.499026424851607,
         "maxZ": 70.00000010000024
       },
-      "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30"
+      "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d"
     },
     {
       "id": "white-rook-h1",
@@ -1166,7 +1168,7 @@
         "maxY": 19.500008555789105,
         "maxZ": 56.000004350242605
       },
-      "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a"
+      "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d"
     },
     {
       "id": "white-pawn-a2",
@@ -1240,7 +1242,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc"
+      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
     },
     {
       "id": "white-pawn-b2",
@@ -1314,7 +1316,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc"
+      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
     },
     {
       "id": "white-pawn-c2",
@@ -1388,7 +1390,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc"
+      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
     },
     {
       "id": "white-pawn-d2",
@@ -1462,7 +1464,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc"
+      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
     },
     {
       "id": "white-pawn-e2",
@@ -1536,7 +1538,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc"
+      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
     },
     {
       "id": "white-pawn-f2",
@@ -1610,7 +1612,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc"
+      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
     },
     {
       "id": "white-pawn-g2",
@@ -1684,7 +1686,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc"
+      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
     },
     {
       "id": "white-pawn-h2",
@@ -1758,7 +1760,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc"
+      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
     },
     {
       "id": "brown-rook-a8",
@@ -1832,7 +1834,7 @@
         "maxY": 19.500008555789105,
         "maxZ": 56.000004350242605
       },
-      "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a"
+      "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d"
     },
     {
       "id": "brown-knight-b8",
@@ -1906,7 +1908,7 @@
         "maxY": 19.499026424851607,
         "maxZ": 70.00000010000024
       },
-      "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30"
+      "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d"
     },
     {
       "id": "brown-bishop-c8",
@@ -1980,7 +1982,7 @@
         "maxY": 19.5,
         "maxZ": 75.0
       },
-      "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff"
+      "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8"
     },
     {
       "id": "brown-queen-d8",
@@ -2054,7 +2056,7 @@
         "maxY": 21.000011130754043,
         "maxZ": 85.0
       },
-      "sourceStepSha256": "b9df9d6b517f044f93f35f9d5c4b1c53f7e00d95e6f897d3dd3d229c03ddce27"
+      "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1"
     },
     {
       "id": "brown-king-e8",
@@ -2128,7 +2130,7 @@
         "maxY": 22.000000082197076,
         "maxZ": 98.0
       },
-      "sourceStepSha256": "3697e5ab5c8e58dfa0301e8be22ca6d5e8c9c8b3c9525713c0a362453a8fa38c"
+      "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1"
     },
     {
       "id": "brown-bishop-f8",
@@ -2202,7 +2204,7 @@
         "maxY": 19.5,
         "maxZ": 75.0
       },
-      "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff"
+      "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8"
     },
     {
       "id": "brown-knight-g8",
@@ -2276,7 +2278,7 @@
         "maxY": 19.499026424851607,
         "maxZ": 70.00000010000024
       },
-      "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30"
+      "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d"
     },
     {
       "id": "brown-rook-h8",
@@ -2350,7 +2352,7 @@
         "maxY": 19.500008555789105,
         "maxZ": 56.000004350242605
       },
-      "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a"
+      "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d"
     },
     {
       "id": "brown-pawn-a7",
@@ -2424,7 +2426,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc"
+      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
     },
     {
       "id": "brown-pawn-b7",
@@ -2498,7 +2500,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc"
+      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
     },
     {
       "id": "brown-pawn-c7",
@@ -2572,7 +2574,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc"
+      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
     },
     {
       "id": "brown-pawn-d7",
@@ -2646,7 +2648,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc"
+      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
     },
     {
       "id": "brown-pawn-e7",
@@ -2720,7 +2722,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc"
+      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
     },
     {
       "id": "brown-pawn-f7",
@@ -2794,7 +2796,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc"
+      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
     },
     {
       "id": "brown-pawn-g7",
@@ -2868,7 +2870,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc"
+      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
     },
     {
       "id": "brown-pawn-h7",
@@ -2942,7 +2944,7 @@
         "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc"
+      "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a"
     }
   ],
   "renderer": "feature-solids",
@@ -3340,7 +3342,7 @@
             "cy": 0.2625,
             "width": 0.2992592592592592,
             "height": 0.02043217579288029,
-            "sourceStepSha256": "8838d5b8354177de55fc7f1669b502c13e93be247fd91c46bdcbafd71c066784",
+            "sourceStepSha256": "085fb1369557d84d0f0fb04f44f9ab99de324cf82f3c383db93251dab5d0fee1",
             "cameraLookAtMm": [
               0.0,
               0.0,
@@ -3368,7 +3370,7 @@
             "cy": 0.18916666666666665,
             "width": 0.07066694457215848,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30",
+            "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
             "cameraLookAtMm": [
               1.2936531845753052e-09,
               2.3803181647963356e-12,
@@ -3380,7 +3382,7 @@
             "cy": 0.18916666666666665,
             "width": 0.06596296296296295,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff",
+            "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
             "cameraLookAtMm": [
               0.0,
               0.0,
@@ -3392,7 +3394,7 @@
             "cy": 0.18916666666666665,
             "width": 0.06596296296296295,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff",
+            "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
             "cameraLookAtMm": [
               0.0,
               0.0,
@@ -3404,7 +3406,7 @@
             "cy": 0.18916666666666665,
             "width": 0.07066694457215848,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30",
+            "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
             "cameraLookAtMm": [
               1.2936531845753052e-09,
               2.3803181647963356e-12,
@@ -3416,7 +3418,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3428,7 +3430,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3440,7 +3442,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3452,7 +3454,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3464,7 +3466,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3476,7 +3478,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3488,7 +3490,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3500,7 +3502,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3512,7 +3514,7 @@
             "cy": 0.18916666666666665,
             "width": 0.07066694457215848,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30",
+            "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
             "cameraLookAtMm": [
               1.2936531845753052e-09,
               2.3803181647963356e-12,
@@ -3524,7 +3526,7 @@
             "cy": 0.18916666666666665,
             "width": 0.06596296296296295,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff",
+            "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
             "cameraLookAtMm": [
               0.0,
               0.0,
@@ -3536,7 +3538,7 @@
             "cy": 0.18916666666666665,
             "width": 0.06596296296296295,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff",
+            "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
             "cameraLookAtMm": [
               0.0,
               0.0,
@@ -3548,7 +3550,7 @@
             "cy": 0.18916666666666665,
             "width": 0.07066694457215848,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30",
+            "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
             "cameraLookAtMm": [
               1.2936531845753052e-09,
               2.3803181647963356e-12,
@@ -3560,7 +3562,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3572,7 +3574,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3584,7 +3586,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3596,7 +3598,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3608,7 +3610,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3620,7 +3622,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3632,7 +3634,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3644,7 +3646,7 @@
             "cy": 0.18916666666666665,
             "width": 0.1288888888888889,
             "height": 0.16575766032963898,
-            "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+            "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3672,7 +3674,7 @@
             "cy": 0.18916666666666665,
             "width": 0.08832173039591304,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a",
+            "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
             "cameraLookAtMm": [
               1.2938059512634936e-09,
               1.5489831639570184e-12,
@@ -3684,7 +3686,7 @@
             "cy": 0.18916666666666665,
             "width": 0.0626606330779054,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "b9df9d6b517f044f93f35f9d5c4b1c53f7e00d95e6f897d3dd3d229c03ddce27",
+            "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1",
             "cameraLookAtMm": [
               1.392715276438139e-09,
               1.644906433284632e-12,
@@ -3696,7 +3698,7 @@
             "cy": 0.18916666666666665,
             "width": 0.05693345568326946,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "3697e5ab5c8e58dfa0301e8be22ca6d5e8c9c8b3c9525713c0a362453a8fa38c",
+            "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1",
             "cameraLookAtMm": [
               1.4591687858001023e-09,
               2.220446049250313e-12,
@@ -3708,7 +3710,7 @@
             "cy": 0.18916666666666665,
             "width": 0.08832173039591304,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a",
+            "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
             "cameraLookAtMm": [
               1.2938059512634936e-09,
               1.5489831639570184e-12,
@@ -3720,7 +3722,7 @@
             "cy": 0.18916666666666665,
             "width": 0.08832173039591304,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a",
+            "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
             "cameraLookAtMm": [
               1.2938059512634936e-09,
               1.5489831639570184e-12,
@@ -3732,7 +3734,7 @@
             "cy": 0.18916666666666665,
             "width": 0.0626606330779054,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "b9df9d6b517f044f93f35f9d5c4b1c53f7e00d95e6f897d3dd3d229c03ddce27",
+            "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1",
             "cameraLookAtMm": [
               1.392715276438139e-09,
               1.644906433284632e-12,
@@ -3744,7 +3746,7 @@
             "cy": 0.18916666666666665,
             "width": 0.05693345568326946,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "3697e5ab5c8e58dfa0301e8be22ca6d5e8c9c8b3c9525713c0a362453a8fa38c",
+            "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1",
             "cameraLookAtMm": [
               1.4591687858001023e-09,
               2.220446049250313e-12,
@@ -3756,7 +3758,7 @@
             "cy": 0.18916666666666665,
             "width": 0.08832173039591304,
             "height": 0.2283333333333333,
-            "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a",
+            "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
             "cameraLookAtMm": [
               1.2938059512634936e-09,
               1.5489831639570184e-12,
@@ -3783,7 +3785,7 @@
           "cy": 0.05082236842105263,
           "width": 0.21458333333333332,
           "height": 0.00514065335753176,
-          "sourceStepSha256": "8838d5b8354177de55fc7f1669b502c13e93be247fd91c46bdcbafd71c066784",
+          "sourceStepSha256": "085fb1369557d84d0f0fb04f44f9ab99de324cf82f3c383db93251dab5d0fee1",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -3795,7 +3797,7 @@
           "cy": 0.30082236842105264,
           "width": 0.052582055153043435,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a",
+          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -3807,7 +3809,7 @@
           "cy": 0.05082236842105263,
           "width": 0.04207133643002605,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30",
+          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -3819,7 +3821,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03927083333333334,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff",
+          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -3831,7 +3833,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03730480507354397,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "b9df9d6b517f044f93f35f9d5c4b1c53f7e00d95e6f897d3dd3d229c03ddce27",
+          "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1",
           "cameraLookAtMm": [
             1.392715276438139e-09,
             1.644906433284632e-12,
@@ -3843,7 +3845,7 @@
           "cy": 0.8008223684210526,
           "width": 0.03389514862657197,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "3697e5ab5c8e58dfa0301e8be22ca6d5e8c9c8b3c9525713c0a362453a8fa38c",
+          "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1",
           "cameraLookAtMm": [
             1.4591687858001023e-09,
             2.220446049250313e-12,
@@ -3855,7 +3857,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03927083333333334,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff",
+          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -3867,7 +3869,7 @@
           "cy": 0.05082236842105263,
           "width": 0.04207133643002605,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30",
+          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -3879,7 +3881,7 @@
           "cy": 0.30082236842105264,
           "width": 0.052582055153043435,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a",
+          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -3891,7 +3893,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -3903,7 +3905,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -3915,7 +3917,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -3927,7 +3929,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -3939,7 +3941,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -3951,7 +3953,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -3963,7 +3965,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -3975,7 +3977,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -3987,7 +3989,7 @@
           "cy": 0.30082236842105264,
           "width": 0.052582055153043435,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a",
+          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -3999,7 +4001,7 @@
           "cy": 0.05082236842105263,
           "width": 0.04207133643002605,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30",
+          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -4011,7 +4013,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03927083333333334,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff",
+          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4023,7 +4025,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03730480507354397,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "b9df9d6b517f044f93f35f9d5c4b1c53f7e00d95e6f897d3dd3d229c03ddce27",
+          "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1",
           "cameraLookAtMm": [
             1.392715276438139e-09,
             1.644906433284632e-12,
@@ -4035,7 +4037,7 @@
           "cy": 0.8008223684210526,
           "width": 0.03389514862657197,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "3697e5ab5c8e58dfa0301e8be22ca6d5e8c9c8b3c9525713c0a362453a8fa38c",
+          "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1",
           "cameraLookAtMm": [
             1.4591687858001023e-09,
             2.220446049250313e-12,
@@ -4047,7 +4049,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03927083333333334,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff",
+          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4059,7 +4061,7 @@
           "cy": 0.05082236842105263,
           "width": 0.04207133643002605,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30",
+          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -4071,7 +4073,7 @@
           "cy": 0.30082236842105264,
           "width": 0.052582055153043435,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a",
+          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -4083,7 +4085,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4095,7 +4097,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4107,7 +4109,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4119,7 +4121,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4131,7 +4133,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4143,7 +4145,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4155,7 +4157,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4167,7 +4169,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4188,7 +4190,7 @@
           "cy": 0.02759637188208617,
           "width": 0.40555555555555556,
           "height": 0.0015069200093830635,
-          "sourceStepSha256": "8838d5b8354177de55fc7f1669b502c13e93be247fd91c46bdcbafd71c066784",
+          "sourceStepSha256": "085fb1369557d84d0f0fb04f44f9ab99de324cf82f3c383db93251dab5d0fee1",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4200,7 +4202,7 @@
           "cy": 0.45616780045351474,
           "width": 0.23369802290241523,
           "height": 0.032879818594104306,
-          "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a",
+          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -4212,7 +4214,7 @@
           "cy": 0.170453514739229,
           "width": 0.18698371746678252,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30",
+          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -4224,7 +4226,7 @@
           "cy": 0.5990249433106576,
           "width": 0.17453703703703705,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff",
+          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4236,7 +4238,7 @@
           "cy": 0.7418820861678004,
           "width": 0.16579913366019544,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "b9df9d6b517f044f93f35f9d5c4b1c53f7e00d95e6f897d3dd3d229c03ddce27",
+          "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1",
           "cameraLookAtMm": [
             1.392715276438139e-09,
             1.644906433284632e-12,
@@ -4248,7 +4250,7 @@
           "cy": 0.8847392290249433,
           "width": 0.15064510500698652,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "3697e5ab5c8e58dfa0301e8be22ca6d5e8c9c8b3c9525713c0a362453a8fa38c",
+          "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1",
           "cameraLookAtMm": [
             1.4591687858001023e-09,
             2.220446049250313e-12,
@@ -4260,7 +4262,7 @@
           "cy": 0.5990249433106576,
           "width": 0.17453703703703705,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff",
+          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4272,7 +4274,7 @@
           "cy": 0.170453514739229,
           "width": 0.18698371746678252,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30",
+          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -4284,7 +4286,7 @@
           "cy": 0.45616780045351474,
           "width": 0.23369802290241523,
           "height": 0.032879818594104306,
-          "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a",
+          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -4296,7 +4298,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4308,7 +4310,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4320,7 +4322,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4332,7 +4334,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4344,7 +4346,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4356,7 +4358,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4368,7 +4370,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4380,7 +4382,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4392,7 +4394,7 @@
           "cy": 0.45616780045351474,
           "width": 0.23369802290241523,
           "height": 0.032879818594104306,
-          "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a",
+          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -4404,7 +4406,7 @@
           "cy": 0.170453514739229,
           "width": 0.18698371746678252,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30",
+          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -4416,7 +4418,7 @@
           "cy": 0.5990249433106576,
           "width": 0.17453703703703705,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff",
+          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4428,7 +4430,7 @@
           "cy": 0.7418820861678004,
           "width": 0.16579913366019544,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "b9df9d6b517f044f93f35f9d5c4b1c53f7e00d95e6f897d3dd3d229c03ddce27",
+          "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1",
           "cameraLookAtMm": [
             1.392715276438139e-09,
             1.644906433284632e-12,
@@ -4440,7 +4442,7 @@
           "cy": 0.8847392290249433,
           "width": 0.15064510500698652,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "3697e5ab5c8e58dfa0301e8be22ca6d5e8c9c8b3c9525713c0a362453a8fa38c",
+          "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1",
           "cameraLookAtMm": [
             1.4591687858001023e-09,
             2.220446049250313e-12,
@@ -4452,7 +4454,7 @@
           "cy": 0.5990249433106576,
           "width": 0.17453703703703705,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff",
+          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4464,7 +4466,7 @@
           "cy": 0.170453514739229,
           "width": 0.18698371746678252,
           "height": 0.03287981859410431,
-          "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30",
+          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -4476,7 +4478,7 @@
           "cy": 0.45616780045351474,
           "width": 0.23369802290241523,
           "height": 0.032879818594104306,
-          "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a",
+          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -4488,7 +4490,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4500,7 +4502,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4512,7 +4514,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4524,7 +4526,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4536,7 +4538,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4548,7 +4550,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4560,7 +4562,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4572,7 +4574,7 @@
           "cy": 0.3133106575963719,
           "width": 0.40555555555555556,
           "height": 0.02838449323110654,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4593,7 +4595,7 @@
           "cy": 0.02822751322751323,
           "width": 0.40555555555555556,
           "height": 0.0017580733442802408,
-          "sourceStepSha256": "8838d5b8354177de55fc7f1669b502c13e93be247fd91c46bdcbafd71c066784",
+          "sourceStepSha256": "085fb1369557d84d0f0fb04f44f9ab99de324cf82f3c383db93251dab5d0fee1",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4605,7 +4607,7 @@
           "cy": 0.4567989417989418,
           "width": 0.1853467078191569,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a",
+          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -4617,7 +4619,7 @@
           "cy": 0.17108465608465606,
           "width": 0.14829743109434473,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30",
+          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -4629,7 +4631,7 @@
           "cy": 0.5996560846560847,
           "width": 0.13842592592592592,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff",
+          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4641,7 +4643,7 @@
           "cy": 0.7425132275132275,
           "width": 0.1314958646270516,
           "height": 0.030423280423280432,
-          "sourceStepSha256": "b9df9d6b517f044f93f35f9d5c4b1c53f7e00d95e6f897d3dd3d229c03ddce27",
+          "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1",
           "cameraLookAtMm": [
             1.392715276438139e-09,
             1.644906433284632e-12,
@@ -4653,7 +4655,7 @@
           "cy": 0.8853703703703704,
           "width": 0.11947715224692036,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "3697e5ab5c8e58dfa0301e8be22ca6d5e8c9c8b3c9525713c0a362453a8fa38c",
+          "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1",
           "cameraLookAtMm": [
             1.4591687858001023e-09,
             2.220446049250313e-12,
@@ -4665,7 +4667,7 @@
           "cy": 0.5996560846560847,
           "width": 0.13842592592592592,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff",
+          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4677,7 +4679,7 @@
           "cy": 0.17108465608465606,
           "width": 0.14829743109434473,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30",
+          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -4689,7 +4691,7 @@
           "cy": 0.4567989417989418,
           "width": 0.1853467078191569,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a",
+          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -4701,7 +4703,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4713,7 +4715,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4725,7 +4727,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4737,7 +4739,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4749,7 +4751,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4761,7 +4763,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4773,7 +4775,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4785,7 +4787,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4797,7 +4799,7 @@
           "cy": 0.4567989417989418,
           "width": 0.1853467078191569,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a",
+          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -4809,7 +4811,7 @@
           "cy": 0.17108465608465606,
           "width": 0.14829743109434473,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30",
+          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -4821,7 +4823,7 @@
           "cy": 0.5996560846560847,
           "width": 0.13842592592592592,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff",
+          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4833,7 +4835,7 @@
           "cy": 0.7425132275132275,
           "width": 0.1314958646270516,
           "height": 0.030423280423280432,
-          "sourceStepSha256": "b9df9d6b517f044f93f35f9d5c4b1c53f7e00d95e6f897d3dd3d229c03ddce27",
+          "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1",
           "cameraLookAtMm": [
             1.392715276438139e-09,
             1.644906433284632e-12,
@@ -4845,7 +4847,7 @@
           "cy": 0.8853703703703704,
           "width": 0.11947715224692036,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "3697e5ab5c8e58dfa0301e8be22ca6d5e8c9c8b3c9525713c0a362453a8fa38c",
+          "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1",
           "cameraLookAtMm": [
             1.4591687858001023e-09,
             2.220446049250313e-12,
@@ -4857,7 +4859,7 @@
           "cy": 0.5996560846560847,
           "width": 0.13842592592592592,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff",
+          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -4869,7 +4871,7 @@
           "cy": 0.17108465608465606,
           "width": 0.14829743109434473,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30",
+          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -4881,7 +4883,7 @@
           "cy": 0.4567989417989418,
           "width": 0.1853467078191569,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a",
+          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -4893,7 +4895,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4905,7 +4907,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4917,7 +4919,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4929,7 +4931,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4941,7 +4943,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4953,7 +4955,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4965,7 +4967,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4977,7 +4979,7 @@
           "cy": 0.3139417989417989,
           "width": 0.3725876548184431,
           "height": 0.030423280423280425,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -4998,7 +5000,7 @@
           "cy": 0.05082236842105263,
           "width": 0.21458333333333332,
           "height": 0.00514065335753176,
-          "sourceStepSha256": "8838d5b8354177de55fc7f1669b502c13e93be247fd91c46bdcbafd71c066784",
+          "sourceStepSha256": "085fb1369557d84d0f0fb04f44f9ab99de324cf82f3c383db93251dab5d0fee1",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -5010,7 +5012,7 @@
           "cy": 0.30082236842105264,
           "width": 0.052582055153043435,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a",
+          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -5022,7 +5024,7 @@
           "cy": 0.05082236842105263,
           "width": 0.04207133643002605,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30",
+          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -5034,7 +5036,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03927083333333334,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff",
+          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -5046,7 +5048,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03730480507354397,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "b9df9d6b517f044f93f35f9d5c4b1c53f7e00d95e6f897d3dd3d229c03ddce27",
+          "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1",
           "cameraLookAtMm": [
             1.392715276438139e-09,
             1.644906433284632e-12,
@@ -5058,7 +5060,7 @@
           "cy": 0.8008223684210526,
           "width": 0.03389514862657197,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "3697e5ab5c8e58dfa0301e8be22ca6d5e8c9c8b3c9525713c0a362453a8fa38c",
+          "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1",
           "cameraLookAtMm": [
             1.4591687858001023e-09,
             2.220446049250313e-12,
@@ -5070,7 +5072,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03927083333333334,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff",
+          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -5082,7 +5084,7 @@
           "cy": 0.05082236842105263,
           "width": 0.04207133643002605,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30",
+          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -5094,7 +5096,7 @@
           "cy": 0.30082236842105264,
           "width": 0.052582055153043435,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a",
+          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -5106,7 +5108,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5118,7 +5120,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5130,7 +5132,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5142,7 +5144,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5154,7 +5156,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5166,7 +5168,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5178,7 +5180,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5190,7 +5192,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5202,7 +5204,7 @@
           "cy": 0.30082236842105264,
           "width": 0.052582055153043435,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a",
+          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -5214,7 +5216,7 @@
           "cy": 0.05082236842105263,
           "width": 0.04207133643002605,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30",
+          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -5226,7 +5228,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03927083333333334,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff",
+          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -5238,7 +5240,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03730480507354397,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "b9df9d6b517f044f93f35f9d5c4b1c53f7e00d95e6f897d3dd3d229c03ddce27",
+          "sourceStepSha256": "9fedec805c6321fba3140eacf8b60f179d28d4f1a078613cccd4f3dc2a2a37d1",
           "cameraLookAtMm": [
             1.392715276438139e-09,
             1.644906433284632e-12,
@@ -5250,7 +5252,7 @@
           "cy": 0.8008223684210526,
           "width": 0.03389514862657197,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "3697e5ab5c8e58dfa0301e8be22ca6d5e8c9c8b3c9525713c0a362453a8fa38c",
+          "sourceStepSha256": "342851b6cd63d2c97f6e56901708c84368b2981e1a7c0392e05fe11c44d648e1",
           "cameraLookAtMm": [
             1.4591687858001023e-09,
             2.220446049250313e-12,
@@ -5262,7 +5264,7 @@
           "cy": 0.5508223684210526,
           "width": 0.03927083333333334,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "70d828994bcb328510cbd4cf9b3fb9090eb7b7b78289129e890cccb5c815b9ff",
+          "sourceStepSha256": "e15e1dc8859000efec17684fa0c3e95f0536d4b80157434c88c1ad30e67103e8",
           "cameraLookAtMm": [
             0.0,
             0.0,
@@ -5274,7 +5276,7 @@
           "cy": 0.05082236842105263,
           "width": 0.04207133643002605,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "5eb672537ab5540e5b8b2ee98642ae2f878863698afa83fdb818ba54df2f5f30",
+          "sourceStepSha256": "1de81041cfe5481800b1c1a421d8dafe2696ce805132672845f5430f220d276d",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
             2.3803181647963356e-12,
@@ -5286,7 +5288,7 @@
           "cy": 0.30082236842105264,
           "width": 0.052582055153043435,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "22e80ec10ea02a1779b477e6d7e85c9527b2a371af0cb3e72a01ea67b12e7e7a",
+          "sourceStepSha256": "a79c04dc595d09638ac21e9849efacfbddab7896dfea04e8c54ae0d58b592d2d",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
             1.5489831639570184e-12,
@@ -5298,7 +5300,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5310,7 +5312,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5322,7 +5324,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5334,7 +5336,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5346,7 +5348,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5358,7 +5360,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5370,7 +5372,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
@@ -5382,7 +5384,7 @@
           "cy": 0.30082236842105264,
           "width": 0.10570149772566698,
           "height": 0.047697368421052634,
-          "sourceStepSha256": "4338a301ff2a68c6239cf9461bf458d446efd9ef7d3c8924a2267d89e7e907fc",
+          "sourceStepSha256": "deac5aa41e16212cc734db91fcb3d3e0a2ddd2db477118d2634c8279b2611e0a",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
             6.693312570860144e-12,
