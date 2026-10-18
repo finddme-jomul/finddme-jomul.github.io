@@ -10,6 +10,24 @@ from assembly_geometry import position, landing_ease
 from layered_review import assembly, apply_assembly_preset
 
 class FeatureAssembly(unittest.TestCase):
+    def test_offset_converges_only_during_descent(self):
+        step={'start':.2,'duration':.6,'targetPositionMm':[30,9,-10],'dropHeightMm':100,'approachOffsetMm':[20,-30]}
+        at=lambda t:position([0,0,0],step,t,'direct-drop','soft-spin')
+        self.assertEqual([50,109,-40],at(0))
+        self.assertEqual([50,109,-40],at(.2))
+        for actual,expected in zip(at(.5),[40,59,-25]):self.assertAlmostEqual(actual,expected)
+        self.assertEqual([30,9,-10],at(1))
+        self.assertGreater(at(.79)[0],30)
+
+    def test_lateral_approach_collision_between_clear_endpoints(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path=Path(tmp)/'cube.step';export_step(Box(5,5,5),path)
+            parts=[{'id':str(i),'step':path,'appearance':{'motion':{'finalXDesktop':0,'finalXMobile':0}}} for i in range(2)]
+            spec={'mode':'direct-drop','start':0,'duration':1,'steps':[
+                {'partId':'0','start':0,'duration':1,'targetPositionMm':[-20,0,0],'dropHeightMm':100,'approachOffsetMm':[40,0]},
+                {'partId':'1','start':0,'duration':1,'targetPositionMm':[20,0,0],'dropHeightMm':100,'approachOffsetMm':[-40,0]}]}
+            with self.assertRaisesRegex(ValueError,'collision'):check(parts,spec)
+
     def test_render_cad_pose_fixture(self):
         import json
         from drop_pose import pose,transform
@@ -139,6 +157,10 @@ class FeatureAssembly(unittest.TestCase):
         assembly(spec,p,timing)
         direct=copy.deepcopy(spec);direct['mode']='direct-drop';direct['steps'][0].pop('liftMm');direct['steps'][0]['dropHeightMm']=80
         assembly(direct,p,timing)
+        for offset in ([1], [True,0], [0,float('nan')], [1001,0], 'bad'):
+            bad=copy.deepcopy(direct);bad['steps'][0]['approachOffsetMm']=offset
+            with self.assertRaisesRegex(ValueError,'approachOffsetMm'):assembly(bad,p,timing)
+        good=copy.deepcopy(direct);good['steps'][0]['approachOffsetMm']=[20,-30];assembly(good,p,timing)
         for value in (0,-1,True,float('nan'),1001):
             direct['steps'][0]['dropHeightMm']=value
             with self.subTest(dropHeight=value),self.assertRaises(ValueError):assembly(direct,p,timing)

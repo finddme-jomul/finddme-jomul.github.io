@@ -381,3 +381,5 @@ Optional per-part motion inputs (including instance overrides): `fixedOrientatio
 For a fixed-orientation foundation, oriented framing uses its rectangular bounds instead of an all-yaw circle. The camera remains fixed from glazing through landing. Keep the foundation below the other pieces at CAD entry and through clay reveal; clipping tests alone do not prove visibility.
 
 Optional `motion.framing.focusY` (metres, −2…2) sets the fixed radial-drop view target height; staging blends into it before landing. Use it to balance the composition vertically without enlarging physical dimensions or moving the camera during landing.
+
+For feature direct-drop assembly, optional `steps[].approachOffsetMm: [X, Z]` (finite millimetres, each −1000…1000; default `[0,0]`) keeps an object horizontally displaced from its final target until its individual descent. Horizontal offsets and `dropHeightMm` ease to zero together, so alignment finishes at contact. Set independent heights/offsets in project input to avoid floating rows. The runtime framing covers the swept path and CAD collision checks use the identical trajectory. Legacy inputs without offsets retain vertical descent.
