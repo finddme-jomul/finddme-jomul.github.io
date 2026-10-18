@@ -13,6 +13,7 @@ SUITES = {
     'drop-pose': node_command(SKILL/'tests/test-drop-pose.mjs'),
     'oriented-framing': node_command(SKILL/'tests/check-oriented-framing.mjs'),
     'cad-scroll': node_command(SKILL/'tests/check-cad-scroll.mjs'),
+    'cad-notes': [sys.executable, str(SKILL/'tests/test_cad_notes.py')],
     'cad-pages': [sys.executable, str(SKILL/'tests/test_cad_pages.py')],
     'feature-instances': [sys.executable, str(SKILL/'tests/test_feature_instances.py')],
     'planar-coatings-contract': [sys.executable, str(SKILL/'tests/test_planar_coatings.py')],

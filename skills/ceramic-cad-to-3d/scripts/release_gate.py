@@ -27,7 +27,7 @@ def record(ref):
     return json.loads(artifact(ref).read_text())
 
 
-def check(path):
+def check(path, *, technical=False):
     from decision_checks import source_hashes, SUITES
     from page_scheduler import current
     from stages import describe
@@ -59,8 +59,16 @@ def check(path):
             'Missing feature CAD/wire, corrected landing or scatter adoption')
     cases = evidence['cases']
     require(len(cases) == 2 and {c['mode'] for c in cases} == {'single', 'multiple'},
-            'Need single and multiple unused-input evaluations')
+            'Need single and multiple evaluations')
+    policy = evidence.get('evaluationPolicy', 'unused-input')
+    require(policy in ('unused-input', 'integration'), 'Unknown evaluation policy')
+    if policy == 'integration':
+        decision = record(evidence['evaluationPolicyDecision'])
+        require(decision.get('status') == 'user-authorized' and decision.get('quote', '').strip()
+                and decision.get('sourceMessage', '').strip()
+                and decision.get('policy') == 'integration', 'Missing integration evaluation authorization')
     outputs = []
+    pending_visual = []
     for case in cases:
         project = (ROOT / case['project']).resolve()
         require(project.is_relative_to(ROOT.resolve() / '.poc/jomul-project-assets-workspaces'),
@@ -81,22 +89,33 @@ def check(path):
             require({c['step'] for c in browser['checks'] if c['layout'] == layout} >= set(range(12)),
                     'Incomplete browser viewport/scene evidence')
         intake = record(case['evaluationAttestation'])
-        require(intake['runtimeSha256'] == runtime and intake['unusedBeforeEvaluation'] is True,
-                'Input was used for development or evaluated against another runtime')
+        require(intake['runtimeSha256'] == runtime, 'Evaluation runtime is stale')
+        require(isinstance(intake.get('unusedBeforeEvaluation'), bool), 'Missing input history')
+        if policy == 'unused-input':
+            require(intake['unusedBeforeEvaluation'] is True, 'Input was used for development')
+        else:
+            require(isinstance(intake.get('developmentHistory'), str) and intake['developmentHistory'].strip(),
+                    'Integration evaluation needs disclosed development history')
         require(intake['sourceMessage'].strip() and intake['reviewer'].strip(), 'Missing evaluation provenance')
         source = artifact(intake['source'])
         require(sha(source) == sha(ROOT / state['sketch']), 'Evaluation sketch mismatch')
-        approval = record(case['visualApproval'])
-        require(approval['status'] == 'user-approved' and approval['quote'].strip() and
-                approval['sourceMessage'].strip(), 'Missing real visual approval')
-        require(approval['revision'] == case['revision'] and approval['project'] == case['project'],
-                'Visual approval belongs to another output')
-        require(approval['outputFilesSha256'] == state['pageReview']['filesSha256'],
-                'Visual approval output changed')
+        try:
+            approval = record(case['visualApproval'])
+            require(approval['status'] == 'user-approved' and approval['quote'].strip() and
+                    approval['sourceMessage'].strip(), 'Missing real visual approval')
+            require(approval['revision'] == case['revision'] and approval['project'] == case['project'],
+                    'Visual approval belongs to another output')
+            require(approval['outputFilesSha256'] == state['pageReview']['filesSha256'],
+                    'Visual approval output changed')
+        except (ValueError, OSError, KeyError, TypeError) as error:
+            if not technical: raise
+            pending_visual.append({'mode': case['mode'], 'reason': str(error)})
         result = subprocess.run([sys.executable, str(SKILL/'scripts/run.py'), '--workspace', str(ROOT),
                                  'verify', project.name], capture_output=True, text=True, timeout=600)
         require(result.returncode == 0, 'Project geometry verification failed: '+result.stdout+result.stderr)
         outputs.append(str(output.relative_to(ROOT)))
     require(len(set(outputs)) == 2, 'Evaluation cases must be separate projects/revisions')
-    return {'status': 'passed-within-v1-scope', 'runtimeSha256': runtime, 'outputs': outputs,
+    return {'status': 'technical-checks-passed' if technical else 'passed-within-v1-scope',
+            'evaluationPolicy': policy, 'heldOutEvaluation': policy == 'unused-input',
+            'visualReviewPending': pending_visual, 'runtimeSha256': runtime, 'outputs': outputs,
             'scope': 'Evaluated outputs and frozen v1 only; no site publication or universal input guarantee'}

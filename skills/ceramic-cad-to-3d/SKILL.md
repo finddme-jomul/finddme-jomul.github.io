@@ -5,6 +5,8 @@ description: "Run reviewed ceramic CAD projects, generate rotational, handled or
 
 # Ceramic CAD to 3D
 
+Current closure uses user-authorized chess single/multiple integration E2E with disclosed development history; another unused sketch is not mandatory. See [current closure policy](references/pipeline.md#current-closure-policy--integration-e2e). Technical completion is separate from exact-output visual approval and site publication.
+
 V1 scope is frozen by user decision (2026-10-18); follow [the scope and closure gates](references/pipeline.md#v1-scope-freeze--2026-10-18). The user subsequently authorized reusable planar glaze regions and chessboard integration; this exception turns that chess input into development evidence. The subsequent request for a standard 32-piece set also uses reviewed source instances and archived material variants (see the input contract). During closure, fix supported behavior and validate it; retain new capabilities as deferred work. Scope approval does not imply visual adoption or release approval.
 
 Automation acceptance: given reviewed shape, dimensions, materials and placement,
