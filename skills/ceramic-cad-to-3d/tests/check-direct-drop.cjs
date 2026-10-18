@@ -7,10 +7,17 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
  const results=[];
  try{
   for(const [layout,width,height] of [['desktop',1440,900],['short',1280,720],['mobile',390,844],['mobile-short',390,700]]){
-   const page=await browser.newPage();await page.setViewport({width,height});
+   const page=await browser.newPage();page.setDefaultTimeout(120000);page.setDefaultNavigationTimeout(120000);await page.setViewport({width,height});
    await page.goto(process.env.CERAMIC_CANDIDATE,{waitUntil:'networkidle0'});
    await page.waitForFunction(()=>window.__multiplePage?.loaded);
-   const info=await page.evaluate(()=>({assembly:window.__multiplePage.spec.assembly,timing:window.__multiplePage.spec.motion.timing}));
+   if(process.env.CERAMIC_ASSERT_SOURCE_FRONTS==='1'){
+    await page.evaluate(()=>scrollTo(0,.18*(window.__multiplePage.spec.motion.storyHeightVh-100)*innerHeight/100));
+    await page.waitForFunction(()=>Math.abs(window.__multiplePage.progress-.18)<.001);
+    const fronts=await page.evaluate(()=>window.__multiplePage.vessels.filter(v=>Number(v.front.style.opacity)>.01).map(v=>v.part.sourcePartId||v.id));
+    assert(fronts.length>0,'CAD handoff must show fronts');assert.equal(fronts.length,new Set(fronts).size,'One CAD front per source');
+    await page.screenshot({path:process.env.CERAMIC_REPORT+'/'+layout+'-fronts.png'});
+   }
+   const info=await page.evaluate(()=>({assembly:window.__multiplePage.spec.assembly,timing:window.__multiplePage.spec.motion.timing,workload:window.__multiplePage.vessels.reduce((a,v)=>({instances:a.instances+1,triangles:a.triangles+(v.geometry.index?.count||v.geometry.attributes.position.count)/3,wireSegments:a.wireSegments+v.wireGeometry.attributes.position.count/2}),{instances:0,triangles:0,wireSegments:0})}));
    const {assembly,timing}=info;
    const begin=timing.accentGlazeStart===null?timing.baseGlazeStart+timing.baseGlazeDuration:timing.accentGlazeStart+timing.accentGlazeDuration;
    const samples=[];
@@ -28,7 +35,7 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
     const restored=await page.evaluate(()=>{const m=window.__multiplePage;return m.vessels.map(v=>{const q=v.main.position.clone().project(m.camera);return (1-q.y)*innerHeight/2;});});
     restored.forEach((y,i)=>assert(Math.abs(y-previous.parts[i].screenY)<1,'Reverse scroll must restore screen position'));
    }
-   results.push({layout,assembly,begin,samples});await page.close();
+   results.push({layout,assembly,begin,workload:info.workload,samples});await page.close();
   }
   fs.mkdirSync(process.env.CERAMIC_REPORT,{recursive:true});
   fs.writeFileSync(process.env.CERAMIC_REPORT+'/trajectory.json',JSON.stringify(results,null,2));

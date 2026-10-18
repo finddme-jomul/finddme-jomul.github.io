@@ -361,3 +361,7 @@ Optional `cadPresentation` in the feature page review partitions **source CAD ID
 Each source must appear exactly once. The generator recomposes the archived BRep views into 1800×1000 SVG pages with retained source front boxes; it does not infer a new shape. Scroll distributes pages through the initial fully visible CAD interval (`sheetFadeStart`), and navigation buttons jump to the corresponding interval. The last page supplies visible front cutouts during the existing transition. Parts absent from that page do not invent front cutouts; all reviewed scene instances still enter the 3D stage. No extra clay or landing time is added.
 
 Click or Enter/Space opens the currently visible SVG in a modal with fit/enlarge, scrollable detail, close and Esc. Closing restores focus and page scroll position. Grouped presentation is opt-in; existing review inputs retain their original sheet layout.
+
+### Oriented direct-drop framing
+
+Optional `motion.framing.envelope: "radial-drop"` requires direct-drop assembly. `motion.camera.azimuthDegrees` defaults to0 and accepts −180…180;45 places the +X/+Z (previous lower-right) corner toward the viewer. Existing elevation limit0…35 and occupancy fractions remain. The circumscribed radial envelope covers all upright yaw/fall positions and stays fixed after staging. Shape, part count, drop heights and landing times do not change. Grouped CAD fronts use one representative instance per source; additional copies appear as 3D instances.

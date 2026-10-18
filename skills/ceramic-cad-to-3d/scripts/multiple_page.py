@@ -34,6 +34,14 @@ def validate(review, ids):
     assembly(review.get('assembly'), review['parts'], review['motion']['timing'])
     if not 0 <= review['motion']['camera'].get('elevationDegrees',0) <= 35:
         raise ValueError('Invalid reviewed camera elevation')
+    camera=review['motion']['camera']
+    envelope=review['motion']['framing'].get('envelope','bounds')
+    if envelope not in ('bounds','radial-drop'):
+        raise ValueError('Unknown camera envelope')
+    if not -180 <= camera.get('azimuthDegrees',0) <= 180:
+        raise ValueError('Invalid reviewed camera azimuth')
+    if (envelope=='radial-drop' or camera.get('azimuthDegrees',0)) and (envelope!='radial-drop' or (review.get('assembly') or {}).get('mode')!='direct-drop'):
+        raise ValueError('Oriented radial framing requires direct-drop assembly')
     for p in review['parts']:
         if not re.fullmatch(r'[a-z0-9][a-z0-9-]*', p['id']): raise ValueError('Invalid part ID')
         if not isinstance(p['accentEnabled'], bool): raise ValueError('Explicit accentEnabled required')
