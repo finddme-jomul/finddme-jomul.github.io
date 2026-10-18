@@ -17,7 +17,7 @@ export function inRegion(region, exterior, heightMm, surface=null) {
 }
 export function coatingWeights(spec, exterior, heightMm, height, first, second, sweep, surface=null) {
   const fraction=clamp(heightMm/height);
-  return [first,second].map((p,i)=>p<=0?0:inRegion(spec.layers[i].region,exterior,heightMm,surface)?glazeRevealAt(fraction,p,sweep):0);
+  return [first,second].map((p,i)=>p<=0||!spec.layers[i]?0:inRegion(spec.layers[i].region,exterior,heightMm,surface)?glazeRevealAt(fraction,p,sweep):0);
 }
 export function landingEase(value){const t=clamp(value);return t*t*t*(10+t*(-15+6*t));}
 // Lift, translate above the other objects, lower. Pure progress allows reverse scroll.

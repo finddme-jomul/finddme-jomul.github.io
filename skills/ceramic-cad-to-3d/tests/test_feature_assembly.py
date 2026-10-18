@@ -54,6 +54,17 @@ class FeatureAssembly(unittest.TestCase):
             # Both endpoints are disjoint, but the second object crosses the first.
             bad=copy.deepcopy(spec);bad['steps'][1].update(targetPositionMm=[-30,0,0],liftMm=0)
             with self.assertRaisesRegex(ValueError,'collision'):check(parts,bad)
+    def test_rotating_thin_instances_collide_only_between_endpoints(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path=Path(tmp)/'rod.step';export_step(Box(40,4,5),path)
+            parts=[{'id':str(i),'step':path,'appearance':{'motion':{'finalXDesktop':0,'finalXMobile':0}}} for i in range(2)]
+            spec={'mode':'direct-drop','landing':'soft-spin','start':0,'duration':1,'steps':[{'partId':str(i),'start':0,'duration':1,'targetPositionMm':[0,0,-10*i],'dropHeightMm':10} for i in range(2)]}
+            motion={'timing':{'baseGlazeStart':0},'glaze':{'spinTurns':1,'axisPrecessionTurns':1}}
+            with self.assertRaisesRegex(ValueError,'collision'):check(parts,spec,motion)
+            spec['steps'][1]['targetPositionMm'][2]=-50
+            report=check(parts,spec,motion)
+            self.assertEqual(0,report['cadIntersections'])
+
     def test_feature_adapter_material_identity_and_count(self):
         import json
         from unittest.mock import patch

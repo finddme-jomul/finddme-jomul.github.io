@@ -37,13 +37,15 @@ export async function startMultiple(spec) {
     if(key!==layoutKey){layoutKey=key;image.src='./assets/'+spec.sheets[key].file;}
   }
   addEventListener('resize',resize);resize();await image.decode();
+  const assetCache=new Map();
+  const cached=(key,load)=>{if(!assetCache.has(key))assetCache.set(key,load());return assetCache.get(key)};
   const vessels=await Promise.all(spec.parts.map(async part=>{
-    const feature=part.shapeKind==='feature-solid';
-    const guide=feature?await fetch(`./assets/${part.id}/wire-guide.json`).then(r=>r.json()):null;
+    const feature=part.shapeKind==='feature-solid',assetId=part.geometryAssetId||part.id;
+    const guide=feature?await cached('guide:'+assetId,()=>fetch(`./assets/${assetId}/wire-guide.json`).then(r=>r.json())):null;
     if(feature&&guide.sourceStepSha256!==part.sourceStepSha256)throw Error('Feature guide source mismatch');
     const profile=feature?null:await fetch(`./assets/${part.id}/outer-profile.json`).then(r=>{if(!r.ok)throw Error('Profile failed');return r.json()});
-    const gltf=await new GLTFLoader().loadAsync(`./assets/${part.id}/model.glb`);
-    const regions=part.surfaceRegions?await fetch(`./assets/${part.id}/${part.surfaceRegions.file}`).then(r=>r.json()):null;
+    const gltf=await cached('model:'+assetId,()=>new GLTFLoader().loadAsync(`./assets/${assetId}/model.glb`));
+    const regions=part.surfaceRegions?await cached('regions:'+assetId,()=>fetch(`./assets/${assetId}/${part.surfaceRegions.file}`).then(r=>r.json())):null;
     if(regions&&regions.sourceGlbSha256!==part.surfaceRegions.sourceGlbSha256)throw Error('Feature surface source mismatch');
     const meshes=[];gltf.scene.traverse(n=>{if(n.isMesh)meshes.push(n)});
     if(!meshes.length||!feature&&meshes.length!==1)throw Error('Missing complete mesh');
@@ -56,7 +58,7 @@ export async function startMultiple(spec) {
       geometry=mergeGeometries(pieces);if(!geometry)throw Error('Feature mesh merge failed');
       geometry.translate(-offset[0],-offset[1],-offset[2]);
     }else{const original=meshes[0];original.updateWorldMatrix(true,false);geometry=original.geometry.clone().applyMatrix4(original.matrixWorld);}
-    if(feature&&part.coatings){
+    if(feature&&part.coatings&&part.surfaceRegions){
       let refined=featureCoatingBands(geometry.attributes.position.array,geometry.attributes.normal.array,exteriorFlags,part.dimensionsMm.height/1000);
       refined=featurePlanarRegions(refined,[...part.coatings.layers.map(l=>l.region),part.coatings.fired.region],offset);surfaces=refined.surfaces;
       geometry.dispose();geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(refined.positions,3));geometry.setAttribute('normal',new THREE.Float32BufferAttribute(refined.normals,3));exteriorFlags=refined.exterior;
@@ -70,7 +72,7 @@ export async function startMultiple(spec) {
     const positions=geometry.attributes.position,values=[];
     for(let i=0;i<positions.count;i++){
       const fraction=clamp(positions.getY(i)/height),angle=Math.atan2(positions.getZ(i),positions.getX(i));
-      values.push({surface:surfaces?.[i],fraction,heightMm:positions.getY(i)*1000,exterior:feature?exteriorFlags[i]:exteriorAt(profile,Math.hypot(positions.getX(i),positions.getZ(i))*1000,positions.getY(i)*1000),coverage:sprayCoverage(angle,fraction,part.accentCenterAngle,part.accentWidthScale),base:base.clone().lerp(warm,.2+.09*Math.sin(angle*5+fraction*12)),accent:accent.clone().lerp(accentWarm,g.accentWarmMix||0)});
+      values.push({surface:surfaces?.[i],fraction,heightMm:positions.getY(i)*1000,exterior:feature?(part.surfaceRegions?exteriorFlags[i]:true):exteriorAt(profile,Math.hypot(positions.getX(i),positions.getZ(i))*1000,positions.getY(i)*1000),coverage:sprayCoverage(angle,fraction,part.accentCenterAngle,part.accentWidthScale),base:base.clone().lerp(warm,.2+.09*Math.sin(angle*5+fraction*12)),accent:accent.clone().lerp(accentWarm,g.accentWarmMix||0)});
     }
     const colours=new THREE.BufferAttribute(new Float32Array(positions.count*3),3);geometry.setAttribute('color',colours);
     const material=new (feature?THREE.MeshPhysicalMaterial:THREE.MeshStandardMaterial)({vertexColors:true,roughness:.9,side:THREE.DoubleSide,transparent:true,opacity:0});
@@ -93,7 +95,7 @@ export async function startMultiple(spec) {
         if(part.coatings){
           const coat=part.coatings,[first,second]=coatingWeights(coat,v.exterior,v.heightMm,part.dimensionsMm.height,baseP,accentP,timing.surfaceSweepWidth,v.surface);
           const finish=inRegion(coat.fired.region,v.exterior,v.heightMm,v.surface)?coat.fired.regionHex:coat.fired.baseHex;
-          c=clay.clone().lerp(new THREE.Color(coat.layers[0].previewHex),first).lerp(new THREE.Color(finish),second);
+          c=clay.clone().lerp(new THREE.Color(coat.layers.length===1?finish:coat.layers[0].previewHex),first).lerp(new THREE.Color(finish),second);
         }
         colours.setXYZ(i,c.r,c.g,c.b);
       }
@@ -113,6 +115,7 @@ export async function startMultiple(spec) {
     return {bounds:{min:{x:x-radius,y,z:z-radius},max:{x:x+radius,y:y+step.dropHeightMm/1000+v.height,z:z+radius}},position:{x:0,y:0,z:0},scale:1};
   }):null;
   function frontPlacement(v,p){
+    if(p<timing.frontMoveStart||p>=timing.frontFadeStart+timing.frontFadeDuration){v.front.style.opacity='0';return;}
     const entry=spec.sheets[layoutKey],box=entry.frontBoxes[v.id],rect=image.getBoundingClientRect();
     const scale=Math.min(rect.width/entry.pagePx[0],rect.height/entry.pagePx[1]);
     const sheetW=entry.pagePx[0]*scale,sheetH=entry.pagePx[1]*scale;
@@ -149,7 +152,7 @@ export async function startMultiple(spec) {
       const turns=spinAt(glazeMotion.spinTurns);
       applyAxisPose(v,{bodyY:(drop*m.turns+turns)*2*Math.PI,orbitY:(drop*m.orbitTurns+spinAt(glazeMotion.axisPrecessionTurns))*2*Math.PI,tiltX:THREE.MathUtils.degToRad(axis.xDegrees)*axisFade,tiltZ:THREE.MathUtils.degToRad(axis.zDegrees)*axisFade});
       const clay=smooth((motionP-timing.clayStart-m.dropDelay)/timing.clayDuration),base=smooth((motionP-timing.baseGlazeStart)/timing.baseGlazeDuration),accent=timing.accentGlazeStart===null?0:smooth((motionP-timing.accentGlazeStart)/timing.accentGlazeDuration);
-      v.material.opacity=clay;v.material.depthWrite=clay>.98;v.wireMaterial.opacity=(1-clay)*smooth((p-timing.wireFadeStart)/timing.wireFadeDuration);v.paint(base,accent);v.state={drop,clay,base,accent,turns};
+      v.material.opacity=clay;v.material.depthWrite=clay>.98;v.wireMaterial.opacity=(1-clay)*smooth((p-timing.wireFadeStart)/timing.wireFadeDuration);v.material.visible=clay>0;v.wireMaterial.visible=v.wireMaterial.opacity>0;if(clay>0)v.paint(base,accent);v.state={drop,clay,base,accent,turns};
       if(assembly&&motionP>=assembly.start){
         const step=assembly.steps.find(s=>s.partId===v.id),ap=clamp((motionP-assembly.start)/assembly.duration);
         const start=[v.main.position.x,v.main.position.y-v.height/2,v.main.position.z];
