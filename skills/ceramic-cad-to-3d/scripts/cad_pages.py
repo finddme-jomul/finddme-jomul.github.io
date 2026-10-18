@@ -1,5 +1,5 @@
 """Compose reviewed landscape CAD pages from archived BRep drawing views."""
-import json,re,xml.etree.ElementTree as ET
+import math,json,re,xml.etree.ElementTree as ET
 from feature_drawing import draw_view
 from shared_sheet_poc import esc,label,line
 NS='{http://www.w3.org/2000/svg}'
@@ -14,6 +14,8 @@ def validate(presentation,ids):
         if not isinstance(g.get('id'),str) or not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*',g['id']):raise ValueError('Invalid CAD group ID')
         if not isinstance(g.get('title'),str) or not g['title'].strip():raise ValueError('CAD group title required')
         if not isinstance(g.get('partIds'),list) or not 1<=len(g['partIds'])<=3:raise ValueError('CAD group requires one to three source parts')
+        extra=g.get('extraScrollVh',0)
+        if isinstance(extra,bool) or not isinstance(extra,(int,float)) or not math.isfinite(extra) or not 0<=extra<=500:raise ValueError('CAD extraScrollVh must be finite, between 0 and 500')
         flat.extend(g['partIds']);names.append(g['id'])
     if len(set(names))!=len(names) or len(flat)!=len(set(flat)) or set(flat)!=set(ids):raise ValueError('CAD groups must partition source parts exactly once')
 

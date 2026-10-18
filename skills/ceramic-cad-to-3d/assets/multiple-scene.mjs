@@ -1,3 +1,4 @@
+import {createCadScroll} from './scene/cad-scroll.mjs';
 import {installCadPages} from './scene/cad-pages.mjs';
 import {sceneDefaults} from './scene-defaults.mjs';
 const defaults=sceneDefaults.multiple;
@@ -30,7 +31,7 @@ export async function startMultiple(spec) {
   const hasPhotos=spec.ending==='photos';
   const endMotion=hasPhotos?timing.photoStart+timing.photoDuration:timing.photoStart;
   const endProgress=timing.cadEnd+(1-timing.cadEnd)*endMotion;
-  const baseVh=spec.motion.storyHeightVh-100,totalVh=baseVh*endProgress;
+  const cadScroll=createCadScroll(spec),totalVh=cadScroll.toScrollVh(endProgress);
   story.style.height=`${100+totalVh}vh`;
   let layoutKey='',galleryActive=false,ready=false,frameRequested=false;
   const renderStats={frames:0,lastCpuMs:0};
@@ -157,7 +158,7 @@ export async function startMultiple(spec) {
   function frame(){
     frameRequested=false;const frameStart=performance.now();
     const atEnd=scrollY>=document.documentElement.scrollHeight-innerHeight-1;
-    const p=atEnd?endProgress:Math.min(endProgress,scrollY/innerHeight*100/baseVh),motionP=clamp((p-timing.cadEnd)/(1-timing.cadEnd)),small=innerWidth<600;
+    const p=atEnd?endProgress:Math.min(endProgress,cadScroll.fromScrollVh(scrollY/innerHeight*100)),motionP=clamp((p-timing.cadEnd)/(1-timing.cadEnd)),small=innerWidth<600;
     cadPages?.update(p);
     const bounds=[];
     for(const v of vessels){
@@ -229,7 +230,7 @@ export async function startMultiple(spec) {
     host.style.opacity=String(1-exit);host.setAttribute('aria-hidden',exit>=.999?'true':'false');
     const background=backgroundAt(p,{...spec.motion.background,fadeToPhoto:{start:hasPhotos?timing.cadEnd+(1-timing.cadEnd)*timing.photoStart:2,end:hasPhotos?endProgress:3}});
     document.body.style.backgroundColor=background.color;
-    window.__multiplePage={spec,vessels,camera,progress:p,motionProgress:motionP,endProgress,loaded:true,exit,renderStats};
+    window.__multiplePage={spec,vessels,camera,progress:p,motionProgress:motionP,endProgress,scrollVhAt:cadScroll.toScrollVh,loaded:true,exit,renderStats};
     renderStats.updateCpuMs=performance.now()-frameStart;
     if(!galleryActive)renderer.render(scene,camera);renderStats.frames++;renderStats.lastCpuMs=performance.now()-frameStart;renderStats.renderCpuMs=renderStats.lastCpuMs-renderStats.updateCpuMs;
   }

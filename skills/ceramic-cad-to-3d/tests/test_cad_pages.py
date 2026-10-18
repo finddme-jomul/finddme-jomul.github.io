@@ -4,6 +4,11 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from cad_pages import validate,install
 class CadPages(unittest.TestCase):
  def presentation(self):return {'clickToZoom':True,'groups':[{'id':'first','title':'First','partIds':['a']},{'id':'second','title':'Second','partIds':['b','c','d']},{'id':'third','title':'Third','partIds':['e','f','g']}]}
+ def test_scroll_extension_validation(self):
+  for value in [-1,501,float('nan'),float('inf'),True,'80']:
+   p=self.presentation();p['groups'][1]['extraScrollVh']=value
+   with self.assertRaises(ValueError):validate(p,list('abcdefg'))
+  p=self.presentation();p['groups'][1]['extraScrollVh']=80;validate(p,list('abcdefg'))
  def test_partition_rejects_duplicates_missing_and_unknown(self):
   p=self.presentation();validate(p,list('abcdefg'))
   for ids in [['a','b'],['x'],[]]:
