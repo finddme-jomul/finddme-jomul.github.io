@@ -34,6 +34,7 @@ let layout;
 const cards = orbitProjects.map((project, index) => {
   const link = document.createElement('a');
   link.className = 'work-card';
+  link.draggable = false;
   link.href = project.href;
   link.style.setProperty('--tone', project.tone);
   link.setAttribute('aria-label', `${project.title} 프로젝트 보기`);
