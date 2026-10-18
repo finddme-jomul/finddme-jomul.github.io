@@ -89,6 +89,20 @@ export async function startMultiple(spec) {
       sharedPaint.palettes=values.map(v=>{const finish=inRegion(coat.fired.region,v.exterior,v.heightMm,v.surface)?coat.fired.regionHex:coat.fired.baseHex;return {first:inRegion(coat.layers[0].region,v.exterior,v.heightMm,v.surface),second:!!coat.layers[1]&&inRegion(coat.layers[1].region,v.exterior,v.heightMm,v.surface),firstRGB:rgb(coat.layers.length===1?finish:coat.layers[0].previewHex),lastRGB:rgb(finish)}});
     }
     const material=new (feature?THREE.MeshPhysicalMaterial:THREE.MeshStandardMaterial)({vertexColors:true,roughness:.9,side:THREE.DoubleSide,transparent:true,opacity:0,...(feature?{clearcoat:g.clearcoat||0}:{})});
+    // Optional per-part direct-light reduction; other materials keep the selected lighting exactly.
+    if(lighting.softPartIds?.includes(part.id)){
+      material.onBeforeCompile=shader=>{
+        shader.uniforms.ceramicDirectLightScale={value:lighting.softPointLightScale??1};
+        shader.fragmentShader='uniform float ceramicDirectLightScale;\n'+shader.fragmentShader;
+        shader.fragmentShader=shader.fragmentShader.replace('#include <lights_fragment_end>',`#include <lights_fragment_end>
+          reflectedLight.directDiffuse *= ceramicDirectLightScale;
+          reflectedLight.directSpecular *= ceramicDirectLightScale;
+          #ifdef USE_CLEARCOAT
+          clearcoatSpecularDirect *= ceramicDirectLightScale;
+          #endif`);
+      };
+      material.customProgramCacheKey=()=> 'ceramic-part-direct-light';
+    }
     const solid=new THREE.Mesh(geometry,material);spin.add(solid);
     const points=[];
     if(feature){for(let i=0;i<guide.positionsYUpMetres.length;i++)points.push(guide.positionsYUpMetres[i]-offset[i%3]);}
