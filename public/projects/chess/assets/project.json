@@ -67,7 +67,7 @@
       "minDistance": 0.2,
       "provenance": "User requests larger finished 3D; preserve fixed direct-drop envelope and landing timing",
       "envelope": "radial-drop",
-      "focusY": -0.015
+      "focusY": 0.015
     },
     "background": {
       "colors": {
@@ -631,7 +631,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 1.0636139182160804,
-        "entryYOffset": 0.07666531023984133,
+        "entryYOffset": 0.17666531023984128,
         "entryZ": 0.21978396533060934,
         "spinPhaseDegrees": -132.07689069456,
         "axisPhaseDegrees": 97.31164749361886
@@ -711,7 +711,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 1.0869642873221932,
-        "entryYOffset": 0.0734424086094253,
+        "entryYOffset": 0.17344240860942528,
         "entryZ": 0.2123448500055345,
         "spinPhaseDegrees": -123.28352819991724,
         "axisPhaseDegrees": 13.060806350487013
@@ -791,7 +791,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 0.8878286699308637,
-        "entryYOffset": 0.08271022911791459,
+        "entryYOffset": 0.18271022911791457,
         "entryZ": 0.2256082362031359,
         "spinPhaseDegrees": -165.69098241549472,
         "axisPhaseDegrees": 140.30248877678616
@@ -871,7 +871,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 0.945941616479306,
-        "entryYOffset": 0.07381564965913665,
+        "entryYOffset": 0.1738156496591366,
         "entryZ": 0.21015563270234353,
         "spinPhaseDegrees": 144.40789351963298,
         "axisPhaseDegrees": -31.937185376437384
@@ -951,7 +951,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 0.9134784052693974,
-        "entryYOffset": 0.05136682215833764,
+        "entryYOffset": 0.15136682215833763,
         "entryZ": 0.21559975646164525,
         "spinPhaseDegrees": 91.13729603284793,
         "axisPhaseDegrees": 82.22315489627988
@@ -1031,7 +1031,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 1.0015605066111901,
-        "entryYOffset": 0.06595311138451726,
+        "entryYOffset": 0.16595311138451724,
         "entryZ": 0.22087665605314877,
         "spinPhaseDegrees": 67.59562368937424,
         "axisPhaseDegrees": -50.88124305728229
@@ -1111,7 +1111,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 0.9985337186204875,
-        "entryYOffset": 0.04288870897741424,
+        "entryYOffset": 0.14288870897741424,
         "entryZ": 0.2102646619897741,
         "spinPhaseDegrees": 135.20840420390135,
         "axisPhaseDegrees": -102.68793998826808
@@ -1191,7 +1191,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 0.9410040007362763,
-        "entryYOffset": 0.09381542328672574,
+        "entryYOffset": 0.19381542328672569,
         "entryZ": 0.2280844151092711,
         "spinPhaseDegrees": 133.2575387727769,
         "axisPhaseDegrees": 4.856747501170645
@@ -1271,7 +1271,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 1.0061692411585075,
-        "entryYOffset": 0.08846953209477194,
+        "entryYOffset": 0.1884695320947719,
         "entryZ": 0.14847952806557188,
         "spinPhaseDegrees": -9.619745667089319,
         "axisPhaseDegrees": -146.09424508995028
@@ -1351,7 +1351,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 0.9293565420503304,
-        "entryYOffset": 0.07616012209040435,
+        "entryYOffset": 0.17616012209040433,
         "entryZ": 0.16039667360110937,
         "spinPhaseDegrees": -120.00298512152719,
         "axisPhaseDegrees": -125.6232090700711
@@ -1431,7 +1431,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 0.9805964065242839,
-        "entryYOffset": 0.035203898922083504,
+        "entryYOffset": 0.1352038989220835,
         "entryZ": 0.16040880928558632,
         "spinPhaseDegrees": -56.821487411226826,
         "axisPhaseDegrees": 67.32101305942322
@@ -1511,7 +1511,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 1.0849926864351997,
-        "entryYOffset": 0.0826676230221112,
+        "entryYOffset": 0.1826676230221112,
         "entryZ": 0.15653797028693847,
         "spinPhaseDegrees": 20.562348775809312,
         "axisPhaseDegrees": -47.25413937274203
@@ -1591,7 +1591,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 0.8748684674507086,
-        "entryYOffset": 0.09073360135550873,
+        "entryYOffset": 0.1907336013555087,
         "entryZ": 0.1509147900007037,
         "spinPhaseDegrees": 105.33756764481996,
         "axisPhaseDegrees": 176.38577809244788
@@ -1671,7 +1671,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 1.0637762013440752,
-        "entryYOffset": 0.0725959373150924,
+        "entryYOffset": 0.17259593731509237,
         "entryZ": 0.14653549755569303,
         "spinPhaseDegrees": 52.021078638520635,
         "axisPhaseDegrees": -116.43698590089684
@@ -1751,7 +1751,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 1.0384945335022682,
-        "entryYOffset": 0.07177432467255956,
+        "entryYOffset": 0.17177432467255954,
         "entryZ": 0.1625049759279117,
         "spinPhaseDegrees": -155.30886550035075,
         "axisPhaseDegrees": 108.85561799298216
@@ -1831,7 +1831,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 0.9055884215118909,
-        "entryYOffset": 0.0353048714156693,
+        "entryYOffset": 0.13530487141566927,
         "entryZ": 0.1489445779613221,
         "spinPhaseDegrees": -43.79384770730772,
         "axisPhaseDegrees": -159.1442097079386
@@ -1911,7 +1911,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 0.8732295920126669,
-        "entryYOffset": 0.09474267534697767,
+        "entryYOffset": 0.19474267534697765,
         "entryZ": -0.2211208773270753,
         "spinPhaseDegrees": -64.0707445671125,
         "axisPhaseDegrees": 118.75670999620922
@@ -1991,7 +1991,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 0.8634554790065389,
-        "entryYOffset": 0.0915348657385203,
+        "entryYOffset": 0.19153486573852024,
         "entryZ": -0.22217972681350762,
         "spinPhaseDegrees": -103.75737100418284,
         "axisPhaseDegrees": 0.9391291483877922
@@ -2071,7 +2071,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 0.8711594251088924,
-        "entryYOffset": 0.0356002752487518,
+        "entryYOffset": 0.1356002752487518,
         "entryZ": -0.20933405119650256,
         "spinPhaseDegrees": -108.72399520202771,
         "axisPhaseDegrees": 119.3274554124194
@@ -2151,7 +2151,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 0.9433372899815541,
-        "entryYOffset": 0.09393961118392946,
+        "entryYOffset": 0.19393961118392944,
         "entryZ": -0.20736839812784372,
         "spinPhaseDegrees": -119.93103949466769,
         "axisPhaseDegrees": -92.31005115071764
@@ -2231,7 +2231,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 0.8778765719115983,
-        "entryYOffset": 0.042268027901805554,
+        "entryYOffset": 0.14226802790180554,
         "entryZ": -0.21063714644319007,
         "spinPhaseDegrees": -153.05543492336906,
         "axisPhaseDegrees": -88.03487305405392
@@ -2311,7 +2311,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 0.9093074627650026,
-        "entryYOffset": 0.07777212733237751,
+        "entryYOffset": 0.17777212733237752,
         "entryZ": -0.21449021408680513,
         "spinPhaseDegrees": 52.94496540424504,
         "axisPhaseDegrees": -23.9549704016288
@@ -2391,7 +2391,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 0.8411189046797081,
-        "entryYOffset": 0.08168655157107363,
+        "entryYOffset": 0.1816865515710736,
         "entryZ": -0.21575622549786233,
         "spinPhaseDegrees": -72.26754096702915,
         "axisPhaseDegrees": -30.04100503311912
@@ -2471,7 +2471,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 1.0162142342415212,
-        "entryYOffset": 0.06263375845087922,
+        "entryYOffset": 0.16263375845087918,
         "entryZ": -0.20643186368239175,
         "spinPhaseDegrees": 127.78243640594809,
         "axisPhaseDegrees": -14.335557251827197
@@ -2551,7 +2551,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 1.000437954417295,
-        "entryYOffset": 0.0383090582286055,
+        "entryYOffset": 0.1383090582286055,
         "entryZ": -0.15527789229211414,
         "spinPhaseDegrees": 124.86454162585534,
         "axisPhaseDegrees": 53.27139542112798
@@ -2631,7 +2631,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 1.022520502243423,
-        "entryYOffset": 0.041032388243016,
+        "entryYOffset": 0.141032388243016,
         "entryZ": -0.14433321848979194,
         "spinPhaseDegrees": 24.324402904038095,
         "axisPhaseDegrees": 52.56050955611286
@@ -2711,7 +2711,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 0.9067659653132201,
-        "entryYOffset": 0.09373034685130464,
+        "entryYOffset": 0.19373034685130464,
         "entryZ": -0.1439999157399766,
         "spinPhaseDegrees": 99.22245013368115,
         "axisPhaseDegrees": 48.47861600688711
@@ -2791,7 +2791,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 0.880875544507227,
-        "entryYOffset": 0.06878573600669716,
+        "entryYOffset": 0.16878573600669716,
         "entryZ": -0.1484501199039848,
         "spinPhaseDegrees": -159.7696459538448,
         "axisPhaseDegrees": 55.27644091908914
@@ -2871,7 +2871,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 0.9949951766352452,
-        "entryYOffset": 0.07253258759787554,
+        "entryYOffset": 0.17253258759787554,
         "entryZ": -0.16059962981184114,
         "spinPhaseDegrees": -29.511254113845524,
         "axisPhaseDegrees": 34.980122200536755
@@ -2951,7 +2951,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 1.093108645460019,
-        "entryYOffset": 0.09165237010951274,
+        "entryYOffset": 0.1916523701095127,
         "entryZ": -0.16223116057937015,
         "spinPhaseDegrees": -39.8465861572264,
         "axisPhaseDegrees": 34.405784032641975
@@ -3031,7 +3031,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 0.9153296266197938,
-        "entryYOffset": 0.05356045466595517,
+        "entryYOffset": 0.15356045466595514,
         "entryZ": -0.15625449371979383,
         "spinPhaseDegrees": 146.98207443120702,
         "axisPhaseDegrees": 160.49772324947065
@@ -3111,7 +3111,7 @@
         "settledScale": 1,
         "varyingDropAxis": true,
         "dropDurationScale": 0.8366027967044025,
-        "entryYOffset": 0.06958760515502513,
+        "entryYOffset": 0.16958760515502513,
         "entryZ": -0.14932661127129992,
         "spinPhaseDegrees": -56.20960703192537,
         "axisPhaseDegrees": -176.73685698472926
@@ -3196,7 +3196,7 @@
           22,
           217
         ],
-        "dropHeightMm": 83.84266303521127
+        "dropHeightMm": 143.84266303521127
       },
       {
         "partId": "brown-pawn-e7",
@@ -3207,7 +3207,7 @@
           22,
           -155
         ],
-        "dropHeightMm": 68.1285470999804
+        "dropHeightMm": 128.12854709998038
       },
       {
         "partId": "brown-bishop-f8",
@@ -3218,7 +3218,7 @@
           22,
           -217
         ],
-        "dropHeightMm": 70.25026342993017
+        "dropHeightMm": 130.25026342993016
       },
       {
         "partId": "white-pawn-d2",
@@ -3229,7 +3229,7 @@
           22,
           155
         ],
-        "dropHeightMm": 61.7743517446512
+        "dropHeightMm": 121.7743517446512
       },
       {
         "partId": "brown-pawn-b7",
@@ -3240,7 +3240,7 @@
           22,
           -155
         ],
-        "dropHeightMm": 63.96844780657495
+        "dropHeightMm": 123.96844780657494
       },
       {
         "partId": "white-pawn-e2",
@@ -3251,7 +3251,7 @@
           22,
           155
         ],
-        "dropHeightMm": 82.79596776417131
+        "dropHeightMm": 142.7959677641713
       },
       {
         "partId": "white-pawn-h2",
@@ -3262,7 +3262,7 @@
           22,
           155
         ],
-        "dropHeightMm": 70.97575928854287
+        "dropHeightMm": 130.97575928854286
       },
       {
         "partId": "white-pawn-g2",
@@ -3273,7 +3273,7 @@
           22,
           155
         ],
-        "dropHeightMm": 69.34457931353447
+        "dropHeightMm": 129.34457931353447
       },
       {
         "partId": "brown-pawn-f7",
@@ -3284,7 +3284,7 @@
           22,
           -155
         ],
-        "dropHeightMm": 63.39584650294512
+        "dropHeightMm": 123.39584650294512
       },
       {
         "partId": "brown-pawn-d7",
@@ -3295,7 +3295,7 @@
           22,
           -155
         ],
-        "dropHeightMm": 56.34979201249852
+        "dropHeightMm": 116.34979201249851
       },
       {
         "partId": "white-bishop-f1",
@@ -3306,7 +3306,7 @@
           22,
           217
         ],
-        "dropHeightMm": 64.35172870034036
+        "dropHeightMm": 124.35172870034035
       },
       {
         "partId": "brown-pawn-a7",
@@ -3317,7 +3317,7 @@
           22,
           -155
         ],
-        "dropHeightMm": 82.43580935554284
+        "dropHeightMm": 142.43580935554286
       },
       {
         "partId": "brown-knight-b8",
@@ -3328,7 +3328,7 @@
           22,
           -217
         ],
-        "dropHeightMm": 65.19054760558754
+        "dropHeightMm": 125.19054760558754
       },
       {
         "partId": "brown-king-e8",
@@ -3339,7 +3339,7 @@
           22,
           -217
         ],
-        "dropHeightMm": 84.57247654877263
+        "dropHeightMm": 144.5724765487726
       },
       {
         "partId": "white-rook-a1",
@@ -3350,7 +3350,7 @@
           22,
           217
         ],
-        "dropHeightMm": 66.25733452878566
+        "dropHeightMm": 126.25733452878566
       },
       {
         "partId": "white-pawn-f2",
@@ -3361,7 +3361,7 @@
           22,
           155
         ],
-        "dropHeightMm": 71.34920784575675
+        "dropHeightMm": 131.34920784575675
       },
       {
         "partId": "white-knight-g1",
@@ -3372,7 +3372,7 @@
           22,
           217
         ],
-        "dropHeightMm": 66.41968781322718
+        "dropHeightMm": 126.4196878132272
       },
       {
         "partId": "white-bishop-c1",
@@ -3383,7 +3383,7 @@
           22,
           217
         ],
-        "dropHeightMm": 75.05653353192281
+        "dropHeightMm": 135.0565335319228
       },
       {
         "partId": "white-knight-b1",
@@ -3394,7 +3394,7 @@
           22,
           217
         ],
-        "dropHeightMm": 81.47985842370238
+        "dropHeightMm": 141.47985842370238
       },
       {
         "partId": "brown-rook-a8",
@@ -3405,7 +3405,7 @@
           22,
           -217
         ],
-        "dropHeightMm": 62.086155397770845
+        "dropHeightMm": 122.08615539777085
       },
       {
         "partId": "white-pawn-c2",
@@ -3416,7 +3416,7 @@
           22,
           155
         ],
-        "dropHeightMm": 82.13722333879333
+        "dropHeightMm": 142.13722333879332
       },
       {
         "partId": "brown-knight-g8",
@@ -3427,7 +3427,7 @@
           22,
           -217
         ],
-        "dropHeightMm": 66.18211538420684
+        "dropHeightMm": 126.18211538420684
       },
       {
         "partId": "brown-bishop-c8",
@@ -3438,7 +3438,7 @@
           22,
           -217
         ],
-        "dropHeightMm": 70.18810590528257
+        "dropHeightMm": 130.18810590528255
       },
       {
         "partId": "brown-queen-d8",
@@ -3449,7 +3449,7 @@
           22,
           -217
         ],
-        "dropHeightMm": 67.02675502605112
+        "dropHeightMm": 127.02675502605112
       },
       {
         "partId": "brown-rook-h8",
@@ -3460,7 +3460,7 @@
           22,
           -217
         ],
-        "dropHeightMm": 78.93380946062665
+        "dropHeightMm": 138.93380946062666
       },
       {
         "partId": "brown-pawn-h7",
@@ -3471,7 +3471,7 @@
           22,
           -155
         ],
-        "dropHeightMm": 78.59426164930727
+        "dropHeightMm": 138.59426164930727
       },
       {
         "partId": "white-pawn-b2",
@@ -3482,7 +3482,7 @@
           22,
           155
         ],
-        "dropHeightMm": 78.45380286686128
+        "dropHeightMm": 138.45380286686128
       },
       {
         "partId": "white-pawn-a2",
@@ -3493,7 +3493,7 @@
           22,
           155
         ],
-        "dropHeightMm": 78.75776863156413
+        "dropHeightMm": 138.75776863156415
       },
       {
         "partId": "brown-pawn-g7",
@@ -3504,7 +3504,7 @@
           22,
           -155
         ],
-        "dropHeightMm": 80.18039079459759
+        "dropHeightMm": 140.1803907945976
       },
       {
         "partId": "white-rook-h1",
@@ -3515,7 +3515,7 @@
           22,
           217
         ],
-        "dropHeightMm": 55.354170977413595
+        "dropHeightMm": 115.35417097741359
       },
       {
         "partId": "white-king-e1",
@@ -3526,7 +3526,7 @@
           22,
           217
         ],
-        "dropHeightMm": 77.47167503928523
+        "dropHeightMm": 137.47167503928523
       },
       {
         "partId": "brown-pawn-c7",
@@ -3537,7 +3537,7 @@
           22,
           -155
         ],
-        "dropHeightMm": 72.73884780545227
+        "dropHeightMm": 132.73884780545228
       }
     ]
   },
@@ -3549,6 +3549,7 @@
         "partIds": [
           "board"
         ],
+        "extraScrollVh": 160,
         "file": "cad-group-board.svg",
         "pagePx": [
           1800,
@@ -3577,7 +3578,7 @@
           "knight",
           "bishop"
         ],
-        "extraScrollVh": 80,
+        "extraScrollVh": 160,
         "file": "cad-group-pawn-knight-bishop.svg",
         "pagePx": [
           1800,
@@ -3882,7 +3883,7 @@
           "queen",
           "king"
         ],
-        "extraScrollVh": 80,
+        "extraScrollVh": 160,
         "file": "cad-group-rook-queen-king.svg",
         "pagePx": [
           1800,

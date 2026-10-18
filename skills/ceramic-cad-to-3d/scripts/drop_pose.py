@@ -5,10 +5,10 @@ from assembly_geometry import smooth
 def pose(m,g,timing,assembly,step,t,drop=1,settle=1,axis_fade=1):
     if m.get('fixedOrientation'):return (0,0,0,0)
     end=assembly['start']+assembly['duration']*(step['start']+step['duration'])
-    release_end=assembly['start']+assembly['duration']*(step['start']+step['duration']*.7)
+    landing_start=assembly['start']+assembly['duration']*step['start']
     last=timing['baseGlazeStart']+timing['baseGlazeDuration'] if timing['accentGlazeStart'] is None else timing['accentGlazeStart']+timing['accentGlazeDuration']
-    spin=smooth((t-timing['baseGlazeStart'])/(end-timing['baseGlazeStart']))
-    release=smooth((t-last)/(release_end-last));settled=smooth(settle)
+    spin=.65*smooth((t-timing['baseGlazeStart'])/(landing_start-timing['baseGlazeStart']))+.35*smooth((t-landing_start)/(end-landing_start))
+    release=smooth((t-landing_start)/(end-landing_start));settled=smooth(settle)
     start=m['axisTiltDegrees'];retained=math.copysign(min(abs(start)*g['axisRetainFraction'],g['maxAxisTiltDegrees']),start)*(1-smooth(release)) if start else 0
     z=((start*(1-.35*drop)+m['axisDriftZDegrees']*math.sin(math.pi*drop))*(1-settled)+retained*settled)*axis_fade
     x=m['axisDriftXDegrees']*math.sin(math.pi*drop)*(1-settled)*axis_fade
