@@ -1,6 +1,8 @@
+import {createCadScroll} from './cad-scroll.mjs';
 // Optional source-derived landscape pages; scroll changes the sheet, never the 3D timing.
 export function installCadPages({spec,sheet,image,requestFrame}){
   const pages=spec.cadPresentation?.pages;if(!pages)return null;
+  const cadScroll=createCadScroll(spec);
   const style=document.createElement('style');style.textContent=`
   .cad-pages-active img{width:calc(100% - 32px)!important;height:calc(100% - 100px)!important;cursor:zoom-in;pointer-events:auto}
   .cad-page-nav{position:absolute;bottom:18px;left:0;right:0;display:flex;gap:8px;justify-content:center;pointer-events:auto}
@@ -16,7 +18,7 @@ export function installCadPages({spec,sheet,image,requestFrame}){
   const header=document.createElement('header'),title=document.createElement('h2'),zoom=document.createElement('button'),close=document.createElement('button'),viewport=document.createElement('div'),large=document.createElement('img');
   zoom.type=close.type='button';zoom.textContent='더 크게';close.textContent='닫기';viewport.className='cad-zoom-scroll';header.append(title,zoom,close);viewport.append(large);dialog.append(header,viewport);document.body.append(dialog);
   let active=-1,entry,priorOverflow='';
-  const buttons=pages.map((page,i)=>{const b=document.createElement('button');b.type='button';b.textContent=`${i+1}. ${page.title}`;b.onclick=()=>scrollTo(0,(i+.25)/pages.length*spec.motion.timing.sheetFadeStart*(spec.motion.storyHeightVh-100)*innerHeight/100);nav.append(b);const preload=new Image();preload.src='./assets/'+page.file;return b});
+  const buttons=pages.map((page,i)=>{const b=document.createElement('button');b.type='button';b.textContent=`${i+1}. ${page.title}`;b.onclick=()=>scrollTo(0,cadScroll.toScrollVh((i+.25)/pages.length*spec.motion.timing.sheetFadeStart)*innerHeight/100);nav.append(b);const preload=new Image();preload.src='./assets/'+page.file;return b});
   function open(){if(!entry||image.tabIndex<0)return;title.textContent=entry.title;large.src='./assets/'+entry.file;large.alt=entry.title+' 확대 CAD 도면';dialog.dataset.zoomed='false';zoom.textContent='더 크게';priorOverflow=document.body.style.overflow;document.body.style.overflow='hidden';dialog.showModal()}
   image.setAttribute('role','button');image.addEventListener('click',open);image.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});
   close.onclick=()=>dialog.close();dialog.addEventListener('close',()=>{document.body.style.overflow=priorOverflow;image.focus({preventScroll:true});requestFrame()});dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close()}});

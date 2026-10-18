@@ -1,5 +1,5 @@
 {
-  "sourceRevision": "e718f3eee68a44d9a77082c015cd7df3",
+  "sourceRevision": "5f884b9a319b4108bb3d2bc44f6f2134",
   "files": {
     "assets/board/front-view.svg": "36cc67ff6d1cb47500b2f37a7ea929ad742f3cdd708aade5cf71c2fdffa1f931",
     "assets/board/model.glb": "f082a40e3b87cc9e2c5a3afdb6486e4c44531c55c2a0658ba9854f9a0021188e",
@@ -8,7 +8,7 @@
     "assets/cad-group-board.svg": "583f47e941b14146bd10e2cfa05227c7c073206d26873940d20fac2079573d0b",
     "assets/cad-group-pawn-knight-bishop.svg": "6ec4c4ff6bd62de285ecf0e5f394ab19bb09d3c97119aa29a68e10cb8df7e233",
     "assets/cad-group-rook-queen-king.svg": "d3e262e3edb473ce20463acbbc548b6b62b61908d464e2b997e2705bb1271d96",
-    "assets/project.json": "e557c8719ba3ed8ce5f9fcf8bb160448ce9f639c34e48c75d797ed49294d3de3",
+    "assets/project.json": "a2ac4a3f832fb6acecbbc23de7de1c96dc401a3d1692ad02dde12bf59ffa30c0",
     "assets/sheet-desktop.svg": "b7b25f505e8e46280afb6844cdbb87519277fcd41aa9414b06be4cab4d3161bd",
     "assets/sheet-mobile-short.svg": "ffee8735b25535e714332d00b83ae54d34c789351a9b34e8953882e7c52253d9",
     "assets/sheet-mobile.svg": "f4a9a517d9e03ec6fd1687ade6127166c739927549f56157560e590471a96b28",
@@ -36,16 +36,17 @@
     "gallery.js": "d64da585e8c08260d0c47a3f9d10d50ff41314cd13de9d35f87a8e07439f2eb1",
     "handled-scene.mjs": "d599532bf0d7a7f5ecdfdc5244af6cc089baa27c7d99443090c8a28b63d72087",
     "index.html": "131690abce63908c9128e4b8d4044f2d511816371b0ce83c8b48b052bc210e21",
-    "multiple-scene.mjs": "79ba7b39b5fd14f1bb2588a58d199f8879e95707baf3d4514bce3825e5bf49dc",
+    "multiple-scene.mjs": "c3c9c2e7c625a359dd800b861d3c791021963a85d4a70ae6b7f1b3b48f3679c2",
     "scene/axis-motion.mjs": "71511810da9eb151894f8b8c5cf84d1ca1c51fe412ecba37bfc04943dc0dce67",
     "scene/background-transition.mjs": "7023122b744c7b5897df30207c14472c84dae90fb5e501cb3a54da651fad9fb4",
-    "scene/cad-pages.mjs": "55691ab1fe9734fc54a3f9e61284f4a77d28249df002ead9dc0c6d73f23e079c",
+    "scene/cad-pages.mjs": "83a51f20046aefe90f59d804630449c51c524fcc93c3cc9d851525d35ca10a04",
+    "scene/cad-scroll.mjs": "a313fcb3ca6141742fd1cea97638fbc167b6196d2c9bf9cebd980091e9be2bce",
     "scene/composition-framing.mjs": "c168b28f84dbd27a7ab75d0248d27b315911b5f31a40a1584117ab5163984736",
     "scene/glaze-motion.mjs": "3c3efb83de4dadbafad7397d99217f563be7e484ea75af24ee14d05a1b7649d6",
     "scene/layered-vessels.mjs": "7f89b79a21cf0f5ddbeee8b34b1ffc0f70f3b5b094e2a3421cdd8e69376b91ae",
     "scene/oriented-framing.mjs": "cf429bd19371e21ce95ff4f0d1eccf66a135d5888b48e210764f85e4717f6fbd",
     "scene-defaults.mjs": "64f56619efe594349a4d71a3b44f88367af8132e05bf79713a662feef8d0e609",
-    "viewer.js": "deb9833c9cea234abc969b783ac6fb3d91b0124e6f599219939960d3d390f86c",
+    "viewer.js": "67d07a01ec840f745b2f9c021af4476e712db794cb2f9dcb23079340b92c6390",
     "wire-color.mjs": "05d0dc90c698e27a3156e6ed223cef1056133ee13624bc085993897bd95a5324"
   }
 }

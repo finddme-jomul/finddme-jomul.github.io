@@ -43,7 +43,7 @@
       "desktopFocusDeltaZ": -0.15,
       "mobileFocusDeltaZ": -0.17,
       "elevationDegrees": 35,
-      "azimuthDegrees": 45
+      "azimuthDegrees": -45
     },
     "layout": {
       "desktopEntryY": 0.16,
@@ -3359,6 +3359,7 @@
           "knight",
           "bishop"
         ],
+        "extraScrollVh": 80,
         "file": "cad-group-pawn-knight-bishop.svg",
         "pagePx": [
           1800,
@@ -3663,6 +3664,7 @@
           "queen",
           "king"
         ],
+        "extraScrollVh": 80,
         "file": "cad-group-rook-queen-king.svg",
         "pagePx": [
           1800,
