@@ -143,8 +143,6 @@ function setView(value) {
   updateTarget();
 }
 function step(delta) { velocity = 0; target += delta; updateTarget(); }
-$('#previous').addEventListener('click', () => step(-1));
-$('#next').addEventListener('click', () => step(1));
 stage.addEventListener('keydown', (event) => {
   if (!grid && ['ArrowLeft', 'ArrowRight'].includes(event.key)) {
     event.preventDefault();
