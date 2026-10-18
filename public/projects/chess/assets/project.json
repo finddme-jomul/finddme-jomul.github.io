@@ -30,7 +30,7 @@
       "settleDuration": 0.12,
       "cameraFocusStart": 0.28,
       "cameraFocusDuration": 0.24,
-      "photoStart": 0.91,
+      "photoStart": 0.97,
       "photoDuration": 0.025,
       "surfaceSweepWidth": 0.04
     },
@@ -57,7 +57,7 @@
       "source": "User-approved planar feature extension; actual board integration, provisional palette and motion",
       "clayPacing": "User: 흙 상태 장면이 길거나 많음. Shorten clay transition/hold and visually similar clear glaze; brown starts earlier. Board review candidate.",
       "variation": "User requested individual phase/speed/axis changes; explicit deterministic instance values, seed 28103; board remains below pieces.",
-      "landingPacing": "User requests slower final landing; assembly duration .14 to .24 (1.714x scroll), photo boundary .81 to .91. Same per-piece order, gap proportions and pose.",
+      "landingPacing": "User reports rushed contact: duration .24 to .30, 25% more scroll; preserve individual step order and soft easing, photos begin .97.",
       "approach": "User rejects pre-aligned floating rows: explicit X/Z approach offsets and independent hover heights; converge only with individual descent. Slower duration .24 preserved."
     },
     "framing": {
@@ -3176,7 +3176,7 @@
     "landing": "soft-spin",
     "overlap": true,
     "start": 0.65,
-    "duration": 0.24,
+    "duration": 0.3,
     "steps": [
       {
         "partId": "board",
@@ -3675,11 +3675,16 @@
     "pages": [
       {
         "id": "board",
-        "title": "체스판",
+        "title": "Chessboard",
         "partIds": [
           "board"
         ],
         "extraScrollVh": 160,
+        "dimensionNotes": [
+          "FINISHED SIZE 580 x 580 x 22 mm | GRID 8 x 8 | CELL 60 x 60 mm",
+          "GROOVE WIDTH 2 mm (0.2 cm) | BORDER 43 mm = (580 - 8 x 60 - 7 x 2) / 2",
+          "GROOVE DEPTH 1 mm: PROVISIONAL | ONE-PIECE SLAB / NO PERIMETER GROOVE"
+        ],
         "file": "cad-group-board.svg",
         "pagePx": [
           1800,
@@ -3688,7 +3693,7 @@
         "frontBoxes": {
           "board": {
             "cx": 0.17407407407407408,
-            "cy": 0.2625,
+            "cy": 0.3225,
             "width": 0.2992592592592592,
             "height": 0.02043217579288029,
             "sourceStepSha256": "54c8352aa7a62b1301c3953934a7aec16097bee960ce5e61b2dfab837f50936a",
@@ -3702,7 +3707,7 @@
       },
       {
         "id": "pawn-knight-bishop",
-        "title": "폰 · 나이트 · 비숍",
+        "title": "Pawn / Knight / Bishop",
         "partIds": [
           "pawn",
           "knight",
@@ -4007,7 +4012,7 @@
       },
       {
         "id": "rook-queen-king",
-        "title": "룩 · 퀸 · 킹",
+        "title": "Rook / Queen / King",
         "partIds": [
           "rook",
           "queen",
