@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "status": "reviewed-provisional",
+  "provenance": "User confirmed the moon-like motion comparison; direction, angle and pacing remain provisional for mug",
+  "tiltDirection": "right",
+  "tiltDegrees": 14,
+  "bodySpinDegrees": 390,
+  "axisPrecessionDegrees": 360,
+  "storyHeightVh": 900
+}
