@@ -1,6 +1,6 @@
 /** Wheel and drag input for an unbounded orbit. Native scrolling stays available
  * in List/dialogs, and browser pinch/ctrl-wheel zoom is never intercepted. */
-export function bindOrbitInput({ wheelTarget, dragTarget, enabled, onDelta, onDragState = () => {}, dragButtonSelector = null }) {
+export function bindOrbitInput({ wheelTarget, dragTarget, enabled, onDelta, onDragState = () => {}, dragButtonSelector = null, onGrab = () => false, onRelease = () => {}, pixelsPerStep = 180 }) {
   const abort = new AbortController();
   const options = { signal: abort.signal };
   let drag = null;
@@ -15,28 +15,37 @@ export function bindOrbitInput({ wheelTarget, dragTarget, enabled, onDelta, onDr
   }, { ...options, passive: false });
   dragTarget.addEventListener('pointerdown', (event) => {
     if (!enabled() || !event.isPrimary || event.button !== 0 || event.target.closest('input, select, textarea') || (event.target.closest('button') && !(dragButtonSelector && event.target.closest(dragButtonSelector)))) return;
-    drag = { id: event.pointerId, x: event.clientX, y: event.clientY, last: 0, moved: false, touch: event.pointerType === 'touch' };
+    const stopped = onGrab();
+    drag = { id: event.pointerId, x: event.clientX, y: event.clientY, moved: false, stopped, time: event.timeStamp, samples: [] };
   }, options);
   dragTarget.addEventListener('pointermove', (event) => {
     if (!drag || drag.id !== event.pointerId || !enabled()) return;
     const dx = event.clientX - drag.x;
     const dy = event.clientY - drag.y;
     if (!drag.moved) {
-      if ((drag.touch ? Math.abs(dx) : Math.hypot(dx, dy)) < 8) return;
+      if (Math.hypot(dx, dy) < 8) return;
       drag.moved = true;
-      drag.horizontal = drag.touch || Math.abs(dx) >= Math.abs(dy);
       onDragState(true);
       dragTarget.setPointerCapture(event.pointerId);
       dragTarget.classList.add('is-dragging');
     }
-    const distance = drag.horizontal ? -dx : -dy;
-    onDelta((distance - drag.last) / 180);
-    drag.last = distance;
+    // Choose the dominant movement of this event, not the first gesture axis.
+    const delta = -(Math.abs(dx) >= Math.abs(dy) ? dx : dy) / pixelsPerStep;
+    const now = event.timeStamp;
+    drag.samples.push({ delta, start: drag.time, end: now });
+    drag.samples = drag.samples.filter(sample => now - sample.start <= 100);
+    drag.x = event.clientX; drag.y = event.clientY; drag.time = now;
+    onDelta(delta);
     event.preventDefault();
   }, options);
   const end = (event) => {
     if (!drag || drag.id !== event.pointerId) return;
-    if (drag.moved) suppressClickUntil = performance.now() + 400;
+    if (drag.moved || drag.stopped) suppressClickUntil = performance.now() + 400;
+    const samples = drag.samples;
+    const duration = samples.length ? event.timeStamp - samples[0].start : 0;
+    const velocity = event.type === 'pointerup' && event.timeStamp - drag.time < 80 && duration > 0
+      ? samples.reduce((sum, sample) => sum + sample.delta, 0) / Math.max(16, duration) : 0;
+    onRelease(velocity);
     drag = null;
     onDragState(false);
     dragTarget.classList.remove('is-dragging');
