@@ -1,5 +1,5 @@
 {
-  "sourceRevision": "1a43c1d2f473457d8bcd01fd8c12a175",
+  "sourceRevision": "4a8e1534ce4b4b6790fcfcaf6683628d",
   "files": {
     "assets/board/front-view.svg": "36cc67ff6d1cb47500b2f37a7ea929ad742f3cdd708aade5cf71c2fdffa1f931",
     "assets/board/model.glb": "f082a40e3b87cc9e2c5a3afdb6486e4c44531c55c2a0658ba9854f9a0021188e",
@@ -8,7 +8,7 @@
     "assets/cad-group-board.svg": "583f47e941b14146bd10e2cfa05227c7c073206d26873940d20fac2079573d0b",
     "assets/cad-group-pawn-knight-bishop.svg": "fb8c9ad72029467b9b16a74e097138f00d11f8cb30840f3379e2e829b0908aac",
     "assets/cad-group-rook-queen-king.svg": "e76a190043e1cd6d15636fc935004b001bfaa0aaa5c4d76a610f227c9e434df0",
-    "assets/project.json": "247abb89f417370198f4df09d2191e46364f0bc1d1bcee48b5ffd6b24f1061e6",
+    "assets/project.json": "b6454a443869aff1009cdb99884115669412245ba9fbc6272953cfd02c81e263",
     "assets/sheet-desktop.svg": "002d010f7a5fca6e6042185b04200f83d30287ec5773b2bddfc28a7bcdba9c07",
     "assets/sheet-mobile-short.svg": "66fb616c422c55d99a6f5fbea299c3c0a2071a93b07a5c350e7f608ab56221e8",
     "assets/sheet-mobile.svg": "626ec9ee29f80e4b8b0f208442a7e8bd56a46719b6c82b2f2eb2f7edb67374bd",
