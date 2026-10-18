@@ -11,6 +11,7 @@ from browser_environment import node_command
 
 SUITES = {
     'oriented-framing': node_command(SKILL/'tests/check-oriented-framing.mjs'),
+    'cad-scroll': node_command(SKILL/'tests/check-cad-scroll.mjs'),
     'cad-pages': [sys.executable, str(SKILL/'tests/test_cad_pages.py')],
     'feature-instances': [sys.executable, str(SKILL/'tests/test_feature_instances.py')],
     'planar-coatings-contract': [sys.executable, str(SKILL/'tests/test_planar_coatings.py')],

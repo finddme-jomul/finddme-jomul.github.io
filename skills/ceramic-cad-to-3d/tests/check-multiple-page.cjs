@@ -17,7 +17,7 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
    const t=info.timing;
    const points=info.feature&&!info.layered?[0,.12,.23,mp(.12),mp(.27),mp(t.baseGlazeStart+.01),mp(t.baseGlazeStart+t.baseGlazeDuration+.001),mp(t.baseGlazeStart+t.baseGlazeDuration/2),mp(t.baseGlazeStart+t.baseGlazeDuration+.005),mp(info.assembly?info.assembly.start+info.assembly.duration*.55:t.photoStart-.005),info.end,mp(.15)]:info.layered?[0,.12,.23,mp(.2),mp(.4),mp(t.baseGlazeStart+.01),mp(t.baseGlazeStart+t.baseGlazeDuration+.001),mp(t.accentGlazeStart+t.accentGlazeDuration/2),mp(t.accentGlazeStart+t.accentGlazeDuration+.001),mp(info.assembly?info.assembly.start+info.assembly.duration*.55:t.photoStart-.005),info.end,mp(t.baseGlazeStart+.01)]:[0,.12,.23,mp(.2),mp(.4),mp(.6),mp(.68),mp(.77),mp(.86),mp(.925),info.end,mp(.6)];
    for(const p of points){
-    await page.evaluate(p=>scrollTo(0,p*(window.__multiplePage.spec.motion.storyHeightVh-100)*innerHeight/100),p);
+    await page.evaluate(p=>scrollTo(0,(window.__multiplePage.scrollVhAt?.(p)??p*(window.__multiplePage.spec.motion.storyHeightVh-100))*innerHeight/100),p);
     await page.waitForFunction(p=>Math.abs(window.__multiplePage.progress-p)<.002,{},p);await new Promise(r=>setTimeout(r,step===10?1800:120));
     const state=await page.evaluate(()=>{
      const m=window.__multiplePage;
@@ -77,7 +77,7 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
     let reverseReference;
     for(const ap of poses){
      const progress=mp(info.assembly.start+info.assembly.duration*ap);
-     await page.evaluate(p=>scrollTo(0,p*(window.__multiplePage.spec.motion.storyHeightVh-100)*innerHeight/100),progress);
+     await page.evaluate(p=>scrollTo(0,(window.__multiplePage.scrollVhAt?.(p)??p*(window.__multiplePage.spec.motion.storyHeightVh-100))*innerHeight/100),progress);
      await page.waitForFunction(p=>Math.abs(window.__multiplePage.progress-p)<.002,{},progress);
      const result=await page.evaluate(()=>window.__multiplePage.vessels.map(v=>{
       const camera=window.__multiplePage.camera,a=v.geometry.attributes.position;let clipped=false;

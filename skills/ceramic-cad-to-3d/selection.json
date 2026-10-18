@@ -714,6 +714,7 @@
         "scripts/feature_instances.py",
         "scripts/cad_pages.py",
         "assets/scene/cad-pages.mjs",
+        "assets/scene/cad-scroll.mjs",
         "assets/scene/oriented-framing.mjs"
       ],
       "verification": {
@@ -725,6 +726,7 @@
           "planar-coatings-mesh",
           "feature-instances",
           "cad-pages",
+          "cad-scroll",
           "oriented-framing"
         ],
         "scope": "CAD sampled collisions and shared review/recovery contracts; separate browser development evidence required. Not continuous collision or visual adoption. Planar region bounds, hard-edge triangle areas, translated CAD coordinates and non-top exclusions; actual board browser verification remains separate.",

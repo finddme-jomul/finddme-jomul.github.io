@@ -11,7 +11,7 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
    await page.goto(process.env.CERAMIC_CANDIDATE,{waitUntil:'networkidle0'});
    await page.waitForFunction(()=>window.__multiplePage?.loaded);
    if(process.env.CERAMIC_ASSERT_SOURCE_FRONTS==='1'){
-    await page.evaluate(()=>scrollTo(0,.18*(window.__multiplePage.spec.motion.storyHeightVh-100)*innerHeight/100));
+    await page.evaluate(()=>scrollTo(0,(window.__multiplePage.scrollVhAt?.(.18)??.18*(window.__multiplePage.spec.motion.storyHeightVh-100))*innerHeight/100));
     await page.waitForFunction(()=>Math.abs(window.__multiplePage.progress-.18)<.001);
     const fronts=await page.evaluate(()=>window.__multiplePage.vessels.filter(v=>Number(v.front.style.opacity)>.01).map(v=>v.part.sourcePartId||v.id));
     assert(fronts.length>0,'CAD handoff must show fronts');assert.equal(fronts.length,new Set(fronts).size,'One CAD front per source');
@@ -23,7 +23,7 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
    const samples=[];
    for(let i=0;i<=100;i++){
     const t=begin+(assembly.start+assembly.duration-begin)*i/100;
-    await page.evaluate(t=>{const m=window.__multiplePage,s=m.spec.motion;scrollTo(0,(s.timing.cadEnd+(1-s.timing.cadEnd)*t)*(s.storyHeightVh-100)*innerHeight/100);},t);
+    await page.evaluate(t=>{const m=window.__multiplePage,s=m.spec.motion;scrollTo(0,(m.scrollVhAt?.(s.timing.cadEnd+(1-s.timing.cadEnd)*t)??(s.timing.cadEnd+(1-s.timing.cadEnd)*t)*(s.storyHeightVh-100))*innerHeight/100);},t);
     await page.waitForFunction(t=>Math.abs(window.__multiplePage.motionProgress-t)<.0003,{},t);
     samples.push(await page.evaluate(()=>{const m=window.__multiplePage;return {scrollY,t:m.motionProgress,camera:m.camera.position.toArray(),parts:m.vessels.map(v=>{const q=v.main.position.clone().project(m.camera);return {id:v.id,y:v.main.position.y,screenY:(1-q.y)*innerHeight/2,drop:v.state.drop,assembly:v.state.assembly};})};}));
    }
