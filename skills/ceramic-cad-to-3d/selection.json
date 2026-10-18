@@ -701,7 +701,7 @@
     {
       "id": "feature-multiple-page",
       "state": "implemented-review-candidate",
-      "rule": "Homogeneous feature-solid lists use the shared multiple renderer, source BRep guides, explicit one-coat or reviewed two-layer exterior/full-surface or explicit CAD XY planar rectangle materials and optional upright sequential placement. Explicit layered feature-solids reviews also support one part. No instance-count-specific scripts. Explicit instances retain source CAD identity and select archived material variants; all-surface single-pass instances may share a page with two-pass parts. Every instance has an explicit assembly target.",
+      "rule": "Homogeneous feature-solid lists use the shared multiple renderer, source BRep guides, explicit one-coat or reviewed two-layer exterior/full-surface or explicit CAD XY planar rectangle materials and optional upright sequential placement. Explicit layered feature-solids reviews also support one part. No instance-count-specific scripts. Explicit instances retain source CAD identity and select archived material variants; all-surface single-pass instances may share a page with two-pass parts. Every instance has an explicit assembly target. User-requested optional landscape CAD groups partition source IDs into at most three pages, with click/keyboard zoom. Shared repeated-material paint and on-demand rendering preserve motion; performance must be measured separately from geometry checks.",
       "consumer": [
         "scripts/feature_multiple.py",
         "scripts/feature_surface.py",
@@ -711,7 +711,9 @@
         "scripts/multiple_page.py",
         "assets/multiple-scene.mjs",
         "scripts/layered_review.py",
-        "scripts/feature_instances.py"
+        "scripts/feature_instances.py",
+        "scripts/cad_pages.py",
+        "assets/scene/cad-pages.mjs"
       ],
       "verification": {
         "suites": [
@@ -720,7 +722,8 @@
           "page-recovery",
           "planar-coatings-contract",
           "planar-coatings-mesh",
-          "feature-instances"
+          "feature-instances",
+          "cad-pages"
         ],
         "scope": "CAD sampled collisions and shared review/recovery contracts; separate browser development evidence required. Not continuous collision or visual adoption. Planar region bounds, hard-edge triangle areas, translated CAD coordinates and non-top exclusions; actual board browser verification remains separate.",
         "browserCheck": "tests/check-multiple-page.cjs"

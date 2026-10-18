@@ -151,6 +151,9 @@ def install(prepared,stage):
         if (gallery/name).exists():shutil.copy2(gallery/name,stage/name)
     spec={**review,'compositionMode':'single' if len(rendered)==1 else 'multiple','name':prepared['name'],'parts':rendered,'sheets':prepared['sheetManifest']['layouts'],
           'ending':'photos' if load_photos(photos) else 'glaze'}
+    if feature and review.get('cadPresentation'):
+        from cad_pages import install as install_cad_pages
+        spec['cadPresentation']=install_cad_pages(project,stage,review['cadPresentation'],prepared['parts'])
     (stage/'assets/project.json').write_text(json.dumps(spec,ensure_ascii=False,indent=2)+'\n')
     document=(stage/'index.html').read_text();a=document.index('<section class="gallery"');b=document.index('<script type="module"',a)
     document=document[:a]+(gallery/'gallery.html').read_text()+document[b:]
@@ -158,7 +161,8 @@ def install(prepared,stage):
     document=re.sub(r'<title>.*?</title>','<title>'+html.escape(prepared['name'])+'</title>',document)
     document=document.replace('달항아리',html.escape(prepared['name'],quote=True))
     document=re.sub(r'alt="[^"]*기술 도면:[^"]*"','alt="CAD technical drawing"',document)
-    document=document.replace('./assets/cad-sheet.png','./assets/sheet-desktop.svg')
+    initial_sheet=spec['cadPresentation']['pages'][0]['file'] if feature and review.get('cadPresentation') else 'sheet-desktop.svg'
+    document=document.replace('./assets/cad-sheet.png','./assets/'+initial_sheet)
     a=document.index('<div class="cad-main"');b=document.index('</div>',a)+6
     document=document[:a]+''.join(f'<div class="cad-main" data-part="{p["id"]}" aria-hidden="true"><img src="./assets/{p.get("geometryAssetId",p["id"])}/front-view.svg" alt=""></div>' for p in rendered)+document[b:]
     document=document.replace('</style>','.cad-sheet img{left:50%;top:50%;width:100%;height:100%;object-fit:contain;transform:translate(-50%,-50%)}\n</style>')

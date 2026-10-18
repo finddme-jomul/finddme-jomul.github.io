@@ -7,7 +7,7 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
  try{
   for(const [layout,width,height] of [['desktop',1440,900],['short',1280,720],['mobile',390,844],['mobile-short',390,700]]){
    browser=await puppeteer.launch({headless:true,executablePath:process.env.CERAMIC_CHROME,args:['--no-sandbox','--disable-dev-shm-usage','--enable-webgl','--use-gl=angle','--use-angle=swiftshader']});
-   const page=await browser.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
+   const page=await browser.newPage(),errors=[];page.on('pageerror',e=>{errors.push(e.message);console.error(e.stack)});
    page.setDefaultNavigationTimeout(120000);page.setDefaultTimeout(120000);await page.setViewport({width,height,deviceScaleFactor:1});await page.goto(process.env.CERAMIC_CANDIDATE,{waitUntil:'networkidle0'});
    await page.waitForFunction(()=>window.__multiplePage?.loaded);
    const info=await page.evaluate(()=>({parts:window.__multiplePage.spec.parts,glaze:window.__multiplePage.spec.motion.glaze,instanced:window.__multiplePage.spec.parts.some(p=>p.sourcePartId&&p.sourcePartId!==p.id),ids:window.__multiplePage.spec.parts.map(p=>p.id),end:window.__multiplePage.endProgress,cad:window.__multiplePage.spec.motion.timing.cadEnd,photos:window.__multiplePage.spec.ending==='photos',feature:window.__multiplePage.spec.renderer==='feature-solids',layered:window.__multiplePage.spec.renderer==='layered-vessels'||window.__multiplePage.spec.parts.every(p=>p.coatings),timing:window.__multiplePage.spec.motion.timing,assembly:window.__multiplePage.spec.assembly}));
@@ -65,7 +65,7 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
      else for(let i=1;i<state.parts.length;i++){assert(state.parts[i-1].x<state.parts[i].x);assert(state.parts[i-1].maxX<state.parts[i].minX,'settled parts overlap');}
      for(const v of state.parts){assert(v.base>.999&&(info.feature&&!info.layered?v.accent===0:v.accent>.999));assert(Math.abs(v.tiltX)<.001&&Math.abs(v.tiltZ)<.001);assert(v.body>=4*Math.PI-.001&&v.axis>=4*Math.PI-.001);}
      if(info.photos){assert(state.images.length>0&&state.images.every(Boolean));await page.click('.gallery-photo');await page.waitForFunction(()=>document.querySelector('dialog').open);await page.keyboard.press('Escape');}
-     else assert.equal(await page.$('dialog'),null);
+     else assert.equal(await page.$('#photo-lightbox'),null);
     }
     if(step===11){assert(!state.gallery);assert(state.exit<.001);}
     await page.screenshot({path:path.join(report,`${layout}-${step}.png`)});checks.push({layout,step:step++,state});
