@@ -1,0 +1,498 @@
+{
+  "schemaVersion": 1,
+  "status": "reviewed-provisional",
+  "provenance": {
+    "source": "User plate sketch and corrected dimensions; preview curvature, boundary, RGB, camera, placement remain provisional"
+  },
+  "motion": {
+    "storyHeightVh": 1250,
+    "timing": {
+      "cadEnd": 0.24,
+      "sheetFadeStart": 0.1,
+      "sheetFadeDuration": 0.14,
+      "frontMoveStart": 0.1,
+      "frontMoveDuration": 0.16,
+      "frontFadeStart": 0.215,
+      "frontFadeDuration": 0.065,
+      "wireFadeStart": 0.2,
+      "wireFadeDuration": 0.065,
+      "axisFadeStart": 0.25,
+      "axisFadeDuration": 0.08,
+      "dropStart": 0.045,
+      "dropDuration": 0.36,
+      "clayStart": 0.29,
+      "clayDuration": 0.12,
+      "baseGlazeStart": 0.45,
+      "baseGlazeDuration": 0.1,
+      "accentGlazeStart": 0.58,
+      "accentGlazeDuration": 0.12,
+      "settleStart": 0.42,
+      "settleDuration": 0.12,
+      "cameraFocusStart": 0.28,
+      "cameraFocusDuration": 0.24,
+      "photoStart": 0.97,
+      "photoDuration": 0.025,
+      "surfaceSweepWidth": 0.04
+    },
+    "camera": {
+      "fov": 32,
+      "y": 0.095,
+      "lookAtY": 0.043,
+      "desktopStartZ": 0.87,
+      "mobileStartZ": 1.45,
+      "desktopFocusDeltaZ": -0.15,
+      "mobileFocusDeltaZ": -0.17,
+      "elevationDegrees": 22
+    },
+    "layout": {
+      "desktopEntryY": 0.16,
+      "mobileEntryY": 0.29,
+      "entryZ": -0.24,
+      "dropBounceY": 0.007,
+      "photoScaleStart": 0.94,
+      "photoTopPercent": 48
+    },
+    "provenance": {
+      "source": "Plate development preview; common reviewed axis and bottom-up coating rules, new timing/layout are assumptions"
+    },
+    "framing": {
+      "enabled": true,
+      "desktopWidthFraction": 0.88,
+      "mobileWidthFraction": 0.92,
+      "desktopHeightFraction": 0.62,
+      "mobileHeightFraction": 0.52,
+      "minDistance": 0.2,
+      "provenance": "screen-occupancy-poc-assumption;bounds-derived"
+    },
+    "background": {
+      "colors": {
+        "cad": "#ffffff",
+        "studio": "#202023",
+        "photo": "#f2eee9"
+      },
+      "fadeToStudio": {
+        "start": 0.5666666666666667,
+        "end": 0.7666666666666667
+      },
+      "fadeToPhoto": {
+        "start": 0.85,
+        "end": 0.9416666666666667
+      },
+      "lightText": {
+        "start": 0.6666666666666666,
+        "end": 0.9083333333333333
+      },
+      "provenance": "favored-moon-jar-animejs-timeline-default;user-requested-for-bowl-set"
+    },
+    "glaze": {
+      "direction": "bottom-up",
+      "spinTurns": 1,
+      "provenance": "shared continuing axis/spin; preview values",
+      "axisPrecessionTurns": 1,
+      "axisRetainFraction": 0.35,
+      "maxAxisTiltDegrees": 8
+    },
+    "photoHandoff": {
+      "sequence": "scene-exit-then-photo-enter",
+      "sceneExitScrollVh": 40,
+      "transitionScrollVh": 80,
+      "holdScrollVh": 80,
+      "provenance": "user-approved-order;distances-reproduce-bowl-poc-not-general-default"
+    }
+  },
+  "parts": [
+    {
+      "id": "plate-large",
+      "accentCenterAngle": 2.42,
+      "accentWidthScale": 1,
+      "accentEnabled": true,
+      "provenance": {
+        "source": "Archived actual plate materials; RGB and boundary height illustrative"
+      },
+      "motion": {
+        "dropDelay": 0.0,
+        "entryXDesktop": 0.0,
+        "entryXMobile": 0.0,
+        "finalXDesktop": 0.0,
+        "finalXMobile": 0.0,
+        "axisTiltDegrees": 16,
+        "axisDriftZDegrees": 5,
+        "axisDriftXDegrees": -4,
+        "turns": 1,
+        "provenance": {
+          "source": "provisional input; not user-adopted motion"
+        },
+        "cadToWireScale": 1.4,
+        "cadToWireScaleMobile": 1.2,
+        "orbitTurns": 1,
+        "settledScale": 1
+      },
+      "glazePreview": {
+        "clayHex": "#a79b89",
+        "baseHex": "#e6ddc9",
+        "accentHex": "#262626",
+        "baseName": "preview",
+        "accentName": "preview"
+      },
+      "coatings": {
+        "status": "reviewed-provisional",
+        "provenance": {
+          "order": "user-described",
+          "boundary": "lower 70% of body, foot excluded; sketch-inspired provisional, not measured",
+          "colors": "illustrative RGB, not fired sample calibration"
+        },
+        "layers": [
+          {
+            "name": "흑유",
+            "region": {
+              "surface": "exterior",
+              "minHeightMm": 10,
+              "maxHeightMm": 41.5
+            },
+            "previewHex": "#262626"
+          },
+          {
+            "name": "투명 매트",
+            "region": {
+              "surface": "all"
+            },
+            "previewHex": "#e6ddc9"
+          }
+        ],
+        "fired": {
+          "region": {
+            "surface": "exterior",
+            "minHeightMm": 10,
+            "maxHeightMm": 41.5
+          },
+          "baseHex": "#e6ddc9",
+          "regionHex": "#858581"
+        },
+        "roughness": 0.72
+      },
+      "dimensionsMm": {
+        "height": 55,
+        "maxDiameter": 180,
+        "openingDiameter": 180,
+        "footDiameter": 80,
+        "footHeight": 10,
+        "wallThickness": 1,
+        "baseThickness": 1
+      }
+    },
+    {
+      "id": "plate-medium",
+      "accentCenterAngle": 2.42,
+      "accentWidthScale": 1,
+      "accentEnabled": true,
+      "provenance": {
+        "source": "Archived actual plate materials; RGB and boundary height illustrative"
+      },
+      "motion": {
+        "dropDelay": 0.015,
+        "entryXDesktop": 0.23,
+        "entryXMobile": 0.23,
+        "finalXDesktop": 0.23,
+        "finalXMobile": 0.23,
+        "axisTiltDegrees": -16,
+        "axisDriftZDegrees": 5,
+        "axisDriftXDegrees": -4,
+        "turns": 1,
+        "provenance": {
+          "source": "provisional input; not user-adopted motion"
+        },
+        "cadToWireScale": 1.4,
+        "cadToWireScaleMobile": 1.2,
+        "orbitTurns": 1,
+        "settledScale": 1
+      },
+      "glazePreview": {
+        "clayHex": "#a79b89",
+        "baseHex": "#e6ddc9",
+        "accentHex": "#262626",
+        "baseName": "preview",
+        "accentName": "preview"
+      },
+      "coatings": {
+        "status": "reviewed-provisional",
+        "provenance": {
+          "order": "user-described",
+          "boundary": "lower 70% of body, foot excluded; sketch-inspired provisional, not measured",
+          "colors": "illustrative RGB, not fired sample calibration"
+        },
+        "layers": [
+          {
+            "name": "투명 매트",
+            "region": {
+              "surface": "all"
+            },
+            "previewHex": "#e6ddc9"
+          },
+          {
+            "name": "흑유",
+            "region": {
+              "surface": "exterior",
+              "minHeightMm": 10,
+              "maxHeightMm": 38.0
+            },
+            "previewHex": "#262626"
+          }
+        ],
+        "fired": {
+          "region": {
+            "surface": "exterior",
+            "minHeightMm": 10,
+            "maxHeightMm": 38.0
+          },
+          "baseHex": "#e6ddc9",
+          "regionHex": "#262626"
+        },
+        "roughness": 0.72
+      },
+      "dimensionsMm": {
+        "height": 50,
+        "maxDiameter": 160,
+        "openingDiameter": 160,
+        "footDiameter": 75,
+        "footHeight": 10,
+        "wallThickness": 1,
+        "baseThickness": 1
+      }
+    },
+    {
+      "id": "plate-small",
+      "accentCenterAngle": 2.42,
+      "accentWidthScale": 1,
+      "accentEnabled": true,
+      "provenance": {
+        "source": "Archived actual plate materials; RGB and boundary height illustrative"
+      },
+      "motion": {
+        "dropDelay": 0.03,
+        "entryXDesktop": 0.46,
+        "entryXMobile": 0.46,
+        "finalXDesktop": 0.46,
+        "finalXMobile": 0.46,
+        "axisTiltDegrees": 16,
+        "axisDriftZDegrees": 5,
+        "axisDriftXDegrees": -4,
+        "turns": 1,
+        "provenance": {
+          "source": "provisional input; not user-adopted motion"
+        },
+        "cadToWireScale": 1.4,
+        "cadToWireScaleMobile": 1.2,
+        "orbitTurns": 1,
+        "settledScale": 1
+      },
+      "glazePreview": {
+        "clayHex": "#a79b89",
+        "baseHex": "#e6ddc9",
+        "accentHex": "#262626",
+        "baseName": "preview",
+        "accentName": "preview"
+      },
+      "coatings": {
+        "status": "reviewed-provisional",
+        "provenance": {
+          "order": "user-described",
+          "boundary": "lower 70% of body, foot excluded; sketch-inspired provisional, not measured",
+          "colors": "illustrative RGB, not fired sample calibration"
+        },
+        "layers": [
+          {
+            "name": "흑유",
+            "region": {
+              "surface": "exterior",
+              "minHeightMm": 10,
+              "maxHeightMm": 34.5
+            },
+            "previewHex": "#262626"
+          },
+          {
+            "name": "투명 매트",
+            "region": {
+              "surface": "all"
+            },
+            "previewHex": "#e6ddc9"
+          }
+        ],
+        "fired": {
+          "region": {
+            "surface": "exterior",
+            "minHeightMm": 10,
+            "maxHeightMm": 34.5
+          },
+          "baseHex": "#e6ddc9",
+          "regionHex": "#858581"
+        },
+        "roughness": 0.72
+      },
+      "dimensionsMm": {
+        "height": 45,
+        "maxDiameter": 140,
+        "openingDiameter": 140,
+        "footDiameter": 70,
+        "footHeight": 10,
+        "wallThickness": 1,
+        "baseThickness": 1
+      }
+    }
+  ],
+  "renderer": "layered-vessels",
+  "assembly": {
+    "status": "reviewed-provisional",
+    "provenance": "User requested three nested plates; targets based on modeled 10mm foot + 1mm floor with .5mm preview clearance, not manufacturing fit",
+    "start": 0.74,
+    "duration": 0.2,
+    "steps": [
+      {
+        "partId": "plate-large",
+        "targetPositionMm": [
+          0,
+          0,
+          0
+        ],
+        "start": 0,
+        "duration": 0.12,
+        "liftMm": 0
+      },
+      {
+        "partId": "plate-medium",
+        "targetPositionMm": [
+          0,
+          11.5,
+          0
+        ],
+        "start": 0.12,
+        "duration": 0.44,
+        "liftMm": 100
+      },
+      {
+        "partId": "plate-small",
+        "targetPositionMm": [
+          0,
+          23,
+          0
+        ],
+        "start": 0.56,
+        "duration": 0.44,
+        "liftMm": 100
+      }
+    ]
+  },
+  "compositionMode": "multiple",
+  "name": "Three plates / reviewed dimensions",
+  "sheets": {
+    "desktop": {
+      "file": "sheet-desktop.svg",
+      "pagePx": [
+        3200,
+        2140
+      ],
+      "frontBoxes": {
+        "plate-small": {
+          "cx": 0.159375,
+          "cy": 0.39380841121495325,
+          "width": 0.179375,
+          "height": 0.08621495327102804
+        },
+        "plate-medium": {
+          "cx": 0.659375,
+          "cy": 0.3901869158878505,
+          "width": 0.2,
+          "height": 0.09345794392523364
+        },
+        "plate-large": {
+          "cx": 0.5,
+          "cy": 0.858515057113188,
+          "width": 0.2,
+          "height": 0.09138110072689512
+        }
+      }
+    },
+    "mobile": {
+      "file": "sheet-mobile.svg",
+      "pagePx": [
+        900,
+        3956
+      ],
+      "frontBoxes": {
+        "plate-small": {
+          "cx": 0.38333333333333336,
+          "cy": 0.18344648273869713,
+          "width": 0.4444444444444444,
+          "height": 0.0325003611151235
+        },
+        "plate-medium": {
+          "cx": 0.38333333333333336,
+          "cy": 0.5054347826086957,
+          "width": 0.4444444444444444,
+          "height": 0.03159757330637007
+        },
+        "plate-large": {
+          "cx": 0.38333333333333336,
+          "cy": 0.827322772722166,
+          "width": 0.4444444444444444,
+          "height": 0.030895405010672946
+        }
+      }
+    },
+    "mobile-short": {
+      "file": "sheet-mobile-short.svg",
+      "pagePx": [
+        900,
+        3506
+      ],
+      "frontBoxes": {
+        "plate-small": {
+          "cx": 0.38333333333333336,
+          "cy": 0.18132181566294517,
+          "width": 0.4444444444444444,
+          "height": 0.03667182788688778
+        },
+        "plate-medium": {
+          "cx": 0.38333333333333336,
+          "cy": 0.5018539646320593,
+          "width": 0.4444444444444444,
+          "height": 0.0356531660011409
+        },
+        "plate-large": {
+          "cx": 0.38333333333333336,
+          "cy": 0.8222729289472016,
+          "width": 0.4444444444444444,
+          "height": 0.034860873423337775
+        }
+      }
+    },
+    "short": {
+      "file": "sheet-desktop.svg",
+      "pagePx": [
+        3200,
+        2140
+      ],
+      "frontBoxes": {
+        "plate-small": {
+          "cx": 0.159375,
+          "cy": 0.39380841121495325,
+          "width": 0.179375,
+          "height": 0.08621495327102804
+        },
+        "plate-medium": {
+          "cx": 0.659375,
+          "cy": 0.3901869158878505,
+          "width": 0.2,
+          "height": 0.09345794392523364
+        },
+        "plate-large": {
+          "cx": 0.5,
+          "cy": 0.858515057113188,
+          "width": 0.2,
+          "height": 0.09138110072689512
+        }
+      },
+      "reuseOf": "desktop"
+    }
+  },
+  "ending": "photos"
+}

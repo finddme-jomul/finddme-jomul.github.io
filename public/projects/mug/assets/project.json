@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "status": "reviewed-provisional",
+  "provenance": "Existing 05 provisional mug geometry and moon-axis review; added glaze/photo integration is a technical candidate, not visual adoption",
+  "motion": {
+    "schemaVersion": 1,
+    "status": "reviewed-provisional",
+    "provenance": "User confirmed the moon-like motion comparison; direction, angle and pacing remain provisional for mug",
+    "tiltDirection": "right",
+    "tiltDegrees": 14,
+    "bodySpinDegrees": 390,
+    "axisPrecessionDegrees": 360,
+    "storyHeightVh": 900
+  },
+  "surface": {
+    "clayName": "잡토",
+    "glazeName": "하늘보리 유약",
+    "clayHex": "#d7d2ca",
+    "glazeHex": "#b9d5d9",
+    "roughness": 0.33,
+    "clearcoat": 0.08,
+    "provenance": "Clay colour preserved from handled motion; sky-barley colour borrowed from provisional bowl preview for integration testing only; mug colour and gloss unconfirmed"
+  },
+  "shapeKind": "handled-vessel",
+  "compositionMode": "single",
+  "name": "Mug / provisional handle review",
+  "ending": "photos"
+}

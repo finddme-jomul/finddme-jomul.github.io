@@ -1,0 +1,303 @@
+{
+  "schemaVersion": 1,
+  "status": "reviewed-provisional",
+  "provenance": "Explicit regression fixture only; historical scene tuning is not user-adopted presentation",
+  "motion": {
+    "storyHeightVh": 760,
+    "timing": {
+      "cadEnd": 0.24,
+      "sheetFadeStart": 0.1,
+      "sheetFadeDuration": 0.14,
+      "frontMoveStart": 0.1,
+      "frontMoveDuration": 0.16,
+      "frontFadeStart": 0.215,
+      "frontFadeDuration": 0.065,
+      "wireFadeStart": 0.2,
+      "wireFadeDuration": 0.065,
+      "axisFadeStart": 0.25,
+      "axisFadeDuration": 0.08,
+      "dropStart": 0.045,
+      "dropDuration": 0.36,
+      "clayStart": 0.36,
+      "clayDuration": 0.16,
+      "baseGlazeStart": 0.59,
+      "baseGlazeDuration": 0.1,
+      "accentGlazeStart": 0.75,
+      "accentGlazeDuration": 0.14,
+      "settleStart": 0.42,
+      "settleDuration": 0.12,
+      "cameraFocusStart": 0.28,
+      "cameraFocusDuration": 0.24,
+      "photoStart": 0.93,
+      "photoDuration": 0.065,
+      "surfaceSweepWidth": 0.04
+    },
+    "camera": {
+      "fov": 32,
+      "y": 0.095,
+      "lookAtY": 0.043,
+      "desktopStartZ": 0.87,
+      "mobileStartZ": 1.45,
+      "desktopFocusDeltaZ": -0.15,
+      "mobileFocusDeltaZ": -0.17
+    },
+    "layout": {
+      "desktopEntryY": 0.16,
+      "mobileEntryY": 0.29,
+      "entryZ": -0.24,
+      "dropBounceY": 0.007,
+      "photoScaleStart": 0.94,
+      "photoTopPercent": 48
+    },
+    "provenance": {
+      "timing": "poc-tuned-not-user-confirmed",
+      "camera": "poc-tuned-not-user-confirmed",
+      "layout": "poc-tuned-not-user-confirmed"
+    },
+    "framing": {
+      "enabled": true,
+      "desktopWidthFraction": 0.88,
+      "mobileWidthFraction": 0.92,
+      "desktopHeightFraction": 0.62,
+      "mobileHeightFraction": 0.52,
+      "minDistance": 0.32,
+      "provenance": "screen-occupancy-poc-assumption;bounds-derived"
+    },
+    "background": {
+      "colors": {
+        "cad": "#ffffff",
+        "studio": "#202023",
+        "photo": "#f2eee9"
+      },
+      "fadeToStudio": {
+        "start": 0.5666666666666667,
+        "end": 0.7666666666666667
+      },
+      "fadeToPhoto": {
+        "start": 0.85,
+        "end": 0.9416666666666667
+      },
+      "lightText": {
+        "start": 0.6666666666666666,
+        "end": 0.9083333333333333
+      },
+      "provenance": "favored-moon-jar-animejs-timeline-default;user-requested-for-bowl-set"
+    },
+    "glaze": {
+      "direction": "bottom-up",
+      "spinTurns": 1,
+      "provenance": "favored-moon-jar-coating-turn;user-directed-axis-continuity-after-fall;residual-tilt-poc-tuned",
+      "axisPrecessionTurns": 1,
+      "axisRetainFraction": 0.35,
+      "maxAxisTiltDegrees": 8
+    },
+    "photoHandoff": {
+      "sequence": "scene-exit-then-photo-enter",
+      "sceneExitScrollVh": 40,
+      "transitionScrollVh": 80,
+      "holdScrollVh": 80,
+      "provenance": "user-approved-order;distances-reproduce-bowl-poc-not-general-default"
+    }
+  },
+  "parts": [
+    {
+      "id": "rice-bowl",
+      "accentCenterAngle": 2.42,
+      "accentWidthScale": 1,
+      "accentEnabled": true,
+      "provenance": "user-confirmed-glaze-order;rgb-preview-assumption",
+      "motion": {
+        "dropDelay": 0,
+        "entryXDesktop": -0.25,
+        "entryXMobile": -0.12,
+        "finalXDesktop": -0.085,
+        "finalXMobile": -0.075,
+        "axisTiltDegrees": 15,
+        "axisDriftZDegrees": 6,
+        "axisDriftXDegrees": -5,
+        "turns": 1,
+        "provenance": {
+          "axis": "user-directed-start-angle-and-full-turn;axis-drift-illustrative",
+          "entryAndFinalPositions": "poc-visual-assumption",
+          "cadToWireScale": "user-directed-zoom;scale-poc-tuned",
+          "orbitTurns": "candidate enforcing selected minimum full axis turn; not visual adoption",
+          "settledScale": "user-directed-larger-final-size;poc-value"
+        },
+        "cadToWireScale": 2.15,
+        "cadToWireScaleMobile": 1.75,
+        "orbitTurns": 1,
+        "settledScale": 1.15
+      },
+      "glazePreview": {
+        "status": "user-confirmed-order-and-left-side-application-colors-approximate",
+        "clayHex": "#b9aea1",
+        "baseHex": "#b9d5d9",
+        "baseWarmHex": "#d9d3b2",
+        "accentHex": "#245b79",
+        "baseName": "하늘보리 유약 — 전체",
+        "accentName": "청자 유약 — 왼쪽 비정형 분사",
+        "spraySide": "left",
+        "applicationEvidence": {
+          "kind": "user-message",
+          "verbatim": "응 청자유약이야. 도포 위치는 왼쪽에서 비정형하게 느낌대로 뿌렸었어"
+        },
+        "accentVisibility": "stronger-partial-spray-preview"
+      },
+      "dimensionsMm": {
+        "height": 75.0,
+        "maxDiameter": 116.0,
+        "openingDiameter": 110.0,
+        "footDiameter": 48.0,
+        "wallThickness": 2.0,
+        "baseThickness": 6.0
+      }
+    },
+    {
+      "id": "soup-bowl",
+      "accentCenterAngle": 0.65,
+      "accentWidthScale": 0.68,
+      "accentEnabled": true,
+      "provenance": "user-confirmed-glaze-order;rgb-preview-assumption",
+      "motion": {
+        "dropDelay": 0.055,
+        "entryXDesktop": 0.25,
+        "entryXMobile": 0.12,
+        "finalXDesktop": 0.085,
+        "finalXMobile": 0.075,
+        "axisTiltDegrees": -45,
+        "axisDriftZDegrees": -11,
+        "axisDriftXDegrees": 9,
+        "turns": 1,
+        "provenance": {
+          "axis": "user-directed-start-angle-and-full-turn;axis-drift-illustrative",
+          "entryAndFinalPositions": "poc-visual-assumption",
+          "cadToWireScale": "user-directed-zoom;scale-poc-tuned",
+          "orbitTurns": "candidate enforcing selected minimum full axis turn; not visual adoption",
+          "settledScale": "user-directed-larger-final-size;poc-value"
+        },
+        "cadToWireScale": 2.15,
+        "cadToWireScaleMobile": 1.75,
+        "orbitTurns": 1,
+        "settledScale": 1.15
+      },
+      "glazePreview": {
+        "status": "user-confirmed-order-colors-and-area-approximate",
+        "clayHex": "#b9aea1",
+        "baseHex": "#171b1d",
+        "baseWarmHex": "#262923",
+        "accentHex": "#74adb9",
+        "baseName": "흑유 — 첫 번째 전체 도포",
+        "accentName": "하늘보리 — 두 번째 부분 도포",
+        "applicationEvidence": {
+          "kind": "user-message",
+          "verbatim": "국그릇은 첫 번째로 흑유를 바르고 두 번째로 하늘보리를 발랐어. 스케치에 보통 유약이 여러개면 순서대로 +로 나열하고 있어"
+        },
+        "accentWarmHex": "#c1b579",
+        "accentWarmMix": 0.22,
+        "colorAdjustmentEvidence": {
+          "kind": "user-message",
+          "verbatim": "흑유는 더 검은 색으로 표현해줘. 그리고 국그릇의 ... 하늘보리가 ... 아주 조금 더 하늘빛/노란빛을 띄어도 될 거 같아"
+        },
+        "accentVisibility": "stronger-partial-spray-preview"
+      },
+      "dimensionsMm": {
+        "height": 85.0,
+        "maxDiameter": 120.0,
+        "openingDiameter": 120.0,
+        "footDiameter": 54.0,
+        "wallThickness": 3.0,
+        "baseThickness": 7.0
+      }
+    }
+  ],
+  "compositionMode": "multiple",
+  "name": "Rice + soup bowl set",
+  "sheets": {
+    "desktop": {
+      "file": "sheet-desktop.svg",
+      "pagePx": [
+        1600,
+        1000
+      ],
+      "frontBoxes": {
+        "rice-bowl": {
+          "cx": 0.40625,
+          "cy": 0.58075,
+          "width": 0.13775000000000007,
+          "height": 0.1425
+        },
+        "soup-bowl": {
+          "cx": 0.59375,
+          "cy": 0.57125,
+          "width": 0.1425,
+          "height": 0.1615
+        }
+      }
+    },
+    "mobile": {
+      "file": "sheet-mobile.svg",
+      "pagePx": [
+        900,
+        1900
+      ],
+      "frontBoxes": {
+        "rice-bowl": {
+          "cx": 0.5,
+          "cy": 0.30394736842105263,
+          "width": 0.38666666666666666,
+          "height": 0.11842105263157894
+        },
+        "soup-bowl": {
+          "cx": 0.5,
+          "cy": 0.7294956140350877,
+          "width": 0.3888888888888889,
+          "height": 0.13048245614035092
+        }
+      }
+    },
+    "mobile-short": {
+      "file": "sheet-mobile-short.svg",
+      "pagePx": [
+        900,
+        1500
+      ],
+      "frontBoxes": {
+        "rice-bowl": {
+          "cx": 0.5,
+          "cy": 0.31333333333333335,
+          "width": 0.30933333333333335,
+          "height": 0.12
+        },
+        "soup-bowl": {
+          "cx": 0.5,
+          "cy": 0.712,
+          "width": 0.32,
+          "height": 0.136
+        }
+      }
+    },
+    "short": {
+      "file": "sheet-desktop.svg",
+      "pagePx": [
+        1600,
+        1000
+      ],
+      "frontBoxes": {
+        "rice-bowl": {
+          "cx": 0.40625,
+          "cy": 0.58075,
+          "width": 0.13775000000000007,
+          "height": 0.1425
+        },
+        "soup-bowl": {
+          "cx": 0.59375,
+          "cy": 0.57125,
+          "width": 0.1425,
+          "height": 0.1615
+        }
+      },
+      "reuseOf": "desktop"
+    }
+  },
+  "ending": "photos"
+}

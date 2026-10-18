@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "project": "Rice + soup bowl set",
+  "profileId": "jomul-poc-accepted-2026-10-13",
+  "style": "technical-dense",
+  "compositionMode": "multiple",
+  "sheetCount": 1,
+  "scope": "user-selected common CAD visual direction for rotational single/two-part inputs; full new-project pipeline remains unverified",
+  "parts": [
+    {
+      "id": "rice-bowl",
+      "profileSha256": "0b94eb0c1ab2fe7f5c28270ecebea95080fe81df99d3506bcec94fced65242eb",
+      "dimensionsSha256": "3c25e84020b04cf99d18d55fad46f83d1a272699f4d3cb578c67130de37d5235",
+      "materialSha256": "1c6c6dedb677680a2ebdae96a817f30353dad275519a7fb114a59c348dcb678d",
+      "sourceFiles": {
+        "profile": "docs/artifacts/bowl-set-validation/output/rice-bowl/outer-profile.json",
+        "dimensions": "docs/artifacts/bowl-set-validation/output/rice-bowl/dimensions.json",
+        "material": "docs/artifacts/bowl-set-validation/composition-intake.json"
+      },
+      "sources": {
+        "height": "user-confirmed",
+        "maxDiameter": "visual-assumption",
+        "openingDiameter": "sketch-observed",
+        "footDiameter": "visual-assumption",
+        "wallThickness": "user-confirmed",
+        "baseThickness": "visual-assumption"
+      },
+      "stationsMm": [
+        [
+          0.0,
+          47.999988
+        ],
+        [
+          37.5,
+          107.13983234470635
+        ],
+        [
+          75.0,
+          110.000016
+        ]
+      ]
+    },
+    {
+      "id": "soup-bowl",
+      "profileSha256": "565a9e6cf241e051f8b33bfa9760d113f33164f9acfde0153ee2adf3447a38fb",
+      "dimensionsSha256": "a06ae868afe1e2f92a97aa91e709e93daa4271b6582debbd688b506fa67a5508",
+      "materialSha256": "1c6c6dedb677680a2ebdae96a817f30353dad275519a7fb114a59c348dcb678d",
+      "sourceFiles": {
+        "profile": "docs/artifacts/bowl-set-validation/output/soup-bowl/outer-profile.json",
+        "dimensions": "docs/artifacts/bowl-set-validation/output/soup-bowl/dimensions.json",
+        "material": "docs/artifacts/bowl-set-validation/composition-intake.json"
+      },
+      "sources": {
+        "height": "user-confirmed",
+        "maxDiameter": "visual-assumption",
+        "openingDiameter": "sketch-observed",
+        "footDiameter": "visual-assumption",
+        "wallThickness": "user-confirmed",
+        "baseThickness": "visual-assumption"
+      },
+      "stationsMm": [
+        [
+          0.0,
+          54.0
+        ],
+        [
+          42.5,
+          91.6950638194424
+        ],
+        [
+          85.0,
+          119.99999999999999
+        ]
+      ]
+    }
+  ],
+  "layouts": {
+    "desktop": {
+      "file": "sheet-desktop.svg",
+      "pagePx": [
+        1600,
+        1000
+      ],
+      "frontBoxes": {
+        "rice-bowl": {
+          "cx": 0.40625,
+          "cy": 0.58075,
+          "width": 0.13774999999999998,
+          "height": 0.1425
+        },
+        "soup-bowl": {
+          "cx": 0.59375,
+          "cy": 0.57125,
+          "width": 0.1425,
+          "height": 0.1615
+        }
+      }
+    },
+    "mobile": {
+      "file": "sheet-mobile.svg",
+      "pagePx": [
+        900,
+        1900
+      ],
+      "frontBoxes": {
+        "rice-bowl": {
+          "cx": 0.5,
+          "cy": 0.30394736842105263,
+          "width": 0.38666666666666666,
+          "height": 0.11842105263157894
+        },
+        "soup-bowl": {
+          "cx": 0.5,
+          "cy": 0.7294956140350877,
+          "width": 0.3888888888888889,
+          "height": 0.13048245614035092
+        }
+      }
+    },
+    "mobile-short": {
+      "file": "sheet-mobile-short.svg",
+      "pagePx": [
+        900,
+        1500
+      ],
+      "frontBoxes": {
+        "rice-bowl": {
+          "cx": 0.5,
+          "cy": 0.31333333333333335,
+          "width": 0.3093333333333333,
+          "height": 0.12
+        },
+        "soup-bowl": {
+          "cx": 0.5,
+          "cy": 0.712,
+          "width": 0.32,
+          "height": 0.136
+        }
+      }
+    },
+    "short": {
+      "file": "sheet-desktop.svg",
+      "pagePx": [
+        1600,
+        1000
+      ],
+      "frontBoxes": {
+        "rice-bowl": {
+          "cx": 0.40625,
+          "cy": 0.58075,
+          "width": 0.13774999999999998,
+          "height": 0.1425
+        },
+        "soup-bowl": {
+          "cx": 0.59375,
+          "cy": 0.57125,
+          "width": 0.1425,
+          "height": 0.1615
+        }
+      },
+      "reuseOf": "desktop"
+    }
+  }
+}
