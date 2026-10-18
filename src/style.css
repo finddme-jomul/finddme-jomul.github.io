@@ -41,6 +41,8 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--ink); outline-o
 .brand-stone {
   position: relative; display: grid; place-items: center; width: 100%; aspect-ratio: 1;
   background: url('/brand/jomul-flat-clear-stone-concept.png') center / 115% no-repeat;
+  /* Neutral glass highlights: remove the source artwork's warm tint. */
+  filter: grayscale(1);
   font-family: 'Outfit', sans-serif; font-size: 21px; font-weight: 430;
   color: rgb(255 255 255 / .08); -webkit-text-stroke: .55px rgb(82 92 100 / .45);
   text-shadow: 0 1px 1px rgb(255 255 255 / .92), 0 -1px 1px rgb(72 81 89 / .35);
@@ -77,8 +79,6 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--ink); outline-o
 .active-work h2 { font-size: 19px; font-weight: 400; letter-spacing: -.03em; margin: 9px 0 7px; }
 .active-work p { font-size: 11px; margin: 0; }
 .gallery-navigation { background: transparent; padding: 3px 8px; display: flex; align-items: center; gap: 20px; }
-.gallery-navigation button { display: grid; place-items: center; width: 44px; height: 44px; }
-.gallery-navigation button:hover { background: rgb(220 228 233 / .38); border-radius: 50%; }
 .gallery-navigation span { font-size: 11px; }
 .study-notice { background: transparent; padding: 0; justify-self: start; grid-column: 1 / -1; font-size: 10px; margin: 0; }
 .is-grid { height: auto; min-height: 100svh; }
@@ -310,3 +310,5 @@ html.orbit-mode, html.orbit-mode body { overflow: hidden; overscroll-behavior: n
     box-shadow: inset 1px 1px 0 rgb(255 255 255 / .65);
   }
 }
+
+.orbit-stage:focus-visible { outline: 2px solid var(--ink); outline-offset: -4px; }
