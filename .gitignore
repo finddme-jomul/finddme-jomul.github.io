@@ -5,3 +5,8 @@
 .env
 .env.*
 !.env.example
+
+/.poc/
+/poc/
+
+/node_modules

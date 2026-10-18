@@ -7,7 +7,7 @@ document.querySelector('#project-count').textContent = `${projects.length} proje
 for (const project of projects) {
   const link = document.createElement('a');
   link.className = 'catalogue-card';
-  link.href = `/#project/${project.id}`;
+  link.href = project.href;
   link.setAttribute('aria-label', `${project.title} 프로젝트 보기`);
 
   const frame = document.createElement('span');
