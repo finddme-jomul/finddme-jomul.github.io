@@ -231,7 +231,7 @@ dialog::backdrop { background: #3e3c2380; }
 .floor-light::after { inset: 27% 20%; transform: skewX(28deg) rotate(18deg); border-width: 1px; }
 .gallery-bottom { position: relative; z-index: 20; display: flex; justify-content: center; align-items: center; padding-top: 12px; }
 .gallery-navigation { justify-self: center; gap: 22px; }
-.gallery-navigation .more-projects { display: inline-flex; align-items: center; gap: 7px; padding: 10px 4px; font-family: 'Cormorant Garamond', serif; font-size: 19px; letter-spacing: .035em; color: #586269; }
+.gallery-navigation .more-projects { display: inline-flex; align-items: center; gap: 7px; padding: 10px 4px; font-family: 'Outfit', sans-serif; font-size: 19px; letter-spacing: .035em; color: #586269; }
 .more-projects:hover { color: #202b31; }
 .is-grid .floor-light { display: none; }
 @media (max-width: 700px) {
