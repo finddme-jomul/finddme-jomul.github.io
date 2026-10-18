@@ -24,7 +24,7 @@ function setup(kind = 'center') {
       timeStamp: time, pointerType: 'touch', button: 0, isPrimary: true, detail })) Object.defineProperty(event, key, { value });
     surface.dispatchEvent(event); return event;
   }
-  return { fire, deltas, states, releases };
+  return { fire, deltas, states, releases, surface };
 }
 test('center drag rotates and suppresses accidental click, but preserves keyboard click', () => {
   const s=setup();s.fire('pointerdown');s.fire('pointermove',90,0);s.fire('pointerup',90,0);
@@ -57,4 +57,23 @@ test('coasting distance is refresh-rate independent and comes to rest', () => {
   const simulate = dt => {let v=.01,d=0;for(let t=0;t<1000;t+=dt){const n=advanceCoast(v,Math.min(dt,1000-t));v=n.velocity;d+=n.distance;}return d;};
   assert.ok(Math.abs(simulate(1000/60)-simulate(1000/120))<1e-9);
   let v=.02;for(let i=0;i<400;i++)v=advanceCoast(v,16).velocity;assert.equal(v,0);
+});
+
+test('card implicit capture loss does not cancel a swipe transferred to the stage', () => {
+  const s=setup('card');s.fire('pointerdown');s.fire('pointermove',20,0);
+  s.fire('lostpointercapture',20,0);
+  assert.deepEqual(s.states,[true]);
+  s.fire('pointermove',110,0);s.fire('pointerup',110,0);
+  assert.equal(s.deltas.length,2);assert.deepEqual(s.states,[true,false]);
+  assert.equal(s.fire('click').defaultPrevented,true);
+});
+test('card tap remains a native link click', () => {
+  const s=setup('card');s.fire('pointerdown');s.fire('pointerup');
+  assert.equal(s.fire('click').defaultPrevented,false);
+});
+test('losing the stage capture still ends the drag', () => {
+  const s=setup('card');s.fire('pointerdown');s.fire('pointermove',20,0);
+  const e=new Event('lostpointercapture');Object.defineProperty(e,'pointerId',{value:1});
+  s.surface.dispatchEvent(e);
+  assert.deepEqual(s.states,[true,false]);s.fire('pointermove',110,0);assert.equal(s.deltas.length,1);
 });
