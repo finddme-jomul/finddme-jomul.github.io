@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "project": "moon-jar-draft",
+  "clayBody": "백토 (제품 미확인)",
+  "firing": "소성 조건 미확인",
+  "shrinkage": {
+    "source": "사용자가 요청한 설명용 가정; 흙 제품/실측 수축률 확인 전 제작 치수로 사용 금지",
+    "totalPercent": 12.5,
+    "wetToFinalMultiplier": 1.143
+  },
+  "targetFiredMm": {
+    "height": 150,
+    "maxDiameter": 140,
+    "openingDiameter": 45,
+    "footDiameter": 55,
+    "wallThickness": 5,
+    "baseThickness": 8
+  },
+  "dimensionSources": {
+    "height": "사용자 수정: 14-16cm 범위의 시안 중간값 15cm",
+    "maxDiameter": "스케치: 14cm",
+    "openingDiameter": "스케치 4-5cm의 시안 중간값",
+    "footDiameter": "스케치 5-6cm의 시안 중간값",
+    "wallThickness": "시안용 가정 5mm; 사용자 미확인",
+    "baseThickness": "시안용 가정 8mm; 사용자 미확인"
+  },
+  "wetBuildMm": {
+    "height": 171.429,
+    "maxDiameter": 160,
+    "openingDiameter": 51.429,
+    "footDiameter": 62.857,
+    "wallThickness": 5.714,
+    "baseThickness": 9.143
+  },
+  "note": "Wet dimensions are estimates from linear shrinkage; confirm with a test bar for this clay and firing schedule. Glaze thickness, warping and nonuniform shrinkage are not modelled."
+}

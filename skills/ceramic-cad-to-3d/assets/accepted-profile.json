@@ -1,0 +1,348 @@
+{
+  "schemaVersion": 1,
+  "profileId": "jomul-poc-accepted-2026-10-13",
+  "scope": "Selected moon/bowl CAD visual fixtures and existing gallery baselines; common CAD supports rotational single/two-part inputs, not a full project pipeline",
+  "baselines": {
+    "moonGalleryHtml": {
+      "path": "assets/baselines/pages/moonGalleryHtml.html",
+      "sha256": "1c166fc2e6a963d7109e18de2e18dca06cd89567297f6593704443f1819696da",
+      "localReferencePath": ".poc/moon-jar-gallery-type-study/index.html"
+    },
+    "moonGalleryJs": {
+      "path": "assets/baselines/pages/moonGalleryJs.js",
+      "sha256": "ecda921f15920507fb2b15455d2ba08ca39d00ba1137dd639f37f1550297cf9c",
+      "localReferencePath": ".poc/moon-jar-gallery-type-study/viewer.js"
+    },
+    "bowlHandoffHtml": {
+      "path": "assets/baselines/pages/bowlHandoffHtml.html",
+      "sha256": "31ee30798c3a3a75328e40212d6b8d7dc518a51accba92a2fa076f2585946ac2",
+      "localReferencePath": ".poc/bowl-set-configured-photo-handoff/index.html"
+    },
+    "bowlHandoffJs": {
+      "path": "assets/baselines/pages/bowlHandoffJs.js",
+      "sha256": "850b8567b6b5e8afc2e6e2c22e96c309d56d33a40d2cda47df3b9f8c6a8c2313",
+      "localReferencePath": ".poc/bowl-set-configured-photo-handoff/preview.js"
+    }
+  },
+  "cad": {
+    "style": "technical-dense",
+    "acceptedDensityStudy": {
+      "selection": "cad-density-accepted-2026-10-13",
+      "manifest": "assets/baselines/cad-density-accepted.json",
+      "sha256": "bcf11c6339fc35cdbf23b941ce3b5b16d4a3e5c447979ab278a33083af24a2eb",
+      "role": "fixed-reference-artifacts-only"
+    },
+    "background": "#ffffff",
+    "outerBorder": false,
+    "sheetComposition": {
+      "single": "one-sheet",
+      "multiple": "all-parts-one-sheet"
+    },
+    "requiredViews": [
+      "front-elevation",
+      "plan",
+      "hatched-section",
+      "profile-isometric",
+      "rim-detail",
+      "foot-detail"
+    ],
+    "isometricRingFractions": [
+      0,
+      0.06,
+      0.22,
+      0.41,
+      0.61,
+      0.79,
+      0.94,
+      1
+    ],
+    "labelLanguage": "en-except-clay-glaze-names",
+    "responsiveFit": "contain-entire-sheet",
+    "acceptedCommonSheet": {
+      "selection": "cad-common-accepted-2026-10-14",
+      "manifest": "assets/baselines/cad-common-accepted.json",
+      "sha256": "5b61aba85d0749da4e5a759d46956916696c1f33359dc4050e7c3b221cf0a351",
+      "role": "fixed-reference-fixtures-only",
+      "supportedShape": "rotational-profile",
+      "singleAndMultiple": "one-or-two-parts",
+      "renderer": "scripts/shared_sheet_poc.py",
+      "reuseShortLandscape": true
+    }
+  },
+  "gallery": {
+    "source": "moonGalleryHtml",
+    "lastSectionHeightVh": 100,
+    "photoOnlyScrollVh": 0,
+    "visibleHeading": false,
+    "visibleCaption": false,
+    "heroMaxWidthPx": 540,
+    "heroMaxHeightVh": 68,
+    "mobileHeroMaxHeightVh": 54,
+    "photoArriveSeconds": 0.55,
+    "pointerRadiusPx": 450,
+    "pointerMaxExtraScale": 0.34,
+    "pointerEaseMs": 85,
+    "openOnClick": true,
+    "contentAfterGallery": false,
+    "scatterAdoption": {
+      "status": "user-adopted",
+      "algorithm": "bounded-scatter-v1",
+      "reference": ".poc/jomul-project-assets-workspaces/97-gallery-scatter-review/gallery/index.html",
+      "userStatement": "여러 사진의 크기·위치 배치는 채택해도 되는데",
+      "scope": "Varied photo sizes and positions only; does not approve CAD/wire or landing motion."
+    }
+  },
+  "motion": {
+    "photoHandoff": "scene-exit-then-gallery-enter",
+    "backgroundBaseline": "moon-jar",
+    "glazeDirection": "foot-to-rim",
+    "glazeRotation": "continue-through-all-layers",
+    "axisContinuity": "drop-through-glaze",
+    "axisRig": {
+      "order": "body-spin-under-tilt-under-axis-precession",
+      "rotationCenter": "vessel-axis",
+      "minimumBodyAndAxisTurnDegrees": 360,
+      "framing": "transformed-mesh-bounds",
+      "browserLayouts": [
+        "desktop",
+        "short",
+        "mobile",
+        "mobile-short"
+      ],
+      "scope": "new handled motion previews; rotational and full-page assembly pending"
+    },
+    "singleFraming": {
+      "sourceBaseline": "moonGalleryJs",
+      "method": "transformed-mesh-bounds",
+      "viewportFraction": 0.72,
+      "minimumWireHeightFraction": {
+        "desktop": 0.5,
+        "short": 0.5,
+        "mobile": 0.3,
+        "mobile-short": 0.32
+      },
+      "decision": "approved-moon-model-relative-camera;full-scene-parity-pending"
+    }
+  },
+  "page": {
+    "cadSheetFit": "contain-entire-sheet-at-viewport-maximum",
+    "visibleNarration": false,
+    "visibleBadge": false,
+    "visibleHeader": false,
+    "visibleFooter": false,
+    "preserveCadInternalAnnotations": true,
+    "source": "accepted-moon-jar-page-and-user-bowl-feedback-2026-10-14",
+    "authoritativeWholePage": {
+      "manifest": "assets/selected-page.json",
+      "priority": "User-confirmed entire scene supersedes earlier candidate page framing, sheet display, wire and material settings",
+      "scope": "selected moon reference; general CAD-to-selected-renderer adaptation pending"
+    }
+  },
+  "wire3d": {
+    "bodyProfileStride": 4,
+    "bodyRingSegments": 72,
+    "bodyMeridians": 12,
+    "source": "CAD outer profile; preserve each sampled radius and height",
+    "handle": "Preserve CAD-derived handle silhouette rails; do not substitute GLB triangle edges",
+    "decision": "2026-10-17 user requested dense mug wire matching moon/bowls; previously handled body used stride20 and two meridians",
+    "spatialReadability": {
+      "status": "user-adopted for handled wire entry and turning volume",
+      "criterion": "Dense CAD-derived wire must visibly turn in three dimensions: curvature, depth and changing orientation must remain readable while the wire is clearly visible.",
+      "reject": "A front-facing spreadsheet-like grid, even if line counts and subsequent solid rotation pass technical checks.",
+      "review": [
+        "Watch the wire-dominant interval as motion, not only still frames or the later clay/glaze rotation.",
+        "Confirm ring curvature/foreshortening and near/far relationships change visibly during the turn on desktop and mobile.",
+        "Keep CAD geometry accurate; tune wire visibility, motion overlap, view and depth cues instead of distorting the vessel to manufacture curvature.",
+        "The first independent wire view must already show elliptical rings/depth after the exact CAD alignment handoff; later rotation alone does not satisfy the entry view."
+      ],
+      "verification": "Density and numeric axis checks alone do not establish this visual criterion. Review the moving result against the selected moon reference before claiming adoption.",
+      "feedback": "2026-10-17: user described current mug wire as an Excel grid and requested an impression of volumetric rolling.",
+      "acceptance": {
+        "date": "2026-10-17",
+        "userMessage": "응 이런 느낌이 계속 나왔으면 좋겠어 스킬에 반영된거야?",
+        "reference": ".poc/handled-page-development/page-wire-entry-depth",
+        "scope": "First handled wire depth and volumetric wire rotation; preserve this feel on subsequent generation. Does not approve provisional glaze colour, handle manufacturing dimensions or full skill release.",
+        "referenceSha256": {
+          "handled-scene.mjs": "47f70b64f978e5f30a6c01f9bc9573c577dff0c148ca5ab23a8e3dc3961a6c51",
+          "wire-guide.json": "1f56b24dfe1f3f3efe553c8c0ddf5450caa3730ccd84f8f31cf86c374ce3d8e3",
+          "browser-parity/report.json": "948fcf6d07d55ea691d0aad61489de2c4b69f38cc2cae37ccb537600db9b1210"
+        }
+      }
+    },
+    "handledVisibility": {
+      "wireFadeStart": 0.84,
+      "wireFadeEnd": 0.98,
+      "clayStart": 0.82,
+      "clayEnd": 0.98,
+      "reason": "User-adopted handled wire visibility: keep wire fully visible through more than half of the body/axis turn before clay replaces it",
+      "entryView": {
+        "start": 0.43,
+        "end": 0.54,
+        "elevationDegrees": 18,
+        "releaseWithClay": true
+      }
+    },
+    "defaultColor": "#6E6A68",
+    "featureSections": {
+      "status": "candidate-not-visually-adopted",
+      "horizontalSections": 16,
+      "verticalSections": 9,
+      "curveSegments": 48
+    },
+    "featureVisibility": {
+      "wireFadeStart": 0.84,
+      "wireFadeEnd": 0.98,
+      "clayStart": 0.82,
+      "clayEnd": 0.98,
+      "reason": "Feature motion candidate; review independently of adopted mug",
+      "entryView": {
+        "start": 0.43,
+        "end": 0.54,
+        "elevationDegrees": 18,
+        "releaseWithClay": true
+      },
+      "status": "candidate"
+    }
+  },
+  "sceneDefaults": {
+    "handled": {
+      "pixelRatioCap": 2,
+      "skyColor": "#ffffff",
+      "groundColor": "#a9a39a",
+      "hemisphereIntensity": 2.2,
+      "keyColor": "#ffffff",
+      "keyIntensity": 2.4,
+      "keyPosition": [
+        0.15,
+        0.25,
+        0.4
+      ],
+      "clayColor": "#d7d2ca",
+      "clayRoughness": 0.88,
+      "heightFit": 0.68,
+      "radialFit": 1.13,
+      "rotationMargin": 1.06,
+      "cameraDistanceFactor": 4,
+      "previewScrollVh": 180,
+      "timing": {
+        "turnStart": 0.58,
+        "turnDuration": 0.42,
+        "lookCenterDuration": 0.15,
+        "frontTravelStart": 0.12,
+        "frontTravelDuration": 0.31,
+        "frontStart": 0.1,
+        "frontFadeStart": 0.42,
+        "frontFadeDuration": 0.12,
+        "sheetFadeStart": 0.07,
+        "sheetFadeDuration": 0.2,
+        "hostFadeStart": 0.32,
+        "hostFadeDuration": 0.15,
+        "wireStart": 0.36,
+        "wireDuration": 0.14,
+        "pageClayEnd": 0.72,
+        "pageCoatDuration": 0.28,
+        "photoDuration": 0.1
+      }
+    },
+    "rotational": {
+      "pixelRatioCap": 2,
+      "fov": 32,
+      "near": 0.01,
+      "far": 10,
+      "skyColor": "#ffffff",
+      "groundColor": "#819092",
+      "hemisphereIntensity": 2.2,
+      "keyColor": "#ffffff",
+      "keyIntensity": 3,
+      "keyPosition": [
+        0.15,
+        0.3,
+        0.2
+      ],
+      "clayRoughness": 0.95,
+      "fit": 1.35,
+      "wideFit": 1.05
+    },
+    "multiple": {
+      "pixelRatioCap": 1.6,
+      "exposure": 1.45,
+      "fov": 32,
+      "near": 0.01,
+      "far": 10,
+      "skyColor": "#ffffff",
+      "groundColor": "#c8c7c2",
+      "hemisphereIntensity": 1.7,
+      "keyColor": "#ffffff",
+      "pointLights": [
+        [
+          -0.3,
+          0.35,
+          0.5,
+          3.5
+        ],
+        [
+          0.3,
+          0.2,
+          -0.2,
+          2.2
+        ]
+      ]
+    }
+  },
+  "assembly": {
+    "gentleStaggeredDrop": {
+      "status": "user-adopted",
+      "preset": "gentle-staggered",
+      "scope": "Sequential direct-drop appearance: gentle landing, rotation through descent, closely spaced ordered landings. Not material/geometry/physical simulation approval.",
+      "userDecision": "좋은 거 같아. 이렇게 순차적으로 떨어지는 모션에서는 이렇게 사뿐하게 마무리, 요소별 착지 간격 너무 크지 않게 이정도를 유지할 수 있도록 스킬에 적용해줘",
+      "mode": "direct-drop",
+      "landing": "soft-spin",
+      "overlap": true,
+      "maxUpperLandingGapToFallDurationRatio": 0.2,
+      "reference": {
+        "project": "90-feature-assembly",
+        "revision": "6e815f1a65e141b794bb2ca295600804",
+        "reviewSha256": "5b952239bc146210d84409a8ca995ef4a4b1595c79f43bce50373bbdcc363b4d",
+        "assemblyStart": 0.63,
+        "assemblyDuration": 0.32,
+        "storyHeightVh": 1250,
+        "steps": [
+          {
+            "partId": "base",
+            "start": 0,
+            "duration": 0.22,
+            "targetPositionMm": [
+              0,
+              0,
+              0
+            ],
+            "dropHeightMm": 65
+          },
+          {
+            "partId": "smooth",
+            "start": 0.22,
+            "duration": 0.6,
+            "targetPositionMm": [
+              -30,
+              9,
+              0
+            ],
+            "dropHeightMm": 100
+          },
+          {
+            "partId": "faceted",
+            "start": 0.34,
+            "duration": 0.6,
+            "targetPositionMm": [
+              30,
+              9,
+              0
+            ],
+            "dropHeightMm": 135
+          }
+        ]
+      },
+      "adaptation": "Preserve soft easing/rotation and short relative landing gaps. Review heights, overall scroll duration and collision clearance for new geometry/counts; do not blindly copy millimetres or shorten falls to reduce landing gaps."
+    }
+  }
+}
