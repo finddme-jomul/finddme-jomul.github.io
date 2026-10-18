@@ -152,6 +152,14 @@ export function mountAsciiCenter(element) {
   element.append(canvas);
   element.classList.add('has-ascii-volume');
   let previousAngle, previousSize, previousDpr, previousColorized;
+  // Reuse projection and cell storage during long swipes instead of allocating
+  // thousands of short-lived objects for every animation frame.
+  const projected = points.map(() => ({}));
+  const visible = [];
+  const cells = Array.from({length: width * height}, () => ({item: null, hits: 0}));
+  const grid = new Array(width * height);
+  const filled = new Array(width * height);
+  const ramp = ['+', 'x', 'X', '8', '0', 'S', '#', '@'];
   return {
     render(angle, size) {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -173,7 +181,7 @@ export function mountAsciiCenter(element) {
       context.textBaseline = 'middle';
       const cosine = Math.cos(angle), sine = Math.sin(angle);
       const ct = Math.cos(VIEW_TILT), st = Math.sin(VIEW_TILT);
-      const visible = [];
+      visible.length = 0;
       for (const point of (window.innerWidth <= 700 ? mobilePoints : points)) {
         const x = point.x * cosine + point.z * sine;
         const z = -point.x * sine + point.z * cosine;
@@ -185,7 +193,11 @@ export function mountAsciiCenter(element) {
         const y = point.y * ct - z * st;
         const cameraZ = point.y * st + z * ct;
         const perspective = CAMERA_DISTANCE / (CAMERA_DISTANCE - cameraZ);
-        visible.push({point, x, y, z: cameraZ, perspective, normalX, normalY, normalZ});
+        const item = projected[visible.length];
+        item.point = point; item.x = x; item.y = y; item.z = cameraZ;
+        item.perspective = perspective; item.normalX = normalX;
+        item.normalY = normalY; item.normalZ = normalZ;
+        visible.push(item);
       }
       // Re-rasterize the visible 3D surface into aligned character cells.
       // Fixed rows and columns read as ASCII art from every angle; no new random
@@ -206,7 +218,7 @@ export function mountAsciiCenter(element) {
       const yCenter = (minY + maxY) / 2;
       const yScale = (GLYPH_FRAME_HEIGHT - glyphSize) / Math.max(1, maxY - minY);
       const top = (100 - GLYPH_FRAME_HEIGHT) / 2;
-      const grid = new Array(columns * lines);
+      grid.fill(null, 0, columns * lines);
       // Keep the closest sample per cell without sorting the full surface.
       for (const item of visible) {
         const x = 50 + (item.screenX - 50) * GLYPH_X_SCALE;
@@ -215,20 +227,27 @@ export function mountAsciiCenter(element) {
         const row = Math.floor((y - top) / cellHeight);
         if (column < 0 || column >= columns || row < 0 || row >= lines) continue;
         const index = row * columns + column;
-        if (!grid[index]) grid[index] = {item, hits: 0};
+        if (!grid[index]) {
+          const cell = cells[index]; cell.item = item; cell.hits = 0;
+          grid[index] = cell;
+        }
         else if (item.z > grid[index].item.z) grid[index].item = item;
         grid[index].hits++;
       }
       // Close isolated one-cell holes while keeping the source cutout's larger
       // gaps and irregular lower outline open.
-      const filled = grid.slice();
+      for (let i = 0; i < columns * lines; i++) filled[i] = grid[i];
       for (let row = 1; row < lines - 1; row++) for (let column = 1; column < columns - 1; column++) {
         const index = row * columns + column;
         if (grid[index]) continue;
-        const neighbours = [grid[index - 1], grid[index + 1], grid[index - columns], grid[index + columns]].filter(Boolean);
-        if (neighbours.length >= 3) filled[index] = neighbours.reduce((best, cell) => cell.hits > best.hits ? cell : best);
+        let neighbours = 0, best = null;
+        for (let side = 0; side < 4; side++) {
+          const offset = side === 0 ? -1 : side === 1 ? 1 : side === 2 ? -columns : columns;
+          const cell = grid[index + offset];
+          if (cell) { neighbours++; if (!best || cell.hits > best.hits) best = cell; }
+        }
+        if (neighbours >= 3) filled[index] = best;
       }
-      const ramp = ['+', 'x', 'X', '8', '0', 'S', '#', '@'];
       for (let row = 0; row < lines; row++) for (let column = 0; column < columns; column++) {
         const cell = filled[row * columns + column];
         if (!cell) continue;
