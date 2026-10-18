@@ -72,6 +72,9 @@ def assembly(spec, parts, timing):
         end = step['start']+step['duration']
         if len(step['targetPositionMm']) != 3 or any(not math.isfinite(v) or abs(v)>2000 for v in step['targetPositionMm']):
             raise ValueError('Assembly targets use finite millimetres, Y-up, foot-bottom origin')
+        if 'approachOffsetMm' in step:
+            offset=step['approachOffsetMm']
+            if mode!='direct-drop' or not isinstance(offset,list) or len(offset)!=2 or any(isinstance(v,bool) or not isinstance(v,(int,float)) or not math.isfinite(v) or abs(v)>1000 for v in offset):raise ValueError('approachOffsetMm requires finite [X,Z] millimetres for direct-drop')
         if mode=='direct-drop':
             v=step.get('dropHeightMm')
             if isinstance(v,bool) or not isinstance(v,(int,float)) or not math.isfinite(v) or not 0<v<=1000:raise ValueError('Explicit positive dropHeightMm required')
