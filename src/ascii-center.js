@@ -137,12 +137,14 @@ export function mountAsciiCenter(element) {
             y: cameraY * scale * ct + expandedZ * st,
             z: -cameraY * scale * st + expandedZ * ct,
             nx: -dx / length, ny: -dy / length, nz: side / length,
-            offsetY: 0, character: row[column], color, gray, crown: crownHighlight(column, rowIndex),
+            sample, offsetY: 0, character: row[column], color, gray, crown: crownHighlight(column, rowIndex),
           });
         }
       }
     }
   });
+  // Compact mobile cells need one surface sample per character, not four.
+  const mobilePoints = points.filter(point => point.sample === 0);
   const canvas = document.createElement('canvas');
   canvas.setAttribute('aria-hidden', 'true');
   const context = canvas.getContext('2d');
@@ -172,7 +174,7 @@ export function mountAsciiCenter(element) {
       const cosine = Math.cos(angle), sine = Math.sin(angle);
       const ct = Math.cos(VIEW_TILT), st = Math.sin(VIEW_TILT);
       const visible = [];
-      for (const point of points) {
+      for (const point of (window.innerWidth <= 700 ? mobilePoints : points)) {
         const x = point.x * cosine + point.z * sine;
         const z = -point.x * sine + point.z * cosine;
         const normalX = point.nx * cosine + point.nz * sine;
@@ -205,7 +207,7 @@ export function mountAsciiCenter(element) {
       const yScale = (GLYPH_FRAME_HEIGHT - glyphSize) / Math.max(1, maxY - minY);
       const top = (100 - GLYPH_FRAME_HEIGHT) / 2;
       const grid = new Array(columns * lines);
-      visible.sort((a, b) => b.z - a.z);
+      // Keep the closest sample per cell without sorting the full surface.
       for (const item of visible) {
         const x = 50 + (item.screenX - 50) * GLYPH_X_SCALE;
         const y = 50 + (item.screenY - yCenter) * yScale;
@@ -214,6 +216,7 @@ export function mountAsciiCenter(element) {
         if (column < 0 || column >= columns || row < 0 || row >= lines) continue;
         const index = row * columns + column;
         if (!grid[index]) grid[index] = {item, hits: 0};
+        else if (item.z > grid[index].item.z) grid[index].item = item;
         grid[index].hits++;
       }
       // Close isolated one-cell holes while keeping the source cutout's larger
