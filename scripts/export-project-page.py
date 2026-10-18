@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 import shutil
 import subprocess
+from project_mobile_pacing import apply_mobile_pacing
 
 p = argparse.ArgumentParser()
 p.add_argument('source', type=Path)
@@ -39,7 +40,8 @@ if project.exists():
 subprocess.run([str(a.dependencies / '.bin/esbuild'), str(source / 'viewer.js'),
     '--bundle', '--format=esm', '--target=es2022', '--minify',
     '--outfile=' + str(target / 'viewer.js')], check=True, env={**os.environ, 'NODE_PATH': str(a.dependencies)})
-manifest = {'sourceRevision': source.name, 'files': {
+apply_mobile_pacing(target / 'viewer.js')
+manifest = {'hostPacing': {'module': '/project-scroll.mjs', 'policy': '/project-scroll-map.mjs', 'scope': 'site export only; original approval evidence unchanged'}, 'sourceRevision': source.name, 'files': {
     str(f.relative_to(target)): hashlib.sha256(f.read_bytes()).hexdigest()
     for f in sorted(target.rglob('*')) if f.is_file()}}
 (target / 'export-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
