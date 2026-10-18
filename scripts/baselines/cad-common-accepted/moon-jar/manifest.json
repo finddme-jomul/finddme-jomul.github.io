@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "project": "Moon jar",
+  "profileId": "jomul-poc-accepted-2026-10-13",
+  "style": "technical-dense",
+  "compositionMode": "single",
+  "sheetCount": 1,
+  "scope": "user-selected common CAD visual direction for rotational single/two-part inputs; full new-project pipeline remains unverified",
+  "parts": [
+    {
+      "id": "moon-jar",
+      "profileSha256": "d9f77a8042c340c47e98cb6f0130c9b41fe48bf6019617e50fe9d04ecc1b6c17",
+      "dimensionsSha256": "095d3951e7b74765444ccec2f6f3c12cc21c01a8aee9a5840210e3378384653f",
+      "materialSha256": "97ef9fb558b80ed95cc3db4a3a7403c1489090b681083396ec48e5d832cb154d",
+      "sourceFiles": {
+        "profile": "docs/artifacts/generic-vessel-poc/outputs/moon-jar/generated/outer-profile.json",
+        "dimensions": "docs/artifacts/generic-vessel-poc/outputs/moon-jar/generated/shrinkage.json",
+        "material": "docs/artifacts/generic-vessel-poc/outputs/moon-jar/generated/material.json"
+      },
+      "sources": {
+        "height": "사용자 수정: 14-16cm 범위의 시안 중간값 15cm",
+        "maxDiameter": "스케치: 14cm",
+        "openingDiameter": "스케치 4-5cm의 시안 중간값",
+        "footDiameter": "스케치 5-6cm의 시안 중간값",
+        "wallThickness": "시안용 가정 5mm; 사용자 미확인",
+        "baseThickness": "시안용 가정 8mm; 사용자 미확인"
+      },
+      "stationsMm": [
+        [
+          0.0,
+          54.99998
+        ],
+        [
+          75.0,
+          139.76633944717128
+        ],
+        [
+          150,
+          45.000060000000005
+        ]
+      ]
+    }
+  ],
+  "layouts": {
+    "desktop": {
+      "file": "sheet-desktop.svg",
+      "pagePx": [
+        1600,
+        1000
+      ],
+      "frontBoxes": {
+        "moon-jar": {
+          "cx": 0.31875,
+          "cy": 0.5275,
+          "width": 0.35875,
+          "height": 0.615
+        }
+      }
+    },
+    "mobile": {
+      "file": "sheet-mobile.svg",
+      "pagePx": [
+        900,
+        1272
+      ],
+      "frontBoxes": {
+        "moon-jar": {
+          "cx": 0.38333333333333336,
+          "cy": 0.3419811320754717,
+          "width": 0.5288888888888889,
+          "height": 0.4009433962264151
+        }
+      }
+    },
+    "mobile-short": {
+      "file": "sheet-mobile-short.svg",
+      "pagePx": [
+        900,
+        1122
+      ],
+      "frontBoxes": {
+        "moon-jar": {
+          "cx": 0.38333333333333336,
+          "cy": 0.34759358288770054,
+          "width": 0.43555555555555553,
+          "height": 0.37433155080213903
+        }
+      }
+    },
+    "short": {
+      "file": "sheet-desktop.svg",
+      "pagePx": [
+        1600,
+        1000
+      ],
+      "frontBoxes": {
+        "moon-jar": {
+          "cx": 0.31875,
+          "cy": 0.5275,
+          "width": 0.35875,
+          "height": 0.615
+        }
+      },
+      "reuseOf": "desktop"
+    }
+  }
+}

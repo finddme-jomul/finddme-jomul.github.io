@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "selection": "cad-density-accepted-2026-10-13",
+  "scope": "User-preferred CAD density study; moon landscape sheet and bowl desktop enhancement",
+  "files": {
+    "current-desktop.svg": "7559011dfa458b540991d5f51ef23aa26b0218adca640fecf99d7b10d7fa86c1",
+    "current-mobile-short.svg": "0f5a6e9785d9396ccb795fe3cb720ac6806e7e65b1f958872c8b01995c11e690",
+    "current-mobile.svg": "1e816fd8c71ca89cad3b5d46cc1763b879e690a4fd9be44198fb9c2b8598fda2",
+    "current-short.svg": "66b2127c4b15c7e23e8fe29885cc68c64274b2327f6fa337120013715a2d859c",
+    "density-desktop.svg": "0055a2a6740f3f486670c88c96b80a10302b0e24f98073d5261163e4d1488469",
+    "density-mobile-short.svg": "0f5a6e9785d9396ccb795fe3cb720ac6806e7e65b1f958872c8b01995c11e690",
+    "density-mobile.svg": "1e816fd8c71ca89cad3b5d46cc1763b879e690a4fd9be44198fb9c2b8598fda2",
+    "density-short.svg": "66b2127c4b15c7e23e8fe29885cc68c64274b2327f6fa337120013715a2d859c",
+    "index.html": "59618227ab696278354bad2df33d097f7efab66e9426d1dee3f5c66af1fc02c7",
+    "manifest.json": "5b11e25d983cebbb356b1a9534e3f437b9a13427a274345624dca2547d6e5fba",
+    "moon-current.png": "8aca196e98a0fdf8d8235a555402bd8d191e3e2b9bfe796eeac691dbc49825cb",
+    "moon-jar-density.pdf": "75dd5a39c34e98eaff99b3088d38f75c929a50775b2e8594c3cc4aaa0bb048df",
+    "moon-jar-density.png": "5818c4bd66a42345917c205f740fb3463e6108fbb5b4431062664c293ebdc49a"
+  },
+  "visualRebuildChecks": [
+    "index.html",
+    "moon-jar-density.png",
+    "moon-current.png",
+    "current-desktop.svg",
+    "density-desktop.svg",
+    "current-short.svg",
+    "density-short.svg",
+    "current-mobile.svg",
+    "density-mobile.svg",
+    "current-mobile-short.svg",
+    "density-mobile-short.svg",
+    "manifest.json"
+  ],
+  "pdfNote": "moon-jar-density.pdf is preserved byte-for-byte here; regenerated PDF metadata is not a visual diff"
+}

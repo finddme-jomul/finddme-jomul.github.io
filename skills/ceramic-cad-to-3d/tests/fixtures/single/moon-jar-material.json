@@ -1,0 +1,19 @@
+{
+  "clay": {
+    "type": "white",
+    "name": "백토",
+    "product": null,
+    "wetPreviewHex": "#BDB9B1",
+    "colorStatus": "illustrative-preview"
+  },
+  "glaze": {
+    "name": "무광투명유약",
+    "product": null,
+    "optical": "clear",
+    "finish": "matte",
+    "firedAppearancePreviewHex": "#E7E6E1",
+    "colorStatus": "photo-guided-preview",
+    "referencePhoto": "/home/ayaan/clay-orbit-samples/스케치샘플/달항아리-완성.jpg",
+    "referenceSubject": "앞쪽 왼쪽 기물"
+  }
+}

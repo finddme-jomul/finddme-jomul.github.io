@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "project": "rice-and-soup-bowl-set",
+  "composition": {
+    "mode": "multiple",
+    "status": "user-confirmed-multiple-project",
+    "parts": [
+      {
+        "id": "rice-bowl",
+        "role": "밥그릇",
+        "sketchExtraction": "rice-bowl-p1.json",
+        "instanceCount": 1,
+        "confirmedCAD": false,
+        "material": {
+          "clay": {
+            "name": "잡토",
+            "status": "sketch-observed"
+          },
+          "glazeLayers": [
+            {
+              "order": 1,
+              "name": "하늘보리",
+              "application": "full-coat",
+              "status": "user-described"
+            },
+            {
+              "order": 2,
+              "name": "청자",
+              "application": "irregular-spray-from-left",
+              "status": "user-confirmed"
+            }
+          ],
+          "evidence": {
+            "kind": "user-message",
+            "verbatim": "응 청자유약이야. 도포 위치는 왼쪽에서 비정형하게 느낌대로 뿌렸었어"
+          },
+          "colorDirection": {
+            "celadonSpray": "more-visible-preview",
+            "status": "user-directed-qualitative"
+          }
+        }
+      },
+      {
+        "id": "soup-bowl",
+        "role": "국그릇",
+        "sketchExtraction": "soup-bowl-p1.json",
+        "instanceCount": 1,
+        "confirmedCAD": false,
+        "material": {
+          "clay": {
+            "name": "잡토",
+            "status": "sketch-observed"
+          },
+          "glazeLayers": [
+            {
+              "order": 1,
+              "name": "흑유",
+              "application": "first-full-coat",
+              "status": "user-confirmed"
+            },
+            {
+              "order": 2,
+              "name": "하늘보리",
+              "application": "second-partial-application-region-unconfirmed",
+              "status": "user-confirmed-order"
+            }
+          ],
+          "evidence": {
+            "kind": "user-message",
+            "verbatim": "국그릇은 첫 번째로 흑유를 바르고 두 번째로 하늘보리를 발랐어. 스케치에 보통 유약이 여러개면 순서대로 +로 나열하고 있어"
+          },
+          "colorDirection": {
+            "blackGlaze": "darker-black-preview",
+            "skyBarley": "slightly-more-sky-blue-and-yellow-preview",
+            "status": "user-directed-qualitative"
+          }
+        }
+      }
+    ]
+  },
+  "sourceSketch": {
+    "path": "/home/ayaan/clay-orbit-samples/스케치샘플/국밥그릇세트/국-밥그릇-스케치.jpg",
+    "sha256": "0368d30c36c73ba43bf55a3cf4109b02a7dca79443e9e449e01cd428b594be8c",
+    "orientedSizePx": [
+      4000,
+      3000
+    ]
+  },
+  "sourcePhoto": {
+    "path": "/home/ayaan/clay-orbit-samples/스케치샘플/국밥그릇세트/국-밥그릇-완성.jpg",
+    "sha256": "ee37c586d67d59bb575ebb1fe8a0f2f28337f61679bdef9109e9acbcf59049f8",
+    "status": "user-confirmed-final-fired",
+    "leftPartIdCandidate": "rice-bowl",
+    "rightPartIdCandidate": "soup-bowl",
+    "photoRole": "actual-final",
+    "coverRole": "unassigned",
+    "mappingStatus": "user-confirmed",
+    "mappingEvidence": {
+      "kind": "user-message",
+      "reference": "2026-10-12 user reply on bowl set photo mapping",
+      "verbatim": "사진과 스케치 모두 밥그릇이 왼쪽, 국그릇이 오른쪽이야."
+    },
+    "finalStageEvidence": {
+      "kind": "user-message",
+      "reference": "2026-10-12 user reply on bowl set completion stage",
+      "verbatim": "완성 사진은 유약 + 최종 소성까지 완료된 상태를 찍은 거야."
+    }
+  },
+  "motion": {
+    "status": "partially-user-directed",
+    "startingPositions": null,
+    "assemblyOrder": null,
+    "finalPositions": null,
+    "photoTransition": null,
+    "fall": {
+      "rice-bowl": {
+        "axisTiltDegrees": 15,
+        "turns": 1,
+        "entry": "left-above"
+      },
+      "soup-bowl": {
+        "axisTiltDegrees": -45,
+        "turns": 1,
+        "entry": "right-above"
+      },
+      "evidence": {
+        "kind": "user-message",
+        "verbatim": "밥그릇: 좌측으로 15도 정도 기운 축을 기준으로 360도 회전하면서 떨어져 내려오고 / 국그릇: 우측으로 45도 정도 기운 축을 기준으로 360도 회전하면서 떨어져 내려오고"
+      },
+      "coordinateConvention": "Three.js Y-up, positive Z rotation tilts the local vertical axis toward screen-left when viewed from +Z",
+      "axisBehavior": "axis drifts smoothly during descent and settles upright at landing; exact intermediate angle values are preview assumptions",
+      "latestFeedbackEvidence": {
+        "kind": "user-message",
+        "verbatim": "두 회전축의 시작은 아까 말한대로 15, 45도인 거 괜찮은데 회전축이 자연스럽게 변경되는 것도 좋을 거 같아. ... 마지막 착지는 지금처럼 안정적으로 잘 되면"
+      }
+    },
+    "finalOrderLeftToRight": [
+      "rice-bowl",
+      "soup-bowl"
+    ]
+  },
+  "pendingConfirmations": [
+    "soup_second_glaze_region",
+    "final_assembly_spacing_and_timing",
+    "exact_glaze_colors"
+  ],
+  "note": "Height, wall, photo stage and left/right mapping confirmed. Glaze order confirmed; exact colors and soup second-coat region pending. Tilt axes and 360-degree falling motion confirmed; timing/spacing pending.",
+  "glazeNotation": {
+    "separator": "+",
+    "usualMeaning": "left-to-right application order",
+    "status": "user-provided-usual-convention",
+    "evidence": {
+      "kind": "user-message",
+      "verbatim": "스케치에 보통 유약이 여러개면 순서대로 +로 나열하고 있어"
+    }
+  }
+}

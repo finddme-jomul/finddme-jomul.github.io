@@ -1,0 +1,317 @@
+{
+  "schemaVersion": 2,
+  "project": "moon-jar",
+  "source": {
+    "path": "synthetic-test-image",
+    "sha256": "set-by-test",
+    "coordinateSystem": "EXIF-rotated image, normalized [x,y,width,height] from top-left",
+    "orientedSizePx": [
+      200,
+      300
+    ]
+  },
+  "views": [
+    {
+      "name": "front",
+      "region": [
+        0.04,
+        0.135,
+        0.84,
+        0.7
+      ],
+      "status": "observed"
+    },
+    {
+      "name": "top",
+      "region": null,
+      "status": "not-provided"
+    },
+    {
+      "name": "side",
+      "region": null,
+      "status": "not-provided"
+    }
+  ],
+  "observations": [
+    {
+      "id": "MJ-01",
+      "kind": "dimension",
+      "view": "front",
+      "feature": "opening_diameter",
+      "sourceRegion": [
+        0.35,
+        0.1,
+        0.2,
+        0.045
+      ],
+      "rawText": "4-5cm",
+      "interpretation": "opening diameter range",
+      "status": "sketch-observed",
+      "confidence": "high",
+      "value": {
+        "min": 40,
+        "max": 50,
+        "unit": "mm"
+      }
+    },
+    {
+      "id": "MJ-02",
+      "kind": "dimension",
+      "view": "front",
+      "feature": "maximum_body_diameter",
+      "sourceRegion": [
+        0.38,
+        0.43,
+        0.16,
+        0.055
+      ],
+      "rawText": "14cm",
+      "interpretation": "body maximum diameter",
+      "status": "sketch-observed",
+      "confidence": "high",
+      "value": {
+        "min": 140,
+        "max": 140,
+        "unit": "mm"
+      }
+    },
+    {
+      "id": "MJ-03",
+      "kind": "dimension",
+      "view": "front",
+      "feature": "foot_diameter",
+      "sourceRegion": [
+        0.34,
+        0.84,
+        0.23,
+        0.065
+      ],
+      "rawText": "5-6cm",
+      "interpretation": "foot diameter range",
+      "status": "user-confirmed",
+      "confidence": "high",
+      "value": {
+        "min": 50,
+        "max": 60,
+        "unit": "mm"
+      }
+    },
+    {
+      "id": "MJ-04",
+      "kind": "material",
+      "view": "front",
+      "feature": "clay_and_glaze",
+      "sourceRegion": [
+        0.25,
+        0.27,
+        0.44,
+        0.07
+      ],
+      "rawText": "백토 + [유약 글씨 불명확]",
+      "interpretation": "white clay + matte transparent glaze",
+      "status": "user-confirmed",
+      "confidence": "medium",
+      "value": {
+        "clay": "백토",
+        "glaze": "무광투명유약"
+      }
+    },
+    {
+      "id": "MJ-05",
+      "kind": "shape",
+      "view": "front",
+      "feature": "silhouette",
+      "sourceRegion": [
+        0.05,
+        0.14,
+        0.81,
+        0.63
+      ],
+      "rawText": null,
+      "interpretation": "narrow raised mouth; shoulder broadens into rounded belly; narrows to small foot",
+      "status": "sketch-observed",
+      "confidence": "high",
+      "value": null
+    },
+    {
+      "id": "MJ-06",
+      "kind": "shape",
+      "view": "front",
+      "feature": "foot_profile",
+      "sourceRegion": [
+        0.23,
+        0.71,
+        0.39,
+        0.12
+      ],
+      "rawText": null,
+      "interpretation": "short raised foot; lip/foot sectional details cannot be established from front outline",
+      "status": "sketch-observed",
+      "confidence": "high",
+      "value": null
+    }
+  ],
+  "userConfirmations": [
+    {
+      "field": "target_fired_height",
+      "value": {
+        "min": 140,
+        "max": 160,
+        "unit": "mm"
+      },
+      "status": "user-confirmed-range",
+      "evidence": "사용자 답변: 폭과 비슷한 14~16cm예요"
+    },
+    {
+      "field": "actual_photo_subject",
+      "value": "달항아리-완성.jpg의 앞쪽 왼쪽 기물, 최종 완성",
+      "status": "user-confirmed",
+      "evidence": "사용자 답변: 앞쪽 왼쪽, 최종 완성"
+    },
+    {
+      "field": "example_total_shrinkage",
+      "value": 12.5,
+      "unit": "percent",
+      "status": "user-requested-assumption",
+      "evidence": "사용자 답변: 12.5% 가정 시안도 함께 표시"
+    }
+  ],
+  "unresolved": [
+    {
+      "field": "exact_fired_height",
+      "reason": "14–16cm range confirmed; 150mm is only the existing PoC midpoint, not a selected final target",
+      "blocks": "final CAD target height"
+    },
+    {
+      "field": "exact_opening_diameter",
+      "reason": "Sketch gives 4–5cm range; 45mm is a PoC midpoint",
+      "blocks": "final CAD opening/foot dimensions"
+    },
+    {
+      "field": "exact_foot_diameter",
+      "reason": "Sketch gives 5–6cm range; 55mm is a PoC midpoint",
+      "blocks": "final CAD opening/foot dimensions"
+    },
+    {
+      "field": "wall_thickness",
+      "reason": "Not marked; current 5mm is an assumption",
+      "blocks": "confirmed section and production drawing"
+    },
+    {
+      "field": "base_thickness",
+      "reason": "Not marked; current 8mm is an assumption",
+      "blocks": "confirmed section and production drawing"
+    },
+    {
+      "field": "rim_foot_section",
+      "reason": "Front outline does not specify rim/foot section",
+      "blocks": "confirmed sectional CAD"
+    },
+    {
+      "field": "hidden_surfaces",
+      "reason": "Front outline does not specify interior or rear",
+      "blocks": "confirmed sectional CAD"
+    },
+    {
+      "field": "clay_product_and_firing",
+      "reason": "user does not know these yet",
+      "blocks": "confirmed shrinkage and forming dimensions"
+    },
+    {
+      "field": "opening_reference_priority",
+      "reason": "written opening 4–5cm conflicts with narrower freehand appearance; P2 comparison found this after initial extraction",
+      "blocks": "which evidence governs opening geometry"
+    }
+  ],
+  "questions": [
+    {
+      "id": "MJ-Q1",
+      "priority": "before-final-CAD",
+      "fields": [
+        {
+          "field": "exact_fired_height",
+          "prompt": "최종 높이 14–16cm 중 목표를 몇 mm로 정할까요?",
+          "type": "number",
+          "unit": "mm",
+          "min": 140,
+          "max": 160
+        },
+        {
+          "field": "exact_opening_diameter",
+          "prompt": "입구 4–5cm 중 목표를 몇 mm로 정할까요?",
+          "type": "number",
+          "unit": "mm",
+          "min": 40,
+          "max": 50
+        },
+        {
+          "field": "exact_foot_diameter",
+          "prompt": "굽 5–6cm 중 목표를 몇 mm로 정할까요?",
+          "type": "number",
+          "unit": "mm",
+          "min": 50,
+          "max": 60
+        }
+      ]
+    },
+    {
+      "id": "MJ-Q2",
+      "priority": "before-confirmed-section",
+      "fields": [
+        {
+          "field": "wall_thickness",
+          "prompt": "확정 벽 두께(mm)를 아시나요?",
+          "type": "number",
+          "unit": "mm",
+          "min": 1,
+          "max": 30
+        },
+        {
+          "field": "base_thickness",
+          "prompt": "확정 바닥 두께(mm)를 아시나요?",
+          "type": "number",
+          "unit": "mm",
+          "min": 1,
+          "max": 50
+        },
+        {
+          "field": "rim_foot_section",
+          "prompt": "구연·굽 단면에서 확인할 특징을 알려주실 수 있나요?",
+          "type": "text"
+        },
+        {
+          "field": "hidden_surfaces",
+          "prompt": "스케치에 없는 안쪽과 뒤쪽 형태에 대해 확인할 자료가 있나요?",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "id": "MJ-Q3",
+      "priority": "before-final-CAD",
+      "fields": [
+        {
+          "field": "opening_reference_priority",
+          "prompt": "입구는 손그림 비율과 표기 4–5cm 중 어느 쪽을 따를까요?",
+          "type": "enum",
+          "choices": [
+            "written-dimension-range",
+            "drawn-proportion"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "MJ-Q4",
+      "priority": "before-confirmed-forming-dimensions",
+      "fields": [
+        {
+          "field": "clay_product_and_firing",
+          "prompt": "흙 제품명과 소성 온도/cone를 아시나요? 모르면 나중에 입력해도 됩니다.",
+          "type": "text"
+        }
+      ]
+    }
+  ],
+  "p2Readiness": "not-ready-for-confirmed-anchors"
+}

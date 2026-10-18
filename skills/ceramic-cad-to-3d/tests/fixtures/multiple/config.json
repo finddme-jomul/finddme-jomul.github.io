@@ -1,0 +1,23 @@
+{
+  "name": "Rice + soup bowl set",
+  "style": "technical-dense",
+  "compositionMode": "multiple",
+  "parts": [
+    {
+      "id": "rice-bowl",
+      "name": "Rice bowl",
+      "profile": "rice-bowl-profile.json",
+      "dimensions": "rice-bowl-dimensions.json",
+      "material": "rice-bowl-material.json",
+      "materialFormat": "composition"
+    },
+    {
+      "id": "soup-bowl",
+      "name": "Soup bowl",
+      "profile": "soup-bowl-profile.json",
+      "dimensions": "soup-bowl-dimensions.json",
+      "material": "soup-bowl-material.json",
+      "materialFormat": "composition"
+    }
+  ]
+}
