@@ -1,0 +1,28 @@
+{
+  "id": "moon-jar-poc",
+  "status": "provisional-concept",
+  "dimensionsMm": {
+    "height": 150,
+    "maxDiameter": 140,
+    "openingDiameter": 45,
+    "footDiameter": 55,
+    "wallThickness": 5,
+    "baseThickness": 8
+  },
+  "clayColor": "#BDB9B1",
+  "finishColor": "#E7E6E1",
+  "photoSubject": "앞쪽 왼쪽 기물",
+  "photoStatus": "최종 완성",
+  "motion": {
+    "tiltDirection": "right",
+    "tiltDegrees": 14,
+    "status": "PoC 임시값: 실제 작품 방향·각도 미확정",
+    "storyHeightVh": 840
+  },
+  "sheetFrontBox": {
+    "cx": 0.32016806722689073,
+    "cy": 0.510688836104513,
+    "width": 0.4,
+    "height": 0.6057007125890737
+  }
+}

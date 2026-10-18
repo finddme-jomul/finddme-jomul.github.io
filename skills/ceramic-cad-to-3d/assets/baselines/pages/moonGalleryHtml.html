@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JOMUL · 달항아리 상세 전환 시안</title>
+<style>
+*{box-sizing:border-box}html{scroll-behavior:auto}body{margin:0;background:#fff;color:#383634;font:16px system-ui,sans-serif;transition:color .2s}
+#story{height:840vh}.stage{height:100vh;position:sticky;top:0;overflow:hidden}
+#viewer{position:absolute;inset:0}#viewer canvas{display:block}
+.cad-sheet{position:absolute;inset:0;display:grid;place-items:center;z-index:1;pointer-events:none}
+.cad-sheet img{position:absolute;left:50%;top:50%;display:block;width:max(100vw,141.306vh);height:auto;max-width:none;max-height:none;transform:translate(-50%,-50%)}
+.cad-main{position:absolute;z-index:1;pointer-events:none;opacity:0;transform-origin:center center;will-change:transform,opacity}
+.cad-main img{display:block;width:100%;height:100%}
+#story{position:relative;z-index:0}
+.gallery{position:relative;z-index:3;margin-top:-100vh;height:100vh;overflow:hidden;background:#f2eee9;color:#080808;visibility:hidden;transition:background-color .7s ease}
+.gallery.gallery-active{visibility:visible;background:#fff}
+.gallery.gallery-active .gallery-photo--hero{animation:photo-arrive .55s ease-out both}
+@keyframes photo-arrive{from{opacity:0;filter:blur(5px)}to{opacity:1;filter:blur(0)}}
+.gallery-first{position:relative;height:100vh;display:grid;place-items:center;overflow:hidden;isolation:isolate}
+.gallery-photo{appearance:none;position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:12px;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:center;cursor:pointer;will-change:transform,opacity;transform:translate3d(var(--drift-x,0px),var(--drift-y,0px),0) scale(var(--zoom,1));transition:opacity .4s ease}
+.gallery-photo.is-near{z-index:5}
+.gallery.gallery-active .gallery-photo{cursor:zoom-in}
+.gallery-photo:focus-visible{outline:none}
+.gallery-photo:focus-visible img{outline:2px solid #080808;outline-offset:5px}
+.gallery-photo img{display:block;width:auto;height:auto;max-width:min(84vw,540px);max-height:68vh;object-fit:contain;border:8px solid #fff;box-shadow:0 22px 48px rgba(32,29,24,.15)}
+.gallery-photo--process{position:absolute;right:6vw;bottom:9vh;opacity:0}
+.gallery.gallery-active .gallery-photo--process{opacity:1}
+.gallery-photo--process img{max-width:clamp(130px,15vw,240px);max-height:26vh;border-width:6px}
+ .photo-lightbox{border:0;padding:0;max-width:none;max-height:none;width:100vw;height:100vh;background:#fff;overflow:hidden}
+.photo-lightbox::backdrop{background:rgba(0,0,0,.84)}
+.photo-lightbox img{display:block;width:100%;height:100%;object-fit:contain;padding:clamp(16px,3vw,48px)}
+.lightbox-close{position:absolute;right:clamp(14px,3vw,42px);top:clamp(14px,3vw,42px);z-index:2;width:46px;height:46px;border:0;border-radius:50%;background:#fff;box-shadow:0 2px 12px #0003;cursor:pointer}
+.lightbox-close::before,.lightbox-close::after{content:"";position:absolute;left:11px;top:22px;width:24px;height:2px;background:#111}
+.lightbox-close::before{transform:rotate(45deg)}.lightbox-close::after{transform:rotate(-45deg)}
+@media(max-width:700px){
+.cad-sheet img{left:calc(50% + 25.4vh)}
+.gallery-photo--hero img{max-height:54vh}
+.gallery-photo--process{right:5vw;bottom:4vh}
+.gallery-photo--process img{max-width:28vw;max-height:17vh}
+}
+@media(prefers-reduced-motion:reduce){.gallery,.gallery *{transition-duration:0s!important;animation-duration:0s!important}}
+</style></head>
+<body><section id="story"><div class="stage">
+<div id="viewer" role="img" aria-label="달항아리 가정 CAD에서 3D 선, 흙, 유약 완료 예상 모습으로 변하는 스크롤 시안"></div>
+<div class="cad-sheet" id="cad-sheet"><img id="cad-sheet-image" src="./assets/cad-sheet.png" alt="달항아리 기술 도면: 정면·등각·평면·가정 단면, 치수, 백토와 무광투명유약, 수축률 12.5% 가정 성형 치수"></div>
+<div class="cad-main" id="cad-main" aria-hidden="true"><img src="./assets/front-view.svg" alt=""></div>
+</div></section>
+<section class="gallery" id="gallery" aria-label="달항아리 사진 갤러리">
+  <div class="gallery-first">
+    <button class="gallery-photo gallery-photo--hero" type="button" aria-label="달항아리 완성 사진 확대">
+      <img src="./assets/actual-photo.webp" alt="실제로 완성한 앞쪽 왼쪽 달항아리">
+    </button>
+    <button class="gallery-photo gallery-photo--process" type="button" aria-label="달항아리 제작 과정 사진 확대">
+      <img src="./assets/process-photo.webp" alt="제작 과정에서 촬영한 여러 도자기">
+    </button>
+  </div>
+</section>
+<dialog class="photo-lightbox" id="photo-lightbox" aria-label="사진 확대 보기">
+  <button class="lightbox-close" type="button" aria-label="확대 사진 닫기"></button>
+  <img alt="">
+</dialog>
+<script type="module" src="./viewer.js"></script></body></html>

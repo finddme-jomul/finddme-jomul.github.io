@@ -1,0 +1,35 @@
+{
+  "status": "selected-visual-source",
+  "blender": "4.5.11",
+  "source": "same reviewed CAD profile; selected visual sampled-floor policy, separate from exact-floor CAD export",
+  "roughness": 0.66,
+  "clearcoat": 0.08,
+  "floorPolicy": "selected-visual-sampled",
+  "stlTolerance": 0.12,
+  "stlAngularTolerance": 0.08,
+  "meshName": "moon-jar-final-draft",
+  "scope": "Compatible selected moon inputs only; not manufacturing geometry",
+  "environmentScope": "Official checksum-pinned archive in skill .tools; pinned browser container supplies Linux runtime",
+  "distribution": {
+    "url": "https://download.blender.org/release/Blender4.5/blender-4.5.11-linux-x64.tar.xz",
+    "sha256": "05ed7bd41bf3e61ae4f4a7cdc364c43088bf8b3fed702c2269c018fdf63a2188",
+    "directory": "blender-4.5.11-linux-x64"
+  },
+  "systemPackages": [
+    {
+      "name": "libgl1",
+      "url": "https://deb.debian.org/debian/pool/main/libg/libglvnd/libgl1_1.6.0-1_amd64.deb",
+      "sha256": "6f89b1702c48e9a2437bb3c1ffac8e1ab2d828fc28b3d14b2eecd4cc19b2c790"
+    },
+    {
+      "name": "libglx0",
+      "url": "https://deb.debian.org/debian/pool/main/libg/libglvnd/libglx0_1.6.0-1_amd64.deb",
+      "sha256": "95f568df73dedf43ae66834a75502112e0d4f3ad7124f3dbfa790b739383b896"
+    },
+    {
+      "name": "libglvnd0",
+      "url": "https://deb.debian.org/debian/pool/main/libg/libglvnd/libglvnd0_1.6.0-1_amd64.deb",
+      "sha256": "b6da5b153dd62d8b5e5fbe25242db1fc05c068707c365db49abda8c2427c75f8"
+    }
+  ]
+}
