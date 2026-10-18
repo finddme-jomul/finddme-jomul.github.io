@@ -8,7 +8,7 @@
     "assets/cad-group-board.svg": "583f47e941b14146bd10e2cfa05227c7c073206d26873940d20fac2079573d0b",
     "assets/cad-group-pawn-knight-bishop.svg": "6ec4c4ff6bd62de285ecf0e5f394ab19bb09d3c97119aa29a68e10cb8df7e233",
     "assets/cad-group-rook-queen-king.svg": "d3e262e3edb473ce20463acbbc548b6b62b61908d464e2b997e2705bb1271d96",
-    "assets/project.json": "d9ce6044999e7f03dcebb0fbee4388c732e95d4914f45ec73bf69859d4360888",
+    "assets/project.json": "a70b86c6eb8cab86f7ee1d5a0bcefc4afde35462ac41b1f9ae7644567d0e98ee",
     "assets/sheet-desktop.svg": "b7b25f505e8e46280afb6844cdbb87519277fcd41aa9414b06be4cab4d3161bd",
     "assets/sheet-mobile-short.svg": "ffee8735b25535e714332d00b83ae54d34c789351a9b34e8953882e7c52253d9",
     "assets/sheet-mobile.svg": "f4a9a517d9e03ec6fd1687ade6127166c739927549f56157560e590471a96b28",
@@ -36,7 +36,7 @@
     "gallery.js": "d64da585e8c08260d0c47a3f9d10d50ff41314cd13de9d35f87a8e07439f2eb1",
     "handled-scene.mjs": "d599532bf0d7a7f5ecdfdc5244af6cc089baa27c7d99443090c8a28b63d72087",
     "index.html": "131690abce63908c9128e4b8d4044f2d511816371b0ce83c8b48b052bc210e21",
-    "multiple-scene.mjs": "a264ac343e3d1b9bc8768558b17a5d20db78f0af6a6037067ed99bf701c93677",
+    "multiple-scene.mjs": "2a6b650dd10640947ab8ced2f5de59147e41f5d29c8ad3f0f028a663fb3a4573",
     "scene/axis-motion.mjs": "71511810da9eb151894f8b8c5cf84d1ca1c51fe412ecba37bfc04943dc0dce67",
     "scene/background-transition.mjs": "7023122b744c7b5897df30207c14472c84dae90fb5e501cb3a54da651fad9fb4",
     "scene/cad-pages.mjs": "83a51f20046aefe90f59d804630449c51c524fcc93c3cc9d851525d35ca10a04",
@@ -46,14 +46,31 @@
     "scene/layered-vessels.mjs": "7f89b79a21cf0f5ddbeee8b34b1ffc0f70f3b5b094e2a3421cdd8e69376b91ae",
     "scene/oriented-framing.mjs": "cf429bd19371e21ce95ff4f0d1eccf66a135d5888b48e210764f85e4717f6fbd",
     "scene-defaults.mjs": "64f56619efe594349a4d71a3b44f88367af8132e05bf79713a662feef8d0e609",
-    "viewer.js": "0ffae2b72893d3afd801965bf646206eff7f2bbbae121f175523075150c0712d",
+    "viewer.js": "5fe002fb1320c7872dfe242bba0d3ecf6fd2caaf56eac5e4116cd857f8f860b0",
     "wire-color.mjs": "05d0dc90c698e27a3156e6ed223cef1056133ee13624bc085993897bd95a5324"
   },
   "presentationOverrides": {
     "motion.lighting": {
-      "exposure": 0.9,
-      "pointLightScale": 0.08
+      "softPartIds": [
+        "white-rook-a1",
+        "white-knight-b1",
+        "white-bishop-c1",
+        "white-queen-d1",
+        "white-king-e1",
+        "white-bishop-f1",
+        "white-knight-g1",
+        "white-rook-h1",
+        "white-pawn-a2",
+        "white-pawn-b2",
+        "white-pawn-c2",
+        "white-pawn-d2",
+        "white-pawn-e2",
+        "white-pawn-f2",
+        "white-pawn-g2",
+        "white-pawn-h2"
+      ],
+      "softPointLightScale": 0.08
     },
-    "verification": "site browser check; CAD geometry not regenerated"
+    "verification": "site browser check; geometry unchanged"
   }
 }

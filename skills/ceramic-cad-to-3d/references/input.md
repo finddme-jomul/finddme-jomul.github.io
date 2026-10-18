@@ -371,3 +371,5 @@ Optional `motion.framing.envelope: "radial-drop"` requires direct-drop assembly.
 ### Multiple scene lighting
 
 Optional `motion.lighting` accepts `exposure` (0–3; omitted uses the selected profile) and `pointLightScale` (0–2; default 1). Reduce these for bright white glazes when close point lights wash out surface detail. This changes illumination only, not glaze colours, roughness, geometry or timing.
+
+`softPartIds` optionally names expanded scene part IDs whose direct illumination alone is multiplied by `softPointLightScale` (0–1, default 1). Other parts and ambient lighting retain their original response. Use this when reducing glare on white pieces must preserve adjacent dark glaze appearance.

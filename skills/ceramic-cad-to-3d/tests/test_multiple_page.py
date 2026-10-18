@@ -32,10 +32,10 @@ class MultipleReview(unittest.TestCase):
         with self.assertRaises(ValueError):assembly(bad,[{'id':'a','motion':{'settledScale':1}}],timing)
 
     def test_lighting_limits(self):
-        for value in [{'exposure':.9,'pointLightScale':.08},{}]:
+        for value in [{'exposure':.9,'pointLightScale':.08},{'softPartIds':['rice-bowl'],'softPointLightScale':.08},{}]:
             self.review['motion']['lighting']=value
             with patch('multiple_page.load_photos',return_value=[]):validate(self.review,self.ids)
-        for value in [{'exposure':-1},{'pointLightScale':3},{'exposure':True},{'unknown':1}]:
+        for value in [{'exposure':-1},{'pointLightScale':3},{'exposure':True},{'unknown':1},{'softPartIds':['missing']},{'softPointLightScale':2}]:
             self.review['motion']['lighting']=value
             with self.assertRaises(ValueError):validate(self.review,[p['id'] for p in self.review['parts']])
 
