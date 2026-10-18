@@ -285,3 +285,23 @@ html.orbit-mode, html.orbit-mode body { overflow: hidden; overscroll-behavior: n
 .work-card > .sheet-art, .work-card > .tile-back, .work-card > .tile-edge {
   opacity: var(--edge-on-visibility, 1);
 }
+
+/* Mobile: stable glass highlights; avoid repainting moving light textures. */
+@media (max-width: 700px) {
+  .gallery-section:not(.is-grid) .floor-light,
+  .gallery-section:not(.is-grid) .sun-spark,
+  .gallery-section:not(.is-grid) .edge-one,
+  .gallery-section:not(.is-grid) .edge-three { display: none; }
+  .gallery-section:not(.is-grid) .sheet-art::after,
+  .gallery-section:not(.is-grid) .tile-back::after {
+    background: linear-gradient(135deg, rgb(255 255 255 / .45), transparent 60%);
+    opacity: .25;
+  }
+  .gallery-section:not(.is-grid) .sheet-art::before,
+  .gallery-section:not(.is-grid) .tile-back::before { opacity: .3; box-shadow: none; }
+  .gallery-section:not(.is-grid) .sheet-art,
+  .gallery-section:not(.is-grid) .tile-back {
+    -webkit-backface-visibility: hidden;
+    box-shadow: inset 1px 1px 0 rgb(255 255 255 / .65);
+  }
+}
