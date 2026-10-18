@@ -101,6 +101,10 @@
       "transitionScrollVh": 80,
       "holdScrollVh": 80,
       "provenance": "user-approved-order;distances-reproduce-bowl-poc-not-general-default"
+    },
+    "lighting": {
+      "exposure": 0.9,
+      "pointLightScale": 0.08
     }
   },
   "parts": [
