@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "selection": "cad-common-accepted-2026-10-14",
+  "scope": "User-selected visual fixture for the common rotational single/multiple CAD renderer. SHA applies only to these two selected outputs, never arbitrary new sketch outputs.",
+  "files": {
+    "moon-jar/manifest.json": "fa522e88a033da8180e783d5cfd3048234aefb47f2672800567cb5f39722834f",
+    "moon-jar/sheet-desktop.svg": "ed73faa3f2b284650d67cd26c971adbf9b361dec8f7936a7f6583113a300d6fa",
+    "moon-jar/sheet-mobile.svg": "c2ce11598fe6ca72fbc66060c122f5a39b0eaad1daca9acdd863b9b861f0d2a3",
+    "moon-jar/sheet-mobile-short.svg": "6d46f325cd5e51dbd4385d32e82ddf6d58f6dde29ab1715108fa2f510bd48b01",
+    "bowl-set/manifest.json": "b13c00fc8f5ce427cb583c0dedd0b127c34d202a37f9ade47a7af18ba147ade2",
+    "bowl-set/sheet-desktop.svg": "35231a1cc41a67dade6294a8124c45c9924939e2f6c5c087eba00056d5b5209d",
+    "bowl-set/sheet-mobile.svg": "9d8b268c6e6a177ee9438bcd667629f3ad77b694e99943d12719b23d823f882a",
+    "bowl-set/sheet-mobile-short.svg": "126dd8540ccb608da137105c10aabe5a1fbe1e70d87efe97e02e905bc49fb02b"
+  },
+  "layoutPolicy": {
+    "desktop": "sheet-desktop.svg",
+    "short": "reuse desktop SVG bytes and frontBoxes",
+    "mobile": "sheet-mobile.svg",
+    "mobile-short": "sheet-mobile-short.svg"
+  },
+  "generativeContract": [
+    "one sheet per project",
+    "all parts on one sheet",
+    "source profile and dimensions determine annotations and frontBoxes",
+    "contain entire sheet in each viewport",
+    "English drawing labels except clay and glaze names"
+  ],
+  "validatedHandoff": "2 projects x 4 layouts in cad-common-handoff-study; source max 0.014 px; projected target max 0.030 px"
+}

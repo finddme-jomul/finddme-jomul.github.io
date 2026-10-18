@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "status": "reviewed-provisional",
+  "handleReviewStatus": "reviewed-provisional",
+  "layouts": {
+    "desktop": {
+      "file": "sheet-desktop.svg",
+      "frontBox": {
+        "cx": 0.36346562500000007,
+        "cy": 0.548,
+        "width": 0.32005625000000004,
+        "height": 0.574
+      }
+    },
+    "mobile": {
+      "file": "sheet-mobile.svg",
+      "frontBox": {
+        "cx": 0.3659222222222222,
+        "cy": 0.3553459119496855,
+        "width": 0.4718444444444444,
+        "height": 0.3742138364779874
+      }
+    },
+    "mobile-short": {
+      "file": "sheet-mobile-short.svg",
+      "frontBox": {
+        "cx": 0.3581666666666667,
+        "cy": 0.34759358288770054,
+        "width": 0.4163333333333334,
+        "height": 0.37433155080213903
+      }
+    },
+    "short": {
+      "file": "sheet-desktop.svg",
+      "frontBox": {
+        "cx": 0.36346562500000007,
+        "cy": 0.548,
+        "width": 0.32005625000000004,
+        "height": 0.574
+      }
+    }
+  },
+  "boundsMm": {
+    "minX": -44.97985945275766,
+    "minY": -44.994964581462305,
+    "minZ": 0.0,
+    "maxX": 79.89618037989743,
+    "maxY": 44.994964581462305,
+    "maxZ": 140.0
+  },
+  "glbSha256": "b397dc2d33155907b4c504e165263f5944047fd56803df1eaaf31e3bb4409b7b",
+  "wireSource": "CAD profile and exact handle solid path; GLB mesh bounds checked separately",
+  "sourceSha256": {
+    "profile": "fc0e19c84c280f170b5a3a473e574fee406cc33420c3c9db6a7e095c437c017e",
+    "dimensions": "b7e6bef2d66890661109988b281f15badcc0828fbaebfd1f68ca42ab3a4d25ff",
+    "handle": "fe76999178ce04f4d43a43849b04c0af094f9c6cc2ef5a3a321dce3e07689d70"
+  }
+}

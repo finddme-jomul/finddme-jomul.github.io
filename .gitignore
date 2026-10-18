@@ -1,7 +1,14 @@
 # Local planning, references and verification artifacts
 /docs/
+/.poc/
+/poc/
 /node_modules/
 /dist/
 .env
 .env.*
 !.env.example
+
+# Node dependency symlink and Python build cache
+/node_modules
+__pycache__/
+*.pyc

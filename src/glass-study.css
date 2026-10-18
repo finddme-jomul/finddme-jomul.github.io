@@ -1,0 +1,17 @@
+.light-study { height: 100svh; overflow: hidden; }
+.study-back { font-family: 'Cormorant Garamond',serif; font-size: 19px; }
+.study-stage { position: absolute; inset: 88px 0 85px; touch-action: none; cursor: grab; outline-offset: -6px; }
+.study-stage.is-dragging { cursor: grabbing; }
+.study-stage canvas { width: 100%; height: 100%; display: block; }
+.study-fallback { position: absolute; width: min(260px,60vw); height: 55%; object-fit: contain; left: 50%; top: 20%; transform: translateX(-50%); }
+.is-ready .study-fallback { display: none; }
+#study-message { position: absolute; bottom: 5%; left: 10%; width: 80%; text-align: center; font-size: 13px; line-height: 1.8; }
+.study-footer { position: absolute; bottom: 20px; left: 5%; right: 5%; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+.study-label { font-family: 'Cormorant Garamond',serif; font-size: 17px; }
+.study-note { justify-self: end; }
+@media(max-width:700px) {
+  .study-stage { inset: 70px 0 110px; }
+  .study-back { font-size: 16px; }
+  .study-footer { display: flex; flex-direction: column; gap: 4px; bottom: 16px; }
+  .study-note { display: none; }
+}

@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><link rel="icon" href="data:,"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>작품별 설정 CAD→3D PoC</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;background:#fff;color:#303437;font-family:system-ui,sans-serif}main{height:760vh}header{position:fixed;z-index:2;top:1.2rem;left:1.3rem;right:1.3rem;display:flex;justify-content:space-between;gap:1rem;font-size:.85rem}header strong{font-size:1.1rem}.badge{color:#8d4c36}.stage{position:sticky;top:0;height:100vh;overflow:hidden}canvas{display:block;width:100%;height:100%}.cad-intro{position:absolute;inset:8vh 3vw 11vh;display:flex;align-items:center;justify-content:center;gap:clamp(4px,1vw,18px);pointer-events:none}.cad-sheet{width:min(45vw,520px);max-height:100%;object-fit:contain;display:block}.cad-front{position:absolute;transform-origin:center;pointer-events:none}.cad-intro.single .cad-sheet{width:min(70vw,850px)}.actual{position:absolute;left:50%;top:48%;width:min(64vw,800px);height:min(65vh,660px);object-fit:contain;transform:translate(-50%,-50%) scale(.94);opacity:0;pointer-events:none;filter:drop-shadow(0 10px 26px #343c391c);transition:none}.caption{position:absolute;left:50%;bottom:6vh;transform:translateX(-50%);text-align:center;width:min(90vw,600px)}.caption h1{font-weight:450;font-size:clamp(1.2rem,2vw,1.8rem);margin:.4rem 0}.caption p{font-size:.83rem;line-height:1.5;color:#5f686d}.progress{position:absolute;left:0;top:0;height:2px;background:#879da2;width:0}body{transition:color .2s}.caption p,.badge,footer{transition:color .2s}footer{position:fixed;bottom:.7rem;right:1rem;font-size:.7rem;color:#778084}@media(max-width:600px){.actual{width:92vw;height:55vh}header{font-size:.7rem}header strong{font-size:.9rem}.caption{bottom:5vh}.cad-intro{inset:9vh 2vw 13vh;flex-direction:column;gap:0}.cad-sheet{width:min(87vw,340px);max-height:48%}.cad-intro.single .cad-sheet{width:min(91vw,650px);max-height:100%}}
+.dark-scene .caption p,.dark-scene footer{color:#e8ded4}.dark-scene .badge{color:#dcbbae}
+</style>
+</head>
+<body>
+<main><section class="stage"><div id="progress" class="progress"></div><header><strong id="project-header"></strong><span id="project-badge" class="badge"></span></header><div id="scene"></div><div id="cad-intro" class="cad-intro"></div><div id="cad-fronts"></div><img id="actual" class="actual" alt=""><div class="caption"><h1 id="title"></h1><p id="detail"></p></div></section></main>
+<footer>스크롤하여 도면 → 선 → 재질 → 사진 확인</footer>
+<script type="module" src="./preview.js"></script>
+</body>
+</html>

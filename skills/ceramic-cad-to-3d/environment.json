@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "platform": "linux/amd64",
+  "python": "3.14.3",
+  "node": "24.19.0",
+  "puppeteer": "25.9.0",
+  "chrome": "152.0.7977.54",
+  "browserImage": "ghcr.io/puppeteer/puppeteer@sha256:5c341215d78353c3416b6c92aae9fac66e8f11c146c3753234980443d6792f8f"
+}
