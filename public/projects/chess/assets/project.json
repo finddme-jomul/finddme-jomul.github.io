@@ -30,7 +30,7 @@
       "settleDuration": 0.12,
       "cameraFocusStart": 0.28,
       "cameraFocusDuration": 0.24,
-      "photoStart": 0.81,
+      "photoStart": 0.91,
       "photoDuration": 0.025,
       "surfaceSweepWidth": 0.04
     },
@@ -56,7 +56,8 @@
     "provenance": {
       "source": "User-approved planar feature extension; actual board integration, provisional palette and motion",
       "clayPacing": "User: 흙 상태 장면이 길거나 많음. Shorten clay transition/hold and visually similar clear glaze; brown starts earlier. Board review candidate.",
-      "variation": "User requested individual phase/speed/axis changes; explicit deterministic instance values, seed 28103; board remains below pieces."
+      "variation": "User requested individual phase/speed/axis changes; explicit deterministic instance values, seed 28103; board remains below pieces.",
+      "landingPacing": "User requests slower final landing; assembly duration .14 to .24 (1.714x scroll), photo boundary .81 to .91. Same per-piece order, gap proportions and pose."
     },
     "framing": {
       "enabled": true,
@@ -3174,7 +3175,7 @@
     "landing": "soft-spin",
     "overlap": true,
     "start": 0.65,
-    "duration": 0.14,
+    "duration": 0.24,
     "steps": [
       {
         "partId": "board",
