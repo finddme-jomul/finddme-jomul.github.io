@@ -1,9 +1,10 @@
-.catalogue { max-width: 1440px; margin: 0 auto; padding: 180px 5% 100px; }
-.catalogue-intro { display: grid; grid-template-columns: 1fr auto; align-items: end; margin-bottom: 36px; }
-.catalogue-return { grid-column: 1 / -1; width: max-content; margin-bottom: 42px; font-family: 'Outfit', sans-serif; font-size: 12px; color: #5D686E; }
+/* The catalogue header scrolls with the document so cards never pass behind it. */
+.header { position: relative; inset: auto; }
+.catalogue { max-width: 1440px; margin: 0 auto; padding: 30px 5% 100px; }
+.catalogue-intro { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 16px; margin-bottom: 36px; }
+.catalogue-return { width: max-content; font-family: 'Outfit', sans-serif; font-size: 12px; color: #5D686E; }
 .catalogue-return:hover { color: #202B31; }
-.catalogue-intro h1 { margin: 0; font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 5vw, 74px); font-weight: 400; letter-spacing: -.025em; }
-.catalogue-intro p { margin: 0 0 8px; font-family: 'Outfit', sans-serif; font-size: 12px; color: #667178; }
+.catalogue-intro p { margin: 0; font-family: 'Outfit', sans-serif; font-size: 12px; color: #667178; }
 .catalogue-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 54px 28px; }
 .catalogue-card { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 8px 12px; min-width: 0; }
 .catalogue-image { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); place-items: center; min-width: 0; height: clamp(240px, 28vw, 360px); padding: 4%; border: 1px solid rgb(202 210 216 / .62); border-radius: 18px; background: rgb(227 231 235 / .2); box-shadow: 0 16px 36px -28px rgb(107 122 132 / .4); overflow: hidden; }
@@ -15,8 +16,7 @@
   .catalogue-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 @media (max-width: 700px) {
-  .catalogue { padding: 136px 6% 70px; }
-  .catalogue-return { margin-bottom: 28px; }
+  .catalogue { padding: 26px 6% 70px; }
   .catalogue-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 14px; }
   .catalogue-image { height: clamp(180px, 52vw, 250px); padding: clamp(12px, 3vw, 18px); border-radius: 12px; }
   .catalogue-title { font-size: 12px; }
