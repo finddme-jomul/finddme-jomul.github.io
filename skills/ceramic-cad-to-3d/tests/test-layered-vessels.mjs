@@ -41,3 +41,12 @@ console.log('SOFT_LANDING_ENDPOINTS_OK');
  for(let i=0;i<r.positions.length;i+=9){const a=r.positions.slice(i,i+3),b=r.positions.slice(i+3,i+6),c=r.positions.slice(i+6,i+9);area+=Math.abs((b[0]-a[0])*(c[1]-a[1])-(c[0]-a[0])*(b[1]-a[1]))/2;assert(Math.max(a[1],b[1],c[1])-Math.min(a[1],b[1],c[1])<=1/80+1e-8);}
  assert(Math.abs(area-.5)<1e-8);assert(r.exterior.every(Boolean));assert(r.normals.every((n,i)=>n===(i%3===2?1:0)));
 }
+
+// Lateral approach stays scattered until descent, with exact final contact.
+const scattered={start:.2,duration:.6,targetPositionMm:[30,9,-10],dropHeightMm:100,approachOffsetMm:[20,-30]};
+const approach=t=>assemblyPosition([0,0,0],scattered,t,'direct-drop','soft-spin');
+assert.deepEqual(approach(0),[.05,.109,-.04]);
+assert.deepEqual(approach(.2),approach(0));
+[.04,.059,-.025].forEach((v,i)=>assert(Math.abs(approach(.5)[i]-v)<1e-12));
+assert.deepEqual(approach(1),[.03,.009,-.01]);
+assert(approach(.79)[0]>.03);
