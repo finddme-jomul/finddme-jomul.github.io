@@ -1,0 +1,17 @@
+{
+  "name": "Moon jar",
+  "style": "technical-dense",
+  "compositionMode": "single",
+  "parts": [
+    {
+      "id": "moon-jar",
+      "name": "Moon jar",
+      "profile": "moon-jar-profile.json",
+      "dimensions": "moon-jar-dimensions.json",
+      "dimensionsKey": "targetFiredMm",
+      "sourcesKey": "dimensionSources",
+      "material": "moon-jar-material.json",
+      "materialFormat": "single"
+    }
+  ]
+}

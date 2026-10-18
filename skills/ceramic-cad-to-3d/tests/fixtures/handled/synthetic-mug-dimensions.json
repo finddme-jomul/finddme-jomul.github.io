@@ -1,0 +1,19 @@
+{
+  "valuesMm": {
+    "height": 100,
+    "maxDiameter": 90,
+    "openingDiameter": 90,
+    "footDiameter": 70,
+    "wallThickness": 4,
+    "baseThickness": 6
+  },
+  "sources": {
+    "height": "synthetic-test",
+    "maxDiameter": "synthetic-test",
+    "openingDiameter": "synthetic-test",
+    "footDiameter": "synthetic-test",
+    "wallThickness": "synthetic-test",
+    "baseThickness": "synthetic-test"
+  },
+  "status": "synthetic-test-not-a-real-mug"
+}

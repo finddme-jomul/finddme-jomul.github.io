@@ -1,0 +1,20 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CAD 정보 밀도 비교 | JOMUL</title><style>
+*{box-sizing:border-box}body{margin:0;background:#f1f1ee;color:#34393b;font:14px system-ui,sans-serif}
+header{background:white;padding:15px 22px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}h1{font-size:19px;margin:0}select{font:inherit;padding:6px}
+main{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:18px}section{min-width:0}h2{font-size:14px;margin:0 0 9px}
+.frame{height:calc(100vh - 130px);min-height:400px;background:white;display:grid;place-items:center;overflow:hidden}
+img{display:block;max-width:100%;max-height:100%;object-fit:contain}p{font-size:12px;color:#697275;margin:9px 0}
+@media(max-width:850px){main{grid-template-columns:1fr}.frame{height:65vh}}
+</style></head><body><header><h1>현행 CAD ↔ 근거 기반 밀도 비교</h1><label>작품 <select id="project"><option value="moon">달항아리</option><option value="bowl">국·밥그릇</option></select></label><label>화면비 <select id="layout"><option value="desktop">가로 기본</option><option value="short">가로 짧음</option><option value="mobile">세로 긴 화면</option><option value="mobile-short">세로 짧은 화면</option></select></label></header>
+<main><section><h2>현재 버전</h2><div class="frame"><img id="current" alt="현재 CAD 시트"></div></section><section><h2>밀도 보강 비교안</h2><div class="frame"><img id="candidate" alt="밀도 보강 CAD 시트"></div><p id="status"></p></section></main>
+<script>
+const $=id=>document.getElementById(id);function update(){let p=$('project').value;
+$('layout').disabled=p==='moon';
+if(p==='moon')$('layout').value='desktop';
+let l=$('layout').value;
+$('current').src=p==='moon'?'moon-current.png':'current-'+l+'.svg';
+$('candidate').src=p==='moon'?'moon-jar-density.png':'density-'+l+'.svg';
+$('status').textContent=p==='moon'?'달항아리 도면은 가로 PDF 한 장입니다. 모바일도 같은 시트를 사용하며, 별도 세로 시트는 아직 없습니다.':(l!=='desktop'?'현재 화면비 유지 · 밀도 보강은 가로 기본 시트에만 적용':'형상·치수 원본 유지 · 새 표기는 CAD 프로파일/확인된 사양 기반');}
+$('project').addEventListener('change',update);$('layout').addEventListener('change',update);update();
+</script></body></html>

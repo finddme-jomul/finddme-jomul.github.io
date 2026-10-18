@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "centerline-round-section",
+  "side": "right",
+  "sectionDiameterMm": 8,
+  "centerlineMm": [
+    [
+      44.5,
+      0,
+      82
+    ],
+    [
+      61,
+      0,
+      83
+    ],
+    [
+      75,
+      0,
+      72
+    ],
+    [
+      79,
+      0,
+      55
+    ],
+    [
+      75,
+      0,
+      38
+    ],
+    [
+      61,
+      0,
+      28
+    ],
+    [
+      44.5,
+      0,
+      30
+    ]
+  ],
+  "overallWidthMm": 128,
+  "status": "synthetic-test"
+}
