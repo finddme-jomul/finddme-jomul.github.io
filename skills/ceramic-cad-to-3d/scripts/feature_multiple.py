@@ -26,7 +26,7 @@ def prepare(project, review):
         raise ValueError('Feature one-coat pages require no second interval')
     if review.get('assembly'):
         t=review['motion']['timing']
-        if any(t['dropStart']+p['motion']['dropDelay']+t['dropDuration']>=review['assembly']['start'] for p in review['parts']):
+        if any(t['dropStart']+p['motion']['dropDelay']+t['dropDuration']*p['motion'].get('dropDurationScale',1)>=review['assembly']['start'] for p in review['parts']):
             raise ValueError('Feature placement must settle before assembly')
     from project import verify
     verify(project,json.loads((project/'pipeline-state.json').read_text()))
