@@ -10,6 +10,7 @@ from ceramic_paths import SKILL, ROOT
 from browser_environment import node_command
 
 SUITES = {
+    'drop-pose': node_command(SKILL/'tests/test-drop-pose.mjs'),
     'oriented-framing': node_command(SKILL/'tests/check-oriented-framing.mjs'),
     'cad-scroll': node_command(SKILL/'tests/check-cad-scroll.mjs'),
     'cad-pages': [sys.executable, str(SKILL/'tests/test_cad_pages.py')],

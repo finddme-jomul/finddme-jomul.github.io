@@ -715,7 +715,9 @@
         "scripts/cad_pages.py",
         "assets/scene/cad-pages.mjs",
         "assets/scene/cad-scroll.mjs",
-        "assets/scene/oriented-framing.mjs"
+        "assets/scene/oriented-framing.mjs",
+        "assets/scene/drop-pose.mjs",
+        "scripts/drop_pose.py"
       ],
       "verification": {
         "suites": [
@@ -727,7 +729,8 @@
           "feature-instances",
           "cad-pages",
           "cad-scroll",
-          "oriented-framing"
+          "oriented-framing",
+          "drop-pose"
         ],
         "scope": "CAD sampled collisions and shared review/recovery contracts; separate browser development evidence required. Not continuous collision or visual adoption. Planar region bounds, hard-edge triangle areas, translated CAD coordinates and non-top exclusions; actual board browser verification remains separate.",
         "browserCheck": "tests/check-multiple-page.cjs"
