@@ -95,7 +95,7 @@ function render(now) {
   if (!grid) asciiCenter.render(-angle * Math.PI * 2 / count, centerSize);
   const index = ((Math.round(angle) % count) + count) % count;
   cards.forEach((card, i) => {
-    const theta = (i - angle) * Math.PI * 2 / count + Math.PI / 6;
+    const theta = (i - angle) * Math.PI * 2 / count;
     const x = Math.sin(theta) * radius;
     const z = Math.cos(theta) * radius;
     // Open front-facing tiles continuously as they move around the ring.

@@ -8,7 +8,7 @@
     "assets/cad-group-board.svg": "b895522c0401bc5248d612a062c226adac5f68d4804e4e85b93c2141f0e8dde1",
     "assets/cad-group-pawn-knight-bishop.svg": "90d95c2be5799eb5445bccb728d3bb5592eeeeed004e78edfe56f8299887fa00",
     "assets/cad-group-rook-queen-king.svg": "44c88aae2617cb3e25e29f878ffd66e8cb4474caf17919bb09649d03a3efb52c",
-    "assets/project.json": "86fc35fe263eb6c5d25cd6de696a7f55969e90d25f31da3242f960bcf5c1fd54",
+    "assets/project.json": "a1b4567a86b9b41a4c09af176144e954d0c21ddf6af61c4f2e5d0b03d841b74e",
     "assets/sheet-desktop.svg": "2269973d9ac5505caeb89c3b203491c21e90e441ca7a69ab901b0f77a2fdc268",
     "assets/sheet-mobile-short.svg": "c29c9777fa02eaf0330abc35bced2db32f3d6c7e84254c7156c8d0c8ffe39871",
     "assets/sheet-mobile.svg": "95ddbb96948e4fb5907f625d9a4efd6f17e99d2d039ffbea72558e660af89e95",
@@ -35,7 +35,7 @@
     "gallery.css": "52993d3e19ec1e049e3f728c284cc165202c3b15db59653645f1015dcefbbffa",
     "gallery.js": "d64da585e8c08260d0c47a3f9d10d50ff41314cd13de9d35f87a8e07439f2eb1",
     "handled-scene.mjs": "d599532bf0d7a7f5ecdfdc5244af6cc089baa27c7d99443090c8a28b63d72087",
-    "index.html": "84ef1e2922d7ae03f87100f9c28d81dfc87a27b411a5aaee7f9d5382bdb48651",
+    "index.html": "6b481cc2926b8192a7245820ddccc67a2f9874692ee277bc9e4c9d330865c43f",
     "multiple-scene.mjs": "63e82519ceb23a743ffd38db39856e05b847d8da83ac71c97a418da0caeaf22d",
     "scene/axis-motion.mjs": "71511810da9eb151894f8b8c5cf84d1ca1c51fe412ecba37bfc04943dc0dce67",
     "scene/background-transition.mjs": "7023122b744c7b5897df30207c14472c84dae90fb5e501cb3a54da651fad9fb4",
@@ -48,7 +48,10 @@
     "scene/oriented-framing.mjs": "cf429bd19371e21ce95ff4f0d1eccf66a135d5888b48e210764f85e4717f6fbd",
     "scene-defaults.mjs": "64f56619efe594349a4d71a3b44f88367af8132e05bf79713a662feef8d0e609",
     "viewer.js": "a494a699b28633455cf6e595458e8f6d682ca98630750964cb75f6b92734c6b4",
-    "wire-color.mjs": "05d0dc90c698e27a3156e6ed223cef1056133ee13624bc085993897bd95a5324"
+    "wire-color.mjs": "05d0dc90c698e27a3156e6ed223cef1056133ee13624bc085993897bd95a5324",
+    "assets/photo-1.webp": "013a85a7dcd5d3aa37023344dd9911106045c736271ce277b64c2bc8b6865165",
+    "assets/photo-2.webp": "20d25f19368cc28dafca1940728c66f9ee7a336b0b78efd9d056366cb457219a",
+    "assets/photo-3.webp": "912079ea61c8d0b11edf8c7f805c51d0bed599be6fa80f23ec7632343a21f3f7"
   },
   "hostPacing": {
     "module": "/project-scroll.mjs",
