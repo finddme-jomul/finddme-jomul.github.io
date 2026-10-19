@@ -1,3 +1,4 @@
+import {retainedFront} from './scene/cad-handoff.mjs';
 import {dropPose} from './scene/drop-pose.mjs';
 import {createCadScroll} from './scene/cad-scroll.mjs';
 import {installCadPages} from './scene/cad-pages.mjs';
@@ -170,12 +171,21 @@ export async function startMultiple(spec) {
   function frontPlacement(v,p){
     if(cadPages&&!frontRepresentatives.has(v.id)){v.front.style.opacity='0';return;}
 
-    if(p<timing.frontMoveStart||p>=timing.frontFadeStart+timing.frontFadeDuration){v.front.style.opacity='0';return;}
+    const retaining=spec.cadPresentation?.handoff==='retain-fronts';
+    const held=retaining?retainedFront(spec,v.id,p,image.getBoundingClientRect(),{width:innerWidth,height:innerHeight}):null;
+    if(retaining&&!held){v.front.style.opacity='0';v.front.dataset.handoffStage='hidden';return;}
+    if(held?.retaining){
+      const {x,y,w,h}=held.source;
+      Object.assign(v.front.style,{left:`${x-w/2}px`,top:`${y-h/2}px`,width:`${w}px`,height:`${h}px`,opacity:String(held.opacity)});
+      v.front.dataset.handoffStage=held.stage;return;
+    }
+    if(p<timing.frontMoveStart||p>=timing.frontFadeStart+timing.frontFadeDuration){v.front.style.opacity='0';v.front.dataset.handoffStage='hidden';return;}
+    v.front.dataset.handoffStage='moving';
     const entry=cadPages?.entry||spec.sheets[layoutKey],box=entry.frontBoxes[v.id],rect=image.getBoundingClientRect();
-    if(!box){v.front.style.opacity='0';return;}
+    if(!box&&!held){v.front.style.opacity='0';return;}
     const scale=Math.min(rect.width/entry.pagePx[0],rect.height/entry.pagePx[1]);
     const sheetW=entry.pagePx[0]*scale,sheetH=entry.pagePx[1]*scale;
-    const source={x:rect.left+(rect.width-sheetW)/2+sheetW*box.cx,y:rect.top+(rect.height-sheetH)/2+sheetH*box.cy,w:sheetW*box.width,h:sheetH*box.height};
+    const source=held?.source||{x:rect.left+(rect.width-sheetW)/2+sheetW*box.cx,y:rect.top+(rect.height-sheetH)/2+sheetH*box.cy,w:sheetW*box.width,h:sheetH*box.height};
     let left=Infinity,right=-Infinity,top=Infinity,bottom=-Infinity;
     const q=new THREE.Vector3();
     const include=()=>{q.applyMatrix4(v.spin.matrixWorld).project(camera);const x=(q.x+1)*innerWidth/2,y=(1-q.y)*innerHeight/2;left=Math.min(left,x);right=Math.max(right,x);top=Math.min(top,y);bottom=Math.max(bottom,y)};

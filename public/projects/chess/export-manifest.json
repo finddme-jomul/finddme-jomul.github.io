@@ -5,10 +5,10 @@
     "assets/board/model.glb": "f082a40e3b87cc9e2c5a3afdb6486e4c44531c55c2a0658ba9854f9a0021188e",
     "assets/board/surface-regions.json": "0b14fd744188b68e5b42c48598bb3c0c09ce132b7469d63b186c9340383979ec",
     "assets/board/wire-guide.json": "3b1c8fe090450992ba45968dfc1abf20b09592c50773d9aeb86c0d1bf827fb7f",
-    "assets/cad-group-board.svg": "b895522c0401bc5248d612a062c226adac5f68d4804e4e85b93c2141f0e8dde1",
-    "assets/cad-group-pawn-knight-bishop.svg": "90d95c2be5799eb5445bccb728d3bb5592eeeeed004e78edfe56f8299887fa00",
-    "assets/cad-group-rook-queen-king.svg": "44c88aae2617cb3e25e29f878ffd66e8cb4474caf17919bb09649d03a3efb52c",
-    "assets/project.json": "a1b4567a86b9b41a4c09af176144e954d0c21ddf6af61c4f2e5d0b03d841b74e",
+    "assets/cad-group-board.svg": "036c79af8e187754118a9f87515068856e4455b08b0f510f6fc2833a846138e1",
+    "assets/cad-group-pawn-knight-bishop.svg": "a286892b5248adb70570bdc5b73410053133853ca1499baa0acb9e92ec175247",
+    "assets/cad-group-rook-queen-king.svg": "91ae2c87e272be6abfb52a7fbe7f83d8302ff29e63ff80b4bdb68a7fc223ec03",
+    "assets/project.json": "b1fdc6f078283bbfdfbff01842b3c509393e171f443f3e3e4717272c4cecbd0d",
     "assets/sheet-desktop.svg": "2269973d9ac5505caeb89c3b203491c21e90e441ca7a69ab901b0f77a2fdc268",
     "assets/sheet-mobile-short.svg": "c29c9777fa02eaf0330abc35bced2db32f3d6c7e84254c7156c8d0c8ffe39871",
     "assets/sheet-mobile.svg": "95ddbb96948e4fb5907f625d9a4efd6f17e99d2d039ffbea72558e660af89e95",
@@ -21,9 +21,9 @@
     "assets/white-knight-b1/front-view.svg": "d03ecb33a74f15aa7c6bb381b867e909b28c8123a666124ccb77c9d61b727808",
     "assets/white-knight-b1/model.glb": "3169cd2bfb3f13030817606ccbafe939dc81413771adf88e5de2bcc975aeb10d",
     "assets/white-knight-b1/wire-guide.json": "af31d503b63e68d217a8db3ea4dcc8b571240b917cf273cdeff695167a71bff7",
-    "assets/white-pawn-a2/front-view.svg": "f003cfcfe22e625c68b5c19580710ffd72cf5f74303658ec7757fdd93a45a301",
-    "assets/white-pawn-a2/model.glb": "d31c133f0bccd30d3e95cbcc13bc0cf3588437433393ad455c967564ef5fb98a",
-    "assets/white-pawn-a2/wire-guide.json": "f698c4b36513df50ad76818697cf38e2b9e0fd586f1ded4cca98c832a2725625",
+    "assets/white-pawn-a2/front-view.svg": "9763b4426d44389a3b9aff97749c6388871ef0544de18afb42c41a8b3b8bc6a8",
+    "assets/white-pawn-a2/model.glb": "05245511f47832e9f9ae330b8dbf254e4dd7d323d8963cdf676dc0baae583f03",
+    "assets/white-pawn-a2/wire-guide.json": "5c68cc15e3a3e9329b16948f9140ff496b76fe3064fe93361688fa246a71aa8b",
     "assets/white-queen-d1/front-view.svg": "e27d8585b1b2596d2bb8d55125d8473322dda359db979c076d10ceed0a2b4360",
     "assets/white-queen-d1/model.glb": "777a2efba8a84f161bd103d5f02045ad25620780a5b457f7c97748e0193d987c",
     "assets/white-queen-d1/wire-guide.json": "e7b142a51ee4bf375bb6de32abfd5a405e337bcf7e1918fe6bbafe085c6090a6",
@@ -36,10 +36,10 @@
     "gallery.js": "d64da585e8c08260d0c47a3f9d10d50ff41314cd13de9d35f87a8e07439f2eb1",
     "handled-scene.mjs": "d599532bf0d7a7f5ecdfdc5244af6cc089baa27c7d99443090c8a28b63d72087",
     "index.html": "6b481cc2926b8192a7245820ddccc67a2f9874692ee277bc9e4c9d330865c43f",
-    "multiple-scene.mjs": "63e82519ceb23a743ffd38db39856e05b847d8da83ac71c97a418da0caeaf22d",
+    "multiple-scene.mjs": "79cad52d79d85b7a2b0ac8fcdfaa8b244296f5c97af7b0dd24dc5a876c5f20fa",
     "scene/axis-motion.mjs": "71511810da9eb151894f8b8c5cf84d1ca1c51fe412ecba37bfc04943dc0dce67",
     "scene/background-transition.mjs": "7023122b744c7b5897df30207c14472c84dae90fb5e501cb3a54da651fad9fb4",
-    "scene/cad-pages.mjs": "1098d81a18b122357d4ac5adb5d4cd88b28a3ad1b9b1e4a47346177c313e27d9",
+    "scene/cad-pages.mjs": "cbb1aa28376d5bd40bbe000fa8234a40d5e2c4f0d0a79c2a0da166c7a40821c6",
     "scene/cad-scroll.mjs": "a313fcb3ca6141742fd1cea97638fbc167b6196d2c9bf9cebd980091e9be2bce",
     "scene/composition-framing.mjs": "c168b28f84dbd27a7ab75d0248d27b315911b5f31a40a1584117ab5163984736",
     "scene/drop-pose.mjs": "7ef8bd7b7e2d42d80b4c8189c6712b0ed1d801f05a09d3535c1ef76cc6090a92",
@@ -47,15 +47,32 @@
     "scene/layered-vessels.mjs": "b1003df3d38a9d42c4ff938e1ea087176cf4abbf2e71063a16a4498396b3a19f",
     "scene/oriented-framing.mjs": "cf429bd19371e21ce95ff4f0d1eccf66a135d5888b48e210764f85e4717f6fbd",
     "scene-defaults.mjs": "64f56619efe594349a4d71a3b44f88367af8132e05bf79713a662feef8d0e609",
-    "viewer.js": "a494a699b28633455cf6e595458e8f6d682ca98630750964cb75f6b92734c6b4",
+    "viewer.js": "09bd415519da57265280d03126be96170a320f2c8288afb982ea6c537446d8ad",
     "wire-color.mjs": "05d0dc90c698e27a3156e6ed223cef1056133ee13624bc085993897bd95a5324",
     "assets/photo-1.webp": "013a85a7dcd5d3aa37023344dd9911106045c736271ce277b64c2bc8b6865165",
     "assets/photo-2.webp": "20d25f19368cc28dafca1940728c66f9ee7a336b0b78efd9d056366cb457219a",
-    "assets/photo-3.webp": "912079ea61c8d0b11edf8c7f805c51d0bed599be6fa80f23ec7632343a21f3f7"
+    "assets/photo-3.webp": "912079ea61c8d0b11edf8c7f805c51d0bed599be6fa80f23ec7632343a21f3f7",
+    "scene/cad-handoff.mjs": "2d1cfa6aea04b961250914b9bfda9f78124bdf4618ecd8b197ca4c9e40250879"
   },
   "hostPacing": {
     "module": "/project-scroll.mjs",
     "policy": "/project-scroll-map.mjs",
     "scope": "site export only; original approval evidence unchanged"
+  },
+  "cadProductionRevision": {
+    "generator": "skills/ceramic-cad-to-3d/scripts/cad_pages.py",
+    "review": ".poc/chess-cad-followthrough/review.json",
+    "status": "candidate",
+    "scope": "CAD metadata/sections and six-source handoff; pawn continuous body geometry, six views and wire regenerated; materials and motion unchanged"
+  },
+  "pawnShapeRevision": {
+    "input": ".poc/pawn-continuous-foot/input/pawn-shape.json",
+    "status": "candidate",
+    "intent": "Single wheel-thrown moon jar body continuing into trimmed foot; no attached pedestal",
+    "dimensionsMm": [
+      42,
+      30
+    ],
+    "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
   }
 }
