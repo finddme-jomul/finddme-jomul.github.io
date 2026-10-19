@@ -9,6 +9,7 @@ import subprocess
 from project_mobile_pacing import apply_mobile_pacing
 from project_mobile_cad import apply_mobile_cad_fit
 from project_cad_loading import apply_cad_loading
+from project_favicon import apply_site_favicon
 
 p = argparse.ArgumentParser()
 p.add_argument('source', type=Path)
@@ -45,6 +46,8 @@ subprocess.run([str(a.dependencies / '.bin/esbuild'), str(source / 'viewer.js'),
 apply_mobile_pacing(target / 'viewer.js')
 apply_mobile_cad_fit(target / 'index.html')
 apply_cad_loading(target / 'index.html')
+for page in target.rglob('*.html'):
+    apply_site_favicon(page)
 manifest = {'hostPacing': {'module': '/project-scroll.mjs', 'policy': '/project-scroll-map.mjs', 'scope': 'site export only; original approval evidence unchanged'}, 'sourceRevision': source.name, 'files': {
     str(f.relative_to(target)): hashlib.sha256(f.read_bytes()).hexdigest()
     for f in sorted(target.rglob('*')) if f.is_file()}}
