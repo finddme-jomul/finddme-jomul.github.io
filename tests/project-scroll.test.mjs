@@ -13,3 +13,17 @@ test('chess mobile pacing shortens CAD and gives 3D more scroll distance',()=>{
  const s=JSON.parse(fs.readFileSync(new URL('../public/projects/chess/assets/project.json',import.meta.url)));
  const b=cadBoundary(s);assert.equal(b,756);assert.ok(Math.abs(toPhysical(1603.78,b,true)-1044.2075)<.01);
 });
+
+test('multi-sheet desktop CAD is halved; mobile and post-CAD distances remain intact', async()=>{
+ const {desktopCadScale}=await import('../public/project-scroll-map.mjs');
+ for(const slug of ['chess','plates','moon-jar','mug','bowls']){
+  const spec=JSON.parse(fs.readFileSync(new URL(`../public/projects/${slug}/assets/project.json`,import.meta.url)));
+  const scale=desktopCadScale(spec), b=cadBoundary(spec);
+  assert.equal(scale, (spec.cadPresentation?.pages?.length??0)>1 ? .5 : 1);
+  for(let v=0;v<2000;v+=.5){
+   assert.ok(Math.abs(toTimeline(toPhysical(v,b,false,scale),b,false,scale)-v)<1e-9);
+   assert.equal(toPhysical(v,b,true,scale),toPhysical(v,b,true));
+  }
+  assert.ok(Math.abs(toPhysical(b+100,b,false,scale)-toPhysical(b,b,false,scale)-100)<1e-9);
+ }
+});
