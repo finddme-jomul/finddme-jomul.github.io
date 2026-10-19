@@ -5,6 +5,7 @@ export function installCadPages({spec,sheet,image,requestFrame}){
   const cadScroll=createCadScroll(spec);
   const style=document.createElement('style');style.textContent=`
   .cad-pages-active img{width:calc(100% - 32px)!important;height:calc(100% - 100px)!important;cursor:zoom-in;pointer-events:auto}
+  .cad-pages-retain img{height:calc(100% - 180px)!important;top:calc(50% + 35px)!important}
   .cad-page-nav{position:absolute;bottom:18px;left:0;right:0;display:flex;gap:8px;justify-content:center;pointer-events:auto}
   .cad-page-nav button,.cad-zoom button{font:inherit;padding:8px 12px;border:1px solid #bbb;background:#fff;color:#383634;border-radius:4px;cursor:pointer}
   .cad-page-nav button[aria-current=true]{background:#383634;color:white}.cad-page-nav button{font-size:13px}
@@ -12,7 +13,7 @@ export function installCadPages({spec,sheet,image,requestFrame}){
   .cad-zoom::backdrop{background:#0009}.cad-zoom header{display:flex;align-items:center;gap:12px;height:48px}.cad-zoom h2{font-size:16px;margin:0;flex:1}.cad-zoom-scroll{overflow:auto;height:calc(100% - 48px)}
   .cad-zoom img{display:block;width:100%;height:100%;object-fit:contain;max-width:none}.cad-zoom[data-zoomed=true] img{width:1800px;height:1000px;object-fit:fill}
   @media(max-width:600px){.cad-page-nav{gap:4px}.cad-page-nav button{padding:7px;font-size:11px}.cad-zoom{padding:8px}.cad-zoom h2{font-size:13px}}
-  `;document.head.append(style);sheet.classList.add('cad-pages-active');
+  `;document.head.append(style);sheet.classList.add('cad-pages-active');if(spec.cadPresentation.handoff==='retain-fronts')sheet.classList.add('cad-pages-retain');
   const nav=document.createElement('nav');nav.className='cad-page-nav';nav.setAttribute('aria-label','Select CAD sheet');sheet.append(nav);
   const dialog=document.createElement('dialog');dialog.className='cad-zoom';dialog.id='cad-lightbox';dialog.setAttribute('aria-label','Enlarge CAD sheet');
   const header=document.createElement('header'),title=document.createElement('h2'),zoom=document.createElement('button'),close=document.createElement('button'),viewport=document.createElement('div'),large=document.createElement('img');

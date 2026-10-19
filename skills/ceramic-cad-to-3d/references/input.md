@@ -112,6 +112,8 @@ fidelity. Sweep, arbitrary transforms and external mesh import remain pending. R
 
 #### Feature-solid project lifecycle
 
+Preserve the reviewed forming method: a wheel-thrown body with a trimmed foot should have a continuous outer profile and an underside recess, not an added pedestal unless the user specifies one. A valid connected union alone does not establish the intended silhouette. Keep confirmed overall dimensions and distinguish provisional interior thickness from manufacturing validation.
+
 Manual configs may use `shapeKind: "feature-solid"` with `id`, `name`, `shape`
 (path to the reviewed feature JSON) and `material` (JSON evidence object).
 Dimensions are inside the feature data, not a vessel `dimensions/profile` pair.
@@ -385,3 +387,11 @@ Optional `motion.framing.focusY` (metres, −2…2) sets the fixed radial-drop v
 For feature direct-drop assembly, optional `steps[].approachOffsetMm: [X, Z]` (finite millimetres, each −1000…1000; default `[0,0]`) keeps an object horizontally displaced from its final target until its individual descent. Horizontal offsets and `dropHeightMm` ease to zero together, so alignment finishes at contact. Set independent heights/offsets in project input to avoid floating rows. The runtime framing covers the swept path and CAD collision checks use the identical trajectory. Legacy inputs without offsets retain vertical descent.
 
 Grouped CAD titles and controls use English (clay/glaze names retain user wording). Each group may include `dimensionNotes`: up to three reviewed English text lines, each at most 180 characters. The generator reserves a header area and prints these alongside source-derived views. State units and mark proposed values explicitly; groove width is a physical dimension, not SVG stroke width. Derived dimensions must retain their calculation in the reviewed input.
+
+### Grouped CAD section placement
+
+Optional `cadPresentation.groups[].sections` gives normalized sheet rectangles for every `partIds` member, e.g. `{"a":[0,0,0.43,1],"b":[0.45,0,0.55,0.48],"c":[0.45,0.52,0.55,0.48]}`. Rectangles must not overlap, must fit within `[0,1]`, and require width ≥0.25 / height ≥0.45. Omission retains equal columns. Wide sections emphasize the front view alongside the other five views. Source-instance counts and reviewed glaze/clay names become production notes; never enter separate hardcoded quantities that can disagree with the instance list.
+
+Grouped CAD may set `handoff: "retain-fronts"` and optional `handoffPartIds` (source IDs). Earlier pages collect their representative fronts into a reserved strip before the last page, then join the normal CAD→wire transition. Unlisted parts retain the wire-only arrival; omitting this mode preserves the original last-page behavior. Scrolling backward reconstructs the same positions without accumulated state.
+
+`refreshOrthographicParts` lists archived source parts whose front/side drawing and detached front must be regenerated from STEP. For proven axisymmetric feature inputs (Z revolutions and concentric circular lofts), the common projector supplements HLR with exterior axial-section contours classified against the solid. Inner cavity edges remain hidden. This addresses missing HLR outlines without altering the solid or its dimensions. Non-axisymmetric inputs never receive this meridian shortcut.

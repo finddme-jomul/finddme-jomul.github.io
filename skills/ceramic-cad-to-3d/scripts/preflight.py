@@ -23,6 +23,8 @@ def load_profile() -> dict:
             or gallery['visibleCaption'] or gallery['contentAfterGallery']
             or gallery['lastSectionHeightVh'] != 100):
         raise ValueError('Gallery profile conflicts with the current accepted layout')
+    if (gallery.get('photoBorderWidthPx') != 0 or gallery.get('lightbox', {}).get('style') != 'cad-dialog'):
+        raise ValueError('Adopted borderless photo/CAD-dialog profile is missing')
     single = profile.get('motion', {}).get('singleFraming', {})
     if (single.get('sourceBaseline') != 'moonGalleryJs'
             or single.get('method') != 'transformed-mesh-bounds'

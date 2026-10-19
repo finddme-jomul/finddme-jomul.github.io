@@ -12,6 +12,10 @@ def write_gallery_assets(target: Path, gallery: dict) -> None:
     target.mkdir(parents=True, exist_ok=True)
     css = (HERE / 'gallery.css').read_text()
     values = {
+        '__PHOTO_BORDER__': gallery['photoBorderWidthPx'],
+        '__DIALOG_WIDTH__': gallery['lightbox']['widthVw'],
+        '__DIALOG_MAX_WIDTH__': gallery['lightbox']['maxWidthPx'],
+        '__DIALOG_HEIGHT__': gallery['lightbox']['heightVh'],
         '__GALLERY_HEIGHT__': gallery['lastSectionHeightVh'],
         '__ARRIVE_SECONDS__': gallery['photoArriveSeconds'],
         '__HERO_WIDTH__': gallery['heroMaxWidthPx'],
