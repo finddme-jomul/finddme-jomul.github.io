@@ -24,5 +24,23 @@
   "shapeKind": "handled-vessel",
   "compositionMode": "single",
   "name": "Mug / provisional handle review",
-  "ending": "photos"
+  "ending": "photos",
+  "photos": [
+    {
+      "role": "process",
+      "publicPath": "./assets/photo-1.webp",
+      "alt": "머그 초벌 과정 사진 — 완성 유약 사진 아님",
+      "sourceSha256": "196a61d0f94890ad4421ec7b17c350f5db5c6a6143f7508262d3f80a05e6dd55"
+    },
+    {
+      "role": "actual",
+      "publicPath": "./assets/photo-2.webp",
+      "alt": "나무 테이블 위 두 머그컵",
+      "sourceSha256": "cb279ca1cd5e8eef9332bfdefa8f8c43f9796361ae9d6e51fa7376a215de8cd6"
+    }
+  ],
+  "galleryLayout": {
+    "mode": "scatter",
+    "seed": "mug-photos-20261019"
+  }
 }
