@@ -5750,5 +5750,29 @@
       }
     }
   },
-  "ending": "glaze"
+  "ending": "photos",
+  "photos": [
+    {
+      "role": "process",
+      "publicPath": "./assets/photo-1.webp",
+      "alt": "체스 폰 형태를 물레로 성형하는 제작 과정",
+      "sourceSha256": "876a6c7d6665cc70d72140c55877eb863912cec45f8af8e24eaa06b57b1259ea"
+    },
+    {
+      "role": "process",
+      "publicPath": "./assets/photo-2.webp",
+      "alt": "체스말 스케치와 물레 성형 작업 현장",
+      "sourceSha256": "84974ab81438490d8a9c1a8c0241a131f6d1beca7cb1d6350915c0af49ee7cbe"
+    },
+    {
+      "role": "process",
+      "publicPath": "./assets/photo-3.webp",
+      "alt": "노트에 그린 체스말 형태와 치수 스케치",
+      "sourceSha256": "7b85506b3a237d59ee366172414c417045588d7993be532ab6ab54bd3b5e61e4"
+    }
+  ],
+  "galleryLayout": {
+    "mode": "scatter",
+    "seed": "chess-photos-20261019"
+  }
 }
