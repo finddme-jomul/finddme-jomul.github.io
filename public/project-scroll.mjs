@@ -1,15 +1,17 @@
-import { mobilePacing, cadBoundary, toPhysical, toTimeline } from './project-scroll-map.mjs';
+import { mobilePacing, desktopCadScale, cadBoundary, toPhysical, toTimeline } from './project-scroll-map.mjs';
 const response = await fetch(new URL('./assets/project.json', location.href));
 if (!response.ok) throw new Error(`Project pacing settings HTTP ${response.status}`);
-const boundary = cadBoundary(await response.json());
+const spec = await response.json();
+const boundary = cadBoundary(spec);
+const desktopScale = desktopCadScale(spec);
 const media = matchMedia(`(max-width: ${mobilePacing.breakpoint}px)`);
 let story, total = 0, mobile = media.matches, lastHeight = innerHeight, lastPosition = 0;
 export function timelineScrollVh() {
-  return toTimeline(scrollY / innerHeight * 100, boundary, mobile);
+  return toTimeline(scrollY / innerHeight * 100, boundary, mobile, desktopScale);
 }
 export function setStoryHeight(element, timelineTotal) {
   story = element; total = timelineTotal;
-  story.style.height = `${100 + toPhysical(total, boundary, mobile)}vh`;
+  story.style.height = `${100 + toPhysical(total, boundary, mobile, desktopScale)}vh`;
 }
 addEventListener('scroll', () => {
   // A resize can clamp scrollY before the resize event is delivered. Keep the
@@ -22,9 +24,9 @@ addEventListener('resize', () => {
   mobile = media.matches; lastHeight = innerHeight;
   if (!story) return;
   setStoryHeight(story, total);
-  scrollTo({ top: toPhysical(position, boundary, mobile) / 100 * innerHeight, behavior: 'instant' });
+  scrollTo({ top: toPhysical(position, boundary, mobile, desktopScale) / 100 * innerHeight, behavior: 'instant' });
   dispatchEvent(new Event('scroll'));
 });
-window.__projectPacing = { get mobile() { return mobile; }, get totalVh() { return toPhysical(total, boundary, mobile); },
+window.__projectPacing = { get mobile() { return mobile; }, get totalVh() { return toPhysical(total, boundary, mobile, desktopScale); },
   get timelineTotalVh() { return total; }, boundary, timelineScrollVh,
-  toPhysical: value => toPhysical(value, boundary, mobile) };
+  toPhysical: value => toPhysical(value, boundary, mobile, desktopScale) };
