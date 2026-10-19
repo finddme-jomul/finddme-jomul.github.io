@@ -9,6 +9,10 @@ export function installGallery({gallery,story,isActive,onActiveChange=()=>{},pro
   const lightbox=document.querySelector('#photo-lightbox');
   if (!first||!lightbox) throw new Error('Gallery structure is incomplete');
   const enlarged=lightbox.querySelector('img');
+  const zoomButton=lightbox.querySelector('.photo-zoom');
+  const viewport=lightbox.querySelector('.photo-zoom-scroll');
+  let priorOverflow='',priorScroll=0,opener;
+  const resetZoom=()=>{lightbox.dataset.zoomed='false';zoomButton.textContent='Enlarge';viewport.scrollTo(0,0)};
   let active=false,pointer=null,lastFrame=performance.now();
   const states=photos.map(photo=>({photo,zoom:1,x:0,y:0,targetZoom:1,targetX:0,targetY:0}));
   const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
@@ -64,11 +68,30 @@ export function installGallery({gallery,story,isActive,onActiveChange=()=>{},pro
       enlarged.src=image.currentSrc||image.src;
       enlarged.alt=image.alt;
       pointer=null;
+      opener=photo;priorScroll=scrollY;priorOverflow=document.body.style.overflow;
+      resetZoom();document.body.style.overflow='hidden';
       lightbox.showModal();
     });
   }
   lightbox.querySelector('.lightbox-close').addEventListener('click',()=>lightbox.close());
-  lightbox.addEventListener('click',event=>{if(event.target===lightbox)lightbox.close()});
+  lightbox.addEventListener('click',event=>{
+    if(event.target!==lightbox)return;
+    const r=lightbox.getBoundingClientRect();
+    if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)lightbox.close();
+  });
+  lightbox.addEventListener('close',()=>{
+    document.body.style.overflow=priorOverflow;resetZoom();
+    scrollTo({top:priorScroll,behavior:'instant'});opener?.focus({preventScroll:true});
+  });
+  zoomButton.addEventListener('click',()=>{
+    if(!enlarged.naturalWidth)return;
+    const big=lightbox.dataset.zoomed!=='true';
+    const fit=Math.min(viewport.clientWidth/enlarged.naturalWidth,viewport.clientHeight/enlarged.naturalHeight);
+    const scale=fit*profile.lightbox.zoomFactor;
+    lightbox.style.setProperty('--photo-zoom-width',`${enlarged.naturalWidth*scale}px`);
+    lightbox.style.setProperty('--photo-zoom-height',`${enlarged.naturalHeight*scale}px`);
+    lightbox.dataset.zoomed=String(big);zoomButton.textContent=big?'Fit to window':'Enlarge';viewport.scrollTo(0,0);
+  });
   requestAnimationFrame(animate);
   const controller={gallery,galleryPhotos:photos,photoStates:states,photo:photos[0],photoState:states[0],source,sync};
   window.__galleryStudy=controller;

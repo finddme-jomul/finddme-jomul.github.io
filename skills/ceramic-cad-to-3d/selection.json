@@ -413,7 +413,7 @@
       "id": "gallery-selected",
       "state": "implemented-component",
       "profile": "gallery",
-      "rule": "Preserve selected hero photo and optional smaller process photo, 100vh, no visible title/caption or following section, selected frame/pointer/enlarge behavior. Zero photos omit the gallery.",
+      "rule": "Preserve hero/process or explicitly seeded scatter placement, shadows and pointer response. New outputs have zero photo border and a CAD-style dialog (Enlarge/Fit to window/Close, aspect-preserving zoom, Escape/backdrop dismissal and scroll/focus restoration). Zero photos omit gallery. Historical exact replay remains frozen.",
       "consumer": [
         "scripts/gallery_markup.py",
         "scripts/gallery_profile.py",
@@ -422,10 +422,11 @@
       ],
       "verification": {
         "suites": [
-          "runtime"
+          "runtime",
+          "gallery-presentation"
         ],
-        "scope": "Generated hero/process markup and omission; browser frame/pointer parity requires separate check",
-        "browserCheck": "tests/check-gallery-parity.cjs (desktop/mobile reference comparison)"
+        "scope": "Current generated 0/1/2/3 photo components and dialog interaction; historical pixel parity applies only to frozen replay.",
+        "browserCheck": "tests/check-gallery-dialog.cjs (current generated outputs); tests/check-gallery-parity.cjs only for historical replay"
       }
     },
     {
@@ -807,6 +808,23 @@
           "feature-assembly"
         ],
         "scope": "Preset/gap regression plus separately checked four-viewport full glaze-completion-to-landing trajectory and reverse scroll. Adopted corrected reference 1ba00fb8db46437ba9c318edc6250376. No blanket shape/material/manufacturing approval."
+      }
+    },
+    {
+      "id": "cad-production-sections",
+      "state": "implemented",
+      "rule": "Grouped feature CAD displays source-instance totals and reviewed clay/glaze quantities. Optional nonoverlapping normalized sections support asymmetric layouts while retaining six views, dimension notes and source-mapped CAD front boxes. Chess presentation remains a visual candidate until reviewed. Optional retain-fronts handoff keeps earlier source representatives through the last-page transition; explicit source IDs select participants. Axisymmetric CAD exterior meridians supplement missing HLR outlines without changing geometry.",
+      "consumer": [
+        "scripts/cad_pages.py",
+        "scripts/multiple_page.py"
+      ],
+      "verification": {
+        "suites": [
+          "cad-pages",
+          "cad-handoff",
+          "feature-projection"
+        ],
+        "scope": "Rectangle validation, derived glaze quantities, retained six views and updated alias front boxes; browser review checks current chess sheets."
       }
     }
   ],
