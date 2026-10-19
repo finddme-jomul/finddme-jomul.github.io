@@ -2,14 +2,14 @@
   "sourceRevision": "page-wire-entry-depth",
   "files": {
     "assets/photo-1.webp": "196a61d0f94890ad4421ec7b17c350f5db5c6a6143f7508262d3f80a05e6dd55",
-    "assets/project.json": "15fc93f5517d8f6c762fa8f50e07d725bbbabeeb969d50f44dba7d3339871036",
+    "assets/project.json": "2f02d229edad4b45fedac1ee48d0aa72dc5191535b1337a1fbf8680389d4b1d4",
     "axis-motion.mjs": "71511810da9eb151894f8b8c5cf84d1ca1c51fe412ecba37bfc04943dc0dce67",
     "front-view.svg": "c557639be3fa2c941e1bba5d7b9cebb826a65fe4dd887597e1865c63dad42dbc",
     "gallery-config.js": "1cc5413cac75a2ae765204a1448c88d2d5d61d560ac6f77058b9e9d06d714445",
     "gallery.css": "52993d3e19ec1e049e3f728c284cc165202c3b15db59653645f1015dcefbbffa",
     "gallery.js": "d64da585e8c08260d0c47a3f9d10d50ff41314cd13de9d35f87a8e07439f2eb1",
     "handled-scene.mjs": "47f70b64f978e5f30a6c01f9bc9573c577dff0c148ca5ab23a8e3dc3961a6c51",
-    "index.html": "af6efe9c892e763e41d96463d326b6825fc335f05588fde94ba0a240f764c487",
+    "index.html": "54ee09cf21bc89988dbbcda377ddfe98342bf1ab57ea224436b9b0af0b557928",
     "model.glb": "b397dc2d33155907b4c504e165263f5944047fd56803df1eaaf31e3bb4409b7b",
     "motion-config.json": "7c2c14b445e53344959b3b142f1dfdcc43adee2f453adc49954d68aa45646482",
     "multiple-scene.mjs": "fcca0bfb1e15d33fd26fea6932e6b53ffc5698abe9e17e2fd5dff15205e24397",
@@ -22,7 +22,8 @@
     "sheet-mobile-short.svg": "d75211c677e9185d9bf0f011e399198091187b43f775536148ac490e3c9cb8cb",
     "sheet-mobile.svg": "c13eda0609515ddad90224420641317e327334c4367e36376667eb98c890e255",
     "viewer.js": "56f0f5c175e9a82a578675020f5aa6d7fcfdd4c6927f2677cea0057c90daa9ce",
-    "wire-guide.json": "1f56b24dfe1f3f3efe553c8c0ddf5450caa3730ccd84f8f31cf86c374ce3d8e3"
+    "wire-guide.json": "1f56b24dfe1f3f3efe553c8c0ddf5450caa3730ccd84f8f31cf86c374ce3d8e3",
+    "assets/photo-2.webp": "550c2073c7537e6e898fb6a99ddce2db430a50ece3b26463645a0158c8d46a31"
   },
   "hostPacing": {
     "module": "/project-scroll.mjs",
