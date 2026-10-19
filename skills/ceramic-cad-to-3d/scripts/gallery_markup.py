@@ -51,6 +51,7 @@ def render_gallery(photos: list[dict], *, label: str, layout=None) -> str:
         + ''.join(buttons)
         + '</div></section>'
         '<dialog class="photo-lightbox" id="photo-lightbox" aria-label="사진 확대 보기">'
-        '<button class="lightbox-close" type="button" aria-label="확대 사진 닫기"></button>'
-        '<img alt=""></dialog>'
+        '<header><h2>Photo</h2><button class="photo-zoom" type="button">Enlarge</button>'
+        '<button class="lightbox-close" type="button" aria-label="Close">Close</button></header>'
+        '<div class="photo-zoom-scroll"><img alt=""></div></dialog>'
     )
