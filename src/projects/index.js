@@ -1,3 +1,5 @@
+import mugCover from './mug-cover.webp';
+
 // One card per photo project. Stable project numbers control orbit and list order.
 import { project as portrait_drawing } from './00-portrait-drawing/project.js';
 import { project as white_vessels } from './01-white-vessels/project.js';
@@ -29,17 +31,29 @@ const sourceProjects = [
 const featured = [
   [sudoku_pencil, '00', '체스', 'chess'],
   [white_vessels, '01', '달항아리', 'moon-jar'],
-  [table_plates, '02', '접시 세 개', 'plates'],
-  [drawing_session, '03', '머그컵', 'mug'],
+  [drawing_session, '02', '머그컵', 'mug'],
+  [table_plates, '03', '접시 세 개', 'plates'],
   [plant_pot, '04', '그릇', 'bowls'],
 ];
 const selected = new Set(featured.map(([project]) => project.id));
+// Cover moves retain project numbers and destinations; use original sources.
+const covers = {
+  '00': {cover: sudoku_pencil.cover, coverAlt: sudoku_pencil.assets.photo[0].alt},
+  '02': {cover: mugCover, coverAlt: '나무 테이블 위 두 머그컵'},
+  '08': {cover: drawing_session.cover, coverAlt: drawing_session.assets.photo[0].alt},
+  '09': {cover: book_cover.cover, coverAlt: book_cover.assets.photo[0].alt},
+};
 export const projects = [
   ...featured.map(([project, number, title, slug]) => ({...project, number, title, href: `/projects/${slug}/`})),
   ...sourceProjects.filter(project => !selected.has(project.id)).map((project, index) => ({
     ...project, number: String(index + 5).padStart(2, '0'), href: `/projects/${project.id}/`,
   })),
-];
+].map(project => ({
+  ...project,
+  ...covers[project.number],
+  // Vite's public directory needs the explicit filename for nested HTML pages.
+  href: import.meta.env.DEV ? `${project.href}index.html` : project.href,
+}));
 
 const numbers = projects.map(project => project.number);
 if (numbers.some(number => !/^\d{2,}$/.test(number)) || new Set(numbers).size !== numbers.length) {
