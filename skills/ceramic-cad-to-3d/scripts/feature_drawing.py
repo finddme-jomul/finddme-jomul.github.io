@@ -33,12 +33,36 @@ def extent(lines):
     return [min(p[0] for p in points),min(p[1] for p in points),max(p[0] for p in points),max(p[1] for p in points)]
 
 
-def project(model,direction,up=(0,0,1)):
+def axisymmetric_input(data):
+    if data.get('upAxis')!='Z':return False
+    for feature in data.get('features',[]):
+        if feature.get('kind')=='revolve':continue
+        if feature.get('kind')!='loft':return False
+        for row in feature['sections']:
+            if row.get('kind')!='ellipse' or row.get('plane')!='XY' or any(abs(v)>1e-8 for v in row['originMm'][:2]) or abs(row['radiusUMm']-row['radiusVMm'])>1e-8:return False
+    return bool(data.get('features'))
+
+
+def outer_section(model):
+    # For reviewed axisymmetric solids, an axial section gives the true exterior
+    # meridian. Classify against the solid so inner cavity curves are not exposed.
+    edges=section(model,Plane(origin=(0,0,0),z_dir=(0,1,0))).edges()
+    outside=[]
+    for edge in edges:
+        point=edge.position_at(.5);sign=1 if point.X>=0 else -1
+        if abs(point.X)>1e-4 and not model.is_inside((point.X+sign*.01,0,point.Z)) and model.is_inside((point.X-sign*.01,0,point.Z)):
+            outside.append(edge)
+    center=model.bounding_box().center()
+    return [[[x-center.X,z-center.Z,0] for x,y,z in line] for line in sample(outside,96)]
+
+
+def project(model,direction,up=(0,0,1),axisymmetric=False):
     center=list(model.bounding_box().center())
     distance=model.bounding_box().diagonal*4+1
     eye=tuple(center[i]+direction[i]*distance for i in range(3))
     visible,hidden=model.project_to_viewport(eye,viewport_up=up,look_at=center)
-    return {'visible':sample(visible),'hidden':sample(hidden)}
+    contours=outer_section(model) if axisymmetric and direction[2]==0 else []
+    return {'visible':sample(visible)+contours,'hidden':sample(hidden)}
 
 
 def draw_view(view,rect,title):
@@ -74,8 +98,11 @@ def prepare(part,out,policy):
     (path/'wire-guide.json').write_text(json.dumps(guide,separators=(',',':'))+'\n')
     box=model.bounding_box();center=box.center()
     section_curves=sample(section(model,Plane(origin=(0,center.Y,0),z_dir=(0,1,0))).edges())
-    views={'front':project(model,(0,-1,0)), 'plan':project(model,(0,0,1),up=(0,1,0)),
-           'side':project(model,(1,0,0)), 'isometric':project(model,(1,-1,1)),
+    from ceramic_paths import ROOT
+    shape=ROOT/part.get('shape','')
+    symmetric=axisymmetric_input(json.loads(shape.read_text())) if shape.is_file() else False
+    views={'front':project(model,(0,-1,0),axisymmetric=symmetric), 'plan':project(model,(0,0,1),up=(0,1,0)),
+           'side':project(model,(1,0,0),axisymmetric=symmetric), 'isometric':project(model,(1,-1,1)),
            'section':{'visible':[[[x,z,0] for x,y,z in points] for points in section_curves]}}
     # A static axonometric guide drawing lets reviewers inspect actual section curves.
     views['wire']={'visible':[[[(x+y)/math.sqrt(2),z-(y-x)/math.sqrt(6),0] for x,y,z in points]

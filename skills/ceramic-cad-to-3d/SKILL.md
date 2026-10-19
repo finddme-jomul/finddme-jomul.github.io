@@ -16,6 +16,8 @@ An isolated hardcoded experiment proves feasibility only, not general support;
 retain its findings and return to the current integration TODO. Completion needs
 actual shared-path execution and affected regression checks.
 
+New gallery/page outputs use borderless photos and a CAD-style photo dialog; see [current gallery presentation](references/pipeline.md#current-gallery-presentation--2026-10-19). Historical exact-replay assets remain unchanged.
+
 Target output: a generated project-detail body/page containing CAD→wire→clay→glaze→photos, plus its source-derived assets. The host site supplies navigation, project listing, URL registration and deployment. Current single rotational outputs are review candidates; this is not yet a complete general-purpose release.
 
 Read the [pipeline and decision status](references/pipeline.md) before starting or extending a project. This is a living skill: move adopted decisions into its active profile and consuming generator with a meaningful output check; keep rejected experiments out of the active path. The documented 00–11 pipeline is the target workflow, while the commands below are the currently supported subset. Do not infer implementation from a checklist or a passing PoC alone.

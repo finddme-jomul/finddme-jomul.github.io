@@ -55,7 +55,7 @@
     },
     "provenance": {
       "source": "User-approved planar feature extension; actual board integration, provisional palette and motion",
-      "clayPacing": "User: 흙 상태 장면이 길거나 많음. Shorten clay transition/hold and visually similar clear glaze; brown starts earlier. Board review candidate.",
+      "clayPacing": "User: \ud759 \uc0c1\ud0dc \uc7a5\uba74\uc774 \uae38\uac70\ub098 \ub9ce\uc74c. Shorten clay transition/hold and visually similar clear glaze; brown starts earlier. Board review candidate.",
       "variation": "User requested individual phase/speed/axis changes; explicit deterministic instance values, seed 28103; board remains below pieces.",
       "landingPacing": "User reports rushed contact: duration .24 to .30, 25% more scroll; preserve individual step order and soft easing, photos begin .97.",
       "approach": "User rejects pre-aligned floating rows: explicit X/Z approach offsets and independent hover heights; converge only with individual descent. Slower duration .24 preserved."
@@ -159,14 +159,14 @@
         "entryZ": 0
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "투명유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\ud22c\uba85\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "갈색유약"
+        "accentName": "\uac08\uc0c9\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -174,14 +174,14 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "투명유약",
+            "name": "\ud22c\uba85\uc720\uc57d",
             "region": {
               "surface": "all"
             },
             "previewHex": "#EEE5D4"
           },
           {
-            "name": "갈색유약",
+            "name": "\uac08\uc0c9\uc720\uc57d",
             "region": {
               "surface": "planar-xy",
               "planeZMm": 22,
@@ -639,14 +639,14 @@
         "axisPhaseDegrees": 97.31164749361886
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "투명유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\ud22c\uba85\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "투명유약"
+        "accentName": "\ud22c\uba85\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -654,7 +654,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "투명유약",
+            "name": "\ud22c\uba85\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -719,14 +719,14 @@
         "axisPhaseDegrees": 13.060806350487013
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "투명유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\ud22c\uba85\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "투명유약"
+        "accentName": "\ud22c\uba85\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -734,7 +734,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "투명유약",
+            "name": "\ud22c\uba85\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -799,14 +799,14 @@
         "axisPhaseDegrees": 140.30248877678616
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "투명유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\ud22c\uba85\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "투명유약"
+        "accentName": "\ud22c\uba85\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -814,7 +814,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "투명유약",
+            "name": "\ud22c\uba85\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -879,14 +879,14 @@
         "axisPhaseDegrees": -31.937185376437384
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "투명유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\ud22c\uba85\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "투명유약"
+        "accentName": "\ud22c\uba85\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -894,7 +894,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "투명유약",
+            "name": "\ud22c\uba85\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -959,14 +959,14 @@
         "axisPhaseDegrees": 82.22315489627988
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "투명유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\ud22c\uba85\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "투명유약"
+        "accentName": "\ud22c\uba85\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -974,7 +974,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "투명유약",
+            "name": "\ud22c\uba85\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -1039,14 +1039,14 @@
         "axisPhaseDegrees": -50.88124305728229
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "투명유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\ud22c\uba85\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "투명유약"
+        "accentName": "\ud22c\uba85\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1054,7 +1054,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "투명유약",
+            "name": "\ud22c\uba85\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -1119,14 +1119,14 @@
         "axisPhaseDegrees": -102.68793998826808
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "투명유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\ud22c\uba85\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "투명유약"
+        "accentName": "\ud22c\uba85\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1134,7 +1134,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "투명유약",
+            "name": "\ud22c\uba85\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -1199,14 +1199,14 @@
         "axisPhaseDegrees": 4.856747501170645
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "투명유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\ud22c\uba85\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "투명유약"
+        "accentName": "\ud22c\uba85\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1214,7 +1214,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "투명유약",
+            "name": "\ud22c\uba85\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -1279,14 +1279,14 @@
         "axisPhaseDegrees": -146.09424508995028
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "투명유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\ud22c\uba85\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "투명유약"
+        "accentName": "\ud22c\uba85\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1294,7 +1294,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "투명유약",
+            "name": "\ud22c\uba85\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -1314,17 +1314,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000004967370586
+        "height": 30.000005067370587
       },
       "boundsMm": {
-        "minX": -21.00000754353429,
-        "minY": -21.000007515072877,
-        "minZ": 0.0,
-        "maxX": 21.0000075463172,
-        "maxY": 21.00000751507269,
+        "minX": -21.001458614801436,
+        "minY": -21.001458586337815,
+        "minZ": -1.000000003330669e-07,
+        "maxX": 21.00145861758446,
+        "maxY": 21.001458586337794,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
+      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
     },
     {
       "id": "white-pawn-b2",
@@ -1359,14 +1359,14 @@
         "axisPhaseDegrees": -125.6232090700711
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "투명유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\ud22c\uba85\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "투명유약"
+        "accentName": "\ud22c\uba85\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1374,7 +1374,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "투명유약",
+            "name": "\ud22c\uba85\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -1394,17 +1394,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000004967370586
+        "height": 30.000005067370587
       },
       "boundsMm": {
-        "minX": -21.00000754353429,
-        "minY": -21.000007515072877,
-        "minZ": 0.0,
-        "maxX": 21.0000075463172,
-        "maxY": 21.00000751507269,
+        "minX": -21.001458614801436,
+        "minY": -21.001458586337815,
+        "minZ": -1.000000003330669e-07,
+        "maxX": 21.00145861758446,
+        "maxY": 21.001458586337794,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
+      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
     },
     {
       "id": "white-pawn-c2",
@@ -1439,14 +1439,14 @@
         "axisPhaseDegrees": 67.32101305942322
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "투명유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\ud22c\uba85\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "투명유약"
+        "accentName": "\ud22c\uba85\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1454,7 +1454,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "투명유약",
+            "name": "\ud22c\uba85\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -1474,17 +1474,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000004967370586
+        "height": 30.000005067370587
       },
       "boundsMm": {
-        "minX": -21.00000754353429,
-        "minY": -21.000007515072877,
-        "minZ": 0.0,
-        "maxX": 21.0000075463172,
-        "maxY": 21.00000751507269,
+        "minX": -21.001458614801436,
+        "minY": -21.001458586337815,
+        "minZ": -1.000000003330669e-07,
+        "maxX": 21.00145861758446,
+        "maxY": 21.001458586337794,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
+      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
     },
     {
       "id": "white-pawn-d2",
@@ -1519,14 +1519,14 @@
         "axisPhaseDegrees": -47.25413937274203
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "투명유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\ud22c\uba85\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "투명유약"
+        "accentName": "\ud22c\uba85\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1534,7 +1534,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "투명유약",
+            "name": "\ud22c\uba85\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -1554,17 +1554,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000004967370586
+        "height": 30.000005067370587
       },
       "boundsMm": {
-        "minX": -21.00000754353429,
-        "minY": -21.000007515072877,
-        "minZ": 0.0,
-        "maxX": 21.0000075463172,
-        "maxY": 21.00000751507269,
+        "minX": -21.001458614801436,
+        "minY": -21.001458586337815,
+        "minZ": -1.000000003330669e-07,
+        "maxX": 21.00145861758446,
+        "maxY": 21.001458586337794,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
+      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
     },
     {
       "id": "white-pawn-e2",
@@ -1599,14 +1599,14 @@
         "axisPhaseDegrees": 176.38577809244788
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "투명유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\ud22c\uba85\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "투명유약"
+        "accentName": "\ud22c\uba85\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1614,7 +1614,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "투명유약",
+            "name": "\ud22c\uba85\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -1634,17 +1634,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000004967370586
+        "height": 30.000005067370587
       },
       "boundsMm": {
-        "minX": -21.00000754353429,
-        "minY": -21.000007515072877,
-        "minZ": 0.0,
-        "maxX": 21.0000075463172,
-        "maxY": 21.00000751507269,
+        "minX": -21.001458614801436,
+        "minY": -21.001458586337815,
+        "minZ": -1.000000003330669e-07,
+        "maxX": 21.00145861758446,
+        "maxY": 21.001458586337794,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
+      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
     },
     {
       "id": "white-pawn-f2",
@@ -1679,14 +1679,14 @@
         "axisPhaseDegrees": -116.43698590089684
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "투명유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\ud22c\uba85\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "투명유약"
+        "accentName": "\ud22c\uba85\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1694,7 +1694,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "투명유약",
+            "name": "\ud22c\uba85\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -1714,17 +1714,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000004967370586
+        "height": 30.000005067370587
       },
       "boundsMm": {
-        "minX": -21.00000754353429,
-        "minY": -21.000007515072877,
-        "minZ": 0.0,
-        "maxX": 21.0000075463172,
-        "maxY": 21.00000751507269,
+        "minX": -21.001458614801436,
+        "minY": -21.001458586337815,
+        "minZ": -1.000000003330669e-07,
+        "maxX": 21.00145861758446,
+        "maxY": 21.001458586337794,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
+      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
     },
     {
       "id": "white-pawn-g2",
@@ -1759,14 +1759,14 @@
         "axisPhaseDegrees": 108.85561799298216
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "투명유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\ud22c\uba85\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "투명유약"
+        "accentName": "\ud22c\uba85\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1774,7 +1774,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "투명유약",
+            "name": "\ud22c\uba85\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -1794,17 +1794,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000004967370586
+        "height": 30.000005067370587
       },
       "boundsMm": {
-        "minX": -21.00000754353429,
-        "minY": -21.000007515072877,
-        "minZ": 0.0,
-        "maxX": 21.0000075463172,
-        "maxY": 21.00000751507269,
+        "minX": -21.001458614801436,
+        "minY": -21.001458586337815,
+        "minZ": -1.000000003330669e-07,
+        "maxX": 21.00145861758446,
+        "maxY": 21.001458586337794,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
+      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
     },
     {
       "id": "white-pawn-h2",
@@ -1839,14 +1839,14 @@
         "axisPhaseDegrees": -159.1442097079386
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "투명유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\ud22c\uba85\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "투명유약"
+        "accentName": "\ud22c\uba85\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1854,7 +1854,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "투명유약",
+            "name": "\ud22c\uba85\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -1874,17 +1874,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000004967370586
+        "height": 30.000005067370587
       },
       "boundsMm": {
-        "minX": -21.00000754353429,
-        "minY": -21.000007515072877,
-        "minZ": 0.0,
-        "maxX": 21.0000075463172,
-        "maxY": 21.00000751507269,
+        "minX": -21.001458614801436,
+        "minY": -21.001458586337815,
+        "minZ": -1.000000003330669e-07,
+        "maxX": 21.00145861758446,
+        "maxY": 21.001458586337794,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
+      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
     },
     {
       "id": "brown-rook-a8",
@@ -1919,14 +1919,14 @@
         "axisPhaseDegrees": 118.75670999620922
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "갈색유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\uac08\uc0c9\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "갈색유약"
+        "accentName": "\uac08\uc0c9\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1934,7 +1934,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "갈색유약",
+            "name": "\uac08\uc0c9\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -1999,14 +1999,14 @@
         "axisPhaseDegrees": 0.9391291483877922
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "갈색유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\uac08\uc0c9\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "갈색유약"
+        "accentName": "\uac08\uc0c9\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2014,7 +2014,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "갈색유약",
+            "name": "\uac08\uc0c9\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -2079,14 +2079,14 @@
         "axisPhaseDegrees": 119.3274554124194
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "갈색유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\uac08\uc0c9\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "갈색유약"
+        "accentName": "\uac08\uc0c9\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2094,7 +2094,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "갈색유약",
+            "name": "\uac08\uc0c9\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -2159,14 +2159,14 @@
         "axisPhaseDegrees": -92.31005115071764
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "갈색유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\uac08\uc0c9\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "갈색유약"
+        "accentName": "\uac08\uc0c9\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2174,7 +2174,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "갈색유약",
+            "name": "\uac08\uc0c9\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -2239,14 +2239,14 @@
         "axisPhaseDegrees": -88.03487305405392
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "갈색유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\uac08\uc0c9\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "갈색유약"
+        "accentName": "\uac08\uc0c9\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2254,7 +2254,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "갈색유약",
+            "name": "\uac08\uc0c9\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -2319,14 +2319,14 @@
         "axisPhaseDegrees": -23.9549704016288
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "갈색유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\uac08\uc0c9\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "갈색유약"
+        "accentName": "\uac08\uc0c9\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2334,7 +2334,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "갈색유약",
+            "name": "\uac08\uc0c9\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -2399,14 +2399,14 @@
         "axisPhaseDegrees": -30.04100503311912
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "갈색유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\uac08\uc0c9\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "갈색유약"
+        "accentName": "\uac08\uc0c9\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2414,7 +2414,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "갈색유약",
+            "name": "\uac08\uc0c9\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -2479,14 +2479,14 @@
         "axisPhaseDegrees": -14.335557251827197
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "갈색유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\uac08\uc0c9\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "갈색유약"
+        "accentName": "\uac08\uc0c9\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2494,7 +2494,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "갈색유약",
+            "name": "\uac08\uc0c9\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -2559,14 +2559,14 @@
         "axisPhaseDegrees": 53.27139542112798
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "갈색유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\uac08\uc0c9\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "갈색유약"
+        "accentName": "\uac08\uc0c9\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2574,7 +2574,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "갈색유약",
+            "name": "\uac08\uc0c9\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -2594,17 +2594,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000004967370586
+        "height": 30.000005067370587
       },
       "boundsMm": {
-        "minX": -21.00000754353429,
-        "minY": -21.000007515072877,
-        "minZ": 0.0,
-        "maxX": 21.0000075463172,
-        "maxY": 21.00000751507269,
+        "minX": -21.001458614801436,
+        "minY": -21.001458586337815,
+        "minZ": -1.000000003330669e-07,
+        "maxX": 21.00145861758446,
+        "maxY": 21.001458586337794,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
+      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
     },
     {
       "id": "brown-pawn-b7",
@@ -2639,14 +2639,14 @@
         "axisPhaseDegrees": 52.56050955611286
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "갈색유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\uac08\uc0c9\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "갈색유약"
+        "accentName": "\uac08\uc0c9\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2654,7 +2654,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "갈색유약",
+            "name": "\uac08\uc0c9\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -2674,17 +2674,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000004967370586
+        "height": 30.000005067370587
       },
       "boundsMm": {
-        "minX": -21.00000754353429,
-        "minY": -21.000007515072877,
-        "minZ": 0.0,
-        "maxX": 21.0000075463172,
-        "maxY": 21.00000751507269,
+        "minX": -21.001458614801436,
+        "minY": -21.001458586337815,
+        "minZ": -1.000000003330669e-07,
+        "maxX": 21.00145861758446,
+        "maxY": 21.001458586337794,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
+      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
     },
     {
       "id": "brown-pawn-c7",
@@ -2719,14 +2719,14 @@
         "axisPhaseDegrees": 48.47861600688711
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "갈색유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\uac08\uc0c9\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "갈색유약"
+        "accentName": "\uac08\uc0c9\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2734,7 +2734,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "갈색유약",
+            "name": "\uac08\uc0c9\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -2754,17 +2754,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000004967370586
+        "height": 30.000005067370587
       },
       "boundsMm": {
-        "minX": -21.00000754353429,
-        "minY": -21.000007515072877,
-        "minZ": 0.0,
-        "maxX": 21.0000075463172,
-        "maxY": 21.00000751507269,
+        "minX": -21.001458614801436,
+        "minY": -21.001458586337815,
+        "minZ": -1.000000003330669e-07,
+        "maxX": 21.00145861758446,
+        "maxY": 21.001458586337794,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
+      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
     },
     {
       "id": "brown-pawn-d7",
@@ -2799,14 +2799,14 @@
         "axisPhaseDegrees": 55.27644091908914
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "갈색유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\uac08\uc0c9\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "갈색유약"
+        "accentName": "\uac08\uc0c9\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2814,7 +2814,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "갈색유약",
+            "name": "\uac08\uc0c9\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -2834,17 +2834,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000004967370586
+        "height": 30.000005067370587
       },
       "boundsMm": {
-        "minX": -21.00000754353429,
-        "minY": -21.000007515072877,
-        "minZ": 0.0,
-        "maxX": 21.0000075463172,
-        "maxY": 21.00000751507269,
+        "minX": -21.001458614801436,
+        "minY": -21.001458586337815,
+        "minZ": -1.000000003330669e-07,
+        "maxX": 21.00145861758446,
+        "maxY": 21.001458586337794,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
+      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
     },
     {
       "id": "brown-pawn-e7",
@@ -2879,14 +2879,14 @@
         "axisPhaseDegrees": 34.980122200536755
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "갈색유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\uac08\uc0c9\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "갈색유약"
+        "accentName": "\uac08\uc0c9\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2894,7 +2894,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "갈색유약",
+            "name": "\uac08\uc0c9\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -2914,17 +2914,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000004967370586
+        "height": 30.000005067370587
       },
       "boundsMm": {
-        "minX": -21.00000754353429,
-        "minY": -21.000007515072877,
-        "minZ": 0.0,
-        "maxX": 21.0000075463172,
-        "maxY": 21.00000751507269,
+        "minX": -21.001458614801436,
+        "minY": -21.001458586337815,
+        "minZ": -1.000000003330669e-07,
+        "maxX": 21.00145861758446,
+        "maxY": 21.001458586337794,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
+      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
     },
     {
       "id": "brown-pawn-f7",
@@ -2959,14 +2959,14 @@
         "axisPhaseDegrees": 34.405784032641975
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "갈색유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\uac08\uc0c9\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "갈색유약"
+        "accentName": "\uac08\uc0c9\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2974,7 +2974,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "갈색유약",
+            "name": "\uac08\uc0c9\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -2994,17 +2994,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000004967370586
+        "height": 30.000005067370587
       },
       "boundsMm": {
-        "minX": -21.00000754353429,
-        "minY": -21.000007515072877,
-        "minZ": 0.0,
-        "maxX": 21.0000075463172,
-        "maxY": 21.00000751507269,
+        "minX": -21.001458614801436,
+        "minY": -21.001458586337815,
+        "minZ": -1.000000003330669e-07,
+        "maxX": 21.00145861758446,
+        "maxY": 21.001458586337794,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
+      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
     },
     {
       "id": "brown-pawn-g7",
@@ -3039,14 +3039,14 @@
         "axisPhaseDegrees": 160.49772324947065
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "갈색유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\uac08\uc0c9\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "갈색유약"
+        "accentName": "\uac08\uc0c9\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -3054,7 +3054,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "갈색유약",
+            "name": "\uac08\uc0c9\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -3074,17 +3074,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000004967370586
+        "height": 30.000005067370587
       },
       "boundsMm": {
-        "minX": -21.00000754353429,
-        "minY": -21.000007515072877,
-        "minZ": 0.0,
-        "maxX": 21.0000075463172,
-        "maxY": 21.00000751507269,
+        "minX": -21.001458614801436,
+        "minY": -21.001458586337815,
+        "minZ": -1.000000003330669e-07,
+        "maxX": 21.00145861758446,
+        "maxY": 21.001458586337794,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
+      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
     },
     {
       "id": "brown-pawn-h7",
@@ -3119,14 +3119,14 @@
         "axisPhaseDegrees": -176.73685698472926
       },
       "glazePreview": {
-        "clayName": "백토",
-        "baseName": "갈색유약",
+        "clayName": "\ubc31\ud1a0",
+        "baseName": "\uac08\uc0c9\uc720\uc57d",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "갈색유약"
+        "accentName": "\uac08\uc0c9\uc720\uc57d"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -3134,7 +3134,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "갈색유약",
+            "name": "\uac08\uc0c9\uc720\uc57d",
             "region": {
               "surface": "all"
             },
@@ -3154,17 +3154,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000004967370586
+        "height": 30.000005067370587
       },
       "boundsMm": {
-        "minX": -21.00000754353429,
-        "minY": -21.000007515072877,
-        "minZ": 0.0,
-        "maxX": 21.0000075463172,
-        "maxY": 21.00000751507269,
+        "minX": -21.001458614801436,
+        "minY": -21.001458586337815,
+        "minZ": -1.000000003330669e-07,
+        "maxX": 21.00145861758446,
+        "maxY": 21.001458586337794,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
+      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
     }
   ],
   "renderer": "feature-solids",
@@ -3693,7 +3693,7 @@
         "frontBoxes": {
           "board": {
             "cx": 0.17407407407407408,
-            "cy": 0.3225,
+            "cy": 0.30525,
             "width": 0.2992592592592592,
             "height": 0.02043217579288029,
             "sourceStepSha256": "8c9593febf5d7403a8d34d01ae7f9c1eaadb56bafc49eca442e197543dc78f3a",
@@ -3714,6 +3714,26 @@
           "bishop"
         ],
         "extraScrollVh": 160,
+        "sections": {
+          "knight": [
+            0,
+            0,
+            0.43,
+            1
+          ],
+          "pawn": [
+            0.45,
+            0,
+            0.55,
+            0.48
+          ],
+          "bishop": [
+            0.45,
+            0.52,
+            0.55,
+            0.48
+          ]
+        },
         "file": "cad-group-pawn-knight-bishop.svg",
         "pagePx": [
           1800,
@@ -3721,10 +3741,10 @@
         ],
         "frontBoxes": {
           "white-knight-b1": {
-            "cx": 0.4222222222222222,
-            "cy": 0.18916666666666665,
-            "width": 0.07066694457215848,
-            "height": 0.2283333333333333,
+            "cx": 0.11305555555555556,
+            "cy": 0.17383333333333334,
+            "width": 0.06117590968071531,
+            "height": 0.19766666666666668,
             "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
             "cameraLookAtMm": [
               1.2936531845753052e-09,
@@ -3733,10 +3753,10 @@
             ]
           },
           "white-bishop-c1": {
-            "cx": 0.7555555555555555,
-            "cy": 0.18916666666666665,
-            "width": 0.06596296296296295,
-            "height": 0.2283333333333333,
+            "cx": 0.5402777777777777,
+            "cy": 0.6965,
+            "width": 0.05864444444444442,
+            "height": 0.203,
             "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
             "cameraLookAtMm": [
               0.0,
@@ -3745,10 +3765,10 @@
             ]
           },
           "white-bishop-f1": {
-            "cx": 0.7555555555555555,
-            "cy": 0.18916666666666665,
-            "width": 0.06596296296296295,
-            "height": 0.2283333333333333,
+            "cx": 0.5402777777777777,
+            "cy": 0.6965,
+            "width": 0.05864444444444442,
+            "height": 0.203,
             "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
             "cameraLookAtMm": [
               0.0,
@@ -3757,10 +3777,10 @@
             ]
           },
           "white-knight-g1": {
-            "cx": 0.4222222222222222,
-            "cy": 0.18916666666666665,
-            "width": 0.07066694457215848,
-            "height": 0.2283333333333333,
+            "cx": 0.11305555555555556,
+            "cy": 0.17383333333333334,
+            "width": 0.06117590968071531,
+            "height": 0.19766666666666668,
             "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
             "cameraLookAtMm": [
               1.2936531845753052e-09,
@@ -3769,11 +3789,11 @@
             ]
           },
           "white-pawn-a2": {
-            "cx": 0.08888888888888889,
-            "cy": 0.18916666666666665,
-            "width": 0.1288888888888889,
-            "height": 0.16575766032963898,
-            "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
+            "cx": 0.5402777777777777,
+            "cy": 0.1765,
+            "width": 0.13166666666666665,
+            "height": 0.16927822793944602,
+            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3781,11 +3801,11 @@
             ]
           },
           "white-pawn-b2": {
-            "cx": 0.08888888888888889,
-            "cy": 0.18916666666666665,
-            "width": 0.1288888888888889,
-            "height": 0.16575766032963898,
-            "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
+            "cx": 0.5402777777777777,
+            "cy": 0.1765,
+            "width": 0.13166666666666665,
+            "height": 0.16927822793944602,
+            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3793,11 +3813,11 @@
             ]
           },
           "white-pawn-c2": {
-            "cx": 0.08888888888888889,
-            "cy": 0.18916666666666665,
-            "width": 0.1288888888888889,
-            "height": 0.16575766032963898,
-            "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
+            "cx": 0.5402777777777777,
+            "cy": 0.1765,
+            "width": 0.13166666666666665,
+            "height": 0.16927822793944602,
+            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3805,11 +3825,11 @@
             ]
           },
           "white-pawn-d2": {
-            "cx": 0.08888888888888889,
-            "cy": 0.18916666666666665,
-            "width": 0.1288888888888889,
-            "height": 0.16575766032963898,
-            "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
+            "cx": 0.5402777777777777,
+            "cy": 0.1765,
+            "width": 0.13166666666666665,
+            "height": 0.16927822793944602,
+            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3817,11 +3837,11 @@
             ]
           },
           "white-pawn-e2": {
-            "cx": 0.08888888888888889,
-            "cy": 0.18916666666666665,
-            "width": 0.1288888888888889,
-            "height": 0.16575766032963898,
-            "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
+            "cx": 0.5402777777777777,
+            "cy": 0.1765,
+            "width": 0.13166666666666665,
+            "height": 0.16927822793944602,
+            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3829,11 +3849,11 @@
             ]
           },
           "white-pawn-f2": {
-            "cx": 0.08888888888888889,
-            "cy": 0.18916666666666665,
-            "width": 0.1288888888888889,
-            "height": 0.16575766032963898,
-            "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
+            "cx": 0.5402777777777777,
+            "cy": 0.1765,
+            "width": 0.13166666666666665,
+            "height": 0.16927822793944602,
+            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3841,11 +3861,11 @@
             ]
           },
           "white-pawn-g2": {
-            "cx": 0.08888888888888889,
-            "cy": 0.18916666666666665,
-            "width": 0.1288888888888889,
-            "height": 0.16575766032963898,
-            "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
+            "cx": 0.5402777777777777,
+            "cy": 0.1765,
+            "width": 0.13166666666666665,
+            "height": 0.16927822793944602,
+            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3853,11 +3873,11 @@
             ]
           },
           "white-pawn-h2": {
-            "cx": 0.08888888888888889,
-            "cy": 0.18916666666666665,
-            "width": 0.1288888888888889,
-            "height": 0.16575766032963898,
-            "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
+            "cx": 0.5402777777777777,
+            "cy": 0.1765,
+            "width": 0.13166666666666665,
+            "height": 0.16927822793944602,
+            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3865,10 +3885,10 @@
             ]
           },
           "brown-knight-b8": {
-            "cx": 0.4222222222222222,
-            "cy": 0.18916666666666665,
-            "width": 0.07066694457215848,
-            "height": 0.2283333333333333,
+            "cx": 0.11305555555555556,
+            "cy": 0.17383333333333334,
+            "width": 0.06117590968071531,
+            "height": 0.19766666666666668,
             "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
             "cameraLookAtMm": [
               1.2936531845753052e-09,
@@ -3877,10 +3897,10 @@
             ]
           },
           "brown-bishop-c8": {
-            "cx": 0.7555555555555555,
-            "cy": 0.18916666666666665,
-            "width": 0.06596296296296295,
-            "height": 0.2283333333333333,
+            "cx": 0.5402777777777777,
+            "cy": 0.6965,
+            "width": 0.05864444444444442,
+            "height": 0.203,
             "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
             "cameraLookAtMm": [
               0.0,
@@ -3889,10 +3909,10 @@
             ]
           },
           "brown-bishop-f8": {
-            "cx": 0.7555555555555555,
-            "cy": 0.18916666666666665,
-            "width": 0.06596296296296295,
-            "height": 0.2283333333333333,
+            "cx": 0.5402777777777777,
+            "cy": 0.6965,
+            "width": 0.05864444444444442,
+            "height": 0.203,
             "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
             "cameraLookAtMm": [
               0.0,
@@ -3901,10 +3921,10 @@
             ]
           },
           "brown-knight-g8": {
-            "cx": 0.4222222222222222,
-            "cy": 0.18916666666666665,
-            "width": 0.07066694457215848,
-            "height": 0.2283333333333333,
+            "cx": 0.11305555555555556,
+            "cy": 0.17383333333333334,
+            "width": 0.06117590968071531,
+            "height": 0.19766666666666668,
             "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
             "cameraLookAtMm": [
               1.2936531845753052e-09,
@@ -3913,11 +3933,11 @@
             ]
           },
           "brown-pawn-a7": {
-            "cx": 0.08888888888888889,
-            "cy": 0.18916666666666665,
-            "width": 0.1288888888888889,
-            "height": 0.16575766032963898,
-            "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
+            "cx": 0.5402777777777777,
+            "cy": 0.1765,
+            "width": 0.13166666666666665,
+            "height": 0.16927822793944602,
+            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3925,11 +3945,11 @@
             ]
           },
           "brown-pawn-b7": {
-            "cx": 0.08888888888888889,
-            "cy": 0.18916666666666665,
-            "width": 0.1288888888888889,
-            "height": 0.16575766032963898,
-            "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
+            "cx": 0.5402777777777777,
+            "cy": 0.1765,
+            "width": 0.13166666666666665,
+            "height": 0.16927822793944602,
+            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3937,11 +3957,11 @@
             ]
           },
           "brown-pawn-c7": {
-            "cx": 0.08888888888888889,
-            "cy": 0.18916666666666665,
-            "width": 0.1288888888888889,
-            "height": 0.16575766032963898,
-            "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
+            "cx": 0.5402777777777777,
+            "cy": 0.1765,
+            "width": 0.13166666666666665,
+            "height": 0.16927822793944602,
+            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3949,11 +3969,11 @@
             ]
           },
           "brown-pawn-d7": {
-            "cx": 0.08888888888888889,
-            "cy": 0.18916666666666665,
-            "width": 0.1288888888888889,
-            "height": 0.16575766032963898,
-            "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
+            "cx": 0.5402777777777777,
+            "cy": 0.1765,
+            "width": 0.13166666666666665,
+            "height": 0.16927822793944602,
+            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3961,11 +3981,11 @@
             ]
           },
           "brown-pawn-e7": {
-            "cx": 0.08888888888888889,
-            "cy": 0.18916666666666665,
-            "width": 0.1288888888888889,
-            "height": 0.16575766032963898,
-            "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
+            "cx": 0.5402777777777777,
+            "cy": 0.1765,
+            "width": 0.13166666666666665,
+            "height": 0.16927822793944602,
+            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3973,11 +3993,11 @@
             ]
           },
           "brown-pawn-f7": {
-            "cx": 0.08888888888888889,
-            "cy": 0.18916666666666665,
-            "width": 0.1288888888888889,
-            "height": 0.16575766032963898,
-            "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
+            "cx": 0.5402777777777777,
+            "cy": 0.1765,
+            "width": 0.13166666666666665,
+            "height": 0.16927822793944602,
+            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3985,11 +4005,11 @@
             ]
           },
           "brown-pawn-g7": {
-            "cx": 0.08888888888888889,
-            "cy": 0.18916666666666665,
-            "width": 0.1288888888888889,
-            "height": 0.16575766032963898,
-            "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
+            "cx": 0.5402777777777777,
+            "cy": 0.1765,
+            "width": 0.13166666666666665,
+            "height": 0.16927822793944602,
+            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -3997,11 +4017,11 @@
             ]
           },
           "brown-pawn-h7": {
-            "cx": 0.08888888888888889,
-            "cy": 0.18916666666666665,
-            "width": 0.1288888888888889,
-            "height": 0.16575766032963898,
-            "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
+            "cx": 0.5402777777777777,
+            "cy": 0.1765,
+            "width": 0.13166666666666665,
+            "height": 0.16927822793944602,
+            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
             "cameraLookAtMm": [
               1.3967724754593291e-09,
               6.693312570860144e-12,
@@ -4019,6 +4039,26 @@
           "king"
         ],
         "extraScrollVh": 160,
+        "sections": {
+          "rook": [
+            0,
+            0,
+            0.55,
+            0.48
+          ],
+          "queen": [
+            0,
+            0.52,
+            0.55,
+            0.48
+          ],
+          "king": [
+            0.57,
+            0,
+            0.43,
+            1
+          ]
+        },
         "file": "cad-group-rook-queen-king.svg",
         "pagePx": [
           1800,
@@ -4026,10 +4066,10 @@
         ],
         "frontBoxes": {
           "white-rook-a1": {
-            "cx": 0.08888888888888889,
-            "cy": 0.18916666666666665,
-            "width": 0.08832173039591304,
-            "height": 0.2283333333333333,
+            "cx": 0.09027777777777778,
+            "cy": 0.1765,
+            "width": 0.07852253111111102,
+            "height": 0.203,
             "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
             "cameraLookAtMm": [
               1.2938059512634936e-09,
@@ -4038,10 +4078,10 @@
             ]
           },
           "white-queen-d1": {
-            "cx": 0.4222222222222222,
-            "cy": 0.18916666666666665,
-            "width": 0.0626606330779054,
-            "height": 0.2283333333333333,
+            "cx": 0.09027777777777778,
+            "cy": 0.6965,
+            "width": 0.05570850444444436,
+            "height": 0.203,
             "sourceStepSha256": "eb29083120bb43c8232655b19fb91c8b4e2d4b41854a1189eef5e0354b170647",
             "cameraLookAtMm": [
               1.392715276438139e-09,
@@ -4050,10 +4090,10 @@
             ]
           },
           "white-king-e1": {
-            "cx": 0.7555555555555555,
-            "cy": 0.18916666666666665,
-            "width": 0.05693345568326946,
-            "height": 0.2283333333333333,
+            "cx": 0.6830555555555555,
+            "cy": 0.17383333333333334,
+            "width": 0.049286918569604085,
+            "height": 0.19766666666666668,
             "sourceStepSha256": "4471880e5cfa5a49adfa7b21692cb71584178c687177b8edefe5867deac94a5c",
             "cameraLookAtMm": [
               1.4591687858001023e-09,
@@ -4062,10 +4102,10 @@
             ]
           },
           "white-rook-h1": {
-            "cx": 0.08888888888888889,
-            "cy": 0.18916666666666665,
-            "width": 0.08832173039591304,
-            "height": 0.2283333333333333,
+            "cx": 0.09027777777777778,
+            "cy": 0.1765,
+            "width": 0.07852253111111102,
+            "height": 0.203,
             "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
             "cameraLookAtMm": [
               1.2938059512634936e-09,
@@ -4074,10 +4114,10 @@
             ]
           },
           "brown-rook-a8": {
-            "cx": 0.08888888888888889,
-            "cy": 0.18916666666666665,
-            "width": 0.08832173039591304,
-            "height": 0.2283333333333333,
+            "cx": 0.09027777777777778,
+            "cy": 0.1765,
+            "width": 0.07852253111111102,
+            "height": 0.203,
             "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
             "cameraLookAtMm": [
               1.2938059512634936e-09,
@@ -4086,10 +4126,10 @@
             ]
           },
           "brown-queen-d8": {
-            "cx": 0.4222222222222222,
-            "cy": 0.18916666666666665,
-            "width": 0.0626606330779054,
-            "height": 0.2283333333333333,
+            "cx": 0.09027777777777778,
+            "cy": 0.6965,
+            "width": 0.05570850444444436,
+            "height": 0.203,
             "sourceStepSha256": "eb29083120bb43c8232655b19fb91c8b4e2d4b41854a1189eef5e0354b170647",
             "cameraLookAtMm": [
               1.392715276438139e-09,
@@ -4098,10 +4138,10 @@
             ]
           },
           "brown-king-e8": {
-            "cx": 0.7555555555555555,
-            "cy": 0.18916666666666665,
-            "width": 0.05693345568326946,
-            "height": 0.2283333333333333,
+            "cx": 0.6830555555555555,
+            "cy": 0.17383333333333334,
+            "width": 0.049286918569604085,
+            "height": 0.19766666666666668,
             "sourceStepSha256": "4471880e5cfa5a49adfa7b21692cb71584178c687177b8edefe5867deac94a5c",
             "cameraLookAtMm": [
               1.4591687858001023e-09,
@@ -4110,10 +4150,10 @@
             ]
           },
           "brown-rook-h8": {
-            "cx": 0.08888888888888889,
-            "cy": 0.18916666666666665,
-            "width": 0.08832173039591304,
-            "height": 0.2283333333333333,
+            "cx": 0.09027777777777778,
+            "cy": 0.1765,
+            "width": 0.07852253111111102,
+            "height": 0.203,
             "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
             "cameraLookAtMm": [
               1.2938059512634936e-09,
@@ -4124,10 +4164,22 @@
         }
       }
     ],
-    "clickToZoom": true
+    "clickToZoom": true,
+    "handoff": "retain-fronts",
+    "handoffPartIds": [
+      "pawn",
+      "knight",
+      "bishop",
+      "rook",
+      "queen",
+      "king"
+    ],
+    "refreshOrthographicParts": [
+      "pawn"
+    ]
   },
   "compositionMode": "multiple",
-  "name": "Chess — three CAD sheets and 32 pieces",
+  "name": "Chess \u2014 three CAD sheets and 32 pieces",
   "sheets": {
     "desktop": {
       "file": "sheet-desktop.svg",
@@ -5755,19 +5807,19 @@
     {
       "role": "process",
       "publicPath": "./assets/photo-1.webp",
-      "alt": "체스 폰 형태를 물레로 성형하는 제작 과정",
+      "alt": "\uccb4\uc2a4 \ud3f0 \ud615\ud0dc\ub97c \ubb3c\ub808\ub85c \uc131\ud615\ud558\ub294 \uc81c\uc791 \uacfc\uc815",
       "sourceSha256": "876a6c7d6665cc70d72140c55877eb863912cec45f8af8e24eaa06b57b1259ea"
     },
     {
       "role": "process",
       "publicPath": "./assets/photo-2.webp",
-      "alt": "체스말 스케치와 물레 성형 작업 현장",
+      "alt": "\uccb4\uc2a4\ub9d0 \uc2a4\ucf00\uce58\uc640 \ubb3c\ub808 \uc131\ud615 \uc791\uc5c5 \ud604\uc7a5",
       "sourceSha256": "84974ab81438490d8a9c1a8c0241a131f6d1beca7cb1d6350915c0af49ee7cbe"
     },
     {
       "role": "process",
       "publicPath": "./assets/photo-3.webp",
-      "alt": "노트에 그린 체스말 형태와 치수 스케치",
+      "alt": "\ub178\ud2b8\uc5d0 \uadf8\ub9b0 \uccb4\uc2a4\ub9d0 \ud615\ud0dc\uc640 \uce58\uc218 \uc2a4\ucf00\uce58",
       "sourceSha256": "7b85506b3a237d59ee366172414c417045588d7993be532ab6ab54bd3b5e61e4"
     }
   ],
