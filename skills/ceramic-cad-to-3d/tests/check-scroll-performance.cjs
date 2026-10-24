@@ -4,7 +4,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),puppeteer=requi
  try{
   const page=await browser.newPage();page.setDefaultTimeout(120000);page.setDefaultNavigationTimeout(120000);await page.setViewport({width:1280,height:720});
   await page.evaluateOnNewDocument(()=>{window.__frameTimes=[];const raf=window.requestAnimationFrame.bind(window);window.requestAnimationFrame=cb=>raf(t=>{const start=performance.now();cb(t);window.__frameTimes.push(performance.now()-start)})});
-  await page.goto(process.env.CERAMIC_CANDIDATE,{waitUntil:'networkidle0'});await page.waitForFunction(()=>window.__multiplePage?.loaded);
+  await page.goto(process.env.CERAMIC_CANDIDATE,{waitUntil:'networkidle0'});await page.waitForFunction(()=>window.__multiplePage?.loaded&&(!window.__jomulViewer||window.__jomulViewer.status==='ready'));
   const samples=[];
   for(const motion of [.2,.35,.41,.53,.7,.79]){
    await page.evaluate(m=>{window.__frameTimes=[];const s=window.__multiplePage.spec;scrollTo(0,(window.__multiplePage.scrollVhAt?.(s.motion.timing.cadEnd+(1-s.motion.timing.cadEnd)*m)??(s.motion.timing.cadEnd+(1-s.motion.timing.cadEnd)*m)*(s.motion.storyHeightVh-100))*innerHeight/100)},motion);
