@@ -849,6 +849,38 @@
         ],
         "scope": "Coalesced scheduling and no idle WebGL scene frames. Separately checked generated moon/handled/two-vessel pages for loading/ready/error in desktop/mobile direct/iframe use and scene gates. Gallery pointer RAF remains separate; not a hardware FPS guarantee."
       }
+    },
+    {
+      "id": "scroll-projection-and-gallery-scheduling",
+      "state": "implemented-within-tested-page-scope",
+      "rule": "Preserve full mesh and approved appearance; combine projection matrices and cache exact unchanged bounds, read CAD layout once before writes, reuse height-based glaze reveal values, and schedule gallery animation only while active and changing. Validate CAD handoff as well as later motion; a 100ms regression ceiling is not smoothness evidence.",
+      "consumer": [
+        "assets/multiple-scene.mjs",
+        "assets/scene/projected-bounds.mjs",
+        "assets/gallery/gallery.js"
+      ],
+      "verification": {
+        "suites": [
+          "projected-bounds",
+          "gallery-scheduler"
+        ],
+        "scope": "Exact full-vertex projection versus Three.js, cache invalidation and reverse motion; 22 desktop/mobile before/after pixel-identical samples, six native gallery dialog cases, legacy host photo dialogs, and 48 maintained generated-page checks. Actual public chess runtime adopted separately; software CPU samples do not establish hardware FPS."
+      }
+    },
+    {
+      "id": "coating-identical-input-groups",
+      "state": "implemented-within-tested-page-scope",
+      "rule": "Group identical height and coating palette inputs without quantization; preserve original Float32 vertex colors and material/motion behavior.",
+      "consumer": [
+        "assets/scene/coating-colors.mjs",
+        "assets/multiple-scene.mjs"
+      ],
+      "verification": {
+        "suites": [
+          "coating-colors"
+        ],
+        "scope": "Exact Float32 parity for layer/region/height inputs and reverse progress; 22 desktop/mobile pixel-identical public-chess comparisons, 48 maintained generated-page checks. Actual public chess runtime separately adopted; hardware FPS not established."
+      }
     }
   ],
   "sourceRepositoryCommit": "c84daff",

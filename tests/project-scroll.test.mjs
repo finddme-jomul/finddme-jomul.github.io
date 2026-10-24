@@ -11,7 +11,8 @@ test('all projects preserve desktop distances and reversibly compress mobile pro
 });
 test('chess mobile pacing shortens CAD and gives 3D more scroll distance',()=>{
  const s=JSON.parse(fs.readFileSync(new URL('../public/projects/chess/assets/project.json',import.meta.url)));
- const b=cadBoundary(s);assert.equal(b,756);assert.ok(Math.abs(toPhysical(1603.78,b,true)-1044.2075)<.01);
+ // Adopted slower chess: +160vh on sheet 2 and +720vh handoff (7/9 before cadEnd).
+ const b=cadBoundary(s);assert.equal(b,1476);assert.ok(Math.abs(toPhysical(1603.78,b,true)-702.2075)<.01);
 });
 
 test('multi-sheet desktop CAD is halved; mobile and post-CAD distances remain intact', async()=>{

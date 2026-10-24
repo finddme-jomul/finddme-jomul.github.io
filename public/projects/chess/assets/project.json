@@ -3713,7 +3713,7 @@
           "knight",
           "bishop"
         ],
-        "extraScrollVh": 160,
+        "extraScrollVh": 320,
         "sections": {
           "knight": [
             0,
@@ -4176,7 +4176,9 @@
     ],
     "refreshOrthographicParts": [
       "pawn"
-    ]
+    ],
+    "collectionStartFraction": 0.25,
+    "handoffExtraScrollVh": 720
   },
   "compositionMode": "multiple",
   "name": "Chess \u2014 three CAD sheets and 32 pieces",

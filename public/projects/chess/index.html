@@ -12,11 +12,78 @@
 #story{position:relative;z-index:0}
 @media(max-width:700px){.cad-sheet img{left:calc(50% + 25.4vh)}}
 .cad-sheet img{left:50%;top:50%;width:100%;height:100%;object-fit:contain;transform:translate(-50%,-50%)}
-</style><link rel="stylesheet" href="./gallery.css"><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48 64x64"><link rel="icon" type="image/png" sizes="192x192" href="/favicon.png"></head>
+</style><link rel="stylesheet" href="./gallery.css"><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48 64x64"><link rel="icon" type="image/png" sizes="192x192" href="/favicon.png"><script>// Inlined in the head by the generator, before any asynchronous viewer imports.
+(() => {
+  const root = document.documentElement;
+  const state = window.__jomulViewer = {version: 1, status: 'loading', error: null};
+  const controller = new AbortController();
+  const style = document.createElement('style');
+  style.textContent = 'html[data-viewer-state="loading"]{overflow:hidden!important;scroll-behavior:auto!important}';
+  document.head.append(style);
+  function publish(status, error = null) {
+    state.status = status;
+    state.error = error;
+    root.dataset.viewerState = status;
+    window.dispatchEvent(new CustomEvent('jomul:viewer-state', {detail: {...state}}));
+  }
+  publish('loading');
+  const block = event => event.preventDefault();
+  const options = {capture: true, passive: false, signal: controller.signal};
+  window.addEventListener('wheel', block, options);
+  window.addEventListener('touchmove', block, options);
+  window.addEventListener('keydown', event => {
+    if (['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(event.key)) block(event);
+  }, options);
+  window.addEventListener('scroll', () => {
+    if (scrollY) window.scrollTo({top: 0, behavior: 'instant'});
+  }, {signal: controller.signal});
+  function cleanup() {
+    clearTimeout(timeout);
+    controller.abort();
+    style.remove();
+  }
+  function fail(error) {
+    if (state.status !== 'loading') return;
+    publish('error', String(error?.message || error));
+    cleanup();
+    const show = () => {
+      const notice = document.createElement('div');
+      notice.setAttribute('role', 'alert');
+      notice.style.cssText = 'position:fixed;inset:0;z-index:2147483647;display:grid;place-content:center;gap:16px;background:white;color:#222;font:14px system-ui;text-align:center';
+      const message = document.createElement('p');
+      message.textContent = '상세 화면을 불러오지 못했습니다.';
+      const retry = document.createElement('button');
+      retry.textContent = '다시 불러오기';
+      retry.onclick = () => location.reload();
+      notice.append(message, retry);
+      document.body.append(notice);
+    };
+    if (document.body) show();
+    else document.addEventListener('DOMContentLoaded', show, {once: true});
+  }
+  const timeout = setTimeout(() => fail(new Error('Viewer initialization timed out')), 120000);
+  window.addEventListener('error', event => fail(event.error || event.message), {signal: controller.signal});
+  window.addEventListener('unhandledrejection', event => fail(event.reason), {signal: controller.signal});
+  window.__jomulViewerLifecycle = {
+    fail,
+    async ready() {
+      if (state.status !== 'loading') return;
+      // Restore the normal viewport before scene resize and its requested render.
+      style.remove();
+      window.scrollTo({top: 0, behavior: 'instant'});
+      window.dispatchEvent(new Event('resize'));
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      if (state.status !== 'loading') return;
+      cleanup();
+      publish('ready');
+    },
+  };
+})();
+</script></head>
 <body><section id="story"><div class="stage">
 <div id="viewer" role="img" aria-label="Chess — three CAD sheets and 32 pieces 가정 CAD에서 3D 선, 흙, 유약 완료 예상 모습으로 변하는 스크롤 시안"></div>
 <div class="cad-sheet" id="cad-sheet"><img id="cad-sheet-image" src="./assets/cad-group-board.svg" alt="CAD technical drawing"></div>
 <div class="cad-main" data-part="board" aria-hidden="true"><img src="./assets/board/front-view.svg" alt=""></div><div class="cad-main" data-part="white-rook-a1" aria-hidden="true"><img src="./assets/white-rook-a1/front-view.svg" alt=""></div><div class="cad-main" data-part="white-knight-b1" aria-hidden="true"><img src="./assets/white-knight-b1/front-view.svg" alt=""></div><div class="cad-main" data-part="white-bishop-c1" aria-hidden="true"><img src="./assets/white-bishop-c1/front-view.svg" alt=""></div><div class="cad-main" data-part="white-queen-d1" aria-hidden="true"><img src="./assets/white-queen-d1/front-view.svg" alt=""></div><div class="cad-main" data-part="white-king-e1" aria-hidden="true"><img src="./assets/white-king-e1/front-view.svg" alt=""></div><div class="cad-main" data-part="white-bishop-f1" aria-hidden="true"><img src="./assets/white-bishop-c1/front-view.svg" alt=""></div><div class="cad-main" data-part="white-knight-g1" aria-hidden="true"><img src="./assets/white-knight-b1/front-view.svg" alt=""></div><div class="cad-main" data-part="white-rook-h1" aria-hidden="true"><img src="./assets/white-rook-a1/front-view.svg" alt=""></div><div class="cad-main" data-part="white-pawn-a2" aria-hidden="true"><img src="./assets/white-pawn-a2/front-view.svg" alt=""></div><div class="cad-main" data-part="white-pawn-b2" aria-hidden="true"><img src="./assets/white-pawn-a2/front-view.svg" alt=""></div><div class="cad-main" data-part="white-pawn-c2" aria-hidden="true"><img src="./assets/white-pawn-a2/front-view.svg" alt=""></div><div class="cad-main" data-part="white-pawn-d2" aria-hidden="true"><img src="./assets/white-pawn-a2/front-view.svg" alt=""></div><div class="cad-main" data-part="white-pawn-e2" aria-hidden="true"><img src="./assets/white-pawn-a2/front-view.svg" alt=""></div><div class="cad-main" data-part="white-pawn-f2" aria-hidden="true"><img src="./assets/white-pawn-a2/front-view.svg" alt=""></div><div class="cad-main" data-part="white-pawn-g2" aria-hidden="true"><img src="./assets/white-pawn-a2/front-view.svg" alt=""></div><div class="cad-main" data-part="white-pawn-h2" aria-hidden="true"><img src="./assets/white-pawn-a2/front-view.svg" alt=""></div><div class="cad-main" data-part="brown-rook-a8" aria-hidden="true"><img src="./assets/white-rook-a1/front-view.svg" alt=""></div><div class="cad-main" data-part="brown-knight-b8" aria-hidden="true"><img src="./assets/white-knight-b1/front-view.svg" alt=""></div><div class="cad-main" data-part="brown-bishop-c8" aria-hidden="true"><img src="./assets/white-bishop-c1/front-view.svg" alt=""></div><div class="cad-main" data-part="brown-queen-d8" aria-hidden="true"><img src="./assets/white-queen-d1/front-view.svg" alt=""></div><div class="cad-main" data-part="brown-king-e8" aria-hidden="true"><img src="./assets/white-king-e1/front-view.svg" alt=""></div><div class="cad-main" data-part="brown-bishop-f8" aria-hidden="true"><img src="./assets/white-bishop-c1/front-view.svg" alt=""></div><div class="cad-main" data-part="brown-knight-g8" aria-hidden="true"><img src="./assets/white-knight-b1/front-view.svg" alt=""></div><div class="cad-main" data-part="brown-rook-h8" aria-hidden="true"><img src="./assets/white-rook-a1/front-view.svg" alt=""></div><div class="cad-main" data-part="brown-pawn-a7" aria-hidden="true"><img src="./assets/white-pawn-a2/front-view.svg" alt=""></div><div class="cad-main" data-part="brown-pawn-b7" aria-hidden="true"><img src="./assets/white-pawn-a2/front-view.svg" alt=""></div><div class="cad-main" data-part="brown-pawn-c7" aria-hidden="true"><img src="./assets/white-pawn-a2/front-view.svg" alt=""></div><div class="cad-main" data-part="brown-pawn-d7" aria-hidden="true"><img src="./assets/white-pawn-a2/front-view.svg" alt=""></div><div class="cad-main" data-part="brown-pawn-e7" aria-hidden="true"><img src="./assets/white-pawn-a2/front-view.svg" alt=""></div><div class="cad-main" data-part="brown-pawn-f7" aria-hidden="true"><img src="./assets/white-pawn-a2/front-view.svg" alt=""></div><div class="cad-main" data-part="brown-pawn-g7" aria-hidden="true"><img src="./assets/white-pawn-a2/front-view.svg" alt=""></div><div class="cad-main" data-part="brown-pawn-h7" aria-hidden="true"><img src="./assets/white-pawn-a2/front-view.svg" alt=""></div>
 </div></section>
 <section class="gallery" id="gallery" aria-label="사진 갤러리"><div class="gallery-first"><button class="gallery-photo gallery-photo--scatter" style="--d-x:10.9819%;--d-y:16.0582%;--d-w:13.9648%;--d-h:41.6706%;--m-x:57.509%;--m-y:10.9032%;--m-w:20.7751%;--m-h:22.3383%" type="button" aria-label="사진 확대"><img src="./assets/photo-1.webp" alt="체스 폰 형태를 물레로 성형하는 제작 과정"></button><button class="gallery-photo gallery-photo--scatter" style="--d-x:64.8736%;--d-y:36.554%;--d-w:19.911%;--d-h:51.7849%;--m-x:14.1073%;--m-y:20.9368%;--m-w:29.6669%;--m-h:26.6706%" type="button" aria-label="사진 확대"><img src="./assets/photo-2.webp" alt="체스말 스케치와 물레 성형 작업 현장"></button><button class="gallery-photo gallery-photo--scatter" style="--d-x:37.3115%;--d-y:13.8292%;--d-w:26.3383%;--d-h:49.1833%;--m-x:54.3888%;--m-y:52.5867%;--m-w:39.3438%;--m-h:26.8002%" type="button" aria-label="사진 확대"><img src="./assets/photo-3.webp" alt="노트에 그린 체스말 형태와 치수 스케치"></button></div></section><dialog class="photo-lightbox" id="photo-lightbox" aria-label="사진 확대 보기"><button class="lightbox-close" type="button" aria-label="확대 사진 닫기"></button><img alt=""></dialog>
-<script type="module" src="./viewer.js"></script><script type="module" src="/project-photo-dialog.mjs"></script></body></html>
+<script type="module">import("./viewer.js").then(() => window.__jomulViewerLifecycle.ready()).catch(error => window.__jomulViewerLifecycle.fail(error));</script><script type="module" src="/project-photo-dialog.mjs"></script></body></html>
