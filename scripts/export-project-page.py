@@ -16,10 +16,13 @@ p = argparse.ArgumentParser()
 p.add_argument('source', type=Path)
 p.add_argument('slug')
 p.add_argument('--dependencies', type=Path, required=True)
+p.add_argument('--output', type=Path, help='Unused local comparison directory inside the repository; defaults to public/projects/slug')
 a = p.parse_args()
 root = Path(__file__).resolve().parents[1]
 source = a.source.resolve()
-target = root / 'public' / 'projects' / a.slug
+target = a.output.resolve() if a.output else root / 'public' / 'projects' / a.slug
+if not target.is_relative_to(root):
+    p.error('Comparison output must be inside the repository')
 if not a.slug.replace('-', '').isalnum():
     p.error('Use an alphanumeric project slug')
 if target.exists():
