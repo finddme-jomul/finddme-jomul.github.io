@@ -8,6 +8,10 @@ NS='{http://www.w3.org/2000/svg}'
 def validate(presentation,ids):
     if presentation is None:return
     if presentation.get('handoff', 'last-page') not in ('last-page','retain-fronts'):raise ValueError('Unsupported CAD handoff')
+    for key,default,low,high in [('collectionStartFraction',.8,0,.9),('handoffExtraScrollVh',0,0,1000)]:
+        value=presentation.get(key,default)
+        if isinstance(value,bool) or not isinstance(value,(int,float)) or not math.isfinite(value) or not low<=value<=high:
+            raise ValueError('Invalid CAD '+key)
     participating=presentation.get('handoffPartIds',ids)
     if not isinstance(participating,list) or any(p not in ids for p in participating) or len(participating)!=len(set(participating)):raise ValueError('Invalid handoff source parts')
     refresh=presentation.get('refreshOrthographicParts',[])
@@ -113,4 +117,4 @@ def install(project,stage,presentation,parts):
         body.append('</svg>');filename=f'cad-group-{group["id"]}.svg';(stage/'assets'/filename).write_text(''.join(body))
         alias={p['id']:boxes[p.get('sourcePartId',p['id'])] for p in parts if p.get('sourcePartId',p['id']) in boxes}
         pages.append({**group,'file':filename,'pagePx':[width,height],'frontBoxes':alias})
-    return {'pages':pages,'clickToZoom':True,'handoff':presentation.get('handoff','last-page'),'handoffPartIds':presentation.get('handoffPartIds',ids),'refreshOrthographicParts':presentation.get('refreshOrthographicParts',[])}
+    return {'collectionStartFraction':presentation.get('collectionStartFraction',.8),'handoffExtraScrollVh':presentation.get('handoffExtraScrollVh',0),'pages':pages,'clickToZoom':True,'handoff':presentation.get('handoff','last-page'),'handoffPartIds':presentation.get('handoffPartIds',ids),'refreshOrthographicParts':presentation.get('refreshOrthographicParts',[])}

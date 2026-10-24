@@ -16,6 +16,12 @@ class CadPages(unittest.TestCase):
    p=self.presentation();p['groups'][1]['extraScrollVh']=value
    with self.assertRaises(ValueError):validate(p,list('abcdefg'))
   p=self.presentation();p['groups'][1]['extraScrollVh']=80;validate(p,list('abcdefg'))
+ def test_handoff_pacing_validation(self):
+  for key,invalid in [('collectionStartFraction',[-.1,1,True,float('nan')]),('handoffExtraScrollVh',[-1,1001,True,float('inf')])]:
+   for value in invalid:
+    p=self.presentation();p[key]=value
+    with self.assertRaises(ValueError):validate(p,list('abcdefg'))
+  p=self.presentation();p.update(collectionStartFraction=.45,handoffExtraScrollVh=240);validate(p,list('abcdefg'))
  def test_partition_rejects_duplicates_missing_and_unknown(self):
   p=self.presentation();validate(p,list('abcdefg'))
   for ids in [['a','b'],['x'],[]]:

@@ -16,3 +16,22 @@ for(const width of [390,1440]){
  const before=retainedFront(spec,'a',.1-1e-9,rect,vp),after=retainedFront(spec,'a',.1,rect,vp);for(const key of ['x','y','w','h'])assert(Math.abs(before.source[key]-after.source[key])<1e-10);
 }
 console.log('CAD_HANDOFF_OK reversible collection and all-source transition');
+
+{
+ const rect={left:16,top:80,width:1408,height:700},vp={width:1440,height:900};
+ const slow={...spec,cadPresentation:{...spec.cadPresentation,collectionStartFraction:.45}};
+ const step=.1/3;
+ for(const id of ['a','c']){
+  const index=id==='a'?0:1,start=(index+.45)*step,end=(index+1)*step;
+  const mid=retainedFront(slow,id,(start+end)/2,rect,vp);assert.equal(mid.stage,'collecting');
+  assert.equal(retainedFront(slow,id,end,rect,vp).stage,'retained');
+  for(const p of [start+1e-8,(start+end)/2,end,end-1e-8])assert.deepEqual(retainedFront(slow,id,p,rect,vp),retainedFront(slow,id,p,rect,vp));
+ }
+ const p=.06;assert.equal(retainedFront(spec,'c',p,rect,vp),null);assert.equal(retainedFront(slow,'c',p,rect,vp).stage,'collecting');
+}
+
+{
+ const rect={left:16,top:80,width:1408,height:700},vp={width:1440,height:900};
+ function maxStep(start){let max=0,prior;const s={...spec,cadPresentation:{...spec.cadPresentation,collectionStartFraction:start}};for(let i=0;i<=1000;i++){const p=(1+start)/30+((2/30)-(1+start)/30)*i/1000;const f=retainedFront(s,'c',p+1e-12,rect,vp);if(prior)max=Math.max(max,Math.abs(f.source.y-prior.source.y)/(((2/30)-(1+start)/30)/1000));prior=f;}return max;}
+ assert(maxStep(.45)<maxStep(.8)*.4,'earlier collection lowers peak travel per scroll unit');
+}
