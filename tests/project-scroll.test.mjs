@@ -27,3 +27,10 @@ test('multi-sheet desktop CAD is halved; mobile and post-CAD distances remain in
   assert.ok(Math.abs(toPhysical(b+100,b,false,scale)-toPhysical(b,b,false,scale)-100)<1e-9);
  }
 });
+
+
+test('extended CAD handoff contributes only its pre-boundary share to host pacing',()=>{
+ const spec={motion:{storyHeightVh:1250,timing:{cadEnd:.24,frontMoveStart:.1,frontFadeStart:.215,frontFadeDuration:.065}},cadPresentation:{pages:[{extraScrollVh:160},{extraScrollVh:160},{extraScrollVh:160}],handoffExtraScrollVh:240}};
+ const b=cadBoundary(spec);assert.ok(Math.abs(b-(756+240*7/9))<1e-9);
+ for(const mobile of [false,true])for(let v=0;v<2500;v+=7)assert.ok(Math.abs(toTimeline(toPhysical(v,b,mobile,.5),b,mobile,.5)-v)<1e-9);
+});
