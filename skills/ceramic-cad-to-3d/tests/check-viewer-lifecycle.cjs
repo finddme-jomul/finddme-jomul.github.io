@@ -10,7 +10,7 @@ const delay=ms=>new Promise(r=>setTimeout(r,ms));
    await page.setRequestInterception(true);
    let release;const held=new Promise(r=>release=r);
    page.on('request',request=>request.url().split('?')[0].endsWith('.glb')?held.then(()=>request.continue()):request.continue());
-   if(embedded){await page.goto(new URL('/',process.env.CERAMIC_CANDIDATE).href);await page.setContent(`<iframe style="position:fixed;inset:0;width:100%;height:100%;border:0" src="${process.env.CERAMIC_CANDIDATE}"></iframe>`)}
+   if(embedded){await page.goto(new URL('/__ceramic_review_host__',process.env.CERAMIC_CANDIDATE).href);await page.setContent(`<iframe style="position:fixed;inset:0;width:100%;height:100%;border:0" src="${process.env.CERAMIC_CANDIDATE}"></iframe>`)}
    else await page.goto(process.env.CERAMIC_CANDIDATE,{waitUntil:'domcontentloaded'});
    let frame=page.mainFrame();
    if(embedded){await page.waitForFunction(()=>document.querySelector('iframe')?.contentWindow?.__jomulViewer);frame=page.frames().find(f=>f!==page.mainFrame())}
