@@ -148,7 +148,9 @@ export function createProjectOverlay() {
       closeButton.focus({ preventScroll: true });
       readyTimer = setInterval(checkReady, 80);
       timeoutTimer = setTimeout(() => {
-        stopWaiting();
+        // A slow load is not a failed load. Keep observing readiness so a
+        // late successful scene can dismiss the shield and become interactive.
+        timeoutTimer = undefined;
         showFallback('상세 화면을 준비하는 데 시간이 걸리고 있습니다.');
       }, 30000);
     },

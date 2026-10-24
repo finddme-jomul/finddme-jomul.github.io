@@ -10,6 +10,9 @@ from ceramic_paths import SKILL, ROOT
 from browser_environment import node_command
 
 SUITES = {
+    'coating-colors': node_command(SKILL/'tests/test-coating-colors.mjs'),
+    'gallery-scheduler': node_command(SKILL/'tests/test-gallery-scheduler.mjs'),
+    'projected-bounds': node_command(SKILL/'tests/test-projected-bounds.mjs'),
     'render-loop': node_command(SKILL/'tests/test-render-loop.mjs'),
     'drop-pose': node_command(SKILL/'tests/test-drop-pose.mjs'),
     'oriented-framing': node_command(SKILL/'tests/check-oriented-framing.mjs'),

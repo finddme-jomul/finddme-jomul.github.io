@@ -8,7 +8,10 @@
     "assets/cad-group-board.svg": "036c79af8e187754118a9f87515068856e4455b08b0f510f6fc2833a846138e1",
     "assets/cad-group-pawn-knight-bishop.svg": "a286892b5248adb70570bdc5b73410053133853ca1499baa0acb9e92ec175247",
     "assets/cad-group-rook-queen-king.svg": "91ae2c87e272be6abfb52a7fbe7f83d8302ff29e63ff80b4bdb68a7fc223ec03",
-    "assets/project.json": "b1fdc6f078283bbfdfbff01842b3c509393e171f443f3e3e4717272c4cecbd0d",
+    "assets/photo-1.webp": "013a85a7dcd5d3aa37023344dd9911106045c736271ce277b64c2bc8b6865165",
+    "assets/photo-2.webp": "20d25f19368cc28dafca1940728c66f9ee7a336b0b78efd9d056366cb457219a",
+    "assets/photo-3.webp": "912079ea61c8d0b11edf8c7f805c51d0bed599be6fa80f23ec7632343a21f3f7",
+    "assets/project.json": "bdff9e84a7c7a315b6a89d300dd4e0bf546d611b8725c37ee3e316c936254ac2",
     "assets/sheet-desktop.svg": "2269973d9ac5505caeb89c3b203491c21e90e441ca7a69ab901b0f77a2fdc268",
     "assets/sheet-mobile-short.svg": "c29c9777fa02eaf0330abc35bced2db32f3d6c7e84254c7156c8d0c8ffe39871",
     "assets/sheet-mobile.svg": "95ddbb96948e4fb5907f625d9a4efd6f17e99d2d039ffbea72558e660af89e95",
@@ -33,12 +36,13 @@
     "axis-motion.mjs": "71511810da9eb151894f8b8c5cf84d1ca1c51fe412ecba37bfc04943dc0dce67",
     "gallery-config.js": "1cc5413cac75a2ae765204a1448c88d2d5d61d560ac6f77058b9e9d06d714445",
     "gallery.css": "52993d3e19ec1e049e3f728c284cc165202c3b15db59653645f1015dcefbbffa",
-    "gallery.js": "d64da585e8c08260d0c47a3f9d10d50ff41314cd13de9d35f87a8e07439f2eb1",
+    "gallery.js": "400b68e4e498273ecda7d83a2ca16119473d652076bf90a1f2ceaac4d2b1feee",
     "handled-scene.mjs": "d599532bf0d7a7f5ecdfdc5244af6cc089baa27c7d99443090c8a28b63d72087",
-    "index.html": "6b481cc2926b8192a7245820ddccc67a2f9874692ee277bc9e4c9d330865c43f",
+    "index.html": "e938350b4012c867d05eb6b90e75bdfb9982648c61cf73fa393f87895d041fc6",
     "multiple-scene.mjs": "79cad52d79d85b7a2b0ac8fcdfaa8b244296f5c97af7b0dd24dc5a876c5f20fa",
     "scene/axis-motion.mjs": "71511810da9eb151894f8b8c5cf84d1ca1c51fe412ecba37bfc04943dc0dce67",
     "scene/background-transition.mjs": "7023122b744c7b5897df30207c14472c84dae90fb5e501cb3a54da651fad9fb4",
+    "scene/cad-handoff.mjs": "2d1cfa6aea04b961250914b9bfda9f78124bdf4618ecd8b197ca4c9e40250879",
     "scene/cad-pages.mjs": "cbb1aa28376d5bd40bbe000fa8234a40d5e2c4f0d0a79c2a0da166c7a40821c6",
     "scene/cad-scroll.mjs": "a313fcb3ca6141742fd1cea97638fbc167b6196d2c9bf9cebd980091e9be2bce",
     "scene/composition-framing.mjs": "c168b28f84dbd27a7ab75d0248d27b315911b5f31a40a1584117ab5163984736",
@@ -47,12 +51,8 @@
     "scene/layered-vessels.mjs": "b1003df3d38a9d42c4ff938e1ea087176cf4abbf2e71063a16a4498396b3a19f",
     "scene/oriented-framing.mjs": "cf429bd19371e21ce95ff4f0d1eccf66a135d5888b48e210764f85e4717f6fbd",
     "scene-defaults.mjs": "64f56619efe594349a4d71a3b44f88367af8132e05bf79713a662feef8d0e609",
-    "viewer.js": "09bd415519da57265280d03126be96170a320f2c8288afb982ea6c537446d8ad",
-    "wire-color.mjs": "05d0dc90c698e27a3156e6ed223cef1056133ee13624bc085993897bd95a5324",
-    "assets/photo-1.webp": "013a85a7dcd5d3aa37023344dd9911106045c736271ce277b64c2bc8b6865165",
-    "assets/photo-2.webp": "20d25f19368cc28dafca1940728c66f9ee7a336b0b78efd9d056366cb457219a",
-    "assets/photo-3.webp": "912079ea61c8d0b11edf8c7f805c51d0bed599be6fa80f23ec7632343a21f3f7",
-    "scene/cad-handoff.mjs": "2d1cfa6aea04b961250914b9bfda9f78124bdf4618ecd8b197ca4c9e40250879"
+    "viewer.js": "16c763b14bf17ad567bc2452ce77804714da97e434ff1e3c9ea4ff123437f78d",
+    "wire-color.mjs": "05d0dc90c698e27a3156e6ed223cef1056133ee13624bc085993897bd95a5324"
   },
   "hostPacing": {
     "module": "/project-scroll.mjs",
@@ -74,5 +74,24 @@
       30
     ],
     "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
+  },
+  "runtimeAdoption": {
+    "source": ".poc/viewer-runtime-v2/chess-slower-verified",
+    "scope": "shared generated viewer and loading bootstrap; CAD timing only; existing photo markup, assets and motion preserved",
+    "collectionStartFraction": 0.25,
+    "handoffExtraScrollVh": 720,
+    "secondSheetExtraScrollVh": 320
+  },
+  "runtimeOptimization": {
+    "scope": "full-vertex projection cache, batched layout reads, shared-height glaze reveal, on-demand gallery scheduling, exact identical-input coating color groups",
+    "sourceHashes": {
+      "assets/multiple-scene.mjs": "f162f4df65fc0870b14d677a32fce0159fa2c049e1659d6321ab8ecef587a792",
+      "assets/scene/projected-bounds.mjs": "b6232fd2c64f4e1de3c22a79105e02ff0475b7cc7e697f5ad2c8771ad821ac09",
+      "assets/gallery/gallery.js": "400b68e4e498273ecda7d83a2ca16119473d652076bf90a1f2ceaac4d2b1feee",
+      "assets/scene/coating-colors.mjs": "490591206b72d487611dfda53d60f5895978b2c282158c527c8969f325a1a691"
+    },
+    "pixelComparisons": 22,
+    "preserved": "models, CAD and photo files; gallery markup/CSS, timing, materials and motion inputs unchanged",
+    "coatingPixelComparisons": 22
   }
 }

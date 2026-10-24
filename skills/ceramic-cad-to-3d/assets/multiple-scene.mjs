@@ -1,3 +1,5 @@
+import {createCoatingColors} from './scene/coating-colors.mjs';
+import {createProjectedBounds} from './scene/projected-bounds.mjs';
 import {retainedFront} from './scene/cad-handoff.mjs';
 import {dropPose} from './scene/drop-pose.mjs';
 import {createCadScroll} from './scene/cad-scroll.mjs';
@@ -85,11 +87,22 @@ export async function startMultiple(spec) {
       const fraction=clamp(positions.getY(i)/height),angle=Math.atan2(positions.getZ(i),positions.getX(i));
       values.push({surface:surfaces?.[i],fraction,heightMm:positions.getY(i)*1000,exterior:feature?(part.surfaceRegions?exteriorFlags[i]:true):exteriorAt(profile,Math.hypot(positions.getX(i),positions.getZ(i))*1000,positions.getY(i)*1000),coverage:sprayCoverage(angle,fraction,part.accentCenterAngle,part.accentWidthScale),base:base.clone().lerp(warm,.2+.09*Math.sin(angle*5+fraction*12)),accent:accent.clone().lerp(accentWarm,g.accentWarmMix||0)});
     }
+    if(!sharedPaint.levels){
+      const indices=new Map(),levels=[];
+      for(const v of values){
+        if(!indices.has(v.fraction)){indices.set(v.fraction,levels.length);levels.push(v.fraction)}
+        v.level=indices.get(v.fraction);
+      }
+      sharedPaint.levels=levels;
+      sharedPaint.baseReveal=new Float64Array(levels.length);
+      sharedPaint.accentReveal=new Float64Array(levels.length);
+    }
     const colours=sharedPaint.colours||new THREE.BufferAttribute(new Float32Array(positions.count*3),3);sharedPaint.colours=colours;paintCache.set(paintKey,sharedPaint);geometry.setAttribute('color',colours);
     if(part.coatings&&!sharedPaint.palettes){
       const coat=part.coatings,colors=new Map(),rgb=hex=>{if(!colors.has(hex))colors.set(hex,new THREE.Color(hex).toArray());return colors.get(hex)};
       sharedPaint.palettes=values.map(v=>{const finish=inRegion(coat.fired.region,v.exterior,v.heightMm,v.surface)?coat.fired.regionHex:coat.fired.baseHex;return {first:inRegion(coat.layers[0].region,v.exterior,v.heightMm,v.surface),second:!!coat.layers[1]&&inRegion(coat.layers[1].region,v.exterior,v.heightMm,v.surface),firstRGB:rgb(coat.layers.length===1?finish:coat.layers[0].previewHex),lastRGB:rgb(finish)}});
     }
+    if(part.coatings&&!sharedPaint.coatingColors)sharedPaint.coatingColors=createCoatingColors(values,sharedPaint.palettes,clay);
     const material=new (feature?THREE.MeshPhysicalMaterial:THREE.MeshStandardMaterial)({vertexColors:true,roughness:.9,side:THREE.DoubleSide,transparent:true,opacity:0,...(feature?{clearcoat:g.clearcoat||0}:{})});
     // Optional per-part direct-light reduction; other materials keep the selected lighting exactly.
     if(lighting.softPartIds?.includes(part.id)){
@@ -119,18 +132,20 @@ export async function startMultiple(spec) {
       const stamp=baseP.toFixed(4)+':'+accentP.toFixed(4);
       if(stamp!==sharedPaint.stamp){
         sharedPaint.stamp=stamp;
-        for(let i=0;i<values.length;i++){
+        const direction=part.coatings?'bottom-up':glazeMotion.direction;
+        for(let i=0;i<sharedPaint.levels.length;i++){
+          const height=sharedPaint.levels[i];
+          sharedPaint.baseReveal[i]=glazeRevealAt(height,baseP,timing.surfaceSweepWidth,direction);
+          sharedPaint.accentReveal[i]=glazeRevealAt(height,accentP,timing.surfaceSweepWidth,direction);
+        }
+        if(sharedPaint.coatingColors){
+          sharedPaint.coatingColors.update(colours.array,sharedPaint.baseReveal,sharedPaint.accentReveal,baseP,accentP);
+        }else for(let i=0;i<values.length;i++){
           const v=values[i];
-          if(part.coatings){
-            const palette=sharedPaint.palettes[i];
-            const first=baseP>0&&palette.first?glazeRevealAt(v.fraction,baseP,timing.surfaceSweepWidth):0;
-            const second=accentP>0&&palette.second?glazeRevealAt(v.fraction,accentP,timing.surfaceSweepWidth):0;
-            const r=clay.r+(palette.firstRGB[0]-clay.r)*first,g=clay.g+(palette.firstRGB[1]-clay.g)*first,b=clay.b+(palette.firstRGB[2]-clay.b)*first;
-            colours.setXYZ(i,r+(palette.lastRGB[0]-r)*second,g+(palette.lastRGB[1]-g)*second,b+(palette.lastRGB[2]-b)*second);
-          }else{
-            const b=glazeRevealAt(v.fraction,baseP,timing.surfaceSweepWidth,glazeMotion.direction),a=part.accentEnabled?glazeRevealAt(v.fraction,accentP,timing.surfaceSweepWidth,glazeMotion.direction)*v.coverage*b:0;
-            const c=clay.clone().lerp(feature?base:v.base,b).lerp(v.accent,a);colours.setXYZ(i,c.r,c.g,c.b);
-          }
+            const b=sharedPaint.baseReveal[v.level],a=part.accentEnabled?sharedPaint.accentReveal[v.level]*v.coverage*b:0;
+            const target=feature?base:v.base;
+            const r=clay.r+(target.r-clay.r)*b,g=clay.g+(target.g-clay.g)*b,blue=clay.b+(target.b-clay.b)*b;
+            colours.setXYZ(i,r+(v.accent.r-r)*a,g+(v.accent.g-g)*a,blue+(v.accent.b-blue)*a);
         }
         colours.needsUpdate=true;
       }
@@ -139,7 +154,8 @@ export async function startMultiple(spec) {
       if(part.coatings)material.roughness=.9+(part.coatings.roughness-.9)*Math.max(baseP,accentP);
     }
     const front=document.querySelector(`[data-part="${part.id}"]`);await front.querySelector('img').decode();
-    return {id:part.id,part,profile,feature,height,main,orbit,tilt,spin,solid,geometry,material,wireMaterial,wireGeometry,front,paint,values};
+    const projectedBounds=feature?createProjectedBounds(geometry.attributes.position.array):null;
+    return {projectedBounds,id:part.id,part,profile,feature,height,main,orbit,tilt,spin,solid,geometry,material,wireMaterial,wireGeometry,front,paint,values};
   }));
   // Cover every upright yaw and height of the drop with one camera envelope.
   // Fitting only the current moving meshes makes landed pieces appear to rise.
@@ -168,11 +184,13 @@ export async function startMultiple(spec) {
     for(const px of [b.min.x,b.max.x])for(const pz of [b.min.z,b.max.z])for(const py of [0,v.height+s.dropHeightMm/1000])points.push([x+px,y+py,z+pz]);
     return points;
   }):null;
-  function frontPlacement(v,p){
+  const viewProjection=new THREE.Matrix4(),frontProjection=new THREE.Matrix4();
+  function frontPlacement(v,p,rect){
     if(cadPages&&!frontRepresentatives.has(v.id)){v.front.style.opacity='0';return;}
 
+    if(p>=timing.frontFadeStart+timing.frontFadeDuration){v.front.style.opacity='0';v.front.dataset.handoffStage='hidden';return;}
     const retaining=spec.cadPresentation?.handoff==='retain-fronts';
-    const held=retaining?retainedFront(spec,v.id,p,image.getBoundingClientRect(),{width:innerWidth,height:innerHeight}):null;
+    const held=retaining?retainedFront(spec,v.id,p,rect,{width:innerWidth,height:innerHeight}):null;
     if(retaining&&!held){v.front.style.opacity='0';v.front.dataset.handoffStage='hidden';return;}
     if(held?.retaining){
       const {x,y,w,h}=held.source;
@@ -181,7 +199,7 @@ export async function startMultiple(spec) {
     }
     if(p<timing.frontMoveStart||p>=timing.frontFadeStart+timing.frontFadeDuration){v.front.style.opacity='0';v.front.dataset.handoffStage='hidden';return;}
     v.front.dataset.handoffStage='moving';
-    const entry=cadPages?.entry||spec.sheets[layoutKey],box=entry.frontBoxes[v.id],rect=image.getBoundingClientRect();
+    const entry=cadPages?.entry||spec.sheets[layoutKey],box=entry.frontBoxes[v.id];
     if(!box&&!held){v.front.style.opacity='0';return;}
     const scale=Math.min(rect.width/entry.pagePx[0],rect.height/entry.pagePx[1]);
     const sheetW=entry.pagePx[0]*scale,sheetH=entry.pagePx[1]*scale;
@@ -189,7 +207,10 @@ export async function startMultiple(spec) {
     let left=Infinity,right=-Infinity,top=Infinity,bottom=-Infinity;
     const q=new THREE.Vector3();
     const include=()=>{q.applyMatrix4(v.spin.matrixWorld).project(camera);const x=(q.x+1)*innerWidth/2,y=(1-q.y)*innerHeight/2;left=Math.min(left,x);right=Math.max(right,x);top=Math.min(top,y);bottom=Math.max(bottom,y)};
-    if(v.feature){const a=v.geometry.attributes.position;for(let i=0;i<a.count;i++){q.fromBufferAttribute(a,i);include()}}
+    if(v.feature){
+      frontProjection.multiplyMatrices(viewProjection,v.spin.matrixWorld);
+      ({left,right,top,bottom}=v.projectedBounds(frontProjection.elements,innerWidth,innerHeight));
+    }
     else for(const [r,z] of v.profile)for(const sign of [-1,1]){q.set(sign*r/1000,z/1000,0);include()}
     const move=smooth((p-timing.frontMoveStart)/timing.frontMoveDuration);
     const x=source.x+((left+right)/2-source.x)*move,y=source.y+((top+bottom)/2-source.y)*move;
@@ -201,6 +222,8 @@ export async function startMultiple(spec) {
     const atEnd=scrollY>=document.documentElement.scrollHeight-innerHeight-1;
     const p=atEnd?endProgress:Math.min(endProgress,cadScroll.fromScrollVh(scrollY/innerHeight*100)),motionP=clamp((p-timing.cadEnd)/(1-timing.cadEnd)),small=innerWidth<600;
     cadPages?.update(p);
+    // Read layout once, before the per-front style writes.
+    const sheetRect=image.getBoundingClientRect();
     const bounds=[];
     for(const v of vessels){
       const m=v.part.motion,drop=smooth((motionP-timing.dropStart-m.dropDelay)/(timing.dropDuration*(m.dropDurationScale??1))),settle=smooth((motionP-timing.settleStart-m.dropDelay)/timing.settleDuration);
@@ -269,7 +292,8 @@ export async function startMultiple(spec) {
       camera.lookAt(fit.centerX,focusY,0);camera.updateMatrixWorld();
     }
     sheet.style.opacity=String(1-smooth((p-timing.sheetFadeStart)/timing.sheetFadeDuration));
-    for(const v of vessels)frontPlacement(v,p);
+    viewProjection.multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse);
+    for(const v of vessels)frontPlacement(v,p,sheetRect);
     const exit=hasPhotos?smooth((motionP-timing.photoStart)/timing.photoDuration):0;
     host.style.opacity=String(1-exit);host.setAttribute('aria-hidden',exit>=.999?'true':'false');
     const background=backgroundAt(p,{...spec.motion.background,fadeToPhoto:{start:hasPhotos?timing.cadEnd+(1-timing.cadEnd)*timing.photoStart:2,end:hasPhotos?endProgress:3}});
