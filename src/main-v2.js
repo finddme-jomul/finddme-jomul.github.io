@@ -36,7 +36,11 @@ function updateCurrent() {
   // Focusing a partly clipped link can scroll its overflow container.
   titleTrack.parentElement.scrollLeft = 0;
   const title = entries[nearest].titleLink;
-  titleTrack.style.transform = `translateX(${innerWidth / 2 - title.offsetLeft - title.offsetWidth / 2}px)`;
+  // Align with the actual image column, excluding the browser scrollbar.
+  const imageRect = entries[nearest].button.getBoundingClientRect();
+  const captionRect = titleTrack.parentElement.getBoundingClientRect();
+  const imageCenter = imageRect.left + imageRect.width / 2;
+  titleTrack.style.transform = `translateX(${imageCenter - captionRect.left - title.offsetLeft - title.offsetWidth / 2}px)`;
 }
 function scheduleCurrent() { if (!frame) frame = requestAnimationFrame(updateCurrent); }
 function centerImage(element) {

@@ -3,7 +3,7 @@ export function createProjectOverlay() {
   const dialog = document.createElement('dialog');
   dialog.className = 'project-overlay';
   dialog.setAttribute('aria-label', '프로젝트 상세');
-  dialog.innerHTML = `<div class="project-overlay-bar"><span class="project-overlay-title"></span><button type="button" class="project-overlay-close" aria-label="프로젝트 상세 닫기"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></button></div><div class="project-overlay-body"><div class="project-overlay-loading" role="status">상세 화면 준비 중…</div><iframe class="project-overlay-frame" title="프로젝트 상세" src="about:blank"></iframe></div>`;
+  dialog.innerHTML = `<div class="project-overlay-bar"><span class="project-overlay-title"></span><button type="button" class="project-overlay-close" aria-label="프로젝트 상세 닫기"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></button></div><div class="project-overlay-body"><div class="project-overlay-loading" role="status" aria-live="polite"></div><iframe class="project-overlay-frame" title="프로젝트 상세" src="about:blank"></iframe></div>`;
   document.body.append(dialog);
   const iframe = dialog.querySelector('iframe');
   const closeButton = dialog.querySelector('button');
@@ -50,6 +50,10 @@ export function createProjectOverlay() {
         dialog.dataset.ready = 'true';
       }));
     } catch { /* Keep the loading shield until timeout offers a normal page link. */ }
+  }
+
+  function showLoading() {
+    loading.innerHTML = '<span class="project-overlay-spinner" aria-hidden="true"></span><span class="project-overlay-loading-label">상세 화면 준비 중</span>';
   }
 
   function showFallback(message) {
@@ -111,7 +115,7 @@ export function createProjectOverlay() {
       oldOverflow = document.documentElement.style.overflow;
       dialog.querySelector('.project-overlay-title').textContent = project.title;
       iframe.title = `${project.title} 프로젝트 상세`;
-      loading.textContent = '상세 화면 준비 중…';
+      showLoading();
       loading.hidden = false;
       iframe.inert = true;
       iframe.tabIndex = -1;
