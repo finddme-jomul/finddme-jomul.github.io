@@ -62,3 +62,6 @@ html::-webkit-scrollbar-thumb { background: ButtonText; border-color: Canvas; }
 @keyframes project-reveal{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @media(max-width:700px){.project-overlay{inset:50px 0 0;width:calc(100vw - 32px);height:calc(100svh - 50px);height:calc(100dvh - 50px)}.project-overlay-bar{padding-left:12px}}
 @media(prefers-reduced-motion:reduce){.project-overlay[open]{animation:none}}
+
+/* Programmatic return after a tap/click is not keyboard navigation. */
+.v2-page .is-pointer-restored:focus{outline:none}

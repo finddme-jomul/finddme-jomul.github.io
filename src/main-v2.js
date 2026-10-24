@@ -100,12 +100,12 @@ for (const source of projects) {
     element.append(frameElement);
     const frameEntry = { project, element: frameElement, button };
     projectFrames.push(frameEntry);
-    button.addEventListener('click', () => {
+    button.addEventListener('click', event => {
       if (activeIndex !== projectIndex) {
         centerImage(frameElement);
         return;
       }
-      projectOverlay.open(project, button);
+      projectOverlay.open(project, button, event);
     });
     button.addEventListener('focus', () => {
       if (!projectOverlay.isRestoring && button.matches(':focus-visible')) button.scrollIntoView({ block: 'center', behavior: 'instant' });
@@ -131,7 +131,7 @@ for (const source of projects) {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
     event.preventDefault();
     if (activeIndex !== projectIndex) centerImage(projectFrames[0].element);
-    else projectOverlay.open(project, titleLink);
+    else projectOverlay.open(project, titleLink, event);
   });
   titleLink.addEventListener('focus', () => {
     scheduleCurrent();

@@ -9,6 +9,14 @@ export function createProjectOverlay() {
   const closeButton = dialog.querySelector('button');
   const loading = dialog.querySelector('.project-overlay-loading');
   let opener;
+  let keyboardOpen = false;
+  // Retain focus for navigation, but do not paint a ring after pointer use.
+  document.addEventListener('keydown', event => {
+    if (!['Shift', 'Control', 'Alt', 'Meta'].includes(event.key)) {
+      if (dialog.open) keyboardOpen = true;
+      document.querySelectorAll('.is-pointer-restored').forEach(element => element.classList.remove('is-pointer-restored'));
+    }
+  }, { capture: true });
   let restoring = false;
   let savedY = 0;
   let oldOverflow = '';
@@ -64,7 +72,16 @@ export function createProjectOverlay() {
     loading.append(link);
   }
 
-  function close() { if (dialog.open) dialog.close(); }
+  function close() {
+    if (!dialog.open) return;
+    restoring = true;
+    if (!keyboardOpen && opener) {
+      opener.classList.add('is-pointer-restored');
+      const target = opener;
+      target.addEventListener('blur', () => target.classList.remove('is-pointer-restored'), { once: true });
+    }
+    dialog.close();
+  }
   closeButton.addEventListener('click', close);
   let outsideDown = false;
   function outside(event) {
@@ -76,7 +93,7 @@ export function createProjectOverlay() {
     if (outsideDown && event.target === dialog && outside(event)) close();
     outsideDown = false;
   });
-  dialog.addEventListener('cancel', event => { event.preventDefault(); close(); });
+  dialog.addEventListener('cancel', event => { event.preventDefault(); keyboardOpen = true; close(); });
   dialog.addEventListener('close', () => {
     sequence += 1;
     stopWaiting();
@@ -118,6 +135,7 @@ export function createProjectOverlay() {
       `;
       doc.head.append(scrollbarStyle);
       doc.addEventListener('keydown', event => {
+        if (!['Shift', 'Control', 'Alt', 'Meta'].includes(event.key)) keyboardOpen = true;
         if (event.key === 'Escape' && !doc.querySelector('dialog[open]')) {
           event.preventDefault();
           close();
@@ -128,10 +146,11 @@ export function createProjectOverlay() {
   return {
     get isRestoring() { return restoring; },
     get isOpen() { return dialog.open; },
-    open(project, trigger) {
+    open(project, trigger, activationEvent) {
       if (dialog.open) return;
       sequence += 1;
       opener = trigger || document.activeElement;
+      keyboardOpen = activationEvent ? activationEvent.detail === 0 && !activationEvent.pointerType : Boolean(opener?.matches(':focus-visible'));
       savedY = scrollY;
       oldOverflow = document.documentElement.style.overflow;
       dialog.querySelector('.project-overlay-title').textContent = project.title;
