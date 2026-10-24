@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {installGallery} from '../assets/gallery/gallery.js';
+import {installGallery,atDocumentEnd} from '../assets/gallery/gallery.js';
 class Element {
  constructor(){this.events={};this.props={};this.style={setProperty:(k,v)=>this.props[k]=v};this.classList={contains:()=>false,toggle:()=>{}};this.offsetWidth=100;this.offsetHeight=100;this.offsetLeft=100;this.offsetTop=100;this.dataset={};}
  addEventListener(k,fn){(this.events[k]??=[]).push(fn)}
@@ -28,3 +28,11 @@ photo.emit('click');assert(dialog.open,'legacy site dialog still opens without n
 active=false;controller.sync();assert.equal(pending.size,0);const frames=controller.animationStats.frames;for(let i=0;i<20;i++)run();assert.equal(controller.animationStats.frames,frames);
 active=true;controller.sync();media.matches=true;media.emit('change');settle();assert.equal(pending.size,0,'reduced motion settles immediately');
 console.log('GALLERY_SCHEDULER_OK hidden/settled idle, pointer, focus, dialog, reduced motion');
+
+assert(!atDocumentEnd({scrollHeight:800,clientHeight:800,scrollTop:0}));
+assert(!atDocumentEnd({scrollHeight:8000,clientHeight:800,scrollTop:7198}));
+assert(atDocumentEnd({scrollHeight:8000,clientHeight:800,scrollTop:7199.25}));
+active=false;document.scrollingElement={scrollHeight:8000,clientHeight:800,scrollTop:7200};controller.sync();settle();
+photo.emit('click');assert(dialog.open,'physical end must reveal photos even below timeline threshold');close.emit('click');
+document.scrollingElement.scrollTop=7100;controller.sync();photo.emit('click');assert(!dialog.open,'reverse scroll leaves end gallery');
+console.log('GALLERY_ENDPOINT_OK fractional end, short page, timeline mismatch and reverse');

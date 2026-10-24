@@ -1,3 +1,11 @@
+// Use the scrolling element's own coordinate system; mobile browser chrome can
+// make vh/innerHeight-derived timeline endpoints differ from the reachable end.
+export function atDocumentEnd(root = document.scrollingElement) {
+  if (!root) return false;
+  const maximum = root.scrollHeight - root.clientHeight;
+  return maximum > 1 && root.scrollTop >= maximum - 1;
+}
+
 /** Final gallery interaction shared by single and multiple PoC pages.
  *  The caller supplies the selected profile values and the story-end predicate.
  */
@@ -25,7 +33,7 @@ export function installGallery({gallery,story,isActive,onActiveChange=()=>{},pro
   }
   function sync(){
     const previous=active;
-    active=Boolean(isActive());
+    active=Boolean(isActive() || atDocumentEnd());
     gallery.classList.toggle('gallery-active',active);
     story.setAttribute('aria-hidden',active?'true':'false');
     gallery.setAttribute('aria-hidden',active?'false':'true');

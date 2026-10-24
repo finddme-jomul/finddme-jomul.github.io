@@ -881,6 +881,20 @@
         ],
         "scope": "Exact Float32 parity for layer/region/height inputs and reverse progress; 22 desktop/mobile pixel-identical public-chess comparisons, 48 maintained generated-page checks. Actual public chess runtime separately adopted; hardware FPS not established."
       }
+    },
+    {
+      "id": "gallery-physical-document-end",
+      "state": "implemented-pending-device-confirmation",
+      "rule": "Final gallery also activates at the physical scrolling element end, with one CSS pixel rounding tolerance; preserve normal timeline activation and reverse scrolling.",
+      "consumer": [
+        "assets/gallery/gallery.js"
+      ],
+      "verification": {
+        "suites": [
+          "gallery-scheduler"
+        ],
+        "scope": "End-of-document rounding, no-scroll guard, calculated endpoint mismatch, reverse scrolling; actual Samsung browser confirmation remains required."
+      }
     }
   ],
   "sourceRepositoryCommit": "c84daff",
