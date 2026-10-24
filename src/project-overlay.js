@@ -25,9 +25,19 @@ export function createProjectOverlay() {
       const win = iframe.contentWindow;
       const doc = iframe.contentDocument;
       if (win.location.pathname !== expectedPath || !doc || doc.readyState === 'loading') return;
+      const lifecycle = win.__jomulViewer;
+      if (lifecycle?.version === 1) {
+        if (lifecycle.status === 'error') {
+          stopWaiting();
+          showFallback('상세 화면을 불러오지 못했습니다.');
+          return;
+        }
+        if (lifecycle.status !== 'ready') return;
+      }
       const story = doc.querySelector('#story');
       // The existing rotational, multiple/feature and handled viewers expose distinct ready states.
-      const viewerReady = win.__moonJar?.glbLoaded || win.__multiplePage?.loaded || Boolean(win.__mugMotion?.motion);
+      const viewerReady = lifecycle?.version === 1 ? lifecycle.status === 'ready'
+        : win.__moonJar?.glbLoaded || win.__multiplePage?.loaded || Boolean(win.__mugMotion?.motion);
       if (story && (!story.style.height || !doc.querySelector('#viewer canvas') || !viewerReady)) return;
       const run = sequence;
       stopWaiting();
@@ -40,6 +50,14 @@ export function createProjectOverlay() {
         dialog.dataset.ready = 'true';
       }));
     } catch { /* Keep the loading shield until timeout offers a normal page link. */ }
+  }
+
+  function showFallback(message) {
+    loading.textContent = message;
+    const link = document.createElement('a');
+    link.href = iframe.getAttribute('src');
+    link.textContent = '상세 페이지 직접 열기';
+    loading.append(link);
   }
 
   function close() { if (dialog.open) dialog.close(); }
@@ -106,11 +124,7 @@ export function createProjectOverlay() {
       readyTimer = setInterval(checkReady, 80);
       timeoutTimer = setTimeout(() => {
         stopWaiting();
-        loading.textContent = '상세 화면을 준비하는 데 시간이 걸리고 있습니다.';
-        const link = document.createElement('a');
-        link.href = project.href;
-        link.textContent = '상세 페이지 직접 열기';
-        loading.append(link);
+        showFallback('상세 화면을 준비하는 데 시간이 걸리고 있습니다.');
       }, 30000);
     },
   };
