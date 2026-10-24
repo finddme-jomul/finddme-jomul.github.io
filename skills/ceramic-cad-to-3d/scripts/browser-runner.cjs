@@ -14,7 +14,7 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
   let ready=false;
   for(let i=0;i<100;i++){
    if(server.exitCode!==null)throw Error('Review server exited');
-   try{await fetch('http://127.0.0.1:5173/');ready=true;break;}catch{}
+   try{await fetch('http://127.0.0.1:5173/__ceramic_review_host__');ready=true;break;}catch{}
    await new Promise(r=>setTimeout(r,100));
   }
   if(!ready)throw Error('Review server did not start');

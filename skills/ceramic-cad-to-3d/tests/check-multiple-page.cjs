@@ -9,7 +9,7 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
    browser=await puppeteer.launch({headless:true,executablePath:process.env.CERAMIC_CHROME,args:['--no-sandbox','--disable-dev-shm-usage','--enable-webgl','--use-gl=angle','--use-angle=swiftshader']});
    const page=await browser.newPage(),errors=[];page.on('pageerror',e=>{errors.push(e.message);console.error(e.stack)});
    page.setDefaultNavigationTimeout(120000);page.setDefaultTimeout(120000);await page.setViewport({width,height,deviceScaleFactor:1});await page.goto(process.env.CERAMIC_CANDIDATE,{waitUntil:'networkidle0'});
-   await page.waitForFunction(()=>window.__multiplePage?.loaded);
+   await page.waitForFunction(()=>window.__multiplePage?.loaded&&(!window.__jomulViewer||window.__jomulViewer.status==='ready'));
    const info=await page.evaluate(()=>({parts:window.__multiplePage.spec.parts,glaze:window.__multiplePage.spec.motion.glaze,instanced:window.__multiplePage.spec.parts.some(p=>p.sourcePartId&&p.sourcePartId!==p.id),ids:window.__multiplePage.spec.parts.map(p=>p.id),end:window.__multiplePage.endProgress,cad:window.__multiplePage.spec.motion.timing.cadEnd,photos:window.__multiplePage.spec.ending==='photos',feature:window.__multiplePage.spec.renderer==='feature-solids',layered:window.__multiplePage.spec.renderer==='layered-vessels'||window.__multiplePage.spec.parts.every(p=>p.coatings),timing:window.__multiplePage.spec.motion.timing,assembly:window.__multiplePage.spec.assembly}));
    assert(info.ids.length>=(info.layered?1:2));assert.equal(new Set(info.ids).size,info.ids.length);
    const mp=n=>info.cad+(1-info.cad)*n;
