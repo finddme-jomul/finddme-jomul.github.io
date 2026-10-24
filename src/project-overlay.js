@@ -96,6 +96,27 @@ export function createProjectOverlay() {
     // Events do not bubble across iframe boundaries. Preserve nested photo dialogs.
     try {
       const doc = iframe.contentDocument;
+      // The iframe owns its scrollbars; parent-page CSS cannot style them.
+      const scrollbarStyle = doc.createElement('style');
+      scrollbarStyle.textContent = `
+        html { scrollbar-width: thin; scrollbar-color: #b8b8b8 #f4f4f4; }
+        @supports selector(::-webkit-scrollbar) {
+          html { scrollbar-width: auto; scrollbar-color: auto; }
+          html::-webkit-scrollbar { width: 12px; height: 12px; background: #fff; }
+          html::-webkit-scrollbar-track:vertical { background: linear-gradient(#e8e8e8, #e8e8e8) center / 1px 100% no-repeat; }
+          html::-webkit-scrollbar-track:horizontal { background: linear-gradient(#e8e8e8, #e8e8e8) center / 100% 1px no-repeat; }
+          html::-webkit-scrollbar-thumb { min-height: 28px; min-width: 28px; background: #b8b8b8; border: 4px solid #fff; border-radius: 12px; }
+          html::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
+          html::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+          html::-webkit-scrollbar-corner { background: #fff; }
+        }
+        @media (forced-colors: active) {
+          html { scrollbar-color: auto; }
+          html::-webkit-scrollbar-track { background: Canvas; }
+          html::-webkit-scrollbar-thumb { background: ButtonText; border-color: Canvas; }
+        }
+      `;
+      doc.head.append(scrollbarStyle);
       doc.addEventListener('keydown', event => {
         if (event.key === 'Escape' && !doc.querySelector('dialog[open]')) {
           event.preventDefault();
