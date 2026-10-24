@@ -1,12 +1,23 @@
 <!doctype html>
 <html lang="ko">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#FFFFFF"><meta name="description" content="JOMUL의 모든 사진 프로젝트 목록"><title>View all</title><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48 64x64"><link rel="icon" type="image/png" sizes="192x192" href="/favicon.png"></head>
-<body>
-<header class="header"><a class="wordmark" href="/" aria-label="JOMUL 홈"><span class="brand-stone" aria-hidden="true">J</span><span class="brand-stone is-dark" aria-hidden="true">O</span><span class="brand-stone" aria-hidden="true">M</span><span class="brand-stone is-dark" aria-hidden="true">U</span><span class="brand-stone" aria-hidden="true">L</span></a></header>
-<main class="catalogue">
-  <div class="catalogue-intro"><a class="catalogue-return" href="/">← Back to orbit</a><p id="project-count"></p></div>
-  <div id="project-list" class="catalogue-grid" aria-label="전체 프로젝트 목록"></div>
-</main>
-<script type="module" src="/src/list.js"></script>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FFFFFF">
+  <meta name="description" content="JOMUL의 전체 프로젝트 목록">
+  <title>JOMUL — View all</title>
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body class="v2-page catalogue-page">
+  <a class="v2-skip" href="#project-list">작품 목록으로 건너뛰기</a>
+  <header class="v2-header">
+    <a href="/main-v2.html" aria-label="JOMUL 홈">JOMUL</a>
+    <nav aria-label="작품 보기"><a href="/main-v2.html">Works</a><span aria-current="page">View all</span></nav>
+  </header>
+  <main class="catalogue">
+    <h1 class="v2-sr-only">All projects</h1>
+    <div id="project-list" class="catalogue-grid" aria-label="전체 프로젝트 목록" tabindex="-1"></div>
+  </main>
+  <script type="module" src="/src/list.js"></script>
 </body>
 </html>

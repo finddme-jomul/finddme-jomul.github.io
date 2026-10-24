@@ -1,10 +1,11 @@
-import './style.css';
+import './works-shell.css';
 import './list.css';
 import { projects } from './projects/index.js';
+import { projectNames } from './project-display.js';
 
 const list = document.querySelector('#project-list');
-document.querySelector('#project-count').textContent = `${projects.length} projects`;
-for (const project of projects) {
+for (const source of projects) {
+  const project = { ...source, title: projectNames[source.number] || source.title };
   const link = document.createElement('a');
   link.className = 'catalogue-card';
   link.href = project.href;
@@ -15,7 +16,8 @@ for (const project of projects) {
   const photo = document.createElement('img');
   photo.src = project.cover;
   photo.alt = project.coverAlt || project.assets?.photo?.[0]?.alt || `${project.title} 대표 이미지`;
-  photo.loading = 'lazy';
+  photo.loading = list.children.length < 4 ? 'eager' : 'lazy';
+  photo.decoding = 'async';
   frame.append(photo);
 
   const number = document.createElement('span');
