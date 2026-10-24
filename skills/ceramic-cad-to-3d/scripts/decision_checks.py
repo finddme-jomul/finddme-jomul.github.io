@@ -10,6 +10,7 @@ from ceramic_paths import SKILL, ROOT
 from browser_environment import node_command
 
 SUITES = {
+    'render-loop': node_command(SKILL/'tests/test-render-loop.mjs'),
     'drop-pose': node_command(SKILL/'tests/test-drop-pose.mjs'),
     'oriented-framing': node_command(SKILL/'tests/check-oriented-framing.mjs'),
     'cad-scroll': node_command(SKILL/'tests/check-cad-scroll.mjs'),

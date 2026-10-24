@@ -1,3 +1,4 @@
+import {createRenderLoop} from './render-loop.mjs';
 import {sceneDefaults} from './scene-defaults.mjs';
 const defaults=sceneDefaults.rotational;
 import {wireColor} from './wire-color.mjs';
@@ -49,6 +50,7 @@ const wideVessel = config.dimensionsMm.maxDiameter > config.dimensionsMm.height;
 const glazeExtent = wideVessel ? Math.hypot(modelWidth, modelHeight) / 2 * 1.01 : modelHeight / 2;
 const targetHeight = config.dimensionsMm.height / 1000;
 if (Math.abs(modelHeight - targetHeight) > .003) throw new Error('CAD and GLB height disagree');
+let requestRender = () => {};
 function resize() {
   const w = host.clientWidth, h = host.clientHeight;
   renderer.setSize(w, h);
@@ -64,6 +66,7 @@ function resize() {
   camera.position.set(0, 0, distance);
   camera.lookAt(0, 0, 0);
   camera.updateProjectionMatrix();
+  requestRender();
 }
 new ResizeObserver(resize).observe(host);
 resize();
@@ -125,8 +128,10 @@ const cadImage = document.querySelector('#cad-sheet-image');
 const cadMain = document.querySelector('#cad-main');
 const mainMotion = {t: 0};
 await cadImage.decode();
+let cadBounds;
+function invalidateCadBounds() { cadBounds = null; requestRender(); }
 function placeCadMain() {
-  const image = cadImage.getBoundingClientRect();
+  const image = cadBounds ||= cadImage.getBoundingClientRect();
   const box = config.sheetFrontBox;
   const width = image.width * box.width, height = image.height * box.height;
   const left = image.left + image.width * box.cx - width / 2;
@@ -141,7 +146,8 @@ function placeCadMain() {
   cadMain.style.width = `${width}px`; cadMain.style.height = `${height}px`;
   cadMain.style.transform = `translate(${dx * mainMotion.t}px,${dy * mainMotion.t}px) scale(${1 + (scale - 1) * mainMotion.t})`;
 }
-addEventListener('resize', placeCadMain);
+addEventListener('resize', invalidateCadBounds);
+cadImage.addEventListener('load', invalidateCadBounds);
 placeCadMain();
 const timeline = createTimeline({autoplay: false, defaults: {ease: 'linear'}})
   .add(cadMain, {opacity: [0, 1], duration: 70}, 100)
@@ -163,34 +169,36 @@ if (hasPhotos) timeline
 function syncTimeline() {
   timeline.seek(pacedTime());
 }
-addEventListener('scroll', syncTimeline, {passive: true});
-addEventListener('resize', syncTimeline);
-syncTimeline();
+
 let galleryActive = false;
 function frame() {
+  syncTimeline();
+  updateSceneState();
   clayMaterial.depthWrite = clayMaterial.opacity > .98;
   glaze.visible = clip.constant > -glazeExtent + .0005;
   placeCadMain();
   if (!galleryActive) renderer.render(scene, camera);
-  requestAnimationFrame(frame);
 }
-frame();
+const renderLoop = createRenderLoop(frame);
+requestRender = renderLoop.request;
+addEventListener('scroll', requestRender, {passive: true});
+addEventListener('resize', requestRender);
 function updateSceneState() {
   const q = pacedTime();
   host.setAttribute('aria-hidden', hasPhotos && q >= 1080 ? 'true' : 'false');
   window.__transformProgress = Math.max(0, Math.min(1, scrollVh() / totalScrollVh));
 }
-addEventListener('scroll', updateSceneState, {passive: true});
-updateSceneState();
-window.__moonJar = {config, camera, root, orbitRig, tiltRig, wireMaterial, clayMaterial, clip, geometry, timeline, glbLoaded: true};
+window.__moonJar = {config, camera, root, orbitRig, tiltRig, wireMaterial, clayMaterial, clip, geometry, timeline, renderStats: renderLoop.stats, glbLoaded: true};
 
 if (hasPhotos) installGallery({
   gallery:document.querySelector('#gallery'),
   story,
   isActive:()=>scrollVh()>=totalScrollVh-.2,
-  onActiveChange:active=>{galleryActive=active},
+  onActiveChange:active=>{galleryActive=active;requestRender()},
   profile:galleryProfile,
   source:'moon-jar-photo-pacing-slow'
 });
+await renderer.compileAsync(scene, camera);
+frame();
 
 }

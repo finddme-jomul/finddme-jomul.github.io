@@ -1,5 +1,6 @@
 """Restore the selected whole-page inputs exactly; do not claim new-CAD generation."""
 import argparse
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -47,6 +48,8 @@ def restore(output, cad_project=None, review=None):
             elif prepared.get('mode') in ('handled','feature'):
                 from handled_page import install
             cad_inputs = install(prepared, stage)
+        from page_runtime import install as install_page_runtime
+        install_page_runtime(stage)
         install_wire_color(stage, wire_motion)
         report_dir=output.with_name(output.name+'.verification')
         from browser_environment import run_browser
@@ -63,6 +66,9 @@ def restore(output, cad_project=None, review=None):
         for name,expected in manifest['files'].items():
             if name == 'viewer.js': expected = sha(ASSETS/'page-viewer.js')
             elif review is not None: continue
+            elif name == 'index.html':
+                from page_runtime import document_with_runtime
+                expected = hashlib.sha256(document_with_runtime((source/name).read_text()).encode()).hexdigest()
             if sha(stage/name)!=expected: raise ValueError('Restored output drift: '+name)
         (stage/'restoration.json').write_text(json.dumps({'status':'new-input-review-candidate' if review is not None else ('selected-cad-regeneration-verified' if prepared is not None else 'selected-input-replay-verified'),'newCadGeneration':prepared is not None,'reference':manifest,'browserReportSha256':sha(stage/'browser-parity/report.json')},ensure_ascii=False,indent=2)+'\n')
         if prepared is not None:
