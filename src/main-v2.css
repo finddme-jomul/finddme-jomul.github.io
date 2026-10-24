@@ -15,13 +15,11 @@ html { scrollbar-color: auto; }
 html::-webkit-scrollbar-track { background: Canvas; }
 html::-webkit-scrollbar-thumb { background: ButtonText; border-color: Canvas; }
 }
-.v2-page main{padding-top:32svh;padding-bottom:50svh;min-height:100svh}
+.v2-page main{padding-top:var(--v2-start-offset,calc(50svh - 80.25px));padding-bottom:50svh;min-height:100svh}
 .v2-gallery{display:flex;flex-direction:column;align-items:center;width:100%;padding:0 24px}
 .v2-work{width:100%;display:flex;flex-direction:column;align-items:center}
 .v2-frame{width:160.5px;flex:none;transition:width 600ms ease;position:relative;margin:0;overflow-anchor:none}
-.v2-frame.is-open{width:min(84vw,1100px,var(--v2-expanded-width,1100px))}
 .v2-image-button{display:block;width:100%;padding:0;border:0;background:#f3f3ef;cursor:pointer;position:relative;line-height:0}
-.v2-frame.is-open .v2-image-button{cursor:pointer}
 .v2-image-button img{display:block;width:100%;height:auto;aspect-ratio:var(--v2-ratio,1);object-fit:contain}
 .v2-image-button:focus-visible{z-index:2}
 .v2-frame.is-missing .v2-image-button::after{content:'이미지 없음';position:absolute;inset:0;display:grid;place-items:center;font-size:10px;line-height:1.4;color:var(--v2-muted)}
@@ -35,11 +33,10 @@ html::-webkit-scrollbar-thumb { background: ButtonText; border-color: Canvas; }
 .v2-project-title.is-current{color:#111!important}
 .v2-project-title.is-current .v2-title{font-weight:700}
 .v2-project-title:hover,.v2-project-title:focus-visible{color:#111!important;text-decoration:none!important}
-@media(max-width:700px){.v2-header{padding:18px 16px}.v2-header nav{gap:16px}.v2-header>a{font-size:11px}.v2-page main{padding-top:30svh}.v2-gallery{padding:0 12px}.v2-frame{width:183px;transition-duration:400ms}.v2-frame.is-open{width:min(100%,var(--v2-expanded-width,100%))}.v2-title-track{gap:14px}.v2-project-title{min-width:150px}.v2-project-title .v2-title{font-size:12px}}
+@media(max-width:700px){.v2-header{padding:18px 16px}.v2-header nav{gap:16px}.v2-header>a{font-size:11px}.v2-page main{padding-top:var(--v2-start-offset,calc(50svh - 91.5px))}.v2-gallery{padding:0 12px}.v2-frame{width:183px;transition-duration:400ms}.v2-title-track{gap:14px}.v2-project-title{min-width:150px}.v2-project-title .v2-title{font-size:12px}}
 @media(prefers-reduced-motion:reduce){.v2-frame,.v2-title-track{transition:none}}
 
 .v2-supporting img{opacity:.42;filter:blur(.35px);transition:opacity 400ms ease,filter 400ms ease}
-.v2-supporting.is-open img{opacity:1;filter:none}
 @media(prefers-reduced-motion:reduce){.v2-supporting img{transition:none}}
 /* Project pages run unchanged in an independent, same-origin viewport. */
 .project-overlay{position:fixed;inset:56px 0 0;width:84vw;max-width:1600px;height:calc(100svh - 56px);height:calc(100dvh - 56px);max-height:none;margin:0 auto;padding:0;border:0;background:#fff;color:var(--v2-ink);overflow:hidden;box-shadow:none}
