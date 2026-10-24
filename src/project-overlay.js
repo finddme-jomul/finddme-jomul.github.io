@@ -3,7 +3,7 @@ export function createProjectOverlay() {
   const dialog = document.createElement('dialog');
   dialog.className = 'project-overlay';
   dialog.setAttribute('aria-label', '프로젝트 상세');
-  dialog.innerHTML = `<div class="project-overlay-bar"><span class="project-overlay-title"></span><button type="button" class="project-overlay-close" aria-label="프로젝트 상세 닫기"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></button></div><div class="project-overlay-body"><div class="project-overlay-loading" role="status" aria-live="polite"></div><iframe class="project-overlay-frame" title="프로젝트 상세" src="about:blank"></iframe></div>`;
+  dialog.innerHTML = `<div class="project-overlay-bar"><span class="project-overlay-title"></span><button type="button" class="project-overlay-close" aria-label="프로젝트 상세 닫기"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6L18 18M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></button></div><div class="project-overlay-body"><div class="project-overlay-loading" role="status" aria-live="polite"></div><iframe class="project-overlay-frame" title="프로젝트 상세" src="about:blank"></iframe></div>`;
   document.body.append(dialog);
   const iframe = dialog.querySelector('iframe');
   const closeButton = dialog.querySelector('button');
