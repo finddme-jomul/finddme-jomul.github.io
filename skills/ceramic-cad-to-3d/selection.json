@@ -813,16 +813,19 @@
     {
       "id": "cad-production-sections",
       "state": "implemented",
-      "rule": "Grouped feature CAD displays source-instance totals and reviewed clay/glaze quantities. Optional nonoverlapping normalized sections support asymmetric layouts while retaining six views, dimension notes and source-mapped CAD front boxes. Chess presentation remains a visual candidate until reviewed. Optional retain-fronts handoff keeps earlier source representatives through the last-page transition; explicit source IDs select participants. Axisymmetric CAD exterior meridians supplement missing HLR outlines without changing geometry.",
+      "rule": "Grouped feature CAD displays source-instance totals and reviewed clay/glaze quantities. Optional nonoverlapping normalized sections support asymmetric layouts while retaining six views, dimension notes and source-mapped CAD front boxes. Chess presentation remains a visual candidate until reviewed. Optional retain-fronts handoff keeps earlier source representatives through the last-page transition; explicit source IDs select participants. Axisymmetric CAD exterior meridians supplement missing HLR outlines without changing geometry. Optional collectionStartFraction and handoffExtraScrollVh spread retained-front travel and CAD-to-wire merge over more physical scroll without altering later motion lengths.",
       "consumer": [
         "scripts/cad_pages.py",
-        "scripts/multiple_page.py"
+        "scripts/multiple_page.py",
+        "assets/scene/cad-handoff.mjs",
+        "assets/scene/cad-scroll.mjs"
       ],
       "verification": {
         "suites": [
           "cad-pages",
           "cad-handoff",
-          "feature-projection"
+          "feature-projection",
+          "cad-scroll"
         ],
         "scope": "Rectangle validation, derived glaze quantities, retained six views and updated alias front boxes; browser review checks current chess sheets."
       }

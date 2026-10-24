@@ -12,6 +12,9 @@ from selected_cad import front_svg, verify_inputs
 def validate(review, ids):
     from page import validate as validate_scene
     validate_scene(review, ids)
+    timing=review['motion']['timing']
+    if review.get('cadPresentation',{}).get('handoffExtraScrollVh',0) and timing['frontFadeStart']+timing['frontFadeDuration']<=timing['frontMoveStart']:
+        raise ValueError('Extended CAD handoff requires a positive transition interval')
     if len(ids) < (1 if review.get('renderer') == 'layered-vessels' or review.get('renderer')=='feature-solids' and all('coatings' in p for p in review['parts']) else 2) or len(set(ids)) != len(ids):
         raise ValueError('Multiple review requires at least two distinct CAD parts')
     def finite(value):

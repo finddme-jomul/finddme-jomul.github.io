@@ -31,6 +31,12 @@ class MultipleReview(unittest.TestCase):
         bad=copy.deepcopy(plan);bad['start']=.6
         with self.assertRaises(ValueError):assembly(bad,[{'id':'a','motion':{'settledScale':1}}],timing)
 
+    def test_extended_handoff_requires_forward_interval(self):
+        self.review['cadPresentation']={'handoffExtraScrollVh':240}
+        self.review['motion']['timing']['frontMoveStart']=.8
+        with self.assertRaisesRegex(ValueError,'positive transition interval'):
+            validate(self.review,self.ids)
+
     def test_lighting_limits(self):
         for value in [{'exposure':.9,'pointLightScale':.08},{'softPartIds':['rice-bowl'],'softPointLightScale':.08},{}]:
             self.review['motion']['lighting']=value
