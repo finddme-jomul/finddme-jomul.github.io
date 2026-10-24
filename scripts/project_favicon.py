@@ -10,7 +10,7 @@ class IconLinks(HTMLParser):
         self.feed(html)
 
     def handle_starttag(self, tag, attrs):
-        if tag == 'link' and 'icon' in dict(attrs).get('rel', '').lower().split():
+        if tag == 'link' and bool({'icon', 'apple-touch-icon'} & set(dict(attrs).get('rel', '').lower().split())):
             self.tags.append(self.get_starttag_text())
 
 

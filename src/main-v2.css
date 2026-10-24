@@ -43,6 +43,7 @@ html::-webkit-scrollbar-thumb { background: ButtonText; border-color: Canvas; }
 .project-overlay::backdrop{background:rgb(255 255 255 / .2)}
 .project-overlay-bar{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 10px 0 18px;background:#fff}
 .project-overlay-title{font-size:11px;text-transform:uppercase}
+.project-overlay-title:focus{outline:none}
 /* Draw only our icon, without platform-native button chrome on iOS. */
 .project-overlay-close{-webkit-appearance:none;appearance:none;display:grid;place-items:center;flex:none;width:44px;height:44px;margin:0;padding:0;background:transparent;border:0;border-radius:0;box-shadow:none;line-height:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .project-overlay-close svg{display:block;flex:none;width:20px;height:20px;pointer-events:none}
