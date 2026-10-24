@@ -36,7 +36,7 @@
     "axis-motion.mjs": "71511810da9eb151894f8b8c5cf84d1ca1c51fe412ecba37bfc04943dc0dce67",
     "gallery-config.js": "1cc5413cac75a2ae765204a1448c88d2d5d61d560ac6f77058b9e9d06d714445",
     "gallery.css": "52993d3e19ec1e049e3f728c284cc165202c3b15db59653645f1015dcefbbffa",
-    "gallery.js": "400b68e4e498273ecda7d83a2ca16119473d652076bf90a1f2ceaac4d2b1feee",
+    "gallery.js": "6443223cedd7016e072ee9893e67a0fc12e8a23c2a0a31a13b341890c28c979c",
     "handled-scene.mjs": "d599532bf0d7a7f5ecdfdc5244af6cc089baa27c7d99443090c8a28b63d72087",
     "index.html": "e938350b4012c867d05eb6b90e75bdfb9982648c61cf73fa393f87895d041fc6",
     "multiple-scene.mjs": "79cad52d79d85b7a2b0ac8fcdfaa8b244296f5c97af7b0dd24dc5a876c5f20fa",
@@ -51,7 +51,7 @@
     "scene/layered-vessels.mjs": "b1003df3d38a9d42c4ff938e1ea087176cf4abbf2e71063a16a4498396b3a19f",
     "scene/oriented-framing.mjs": "cf429bd19371e21ce95ff4f0d1eccf66a135d5888b48e210764f85e4717f6fbd",
     "scene-defaults.mjs": "64f56619efe594349a4d71a3b44f88367af8132e05bf79713a662feef8d0e609",
-    "viewer.js": "16c763b14bf17ad567bc2452ce77804714da97e434ff1e3c9ea4ff123437f78d",
+    "viewer.js": "8b287fa0edd3b282c89b1bc1b5322b9dbdfb11a208dc18112cee4d7ff1254e3d",
     "wire-color.mjs": "05d0dc90c698e27a3156e6ed223cef1056133ee13624bc085993897bd95a5324"
   },
   "hostPacing": {
@@ -87,11 +87,15 @@
     "sourceHashes": {
       "assets/multiple-scene.mjs": "f162f4df65fc0870b14d677a32fce0159fa2c049e1659d6321ab8ecef587a792",
       "assets/scene/projected-bounds.mjs": "b6232fd2c64f4e1de3c22a79105e02ff0475b7cc7e697f5ad2c8771ad821ac09",
-      "assets/gallery/gallery.js": "400b68e4e498273ecda7d83a2ca16119473d652076bf90a1f2ceaac4d2b1feee",
+      "assets/gallery/gallery.js": "6443223cedd7016e072ee9893e67a0fc12e8a23c2a0a31a13b341890c28c979c",
       "assets/scene/coating-colors.mjs": "490591206b72d487611dfda53d60f5895978b2c282158c527c8969f325a1a691"
     },
     "pixelComparisons": 22,
     "preserved": "models, CAD and photo files; gallery markup/CSS, timing, materials and motion inputs unchanged",
     "coatingPixelComparisons": 22
+  },
+  "galleryEndpointFix": {
+    "rule": "Activate final gallery at physical scrolling element end as well as timeline end",
+    "scope": "Simulated 8px scroll-range mismatch and normal-gallery pixel parity; Samsung real-device confirmation pending"
   }
 }
