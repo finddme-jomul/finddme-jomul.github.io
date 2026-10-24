@@ -1,3 +1,4 @@
+import {createRenderLoop} from './render-loop.mjs';
 import {sceneDefaults} from './scene-defaults.mjs';
 import {wireColor} from './wire-color.mjs';
 import * as THREE from 'three';
@@ -75,7 +76,11 @@ pivot.position.y=centre.y;
 content.position.y=-centre.y;
 const extent = Math.max((b.maxX-b.minX)/1000,(b.maxZ-b.minZ)/1000);
 let baseHalf=0;
+let requestRender=()=>{};
+let sourceCache;
 function resize() {
+  sourceCache=null;
+  requestRender();
   renderer.setSize(innerWidth,innerHeight);
   const aspect=innerWidth/innerHeight;
   const radial=Math.max(Math.abs(b.minX),Math.abs(b.maxX))/1000;
@@ -119,8 +124,9 @@ function targetBounds() {
           width:(z.x-a.x)*innerWidth/2,height:(a.y-z.y)*innerHeight/2};
 }
 function sourceBounds() {
+  if(sourceCache)return sourceCache;
   const r=image.getBoundingClientRect(),f=settings.layouts[layout].frontBox;
-  return {x:r.x+r.width*(f.cx-f.width/2),y:r.y+r.height*(f.cy-f.height/2),
+  return sourceCache={x:r.x+r.width*(f.cx-f.width/2),y:r.y+r.height*(f.cy-f.height/2),
           width:r.width*f.width,height:r.height*f.height};
 }
 const clamp=t=>Math.min(1,Math.max(0,t));
@@ -184,8 +190,12 @@ function render() {
           axisPrecessionDegrees:motion.axisPrecessionDegrees*turn,
           axisTiltDegrees:pose.tiltDegrees,lookX,cameraElevationDegrees,
           frontOpacity:Number(front.style.opacity),lineOpacity:line.opacity,clayOpacity:clay.opacity};
-  requestAnimationFrame(render);
 }
+const renderLoop=createRenderLoop(render);
+requestRender=renderLoop.request;
+addEventListener('scroll',requestRender,{passive:true});
+image.addEventListener('load',()=>{sourceCache=null;requestRender()});
+await renderer.compileAsync(scene,camera);
 render();
-window.__mugMotion={renderer,scene,settings,motion,get state(){return latest},meshes,model,camera,wire,content,orbitRig,tiltRig,pivot,glazeMeshes,clip,clay,glaze,pageConfig};
+window.__mugMotion={renderer,scene,settings,motion,renderStats:renderLoop.stats,get state(){return latest},meshes,model,camera,wire,content,orbitRig,tiltRig,pivot,glazeMeshes,clip,clay,glaze,pageConfig};
 }

@@ -826,6 +826,26 @@
         ],
         "scope": "Rectangle validation, derived glaze quantities, retained six views and updated alias front boxes; browser review checks current chess sheets."
       }
+    },
+    {
+      "id": "viewer-readiness-and-demand-rendering",
+      "state": "implemented-within-generated-page-scope",
+      "rule": "Generated full pages and motion previews lock initial scroll until scene initialization and first render settle; expose versioned loading/ready/error status. Render single and handled scenes only on scroll, resize and image/gallery invalidation, preserving approved motion and materials. Historical outputs are not rewritten.",
+      "consumer": [
+        "scripts/page_runtime.py",
+        "assets/viewer-lifecycle.js",
+        "assets/render-loop.mjs",
+        "assets/page-viewer.js",
+        "assets/motion/handled-scene.mjs",
+        "scripts/selected_page.py",
+        "scripts/motion.py"
+      ],
+      "verification": {
+        "suites": [
+          "render-loop"
+        ],
+        "scope": "Coalesced scheduling and no idle WebGL scene frames. Separately checked generated moon/handled/two-vessel pages for loading/ready/error in desktop/mobile direct/iframe use and scene gates. Gallery pointer RAF remains separate; not a hardware FPS guarantee."
+      }
     }
   ],
   "sourceRepositoryCommit": "c84daff",

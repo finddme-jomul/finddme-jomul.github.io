@@ -60,6 +60,8 @@ def build(project: Path, output: Path, data: dict) -> None:
         shutil.copy2(MOTION_VIEWER/name,output/name)
     html=output/'index.html'
     html.write_text(html.read_text().replace('머그',title))
+    from page_runtime import install as install_page_runtime
+    install_page_runtime(output)
     shutil.copy2(AXIS_MODULE,output/'axis-motion.mjs')
     from wire_color import install as install_wire_color
     install_wire_color(output, data)
