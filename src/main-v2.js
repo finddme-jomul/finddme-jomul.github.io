@@ -1,5 +1,12 @@
 import './main-v2.css';
 import { createProjectOverlay } from './project-overlay.js';
+// A fresh visit/reload starts with the first cover under the fixed title.
+// Overlay closing still restores its saved position; bfcache history stays intact.
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.scrollTo({ top: 0, behavior: 'instant' });
+window.addEventListener('pageshow', event => {
+  if (!event.persisted) window.scrollTo({ top: 0, behavior: 'instant' });
+});
 const projectOverlay = createProjectOverlay();
 import { projects } from './projects/index.js';
 import { projectNames } from './project-display.js';
@@ -7,15 +14,21 @@ import galleryPhotos from 'virtual:main-gallery';
 
 const gallery = document.querySelector('#v2-gallery');
 const titleTrack = document.querySelector('#v2-title-track');
-const collapse = document.querySelector('.v2-collapse');
 const entries = [];
-const frames = [];
 let activeIndex = -1;
 let frame = 0;
 
 function updateCurrent() {
   frame = 0;
   const center = innerHeight / 2;
+  // Move the image column, not the fixed title ribbon. Use the actual cover
+  // height so first-load alignment also works on mobile and for non-square art.
+  const firstCover = entries[0]?.button.getBoundingClientRect();
+  if (firstCover) {
+    const offset = `${Math.max(0, center - firstCover.height / 2)}px`;
+    const main = gallery.closest('main');
+    if (main.style.getPropertyValue('--v2-start-offset') !== offset) main.style.setProperty('--v2-start-offset', offset);
+  }
   let nearest = 0;
   let distance = Infinity;
   entries.forEach(({ element }, index) => {
@@ -50,14 +63,6 @@ function centerImage(element) {
     behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
   });
 }
-function setOpen(entry, open) {
-  entry.element.classList.toggle('is-open', open);
-  entry.button.setAttribute('aria-expanded', String(open));
-  entry.button.setAttribute('aria-label', `${entry.project.title} 이미지 ${open ? '접기' : '펼치기'}`);
-  collapse.disabled = !frames.some(({ element }) => element.classList.contains('is-open'));
-  scheduleCurrent();
-}
-
 for (const source of projects) {
   const projectIndex = entries.length;
   const project = { ...source, title: projectNames[source.number] || source.title };
@@ -73,9 +78,8 @@ for (const source of projects) {
     const button = document.createElement('button');
     button.className = 'v2-image-button';
     button.type = 'button';
-    if (index) button.setAttribute('aria-expanded', 'false');
-    else button.setAttribute('aria-haspopup', 'dialog');
-    button.setAttribute('aria-label', index ? `${project.title} 이미지 펼치기` : `${project.title} 상세 보기`);
+    button.setAttribute('aria-haspopup', 'dialog');
+    button.setAttribute('aria-label', `${project.title} 상세 보기`);
     const img = document.createElement('img');
     img.alt = photo.alt;
     img.decoding = 'async';
@@ -85,14 +89,7 @@ for (const source of projects) {
       frameElement.style.setProperty('--v2-ratio', img.naturalWidth / img.naturalHeight);
       img.width = img.naturalWidth;
       img.height = img.naturalHeight;
-      fitExpandedImage();
       scheduleCurrent();
-    };
-    const fitExpandedImage = () => {
-      if (!img.naturalWidth) return;
-      const ratio = img.naturalWidth / img.naturalHeight;
-      // Portrait photos remain fully visible; never stretch them into book spreads.
-      frameElement.style.setProperty('--v2-expanded-width', `${Math.min(1100, innerHeight * .82 * ratio, img.naturalWidth)}px`);
     };
     img.addEventListener('load', sizeImage);
     img.addEventListener('error', () => frameElement.classList.add('is-missing'));
@@ -101,16 +98,14 @@ for (const source of projects) {
     button.append(img);
     frameElement.append(button);
     element.append(frameElement);
-    const frameEntry = { project, element: frameElement, button, fitExpandedImage };
-    frames.push(frameEntry);
+    const frameEntry = { project, element: frameElement, button };
     projectFrames.push(frameEntry);
     button.addEventListener('click', () => {
       if (activeIndex !== projectIndex) {
         centerImage(frameElement);
         return;
       }
-      if (index === 0) projectOverlay.open(project, button);
-      else setOpen(frameEntry, !frameElement.classList.contains('is-open'));
+      projectOverlay.open(project, button);
     });
     button.addEventListener('focus', () => {
       if (!projectOverlay.isRestoring && button.matches(':focus-visible')) button.scrollIntoView({ block: 'center', behavior: 'instant' });
@@ -149,22 +144,8 @@ for (const source of projects) {
   entries.push(entry);
 
 }
-function closeAll() {
-  // The fixed collapse control disappears when disabled; preserve keyboard focus.
-  const focused = document.activeElement;
-  const target = entries.find(e => e.element.contains(focused)) || entries[Math.max(0, activeIndex)];
-  frames.filter(entry => entry.element.classList.contains('v2-supporting')).forEach(entry => setOpen(entry, false));
-  if (focused === collapse) target?.button.focus({ preventScroll: true });
-}
-collapse.addEventListener('click', closeAll);
-document.addEventListener('keydown', event => {
-  if (event.key === 'Escape' && !projectOverlay.isOpen && !event.defaultPrevented) closeAll();
-});
 window.addEventListener('scroll', scheduleCurrent, { passive: true });
-window.addEventListener('resize', () => {
-  frames.forEach(entry => entry.fitExpandedImage());
-  scheduleCurrent();
-});
+window.addEventListener('resize', scheduleCurrent);
 const observer = new ResizeObserver(scheduleCurrent);
 entries.forEach(({ element }) => observer.observe(element));
 updateCurrent();
