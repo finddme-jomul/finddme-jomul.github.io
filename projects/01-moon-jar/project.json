@@ -1,0 +1,24 @@
+{
+  "number": "01",
+  "id": "white-vessels",
+  "title": "Moon Jar",
+  "name": "Photo 02",
+  "description": "흰색 둥근 기물들이 모인 사진. 작품 정보와 제작 기록은 아직 입력되지 않았습니다.",
+  "status": "unconfirmed",
+  "tone": "#F7F7F7",
+  "cover": "assets/cover.webp",
+  "assets": {
+    "photo": [
+      {
+        "src": "assets/cover.webp",
+        "alt": "흰색 둥근 기물들이 모인 사진"
+      }
+    ],
+    "sketch": [],
+    "cad": [],
+    "render": [],
+    "actual": []
+  },
+  "slug": "moon-jar",
+  "titleKo": "달항아리"
+}

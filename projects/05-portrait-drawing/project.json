@@ -1,0 +1,24 @@
+{
+  "number": "05",
+  "id": "portrait-drawing",
+  "title": "Portrait Drawing",
+  "name": "Photo 01",
+  "description": "연필로 그린 인물의 사진. 작품 정보와 제작 기록은 아직 입력되지 않았습니다.",
+  "status": "unconfirmed",
+  "tone": "#F7F7F7",
+  "cover": "assets/cover.webp",
+  "assets": {
+    "photo": [
+      {
+        "src": "assets/cover.webp",
+        "alt": "연필로 그린 인물의 사진"
+      }
+    ],
+    "sketch": [],
+    "cad": [],
+    "render": [],
+    "actual": []
+  },
+  "slug": "portrait-drawing",
+  "titleKo": "인물 드로잉"
+}

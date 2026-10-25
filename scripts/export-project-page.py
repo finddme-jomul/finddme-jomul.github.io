@@ -16,11 +16,15 @@ p = argparse.ArgumentParser()
 p.add_argument('source', type=Path)
 p.add_argument('slug')
 p.add_argument('--dependencies', type=Path, required=True)
-p.add_argument('--output', type=Path, help='Unused local comparison directory inside the repository; defaults to public/projects/slug')
+p.add_argument('--output', type=Path, help='Unused local comparison directory inside the repository; defaults to projects/NN-slug/page')
 a = p.parse_args()
 root = Path(__file__).resolve().parents[1]
 source = a.source.resolve()
-target = a.output.resolve() if a.output else root / 'public' / 'projects' / a.slug
+matches = [file.parent for file in (root / 'projects').glob('*/project.json')
+           if json.loads(file.read_text()).get('slug') == a.slug]
+if not a.output and len(matches) != 1:
+    p.error('Register a unique projects/NN-slug/project.json before exporting')
+target = a.output.resolve() if a.output else matches[0] / 'page'
 if not target.is_relative_to(root):
     p.error('Comparison output must be inside the repository')
 if not a.slug.replace('-', '').isalnum():

@@ -1,0 +1,24 @@
+{
+  "number": "06",
+  "id": "workshop-table",
+  "title": "Objects on the Workbench",
+  "name": "Photo 04",
+  "description": "여러 기물과 도구가 놓인 작업대 사진. 작품 정보와 제작 기록은 아직 입력되지 않았습니다.",
+  "status": "unconfirmed",
+  "tone": "#F7F7F7",
+  "cover": "assets/cover.webp",
+  "assets": {
+    "photo": [
+      {
+        "src": "assets/cover.webp",
+        "alt": "여러 기물과 도구가 놓인 작업대 사진"
+      }
+    ],
+    "sketch": [],
+    "cad": [],
+    "render": [],
+    "actual": []
+  },
+  "slug": "workshop-table",
+  "titleKo": "작업대의 물건들"
+}

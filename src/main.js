@@ -1,5 +1,5 @@
 import './style.css';
-import { projects } from './projects/index.js';
+import { projects } from 'virtual:projects';
 import { bindOrbitInput } from './orbit-input.js';
 import { mountAsciiCenter } from './ascii-center.js';
 import { advanceCoast } from './orbit-motion.js';

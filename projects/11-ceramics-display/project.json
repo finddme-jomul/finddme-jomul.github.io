@@ -1,0 +1,24 @@
+{
+  "number": "11",
+  "id": "ceramics-display",
+  "title": "Vessels on Display",
+  "name": "Photo 11",
+  "description": "여러 기물이 놓인 전시 장면. 작품 정보와 제작 기록은 아직 입력되지 않았습니다.",
+  "status": "unconfirmed",
+  "tone": "#F7F7F7",
+  "cover": "assets/cover.webp",
+  "assets": {
+    "photo": [
+      {
+        "src": "assets/cover.webp",
+        "alt": "여러 기물이 놓인 전시 장면"
+      }
+    ],
+    "sketch": [],
+    "cad": [],
+    "render": [],
+    "actual": []
+  },
+  "slug": "ceramics-display",
+  "titleKo": "전시된 기물들"
+}

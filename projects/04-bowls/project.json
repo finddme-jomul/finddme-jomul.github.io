@@ -1,0 +1,24 @@
+{
+  "number": "04",
+  "id": "plant-pot",
+  "title": "Bowls",
+  "name": "Photo 08",
+  "description": "작은 식물이 심어진 화분 사진. 작품 정보와 제작 기록은 아직 입력되지 않았습니다.",
+  "status": "unconfirmed",
+  "tone": "#F7F7F7",
+  "cover": "assets/cover.webp",
+  "assets": {
+    "photo": [
+      {
+        "src": "assets/cover.webp",
+        "alt": "작은 식물이 심어진 화분 사진"
+      }
+    ],
+    "sketch": [],
+    "cad": [],
+    "render": [],
+    "actual": []
+  },
+  "slug": "bowls",
+  "titleKo": "그릇"
+}

@@ -1,0 +1,25 @@
+{
+  "number": "02",
+  "id": "drawing-session",
+  "title": "Mug",
+  "name": "Photo 06",
+  "description": "연필을 쥐고 종이를 바라보는 장면. 작품 정보와 제작 기록은 아직 입력되지 않았습니다.",
+  "status": "unconfirmed",
+  "tone": "#F7F7F7",
+  "cover": "assets/cover.webp",
+  "assets": {
+    "photo": [
+      {
+        "src": "assets/source-photo.webp",
+        "alt": "연필을 쥐고 종이를 바라보는 장면"
+      }
+    ],
+    "sketch": [],
+    "cad": [],
+    "render": [],
+    "actual": []
+  },
+  "coverAlt": "나무 테이블 위 두 머그컵",
+  "slug": "mug",
+  "titleKo": "머그컵"
+}
