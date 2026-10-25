@@ -1,0 +1,24 @@
+{
+  "number": "03",
+  "id": "table-plates",
+  "title": "Three Plates",
+  "name": "Photo 03",
+  "description": "음식이 놓인 접시들의 사진. 작품 정보와 제작 기록은 아직 입력되지 않았습니다.",
+  "status": "unconfirmed",
+  "tone": "#F7F7F7",
+  "cover": "assets/cover.webp",
+  "assets": {
+    "photo": [
+      {
+        "src": "assets/cover.webp",
+        "alt": "음식이 놓인 접시들의 사진"
+      }
+    ],
+    "sketch": [],
+    "cad": [],
+    "render": [],
+    "actual": []
+  },
+  "slug": "plates",
+  "titleKo": "접시 세 개"
+}

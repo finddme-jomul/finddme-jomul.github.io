@@ -1,11 +1,11 @@
 import './works-shell.css';
 import './list.css';
-import { projects } from './projects/index.js';
-import { projectNames } from './project-display.js';
+import { projects } from 'virtual:projects';
+
 
 const list = document.querySelector('#project-list');
 for (const source of projects) {
-  const project = { ...source, title: projectNames[source.number] || source.title };
+  const project = source;
   const link = document.createElement('a');
   link.className = 'catalogue-card';
   link.href = project.href;

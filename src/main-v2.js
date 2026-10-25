@@ -8,8 +8,8 @@ window.addEventListener('pageshow', event => {
   if (!event.persisted) window.scrollTo({ top: 0, behavior: 'instant' });
 });
 const projectOverlay = createProjectOverlay();
-import { projects } from './projects/index.js';
-import { projectNames } from './project-display.js';
+import { projects } from 'virtual:projects';
+
 import galleryPhotos from 'virtual:main-gallery';
 
 const gallery = document.querySelector('#v2-gallery');
@@ -65,7 +65,7 @@ function centerImage(element) {
 }
 for (const source of projects) {
   const projectIndex = entries.length;
-  const project = { ...source, title: projectNames[source.number] || source.title };
+  const project = source;
   const element = document.createElement('article');
   element.className = 'v2-work';
   element.setAttribute('aria-label', project.title);

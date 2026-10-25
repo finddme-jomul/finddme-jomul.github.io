@@ -1,0 +1,24 @@
+{
+  "number": "10",
+  "id": "coffee-cup",
+  "title": "Coffee Cup",
+  "name": "Photo 10",
+  "description": "테이블 위 커피잔을 내려다본 사진. 작품 정보와 제작 기록은 아직 입력되지 않았습니다.",
+  "status": "unconfirmed",
+  "tone": "#F7F7F7",
+  "cover": "assets/cover.webp",
+  "assets": {
+    "photo": [
+      {
+        "src": "assets/cover.webp",
+        "alt": "테이블 위 커피잔을 내려다본 사진"
+      }
+    ],
+    "sketch": [],
+    "cad": [],
+    "render": [],
+    "actual": []
+  },
+  "slug": "coffee-cup",
+  "titleKo": "커피잔"
+}

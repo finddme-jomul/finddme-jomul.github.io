@@ -1,0 +1,25 @@
+{
+  "number": "00",
+  "id": "sudoku-pencil",
+  "title": "Chess",
+  "name": "Photo 09",
+  "description": "숫자 칸 위에 놓인 연필의 사진. 작품 정보와 제작 기록은 아직 입력되지 않았습니다.",
+  "status": "unconfirmed",
+  "tone": "#F7F7F7",
+  "cover": "assets/cover.webp",
+  "assets": {
+    "photo": [
+      {
+        "src": "assets/cover.webp",
+        "alt": "숫자 칸 위에 놓인 연필의 사진"
+      }
+    ],
+    "sketch": [],
+    "cad": [],
+    "render": [],
+    "actual": []
+  },
+  "coverAlt": "숫자 칸 위에 놓인 연필의 사진",
+  "slug": "chess",
+  "titleKo": "체스"
+}

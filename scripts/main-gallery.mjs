@@ -1,6 +1,3 @@
-import { readdirSync, readFileSync, existsSync } from 'node:fs';
-import { join } from 'node:path';
-
 // Read only the final photo section, never CAD, viewer overlays or lightbox copies.
 export function extractGallery(html, slug) {
   const photos = [];
@@ -14,25 +11,4 @@ export function extractGallery(html, slug) {
     }
   }
   return photos;
-}
-export function mainGalleryPlugin() {
-  let root;
-  const id = 'virtual:main-gallery';
-  return {
-    name: 'main-project-gallery',
-    configResolved(config) { root = join(config.root, 'public/projects'); },
-    resolveId(source) { if (source === id) return '\0' + id; },
-    load(source) {
-      if (source !== '\0' + id) return;
-      const data = {};
-      for (const entry of readdirSync(root, { withFileTypes: true })) {
-        if (!entry.isDirectory()) continue;
-        const file = join(root, entry.name, 'index.html');
-        if (!existsSync(file)) continue;
-        this.addWatchFile(file);
-        data[entry.name] = extractGallery(readFileSync(file, 'utf8'), entry.name);
-      }
-      return `export default ${JSON.stringify(data)}`;
-    },
-  };
 }

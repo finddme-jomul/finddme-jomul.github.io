@@ -1,0 +1,25 @@
+{
+  "number": "08",
+  "id": "flower-vase-drawing",
+  "title": "Vase Drawing",
+  "name": "Photo 12",
+  "description": "꽃과 얼굴이 그려진 꽃병 드로잉. 작품 정보와 제작 기록은 아직 입력되지 않았습니다.",
+  "status": "unconfirmed",
+  "tone": "#F7F7F7",
+  "cover": "assets/cover.webp",
+  "assets": {
+    "photo": [
+      {
+        "src": "assets/source-photo.webp",
+        "alt": "꽃과 얼굴이 그려진 꽃병 드로잉"
+      }
+    ],
+    "sketch": [],
+    "cad": [],
+    "render": [],
+    "actual": []
+  },
+  "coverAlt": "연필을 쥐고 종이를 바라보는 장면",
+  "slug": "flower-vase-drawing",
+  "titleKo": "꽃병 드로잉"
+}
