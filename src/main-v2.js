@@ -70,7 +70,8 @@ for (const source of projects) {
   element.className = 'v2-work';
   element.setAttribute('aria-label', project.title);
   const slug = project.href.split('/')[2];
-  const photos = [{ src: project.cover, alt: project.coverAlt || project.assets?.photo?.[0]?.alt || project.title }, ...(galleryPhotos[slug] || [])];
+  // Home previews show at most three supporting photos; detail galleries keep all.
+  const photos = [{ src: project.cover, alt: project.coverAlt || project.assets?.photo?.[0]?.alt || project.title }, ...(galleryPhotos[slug] || []).slice(0, 3)];
   const projectFrames = [];
   photos.forEach((photo, index) => {
     const frameElement = document.createElement('div');
