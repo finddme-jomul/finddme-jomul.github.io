@@ -1,0 +1,267 @@
+{
+  "schemaVersion": 1,
+  "units": "mm",
+  "upAxis": "Z",
+  "status": "reviewed-provisional",
+  "construction": "solid",
+  "modelIntent": "open-hollow",
+  "provenance": {
+    "source": "User chess sketch and answers01/02; finished dimensions, provisional visible proportions"
+  },
+  "assumptions": [
+    "Explicit cavity cut: construction solid denotes BRep assembly, not filled ceramic.",
+    "Wall and floor nominal3mm review target; loft inner surface approximates wall, not certified minimum thickness.",
+    "Body cavity starts above pedestal; pedestal adds its own4mm except pawn trimmed-foot floor3mm above recess.",
+    "Closed bishop/queen/king bodies use solid attached heads as provisional unseen interior; head wall is not assumed3mm.",
+    "Small decorative beads/seams not yet reproduced; silhouette and cavity prototype for review.",
+    "Outer body loft radii calibrated to confirmed maximum width; original foot/neck/head ratios are provisional."
+  ],
+  "features": [
+    {
+      "id": "pedestal",
+      "kind": "revolve",
+      "operation": "base",
+      "profileRzMm": [
+        [
+          0,
+          0
+        ],
+        [
+          8,
+          0
+        ],
+        [
+          9,
+          1
+        ],
+        [
+          9,
+          2
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          0,
+          3
+        ]
+      ]
+    },
+    {
+      "id": "body",
+      "kind": "loft",
+      "operation": "union",
+      "ruled": false,
+      "sections": [
+        {
+          "kind": "ellipse",
+          "plane": "XY",
+          "originMm": [
+            0,
+            0,
+            2.5
+          ],
+          "radiusUMm": 8.99717467089713,
+          "radiusVMm": 8.99717467089713
+        },
+        {
+          "kind": "ellipse",
+          "plane": "XY",
+          "originMm": [
+            0,
+            0,
+            6
+          ],
+          "radiusUMm": 15.994977192706006,
+          "radiusVMm": 15.994977192706006
+        },
+        {
+          "kind": "ellipse",
+          "plane": "XY",
+          "originMm": [
+            0,
+            0,
+            11
+          ],
+          "radiusUMm": 20.49356452815457,
+          "radiusVMm": 20.49356452815457
+        },
+        {
+          "kind": "ellipse",
+          "plane": "XY",
+          "originMm": [
+            0,
+            0,
+            14
+          ],
+          "radiusUMm": 20.993407565426633,
+          "radiusVMm": 20.993407565426633
+        },
+        {
+          "kind": "ellipse",
+          "plane": "XY",
+          "originMm": [
+            0,
+            0,
+            20
+          ],
+          "radiusUMm": 17.99434934179426,
+          "radiusVMm": 17.99434934179426
+        },
+        {
+          "kind": "ellipse",
+          "plane": "XY",
+          "originMm": [
+            0,
+            0,
+            25
+          ],
+          "radiusUMm": 10.99654681998538,
+          "radiusVMm": 10.99654681998538
+        },
+        {
+          "kind": "ellipse",
+          "plane": "XY",
+          "originMm": [
+            0,
+            0,
+            27
+          ],
+          "radiusUMm": 6.997802521808878,
+          "radiusVMm": 6.997802521808878
+        },
+        {
+          "kind": "ellipse",
+          "plane": "XY",
+          "originMm": [
+            0,
+            0,
+            30
+          ],
+          "radiusUMm": 6.997802521808878,
+          "radiusVMm": 6.997802521808878
+        }
+      ]
+    },
+    {
+      "id": "cavity",
+      "kind": "loft",
+      "operation": "cut",
+      "ruled": false,
+      "sections": [
+        {
+          "kind": "ellipse",
+          "plane": "XY",
+          "originMm": [
+            0,
+            0,
+            5
+          ],
+          "radiusUMm": 7,
+          "radiusVMm": 7
+        },
+        {
+          "kind": "ellipse",
+          "plane": "XY",
+          "originMm": [
+            0,
+            0,
+            8
+          ],
+          "radiusUMm": 13.5,
+          "radiusVMm": 13.5
+        },
+        {
+          "kind": "ellipse",
+          "plane": "XY",
+          "originMm": [
+            0,
+            0,
+            12
+          ],
+          "radiusUMm": 17,
+          "radiusVMm": 17
+        },
+        {
+          "kind": "ellipse",
+          "plane": "XY",
+          "originMm": [
+            0,
+            0,
+            14
+          ],
+          "radiusUMm": 17.5,
+          "radiusVMm": 17.5
+        },
+        {
+          "kind": "ellipse",
+          "plane": "XY",
+          "originMm": [
+            0,
+            0,
+            19
+          ],
+          "radiusUMm": 14.5,
+          "radiusVMm": 14.5
+        },
+        {
+          "kind": "ellipse",
+          "plane": "XY",
+          "originMm": [
+            0,
+            0,
+            23
+          ],
+          "radiusUMm": 8,
+          "radiusVMm": 8
+        },
+        {
+          "kind": "ellipse",
+          "plane": "XY",
+          "originMm": [
+            0,
+            0,
+            27
+          ],
+          "radiusUMm": 4,
+          "radiusVMm": 4
+        },
+        {
+          "kind": "ellipse",
+          "plane": "XY",
+          "originMm": [
+            0,
+            0,
+            31
+          ],
+          "radiusUMm": 4,
+          "radiusVMm": 4
+        }
+      ]
+    },
+    {
+      "id": "trimmed-foot",
+      "kind": "revolve",
+      "operation": "cut",
+      "profileRzMm": [
+        [
+          0,
+          -1
+        ],
+        [
+          6,
+          -1
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          0,
+          2
+        ]
+      ]
+    }
+  ]
+}
