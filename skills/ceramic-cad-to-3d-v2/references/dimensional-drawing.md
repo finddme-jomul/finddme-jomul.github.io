@@ -156,3 +156,7 @@ For the implemented opt-in full-page connection, read [dimensional page bridge](
 ## Compact multi-part sheet placement
 
 Optional `sheetLayout: {"columns": {"desktop": 2, "mobile": 2}, "alignLastRow": "center"}` arranges complete part panels in rows and centers an incomplete final row. Columns must be integers 1–3 on desktop and 1–2 on mobile; omitted layouts keep the existing automatic placement. `alignLastRow` is `start` (default) or `center`. Individual readable sheets and geometry remain unchanged. The combined SVG and normalized frontBoxes use the same offsets so the CAD→3D handoff follows placement. Use a separate drawing and page revision for comparison; never change existing approved outputs implicitly.
+
+## Full-information mobile landscape panels
+
+Use `sheetLayout.mobilePanel: "landscape"` to arrange the complete desktop technical panels in the mobile sheet's rows and columns. This reuses the same panel renderer, including every view, dimension, section, detail, table and note; no information is removed or moved exclusively into the reader. Default `portrait` preserves existing outputs. Desktop layout is unchanged. The mobile sheet frontBoxes must follow the new panel dimensions. Validate individual mobile SVG bytes against desktop SVG bytes and compare source-part/view/detail/text content in the combined sheets, then run the full CAD-to-3D gates. Column count alone does not fix tall portrait panels.

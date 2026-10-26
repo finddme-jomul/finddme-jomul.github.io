@@ -84,6 +84,21 @@ class DrawingReview(unittest.TestCase):
                     self.assertAlmostEqual(entry['frontBoxes'][item['id']]['cx']*width,box['cx']+(i%columns)*pw)
                 individual=ET.parse(grid/f'part-0-{layout}.svg').getroot()
                 self.assertEqual(float(individual.get('viewBox').split()[2]),pw)
+            # Reuse complete desktop panels: mobile never loses technical information.
+            for count in (3,7):
+                subset=gridparts[:count];full=root/f'full-{count}';wide=root/f'wide-{count}'
+                full.mkdir();wide.mkdir();drawing.render(subset,full)
+                sheets=drawing.render(subset,wide,{'mobilePanel':'landscape','columns':{'mobile':2}})
+                entry=sheets['mobile'];self.assertEqual(entry['pagePx'][0],3400)
+                self.assertEqual((full/'sheet-desktop.svg').read_bytes(),(wide/'sheet-desktop.svg').read_bytes())
+                expected_height=sum(max(drawing.panel(p,'desktop')[2][1] for p in subset[i:i+2]) for i in range(0,count,2))
+                self.assertEqual(entry['pagePx'][1],expected_height)
+                for i,item in enumerate(subset):
+                    self.assertEqual((full/f'{item["id"]}-desktop.svg').read_bytes(),(wide/f'{item["id"]}-mobile.svg').read_bytes())
+                    _,box,_=drawing.panel(item,'desktop')
+                    self.assertAlmostEqual(entry['frontBoxes'][item['id']]['cx']*3400,box['cx']+(i%2)*1700)
+                    offset=sum(max(drawing.panel(p,'desktop')[2][1] for p in subset[j:j+2]) for j in range(0,i//2*2,2))
+                    self.assertAlmostEqual(entry['frontBoxes'][item['id']]['cy']*expected_height,box['cy']+offset)
             for layout in manifest['layouts'].values():
                 self.assertEqual(set(layout['frontBoxes']),set(models))
                 svg=ET.parse(multi/layout['file']).getroot()
@@ -109,7 +124,7 @@ class DrawingReview(unittest.TestCase):
                     self.assertAlmostEqual(box['cx']*200,x)
                     self.assertAlmostEqual(box['cy']*430,60+(210 if i==2 else 0))
                     self.assertEqual((old/f'{i}-{layout}.svg').read_bytes(),(new/f'{i}-{layout}.svg').read_bytes())
-            for bad in [None,{'columns':{'mobile':3}},{'columns':{'desktop':True}},{'columns':{'desktop':0}},{'alignLastRow':'middle'}]:
+            for bad in [None,{'columns':{'mobile':3}},{'columns':{'desktop':True}},{'columns':{'desktop':0}},{'alignLastRow':'middle'},{'mobilePanel':'overview'}]:
                 with self.assertRaises(ValueError):drawing.validate_sheet_layout(bad)
 
     def test_unknown_and_duplicate_input_rejected(self):
