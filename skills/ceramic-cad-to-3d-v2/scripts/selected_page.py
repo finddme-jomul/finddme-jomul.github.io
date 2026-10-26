@@ -32,6 +32,10 @@ def restore(output, cad_project=None, review=None):
         elif any(p.get('shapeKind') == 'handled-vessel' for p in json.loads((cad_project/'input/config.json').read_text())['parts']):
             from handled_page import prepare
         prepared = prepare(cad_project, review=review)
+    binding=None
+    if prepared is not None and review is not None:
+        from dimensional_page import prepare as prepare_drawing
+        binding=prepare_drawing(cad_project,prepared,review)
     try:
         shutil.copytree(source,stage)
         shutil.copy2(ASSETS/'page-viewer.js',stage/'viewer.js')
@@ -48,6 +52,11 @@ def restore(output, cad_project=None, review=None):
             elif prepared.get('mode') in ('handled','feature'):
                 from handled_page import install
             cad_inputs = install(prepared, stage)
+        from dimensional_page import install as install_drawing
+        install_drawing(binding,prepared,stage)
+        shutil.copy2(ASSETS/'dimensional-page.mjs',stage/'dimensional-page.mjs')
+        # Static import stays resolvable for legacy pages; animation remains opt-in.
+        shutil.copy2(ASSETS/'drawing-motion/motion.mjs',stage/'drawing-motion.mjs')
         from page_runtime import install as install_page_runtime
         install_page_runtime(stage)
         install_wire_color(stage, wire_motion)
@@ -62,6 +71,12 @@ def restore(output, cad_project=None, review=None):
             'CERAMIC_REPORT':'/workspace/'+report_dir.relative_to(ROOT).as_posix()})
         report=json.loads((report_dir/'report.json').read_text())
         if report['status']!='passed' or len(report.get('comparisons',report.get('checks',[])))!=48: raise ValueError('Incomplete whole-page parity evidence')
+        if binding is not None:
+            run_browser('tests/check-dimensional-page.cjs',{
+                'CERAMIC_CANDIDATE':'http://127.0.0.1:5173/'+stage.relative_to(ROOT).as_posix()+'/index.html',
+                'CERAMIC_REPORT':'/workspace/'+(report_dir/'drawing').relative_to(ROOT).as_posix()})
+            drawing_report=json.loads((report_dir/'drawing/report.json').read_text())
+            if drawing_report.get('status')!='passed' or len(drawing_report.get('checks',[]))!=2:raise ValueError('Incomplete dimensional page evidence')
         shutil.copytree(report_dir,stage/'browser-parity')
         for name,expected in manifest['files'].items():
             if name == 'viewer.js': expected = sha(ASSETS/'page-viewer.js')

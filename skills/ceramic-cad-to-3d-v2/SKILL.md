@@ -5,9 +5,15 @@ description: "Develop and run the v2 ceramic CAD-to-photo skill with reviewed ce
 
 # Ceramic CAD to 3D V2
 
-For source-derived dimensional drawing candidates, read [the drawing-review contract](references/dimensional-drawing.md). `drawing-review --input FILE --output UNUSED_DIR` uses archived STEP geometry and the vendored MIT drawing kit through this entrypoint. It preserves existing pages and provides immutable review outputs; use `drawing-review --verify DIR` for integrity checks.
+For drawing or motion work, follow the [upstream instruction adaptation and execution workflow](references/upstream-instruction-mapping.md#execution-workflow-for-the-agent): resolve source conflicts, establish drawing identity, select meaningful ceramic views, generate through the common entrypoint, inspect real output, and report evidence and remaining limits. Read its coverage table before claiming an upstream feature is supported.
 
-V2 development fork of the v1 package. Read [v2 development scope](references/v2-development.md) first. The standalone dimensional-drawing review stage is implemented; page handoff integration and visual adoption remain pending. Inherited v1 approval records do not certify v2 outputs.
+For source-derived dimensional drawing candidates, read [the drawing-review contract](references/dimensional-drawing.md) and [ceramic structure mapping](references/ceramic-drawing-rules.md). Supported vessel inputs now supply rim/wall/foot/floor/handle annotations with original certainty and derived formulas; feature solids retain generic CAD annotations. `drawing-review --input FILE --output UNUSED_DIR` uses archived STEP geometry and the vendored MIT drawing kit through this entrypoint. It preserves existing pages and provides immutable review outputs; use `drawing-review --verify DIR` for integrity checks.
+
+For time-driven CAD drawing playback, use [drawing-motion](references/drawing-motion.md): `drawing-motion --drawing REVIEW_DIR --output UNUSED_DIR`. It reuses verified SVGs, supports per-part view/detail camera keys via --camera, reversible seeking, full-size reading and reduced motion, and remains a standalone review rather than a page/3D handoff.
+
+For full-page integration, use the opt-in [dimensional page bridge](references/dimensional-page.md) in the existing page-review input; source verification and whole-page browser gates are required.
+
+V2 development fork of the v1 package. Read [v2 development scope](references/v2-development.md) first. The standalone dimensional-drawing review stage is implemented; opt-in page handoff is available for verified drawing sources; visual adoption and general release remain separate. Inherited v1 approval records do not certify v2 outputs.
 
 Current closure uses user-authorized chess single/multiple integration E2E with disclosed development history; another unused sketch is not mandatory. See [current closure policy](references/pipeline.md#current-closure-policy--integration-e2e). Technical completion is separate from exact-output visual approval and site publication.
 

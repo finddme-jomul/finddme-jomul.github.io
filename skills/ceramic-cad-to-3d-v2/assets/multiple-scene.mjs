@@ -1,3 +1,4 @@
+import {installDimensionalPage,drawingPace} from './dimensional-page.mjs';
 import {createCoatingColors} from './scene/coating-colors.mjs';
 import {createProjectedBounds} from './scene/projected-bounds.mjs';
 import {retainedFront} from './scene/cad-handoff.mjs';
@@ -186,7 +187,7 @@ export async function startMultiple(spec) {
   }):null;
   const viewProjection=new THREE.Matrix4(),frontProjection=new THREE.Matrix4();
   function frontPlacement(v,p,rect){
-    if(cadPages&&!frontRepresentatives.has(v.id)){v.front.style.opacity='0';return;}
+    if((cadPages||spec.drawingBridge)&&!frontRepresentatives.has(v.id)){v.front.style.opacity='0';return;}
 
     if(p>=timing.frontFadeStart+timing.frontFadeDuration){v.front.style.opacity='0';v.front.dataset.handoffStage='hidden';return;}
     const retaining=spec.cadPresentation?.handoff==='retain-fronts';
@@ -217,11 +218,13 @@ export async function startMultiple(spec) {
     const w=source.w+(right-left-source.w)*move,h=source.h+(bottom-top-source.h)*move;
     Object.assign(v.front.style,{left:`${x-w/2}px`,top:`${y-h/2}px`,width:`${w}px`,height:`${h}px`,opacity:String(p>=timing.frontMoveStart?1-smooth((p-timing.frontFadeStart)/timing.frontFadeDuration):0)});
   }
+  let drawing=null;
   function frame(){
     frameRequested=false;const frameStart=performance.now();
     const atEnd=scrollY>=document.documentElement.scrollHeight-innerHeight-1;
     const p=atEnd?endProgress:Math.min(endProgress,cadScroll.fromScrollVh(scrollY/innerHeight*100)),motionP=clamp((p-timing.cadEnd)/(1-timing.cadEnd)),small=innerWidth<600;
     cadPages?.update(p);
+    drawing?.update(p);
     // Read layout once, before the per-front style writes.
     const sheetRect=image.getBoundingClientRect();
     const bounds=[];
@@ -304,6 +307,7 @@ export async function startMultiple(spec) {
   }
   if(hasPhotos)installGallery({gallery:document.querySelector('#gallery'),story,isActive:()=>scrollY/innerHeight*100>=totalVh-.2,onActiveChange:a=>{galleryActive=a;requestFrame()},profile:galleryProfile,source:'multiple-page-review'});
   addEventListener('scroll',requestFrame,{passive:true});image.addEventListener('load',requestFrame);
+  drawing=await installDimensionalPage({config:spec,image,sheet,requestFrame});
   await renderer.compileAsync(scene,camera);
   // Upload geometry and warm transparent front/back passes while opacity is zero.
   // Shader compilation alone does not exercise the renderer's two-sided passes.

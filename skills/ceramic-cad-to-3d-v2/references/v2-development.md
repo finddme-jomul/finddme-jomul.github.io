@@ -4,7 +4,7 @@ This package starts from the tracked v1 skill at repository commit `3738255`.
 The initial fork preserves generation code, accepted profile and reference assets.
 Dimensional-drawing is now vendored at a pinned commit and its drawing kit is ported
 to Python for the standalone drawing-review command. See [the active contract](dimensional-drawing.md).
-Existing page generators and approved profile remain unchanged. Full-page integration is pending.
+Existing page generators and approved profile remain unchanged. Opt-in full-page integration is available through dimensionalDrawing; existing pages are not bulk regenerated.
 
 ## Entry and isolation
 
@@ -33,3 +33,6 @@ V1 historical release notes and selected outputs remain references. New v2 outpu
 need their own comparison evidence and visual adoption. Do not change the inherited
 accepted profile until the new drawing direction is adopted. General release still
 requires the entrypoint release evidence gate; package preflight is not a release.
+
+
+For the implemented opt-in full-page connection, read [dimensional page bridge](dimensional-page.md). Standalone commands still generate independent reviews; page integration requires the explicit dimensionalDrawing input and its source/whole-page checks.

@@ -4,39 +4,48 @@
   "handleReviewStatus": "reviewed-provisional",
   "layouts": {
     "desktop": {
-      "file": "sheet-desktop.svg",
+      "file": "dimensional-drawing/sheet-desktop.svg",
       "frontBox": {
-        "cx": 0.36346562500000007,
-        "cy": 0.548,
-        "width": 0.32005625000000004,
-        "height": 0.574
+        "cx": 0.4117647058823529,
+        "cy": 0.3632075471698113,
+        "width": 0.257147058823532,
+        "height": 0.46226415094339623,
+        "sourceStepSha256": "c24f97fd7f2859c3d6947c4bfe7e35b26a47641b02428ffe2c2c993bd684a932",
+        "cameraLookAtMm": [
+          17.450000000000617,
+          0.0,
+          70.00000005
+        ]
       }
     },
     "mobile": {
-      "file": "sheet-mobile.svg",
+      "file": "dimensional-drawing/sheet-mobile.svg",
       "frontBox": {
-        "cx": 0.3659222222222222,
-        "cy": 0.3553459119496855,
-        "width": 0.4718444444444444,
-        "height": 0.3742138364779874
+        "cx": 0.31666666666666665,
+        "cy": 0.23157894736842105,
+        "width": 0.4777777777777778,
+        "height": 0.2536766255109325,
+        "sourceStepSha256": "c24f97fd7f2859c3d6947c4bfe7e35b26a47641b02428ffe2c2c993bd684a932",
+        "cameraLookAtMm": [
+          17.450000000000617,
+          0.0,
+          70.00000005
+        ]
       }
     },
     "mobile-short": {
-      "file": "sheet-mobile-short.svg",
+      "file": "dimensional-drawing/sheet-mobile.svg",
       "frontBox": {
-        "cx": 0.3581666666666667,
-        "cy": 0.34759358288770054,
-        "width": 0.4163333333333334,
-        "height": 0.37433155080213903
-      }
-    },
-    "short": {
-      "file": "sheet-desktop.svg",
-      "frontBox": {
-        "cx": 0.36346562500000007,
-        "cy": 0.548,
-        "width": 0.32005625000000004,
-        "height": 0.574
+        "cx": 0.31666666666666665,
+        "cy": 0.23157894736842105,
+        "width": 0.4777777777777778,
+        "height": 0.2536766255109325,
+        "sourceStepSha256": "c24f97fd7f2859c3d6947c4bfe7e35b26a47641b02428ffe2c2c993bd684a932",
+        "cameraLookAtMm": [
+          17.450000000000617,
+          0.0,
+          70.00000005
+        ]
       }
     }
   },

@@ -404,3 +404,26 @@ User reports missing final chess photos on Galaxy while iPhone displays them. In
 User clarified: direct chess route displays photos; only the main overlay on Galaxy becomes blank after 3D disappears. A controlled 8px shorter scroll range reproduces that blank state in the actual chess renderer; the updated gallery shows all three photos, opens/closes them and hides again on reverse scroll. Normal end-gallery screenshots are byte-identical. Ordinary Chromium iframe heights 715/715.25/715.5/715.75px did NOT reproduce the device issue by themselves; do not describe that diagnostic as Samsung reproduction.
 
 The maintained `gallery` entrypoint generated an isolated synthetic regression component using the exact changed gallery source. Public chess gallery.js and its bundled viewer.js were both updated; model/photo/HTML/CSS/motion data remain unchanged. Mobile endpoint reports and exact prior gallery/manifest snapshots are in `.poc/mobile-gallery-fix`. Real Samsung verification and the separate iPhone host-close-button issue remain outstanding. Endpoint tolerance follows https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollHeight .
+
+## Initial viewer affordance — 2026-10-26
+
+The shared lifecycle bootstrap shows a static preparation message while loading,
+then a centered Scroll button with a downward SVG arrow in the first viewport.
+The ready cue uses 18px text and a 24×32px arrow; loading text stays at the bottom.
+Hide the cue after 24px of scrolling and at error state; the existing retry UI
+handles errors. The cue has no perpetual animation/RAF and respects reduced
+motion when activated. This user-requested navigation affordance is an exception
+to the otherwise title-free project body, not a new stage heading or progress bar.
+Maintain the initial input lock, coalesced demand renderer, source/model caches
+and asynchronous drawing generation tokens. Lifecycle-only host updates use
+page_runtime.refresh_lifecycle and the exporter’s explicit runtime-skill input;
+they preserve geometry, materials and the viewer bundle and record the lifecycle
+source hash. Existing source revisions remain immutable.
+
+When preserving host galleries, retain numbered photo files discovered by the
+host even if they do not yet appear in stored HTML. This includes JPG/HEIC as
+well as WebP. Verify the rendered photo count, not only the static HTML buttons.
+
+## Loading indicator parity with main — 2026-10-26
+
+The shared viewer lifecycle shows a centered 26px circular CSS spinner (1.1s linear rotation, main overlay colors) while loading. Loading text is screen-reader-only; reduced-motion users see a static ring with the status label. Ready hides the loading status/animation and retains the centered Scroll cue; error hides the spinner and exposes retry. Keep scroll locking and renderer coalescing unchanged. Apply through page_runtime/exporter to existing page exports without regenerating geometry.

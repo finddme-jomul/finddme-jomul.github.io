@@ -56,6 +56,8 @@ def build(project: Path, output: Path, data: dict) -> None:
         part_id=cad['parts'][0]['id']
         glb_hash=json.loads((source/'solid/manifest.json').read_text())['parts'][0]['glbSha256']
         title=cad['project']
+    shutil.copy2(ASSETS/'dimensional-page.mjs',output/'dimensional-page.mjs')
+    shutil.copy2(ASSETS/'drawing-motion/motion.mjs',output/'drawing-motion.mjs')
     for name in ('index.html','viewer.js','handled-scene.mjs'):
         shutil.copy2(MOTION_VIEWER/name,output/name)
     html=output/'index.html'

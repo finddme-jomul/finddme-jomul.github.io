@@ -10,7 +10,7 @@ export function cadBoundary(spec) {
   const timing = spec.motion.timing;
   const handoff = spec.cadPresentation?.handoffExtraScrollVh ?? 0;
   const handoffShare = handoff ? Math.max(0, Math.min(1, (fraction - timing.frontMoveStart) / (timing.frontFadeStart + timing.frontFadeDuration - timing.frontMoveStart))) : 0;
-  return handoff * handoffShare + base * fraction + (spec.cadPresentation?.pages ?? []).reduce((sum, page) => sum + (page.extraScrollVh ?? 0), 0);
+  return (spec.drawingBridge?.extraScrollVh ?? 0) + handoff * handoffShare + base * fraction + (spec.cadPresentation?.pages ?? []).reduce((sum, page) => sum + (page.extraScrollVh ?? 0), 0);
 }
 export function toPhysical(value, boundary, mobile, desktopScale = 1) {
   if (!mobile) return Math.min(value, boundary) * desktopScale + Math.max(0, value - boundary);

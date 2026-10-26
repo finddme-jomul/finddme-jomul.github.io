@@ -10,6 +10,12 @@ from ceramic_paths import SKILL, ROOT
 from browser_environment import node_command
 
 SUITES = {
+    'dimensional-page': [sys.executable,str(SKILL/'tests/test_dimensional_page.py')],
+    'dimensional-page-pacing': node_command(SKILL/'tests/test-dimensional-page.mjs'),
+    'drawing-presentation': [sys.executable,str(SKILL/'tests/test_drawing_presentation.py')],
+    'drawing-annotations': [sys.executable,str(SKILL/'tests/test_drawing_annotations.py')],
+    'drawing-motion': [sys.executable, str(SKILL/'tests/test_drawing_motion.py')],
+    'ceramic-annotations': [sys.executable, str(SKILL/'tests/test_ceramic_annotations.py')],
     'dimensional-drawing': [sys.executable, str(SKILL/'tests/test_dimensional_drawing.py')],
     'coating-colors': node_command(SKILL/'tests/test-coating-colors.mjs'),
     'gallery-scheduler': node_command(SKILL/'tests/test-gallery-scheduler.mjs'),

@@ -1,6 +1,6 @@
 {
-  "id": "moon-jar-poc",
-  "status": "provisional-concept",
+  "id": "moon-jar",
+  "status": "new-input-review-candidate",
   "dimensionsMm": {
     "height": 150,
     "maxDiameter": 140,
@@ -11,18 +11,92 @@
   },
   "clayColor": "#BDB9B1",
   "finishColor": "#E7E6E1",
-  "photoSubject": "앞쪽 왼쪽 기물",
-  "photoStatus": "최종 완성",
   "motion": {
     "tiltDirection": "right",
     "tiltDegrees": 14,
-    "status": "PoC 임시값: 실제 작품 방향·각도 미확정",
     "storyHeightVh": 840
   },
   "sheetFrontBox": {
-    "cx": 0.32016806722689073,
-    "cy": 0.510688836104513,
-    "width": 0.4,
-    "height": 0.6057007125890737
+    "cx": 0.4117647058823529,
+    "cy": 0.3632075471698113,
+    "width": 0.2690196078431372,
+    "height": 0.46226415094339623,
+    "sourceStepSha256": "5efc306f40444932afb4dc6e900abfc0698fb98ac1a9ee05c8c29e25c70dec23",
+    "cameraLookAtMm": [
+      0.0,
+      0.0,
+      75.0
+    ]
+  },
+  "ending": "photos",
+  "drawingBridge": {
+    "extraScrollVh": 240,
+    "end": 0.08333333333333333,
+    "cameraKeys": null
+  },
+  "drawingLayouts": {
+    "desktop": {
+      "file": "sheet-desktop.svg",
+      "pagePx": [
+        1700,
+        1060
+      ],
+      "frontBoxes": {
+        "moon-jar": {
+          "cx": 0.4117647058823529,
+          "cy": 0.3632075471698113,
+          "width": 0.2690196078431372,
+          "height": 0.46226415094339623,
+          "sourceStepSha256": "5efc306f40444932afb4dc6e900abfc0698fb98ac1a9ee05c8c29e25c70dec23",
+          "cameraLookAtMm": [
+            0.0,
+            0.0,
+            75.0
+          ]
+        }
+      }
+    },
+    "mobile": {
+      "file": "sheet-mobile.svg",
+      "pagePx": [
+        900,
+        1900
+      ],
+      "frontBoxes": {
+        "moon-jar": {
+          "cx": 0.31666666666666665,
+          "cy": 0.23157894736842105,
+          "width": 0.4777777777777778,
+          "height": 0.24248120300751883,
+          "sourceStepSha256": "5efc306f40444932afb4dc6e900abfc0698fb98ac1a9ee05c8c29e25c70dec23",
+          "cameraLookAtMm": [
+            0.0,
+            0.0,
+            75.0
+          ]
+        }
+      }
+    },
+    "mobile-short": {
+      "file": "sheet-mobile.svg",
+      "pagePx": [
+        900,
+        1900
+      ],
+      "frontBoxes": {
+        "moon-jar": {
+          "cx": 0.31666666666666665,
+          "cy": 0.23157894736842105,
+          "width": 0.4777777777777778,
+          "height": 0.24248120300751883,
+          "sourceStepSha256": "5efc306f40444932afb4dc6e900abfc0698fb98ac1a9ee05c8c29e25c70dec23",
+          "cameraLookAtMm": [
+            0.0,
+            0.0,
+            75.0
+          ]
+        }
+      }
+    }
   }
 }

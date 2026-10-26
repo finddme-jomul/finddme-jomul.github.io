@@ -1,3 +1,5 @@
+import {installDimensionalPage,drawingPace} from './dimensional-page.mjs';
+import {createRenderLoop} from './render-loop.mjs';
 import {sceneDefaults} from './scene-defaults.mjs';
 import {wireColor} from './wire-color.mjs';
 import * as THREE from 'three';
@@ -10,7 +12,7 @@ const settings = await fetch('./review-input.json').then(r => r.json());
 const featureOffset=settings.shapeKind==='feature-solid'
   ? [(settings.boundsMm.minX+settings.boundsMm.maxX)/2000,0,-(settings.boundsMm.minY+settings.boundsMm.maxY)/2000]
   : [0,0,0];
-const layout = innerWidth > innerHeight ? 'desktop' : innerHeight <= 740 ? 'mobile-short' : 'mobile';
+let layout = innerWidth > innerHeight ? 'desktop' : innerHeight <= 740 ? 'mobile-short' : 'mobile';
 const sheet = document.querySelector('#sheet');
 const image = document.querySelector('#sheet-image');
 image.src = './' + settings.layouts[layout].file;
@@ -75,7 +77,15 @@ pivot.position.y=centre.y;
 content.position.y=-centre.y;
 const extent = Math.max((b.maxX-b.minX)/1000,(b.maxZ-b.minZ)/1000);
 let baseHalf=0;
+let requestRender=()=>{};
+let sourceCache;
 function resize() {
+  if(pageConfig?.drawingBridge){
+    const key=innerWidth>innerHeight?'desktop':innerHeight<=740?'mobile-short':'mobile';
+    if(key!==layout){layout=key;image.src='./'+settings.layouts[key].file;}
+  }
+  sourceCache=null;
+  requestRender();
   renderer.setSize(innerWidth,innerHeight);
   const aspect=innerWidth/innerHeight;
   const radial=Math.max(Math.abs(b.minX),Math.abs(b.maxX))/1000;
@@ -119,8 +129,9 @@ function targetBounds() {
           width:(z.x-a.x)*innerWidth/2,height:(a.y-z.y)*innerHeight/2};
 }
 function sourceBounds() {
+  if(sourceCache)return sourceCache;
   const r=image.getBoundingClientRect(),f=settings.layouts[layout].frontBox;
-  return {x:r.x+r.width*(f.cx-f.width/2),y:r.y+r.height*(f.cy-f.height/2),
+  return sourceCache={x:r.x+r.width*(f.cx-f.width/2),y:r.y+r.height*(f.cy-f.height/2),
           width:r.width*f.width,height:r.height*f.height};
 }
 const clamp=t=>Math.min(1,Math.max(0,t));
@@ -130,16 +141,19 @@ const hasPhotos=pageConfig?.ending==='photos';
 const story=document.querySelector('#story');
 const endProgress=hasPhotos?1+timing.photoDuration:1;
 const baseVh=pageConfig?pageConfig.motion.storyHeightVh-100:defaults.previewScrollVh;
-if(pageConfig)story.style.height=`${100+baseVh*endProgress}vh`;
+const pace=drawingPace(pageConfig,baseVh);
+let drawing=null;
+if(pageConfig)story.style.height=`${100+baseVh*endProgress+pace.extra}vh`;
 if(hasPhotos){
   const {installGallery,galleryProfile}=galleryRuntime;
-  installGallery({gallery:document.querySelector('#gallery'),story,isActive:()=>scrollY/innerHeight*100>=baseVh*endProgress-.2,profile:galleryProfile,source:'handled-page-review'});
+  installGallery({gallery:document.querySelector('#gallery'),story,isActive:()=>pace.from(scrollY/innerHeight*100)>=baseVh*endProgress-.2,profile:galleryProfile,source:'handled-page-review'});
 }
 // A world-space bottom-up boundary must cover the full rotating handle as well as the body.
 const coatRadius=Math.hypot(Math.max(Math.abs(b.minX),Math.abs(b.maxX)),(b.maxZ-b.minZ)/2,Math.max(Math.abs(b.minY),Math.abs(b.maxY)))/1000*1.01;
 function render() {
-  let pageProgress=scrollY/(innerHeight*baseVh/100);
+  let pageProgress=pace.from(scrollY/innerHeight*100)/baseVh;
   if(pageConfig&&scrollY>=document.documentElement.scrollHeight-innerHeight-1)pageProgress=endProgress;
+  drawing?.update(pageProgress);
   const progress=pageConfig?clamp(pageProgress/timing.pageClayEnd):clamp(pageProgress);
   const coat=pageConfig?clamp((pageProgress-timing.pageClayEnd)/timing.pageCoatDuration):0;
   const exit=hasPhotos?clamp((pageProgress-1)/timing.photoDuration):0;
@@ -184,8 +198,14 @@ function render() {
           axisPrecessionDegrees:motion.axisPrecessionDegrees*turn,
           axisTiltDegrees:pose.tiltDegrees,lookX,cameraElevationDegrees,
           frontOpacity:Number(front.style.opacity),lineOpacity:line.opacity,clayOpacity:clay.opacity};
-  requestAnimationFrame(render);
 }
+const renderLoop=createRenderLoop(render);
+requestRender=renderLoop.request;
+addEventListener('scroll',requestRender,{passive:true});
+image.addEventListener('load',()=>{sourceCache=null;requestRender()});
+drawing=await installDimensionalPage({config:pageConfig,image,sheet,requestFrame:requestRender});
+if(drawing)drawing.toScrollYForLegacyVh=v=>pace.to(v)*innerHeight/100;
+await renderer.compileAsync(scene,camera);
 render();
-window.__mugMotion={renderer,scene,settings,motion,get state(){return latest},meshes,model,camera,wire,content,orbitRig,tiltRig,pivot,glazeMeshes,clip,clay,glaze,pageConfig};
+window.__mugMotion={renderer,scene,settings,motion,renderStats:renderLoop.stats,get state(){return latest},meshes,model,camera,wire,content,orbitRig,tiltRig,pivot,glazeMeshes,clip,clay,glaze,pageConfig};
 }

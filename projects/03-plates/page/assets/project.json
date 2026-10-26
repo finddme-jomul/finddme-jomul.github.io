@@ -381,118 +381,153 @@
       }
     ]
   },
+  "dimensionalDrawing": {
+    "directory": ".poc/ceramic-v2-vessels/plates/drawing-r2",
+    "extraScrollVh": 240
+  },
   "compositionMode": "multiple",
   "name": "Three plates / reviewed dimensions",
   "sheets": {
     "desktop": {
-      "file": "sheet-desktop.svg",
+      "file": "../dimensional-drawing/sheet-desktop.svg",
       "pagePx": [
-        3200,
-        2140
+        3400,
+        2120
       ],
       "frontBoxes": {
-        "plate-small": {
-          "cx": 0.159375,
-          "cy": 0.39380841121495325,
-          "width": 0.179375,
-          "height": 0.08621495327102804
+        "plate-large": {
+          "cx": 0.20588235294117646,
+          "cy": 0.18160377358490565,
+          "width": 0.15294117647058825,
+          "height": 0.07494758909853251,
+          "sourceStepSha256": "b4371cd2cf3a0299e0278606626f84edc7c63f53e78f0d6b676fc9cf4c906abb",
+          "cameraLookAtMm": [
+            0.0,
+            0.0,
+            27.5
+          ]
         },
         "plate-medium": {
-          "cx": 0.659375,
-          "cy": 0.3901869158878505,
-          "width": 0.2,
-          "height": 0.09345794392523364
+          "cx": 0.7058823529411765,
+          "cy": 0.18160377358490565,
+          "width": 0.15294117647058825,
+          "height": 0.07665094339622641,
+          "sourceStepSha256": "d2cc9c76aead547957437bb124b4c8246ded1dcffdb4916b32441b3ebb3c9e12",
+          "cameraLookAtMm": [
+            0.0,
+            0.0,
+            25.0
+          ]
         },
-        "plate-large": {
-          "cx": 0.5,
-          "cy": 0.858515057113188,
-          "width": 0.2,
-          "height": 0.09138110072689512
+        "plate-small": {
+          "cx": 0.45588235294117646,
+          "cy": 0.6816037735849056,
+          "width": 0.15294117647058825,
+          "height": 0.0788409703504043,
+          "sourceStepSha256": "45ba6bfb1ba5efb42f459a35d25d45b459a55d2546366cb00793e47056529274",
+          "cameraLookAtMm": [
+            0.0,
+            0.0,
+            22.5
+          ]
         }
       }
     },
     "mobile": {
-      "file": "sheet-mobile.svg",
+      "file": "../dimensional-drawing/sheet-mobile.svg",
       "pagePx": [
-        900,
-        3956
+        1800,
+        3800
       ],
       "frontBoxes": {
-        "plate-small": {
-          "cx": 0.38333333333333336,
-          "cy": 0.18344648273869713,
-          "width": 0.4444444444444444,
-          "height": 0.0325003611151235
+        "plate-large": {
+          "cx": 0.15833333333333333,
+          "cy": 0.11578947368421053,
+          "width": 0.2388888888888889,
+          "height": 0.03457602339181287,
+          "sourceStepSha256": "b4371cd2cf3a0299e0278606626f84edc7c63f53e78f0d6b676fc9cf4c906abb",
+          "cameraLookAtMm": [
+            0.0,
+            0.0,
+            27.5
+          ]
         },
         "plate-medium": {
-          "cx": 0.38333333333333336,
-          "cy": 0.5054347826086957,
-          "width": 0.4444444444444444,
-          "height": 0.03159757330637007
+          "cx": 0.6583333333333333,
+          "cy": 0.11578947368421053,
+          "width": 0.2388888888888889,
+          "height": 0.03536184210526316,
+          "sourceStepSha256": "d2cc9c76aead547957437bb124b4c8246ded1dcffdb4916b32441b3ebb3c9e12",
+          "cameraLookAtMm": [
+            0.0,
+            0.0,
+            25.0
+          ]
         },
-        "plate-large": {
-          "cx": 0.38333333333333336,
-          "cy": 0.827322772722166,
-          "width": 0.4444444444444444,
-          "height": 0.030895405010672946
+        "plate-small": {
+          "cx": 0.4083333333333333,
+          "cy": 0.6157894736842106,
+          "width": 0.2388888888888889,
+          "height": 0.036372180451127833,
+          "sourceStepSha256": "45ba6bfb1ba5efb42f459a35d25d45b459a55d2546366cb00793e47056529274",
+          "cameraLookAtMm": [
+            0.0,
+            0.0,
+            22.5
+          ]
         }
       }
     },
     "mobile-short": {
-      "file": "sheet-mobile-short.svg",
+      "file": "../dimensional-drawing/sheet-mobile.svg",
       "pagePx": [
-        900,
-        3506
+        1800,
+        3800
       ],
       "frontBoxes": {
-        "plate-small": {
-          "cx": 0.38333333333333336,
-          "cy": 0.18132181566294517,
-          "width": 0.4444444444444444,
-          "height": 0.03667182788688778
+        "plate-large": {
+          "cx": 0.15833333333333333,
+          "cy": 0.11578947368421053,
+          "width": 0.2388888888888889,
+          "height": 0.03457602339181287,
+          "sourceStepSha256": "b4371cd2cf3a0299e0278606626f84edc7c63f53e78f0d6b676fc9cf4c906abb",
+          "cameraLookAtMm": [
+            0.0,
+            0.0,
+            27.5
+          ]
         },
         "plate-medium": {
-          "cx": 0.38333333333333336,
-          "cy": 0.5018539646320593,
-          "width": 0.4444444444444444,
-          "height": 0.0356531660011409
+          "cx": 0.6583333333333333,
+          "cy": 0.11578947368421053,
+          "width": 0.2388888888888889,
+          "height": 0.03536184210526316,
+          "sourceStepSha256": "d2cc9c76aead547957437bb124b4c8246ded1dcffdb4916b32441b3ebb3c9e12",
+          "cameraLookAtMm": [
+            0.0,
+            0.0,
+            25.0
+          ]
         },
-        "plate-large": {
-          "cx": 0.38333333333333336,
-          "cy": 0.8222729289472016,
-          "width": 0.4444444444444444,
-          "height": 0.034860873423337775
+        "plate-small": {
+          "cx": 0.4083333333333333,
+          "cy": 0.6157894736842106,
+          "width": 0.2388888888888889,
+          "height": 0.036372180451127833,
+          "sourceStepSha256": "45ba6bfb1ba5efb42f459a35d25d45b459a55d2546366cb00793e47056529274",
+          "cameraLookAtMm": [
+            0.0,
+            0.0,
+            22.5
+          ]
         }
       }
-    },
-    "short": {
-      "file": "sheet-desktop.svg",
-      "pagePx": [
-        3200,
-        2140
-      ],
-      "frontBoxes": {
-        "plate-small": {
-          "cx": 0.159375,
-          "cy": 0.39380841121495325,
-          "width": 0.179375,
-          "height": 0.08621495327102804
-        },
-        "plate-medium": {
-          "cx": 0.659375,
-          "cy": 0.3901869158878505,
-          "width": 0.2,
-          "height": 0.09345794392523364
-        },
-        "plate-large": {
-          "cx": 0.5,
-          "cy": 0.858515057113188,
-          "width": 0.2,
-          "height": 0.09138110072689512
-        }
-      },
-      "reuseOf": "desktop"
     }
   },
-  "ending": "photos"
+  "ending": "photos",
+  "drawingBridge": {
+    "extraScrollVh": 240,
+    "end": 0.1,
+    "cameraKeys": null
+  }
 }

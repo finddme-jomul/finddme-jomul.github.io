@@ -19,7 +19,7 @@ export function retainedFront(spec,id,p,rect,viewport){
  const scale=Math.min((cell-12)/source.w,58/source.h,1);
  const tray={x:16+(slot+.5)*cell,y:44,w:source.w*scale,h:source.h*scale};
  if(p>=t.frontMoveStart)return {source:tray,opacity:1,retaining:false,stage:'moving'};
- const span=t.sheetFadeStart/pages.length,start=(index+.80)*span,end=(index+1)*span;
+ const span=t.sheetFadeStart/pages.length,start=(index+(spec.cadPresentation.collectionStartFraction??.80))*span,end=(index+1)*span;
  if(p<=start)return null;
  const at=smooth((p-start)/(end-start));
  return {source:Object.fromEntries(['x','y','w','h'].map(k=>[k,source[k]+(tray[k]-source[k])*at])),opacity:smooth((p-start)/(span*.04)),retaining:true,stage:p>=end?'retained':'collecting'};

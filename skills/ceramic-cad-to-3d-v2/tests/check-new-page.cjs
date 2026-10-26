@@ -12,7 +12,7 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
    const hasPhotos=await page.evaluate(()=>window.__moonJar.config.ending!=='glaze');
    let step=0;
    for(const time of (hasPhotos?[0,150,360,430,540,650,750,850,970,1040,1080,850]:[0,150,360,430,540,650,750,850,970,990,1000,850])){
-    await page.evaluate(t=>scrollTo(0,t/1200*(window.__moonJar.config.motion.storyHeightVh-100)*innerHeight/100),time);
+    await page.evaluate(t=>scrollTo(0,window.__dimensionalPage?.toScrollYForLegacyVh(t/1200*(window.__moonJar.config.motion.storyHeightVh-100))??t/1200*(window.__moonJar.config.motion.storyHeightVh-100)*innerHeight/100),time);
     await page.waitForFunction(t=>Math.abs(window.__photoPacing.pace().timelineTime-t)<1&&Math.abs(window.__moonJar.timeline.currentTime-window.__photoPacing.pace().timelineTime)<1,{},time);
     await new Promise(r=>setTimeout(r,time===1080?2200:150));
     const state=await page.evaluate(()=>{

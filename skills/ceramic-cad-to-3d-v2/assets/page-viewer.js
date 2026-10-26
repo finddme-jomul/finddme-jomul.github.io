@@ -1,3 +1,4 @@
+import {installDimensionalPage,drawingPace} from './dimensional-page.mjs';
 import {createRenderLoop} from './render-loop.mjs';
 import {sceneDefaults} from './scene-defaults.mjs';
 const defaults=sceneDefaults.rotational;
@@ -119,14 +120,24 @@ const baselineScrollVh = config.motion.storyHeightVh - 100;
 const hasPhotos = config.ending !== 'glaze';
 const finalSceneT = hasPhotos ? 1080 : 1000;
 const totalScrollVh = baselineScrollVh * finalSceneT / 1200;
-story.style.height = `${100 + totalScrollVh}vh`;
-function scrollVh() { return scrollY / innerHeight * 100; }
+const drawingTiming=drawingPace(config,baselineScrollVh);
+let drawing=null;
+story.style.height = `${100 + totalScrollVh+drawingTiming.extra}vh`;
+function scrollVh() { return drawingTiming.from(scrollY / innerHeight * 100); }
 function pacedTime() { return scrollVh() / baselineScrollVh * 1200; }
 window.__photoPacing = {original:'moon-jar',photoTransitionVh:0,totalScrollVh,pace:()=>({scrollVh:scrollVh(),timelineTime:pacedTime()})};
 const cadSheet = document.querySelector('#cad-sheet');
 const cadImage = document.querySelector('#cad-sheet-image');
 const cadMain = document.querySelector('#cad-main');
 const mainMotion = {t: 0};
+if(config.drawingBridge){
+  cadImage.style.cssText='position:static;transform:none;max-width:100vw;max-height:100vh;width:auto;height:auto';
+  const updateDrawingLayout=()=>{
+    const key=innerWidth>700?'desktop':'mobile',entry=config.drawingLayouts[key];
+    config.sheetFrontBox=entry.frontBoxes[config.id];cadImage.src='./dimensional-drawing/'+entry.file;
+  };
+  updateDrawingLayout();addEventListener('resize',updateDrawingLayout);
+}
 await cadImage.decode();
 let cadBounds;
 function invalidateCadBounds() { cadBounds = null; requestRender(); }
@@ -173,6 +184,7 @@ function syncTimeline() {
 let galleryActive = false;
 function frame() {
   syncTimeline();
+  drawing?.update(pacedTime()/1200);
   updateSceneState();
   clayMaterial.depthWrite = clayMaterial.opacity > .98;
   glaze.visible = clip.constant > -glazeExtent + .0005;
@@ -181,6 +193,8 @@ function frame() {
 }
 const renderLoop = createRenderLoop(frame);
 requestRender = renderLoop.request;
+drawing=await installDimensionalPage({config,image:cadImage,sheet:cadSheet,requestFrame:requestRender});
+if(drawing)drawing.toScrollYForLegacyVh=v=>drawingTiming.to(v)*innerHeight/100;
 addEventListener('scroll', requestRender, {passive: true});
 addEventListener('resize', requestRender);
 function updateSceneState() {

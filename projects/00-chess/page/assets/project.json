@@ -55,7 +55,7 @@
     },
     "provenance": {
       "source": "User-approved planar feature extension; actual board integration, provisional palette and motion",
-      "clayPacing": "User: \ud759 \uc0c1\ud0dc \uc7a5\uba74\uc774 \uae38\uac70\ub098 \ub9ce\uc74c. Shorten clay transition/hold and visually similar clear glaze; brown starts earlier. Board review candidate.",
+      "clayPacing": "User: 흙 상태 장면이 길거나 많음. Shorten clay transition/hold and visually similar clear glaze; brown starts earlier. Board review candidate.",
       "variation": "User requested individual phase/speed/axis changes; explicit deterministic instance values, seed 28103; board remains below pieces.",
       "landingPacing": "User reports rushed contact: duration .24 to .30, 25% more scroll; preserve individual step order and soft easing, photos begin .97.",
       "approach": "User rejects pre-aligned floating rows: explicit X/Z approach offsets and independent hover heights; converge only with individual descent. Slower duration .24 preserved."
@@ -159,14 +159,14 @@
         "entryZ": 0
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\ud22c\uba85\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "투명유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\uac08\uc0c9\uc720\uc57d"
+        "accentName": "갈색유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -174,14 +174,14 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\ud22c\uba85\uc720\uc57d",
+            "name": "투명유약",
             "region": {
               "surface": "all"
             },
             "previewHex": "#EEE5D4"
           },
           {
-            "name": "\uac08\uc0c9\uc720\uc57d",
+            "name": "갈색유약",
             "region": {
               "surface": "planar-xy",
               "planeZMm": 22,
@@ -639,14 +639,14 @@
         "axisPhaseDegrees": 97.31164749361886
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\ud22c\uba85\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "투명유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\ud22c\uba85\uc720\uc57d"
+        "accentName": "투명유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -654,7 +654,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\ud22c\uba85\uc720\uc57d",
+            "name": "투명유약",
             "region": {
               "surface": "all"
             },
@@ -719,14 +719,14 @@
         "axisPhaseDegrees": 13.060806350487013
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\ud22c\uba85\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "투명유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\ud22c\uba85\uc720\uc57d"
+        "accentName": "투명유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -734,7 +734,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\ud22c\uba85\uc720\uc57d",
+            "name": "투명유약",
             "region": {
               "surface": "all"
             },
@@ -799,14 +799,14 @@
         "axisPhaseDegrees": 140.30248877678616
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\ud22c\uba85\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "투명유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\ud22c\uba85\uc720\uc57d"
+        "accentName": "투명유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -814,7 +814,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\ud22c\uba85\uc720\uc57d",
+            "name": "투명유약",
             "region": {
               "surface": "all"
             },
@@ -879,14 +879,14 @@
         "axisPhaseDegrees": -31.937185376437384
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\ud22c\uba85\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "투명유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\ud22c\uba85\uc720\uc57d"
+        "accentName": "투명유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -894,7 +894,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\ud22c\uba85\uc720\uc57d",
+            "name": "투명유약",
             "region": {
               "surface": "all"
             },
@@ -959,14 +959,14 @@
         "axisPhaseDegrees": 82.22315489627988
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\ud22c\uba85\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "투명유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\ud22c\uba85\uc720\uc57d"
+        "accentName": "투명유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -974,7 +974,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\ud22c\uba85\uc720\uc57d",
+            "name": "투명유약",
             "region": {
               "surface": "all"
             },
@@ -1039,14 +1039,14 @@
         "axisPhaseDegrees": -50.88124305728229
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\ud22c\uba85\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "투명유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\ud22c\uba85\uc720\uc57d"
+        "accentName": "투명유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1054,7 +1054,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\ud22c\uba85\uc720\uc57d",
+            "name": "투명유약",
             "region": {
               "surface": "all"
             },
@@ -1119,14 +1119,14 @@
         "axisPhaseDegrees": -102.68793998826808
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\ud22c\uba85\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "투명유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\ud22c\uba85\uc720\uc57d"
+        "accentName": "투명유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1134,7 +1134,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\ud22c\uba85\uc720\uc57d",
+            "name": "투명유약",
             "region": {
               "surface": "all"
             },
@@ -1199,14 +1199,14 @@
         "axisPhaseDegrees": 4.856747501170645
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\ud22c\uba85\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "투명유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\ud22c\uba85\uc720\uc57d"
+        "accentName": "투명유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1214,7 +1214,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\ud22c\uba85\uc720\uc57d",
+            "name": "투명유약",
             "region": {
               "surface": "all"
             },
@@ -1279,14 +1279,14 @@
         "axisPhaseDegrees": -146.09424508995028
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\ud22c\uba85\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "투명유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\ud22c\uba85\uc720\uc57d"
+        "accentName": "투명유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1294,7 +1294,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\ud22c\uba85\uc720\uc57d",
+            "name": "투명유약",
             "region": {
               "surface": "all"
             },
@@ -1314,17 +1314,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000005067370587
+        "height": 30.000004967370586
       },
       "boundsMm": {
-        "minX": -21.001458614801436,
-        "minY": -21.001458586337815,
-        "minZ": -1.000000003330669e-07,
-        "maxX": 21.00145861758446,
-        "maxY": 21.001458586337794,
+        "minX": -21.00000754353429,
+        "minY": -21.000007515072877,
+        "minZ": 0.0,
+        "maxX": 21.0000075463172,
+        "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
+      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
     },
     {
       "id": "white-pawn-b2",
@@ -1359,14 +1359,14 @@
         "axisPhaseDegrees": -125.6232090700711
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\ud22c\uba85\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "투명유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\ud22c\uba85\uc720\uc57d"
+        "accentName": "투명유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1374,7 +1374,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\ud22c\uba85\uc720\uc57d",
+            "name": "투명유약",
             "region": {
               "surface": "all"
             },
@@ -1394,17 +1394,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000005067370587
+        "height": 30.000004967370586
       },
       "boundsMm": {
-        "minX": -21.001458614801436,
-        "minY": -21.001458586337815,
-        "minZ": -1.000000003330669e-07,
-        "maxX": 21.00145861758446,
-        "maxY": 21.001458586337794,
+        "minX": -21.00000754353429,
+        "minY": -21.000007515072877,
+        "minZ": 0.0,
+        "maxX": 21.0000075463172,
+        "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
+      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
     },
     {
       "id": "white-pawn-c2",
@@ -1439,14 +1439,14 @@
         "axisPhaseDegrees": 67.32101305942322
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\ud22c\uba85\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "투명유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\ud22c\uba85\uc720\uc57d"
+        "accentName": "투명유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1454,7 +1454,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\ud22c\uba85\uc720\uc57d",
+            "name": "투명유약",
             "region": {
               "surface": "all"
             },
@@ -1474,17 +1474,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000005067370587
+        "height": 30.000004967370586
       },
       "boundsMm": {
-        "minX": -21.001458614801436,
-        "minY": -21.001458586337815,
-        "minZ": -1.000000003330669e-07,
-        "maxX": 21.00145861758446,
-        "maxY": 21.001458586337794,
+        "minX": -21.00000754353429,
+        "minY": -21.000007515072877,
+        "minZ": 0.0,
+        "maxX": 21.0000075463172,
+        "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
+      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
     },
     {
       "id": "white-pawn-d2",
@@ -1519,14 +1519,14 @@
         "axisPhaseDegrees": -47.25413937274203
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\ud22c\uba85\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "투명유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\ud22c\uba85\uc720\uc57d"
+        "accentName": "투명유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1534,7 +1534,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\ud22c\uba85\uc720\uc57d",
+            "name": "투명유약",
             "region": {
               "surface": "all"
             },
@@ -1554,17 +1554,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000005067370587
+        "height": 30.000004967370586
       },
       "boundsMm": {
-        "minX": -21.001458614801436,
-        "minY": -21.001458586337815,
-        "minZ": -1.000000003330669e-07,
-        "maxX": 21.00145861758446,
-        "maxY": 21.001458586337794,
+        "minX": -21.00000754353429,
+        "minY": -21.000007515072877,
+        "minZ": 0.0,
+        "maxX": 21.0000075463172,
+        "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
+      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
     },
     {
       "id": "white-pawn-e2",
@@ -1599,14 +1599,14 @@
         "axisPhaseDegrees": 176.38577809244788
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\ud22c\uba85\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "투명유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\ud22c\uba85\uc720\uc57d"
+        "accentName": "투명유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1614,7 +1614,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\ud22c\uba85\uc720\uc57d",
+            "name": "투명유약",
             "region": {
               "surface": "all"
             },
@@ -1634,17 +1634,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000005067370587
+        "height": 30.000004967370586
       },
       "boundsMm": {
-        "minX": -21.001458614801436,
-        "minY": -21.001458586337815,
-        "minZ": -1.000000003330669e-07,
-        "maxX": 21.00145861758446,
-        "maxY": 21.001458586337794,
+        "minX": -21.00000754353429,
+        "minY": -21.000007515072877,
+        "minZ": 0.0,
+        "maxX": 21.0000075463172,
+        "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
+      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
     },
     {
       "id": "white-pawn-f2",
@@ -1679,14 +1679,14 @@
         "axisPhaseDegrees": -116.43698590089684
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\ud22c\uba85\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "투명유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\ud22c\uba85\uc720\uc57d"
+        "accentName": "투명유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1694,7 +1694,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\ud22c\uba85\uc720\uc57d",
+            "name": "투명유약",
             "region": {
               "surface": "all"
             },
@@ -1714,17 +1714,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000005067370587
+        "height": 30.000004967370586
       },
       "boundsMm": {
-        "minX": -21.001458614801436,
-        "minY": -21.001458586337815,
-        "minZ": -1.000000003330669e-07,
-        "maxX": 21.00145861758446,
-        "maxY": 21.001458586337794,
+        "minX": -21.00000754353429,
+        "minY": -21.000007515072877,
+        "minZ": 0.0,
+        "maxX": 21.0000075463172,
+        "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
+      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
     },
     {
       "id": "white-pawn-g2",
@@ -1759,14 +1759,14 @@
         "axisPhaseDegrees": 108.85561799298216
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\ud22c\uba85\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "투명유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\ud22c\uba85\uc720\uc57d"
+        "accentName": "투명유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1774,7 +1774,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\ud22c\uba85\uc720\uc57d",
+            "name": "투명유약",
             "region": {
               "surface": "all"
             },
@@ -1794,17 +1794,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000005067370587
+        "height": 30.000004967370586
       },
       "boundsMm": {
-        "minX": -21.001458614801436,
-        "minY": -21.001458586337815,
-        "minZ": -1.000000003330669e-07,
-        "maxX": 21.00145861758446,
-        "maxY": 21.001458586337794,
+        "minX": -21.00000754353429,
+        "minY": -21.000007515072877,
+        "minZ": 0.0,
+        "maxX": 21.0000075463172,
+        "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
+      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
     },
     {
       "id": "white-pawn-h2",
@@ -1839,14 +1839,14 @@
         "axisPhaseDegrees": -159.1442097079386
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\ud22c\uba85\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "투명유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#EEE5D4",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\ud22c\uba85\uc720\uc57d"
+        "accentName": "투명유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1854,7 +1854,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\ud22c\uba85\uc720\uc57d",
+            "name": "투명유약",
             "region": {
               "surface": "all"
             },
@@ -1874,17 +1874,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000005067370587
+        "height": 30.000004967370586
       },
       "boundsMm": {
-        "minX": -21.001458614801436,
-        "minY": -21.001458586337815,
-        "minZ": -1.000000003330669e-07,
-        "maxX": 21.00145861758446,
-        "maxY": 21.001458586337794,
+        "minX": -21.00000754353429,
+        "minY": -21.000007515072877,
+        "minZ": 0.0,
+        "maxX": 21.0000075463172,
+        "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
+      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
     },
     {
       "id": "brown-rook-a8",
@@ -1919,14 +1919,14 @@
         "axisPhaseDegrees": 118.75670999620922
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\uac08\uc0c9\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "갈색유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\uac08\uc0c9\uc720\uc57d"
+        "accentName": "갈색유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -1934,7 +1934,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\uac08\uc0c9\uc720\uc57d",
+            "name": "갈색유약",
             "region": {
               "surface": "all"
             },
@@ -1999,14 +1999,14 @@
         "axisPhaseDegrees": 0.9391291483877922
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\uac08\uc0c9\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "갈색유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\uac08\uc0c9\uc720\uc57d"
+        "accentName": "갈색유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2014,7 +2014,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\uac08\uc0c9\uc720\uc57d",
+            "name": "갈색유약",
             "region": {
               "surface": "all"
             },
@@ -2079,14 +2079,14 @@
         "axisPhaseDegrees": 119.3274554124194
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\uac08\uc0c9\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "갈색유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\uac08\uc0c9\uc720\uc57d"
+        "accentName": "갈색유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2094,7 +2094,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\uac08\uc0c9\uc720\uc57d",
+            "name": "갈색유약",
             "region": {
               "surface": "all"
             },
@@ -2159,14 +2159,14 @@
         "axisPhaseDegrees": -92.31005115071764
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\uac08\uc0c9\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "갈색유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\uac08\uc0c9\uc720\uc57d"
+        "accentName": "갈색유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2174,7 +2174,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\uac08\uc0c9\uc720\uc57d",
+            "name": "갈색유약",
             "region": {
               "surface": "all"
             },
@@ -2239,14 +2239,14 @@
         "axisPhaseDegrees": -88.03487305405392
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\uac08\uc0c9\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "갈색유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\uac08\uc0c9\uc720\uc57d"
+        "accentName": "갈색유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2254,7 +2254,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\uac08\uc0c9\uc720\uc57d",
+            "name": "갈색유약",
             "region": {
               "surface": "all"
             },
@@ -2319,14 +2319,14 @@
         "axisPhaseDegrees": -23.9549704016288
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\uac08\uc0c9\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "갈색유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\uac08\uc0c9\uc720\uc57d"
+        "accentName": "갈색유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2334,7 +2334,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\uac08\uc0c9\uc720\uc57d",
+            "name": "갈색유약",
             "region": {
               "surface": "all"
             },
@@ -2399,14 +2399,14 @@
         "axisPhaseDegrees": -30.04100503311912
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\uac08\uc0c9\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "갈색유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\uac08\uc0c9\uc720\uc57d"
+        "accentName": "갈색유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2414,7 +2414,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\uac08\uc0c9\uc720\uc57d",
+            "name": "갈색유약",
             "region": {
               "surface": "all"
             },
@@ -2479,14 +2479,14 @@
         "axisPhaseDegrees": -14.335557251827197
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\uac08\uc0c9\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "갈색유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\uac08\uc0c9\uc720\uc57d"
+        "accentName": "갈색유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2494,7 +2494,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\uac08\uc0c9\uc720\uc57d",
+            "name": "갈색유약",
             "region": {
               "surface": "all"
             },
@@ -2559,14 +2559,14 @@
         "axisPhaseDegrees": 53.27139542112798
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\uac08\uc0c9\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "갈색유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\uac08\uc0c9\uc720\uc57d"
+        "accentName": "갈색유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2574,7 +2574,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\uac08\uc0c9\uc720\uc57d",
+            "name": "갈색유약",
             "region": {
               "surface": "all"
             },
@@ -2594,17 +2594,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000005067370587
+        "height": 30.000004967370586
       },
       "boundsMm": {
-        "minX": -21.001458614801436,
-        "minY": -21.001458586337815,
-        "minZ": -1.000000003330669e-07,
-        "maxX": 21.00145861758446,
-        "maxY": 21.001458586337794,
+        "minX": -21.00000754353429,
+        "minY": -21.000007515072877,
+        "minZ": 0.0,
+        "maxX": 21.0000075463172,
+        "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
+      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
     },
     {
       "id": "brown-pawn-b7",
@@ -2639,14 +2639,14 @@
         "axisPhaseDegrees": 52.56050955611286
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\uac08\uc0c9\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "갈색유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\uac08\uc0c9\uc720\uc57d"
+        "accentName": "갈색유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2654,7 +2654,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\uac08\uc0c9\uc720\uc57d",
+            "name": "갈색유약",
             "region": {
               "surface": "all"
             },
@@ -2674,17 +2674,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000005067370587
+        "height": 30.000004967370586
       },
       "boundsMm": {
-        "minX": -21.001458614801436,
-        "minY": -21.001458586337815,
-        "minZ": -1.000000003330669e-07,
-        "maxX": 21.00145861758446,
-        "maxY": 21.001458586337794,
+        "minX": -21.00000754353429,
+        "minY": -21.000007515072877,
+        "minZ": 0.0,
+        "maxX": 21.0000075463172,
+        "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
+      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
     },
     {
       "id": "brown-pawn-c7",
@@ -2719,14 +2719,14 @@
         "axisPhaseDegrees": 48.47861600688711
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\uac08\uc0c9\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "갈색유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\uac08\uc0c9\uc720\uc57d"
+        "accentName": "갈색유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2734,7 +2734,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\uac08\uc0c9\uc720\uc57d",
+            "name": "갈색유약",
             "region": {
               "surface": "all"
             },
@@ -2754,17 +2754,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000005067370587
+        "height": 30.000004967370586
       },
       "boundsMm": {
-        "minX": -21.001458614801436,
-        "minY": -21.001458586337815,
-        "minZ": -1.000000003330669e-07,
-        "maxX": 21.00145861758446,
-        "maxY": 21.001458586337794,
+        "minX": -21.00000754353429,
+        "minY": -21.000007515072877,
+        "minZ": 0.0,
+        "maxX": 21.0000075463172,
+        "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
+      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
     },
     {
       "id": "brown-pawn-d7",
@@ -2799,14 +2799,14 @@
         "axisPhaseDegrees": 55.27644091908914
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\uac08\uc0c9\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "갈색유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\uac08\uc0c9\uc720\uc57d"
+        "accentName": "갈색유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2814,7 +2814,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\uac08\uc0c9\uc720\uc57d",
+            "name": "갈색유약",
             "region": {
               "surface": "all"
             },
@@ -2834,17 +2834,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000005067370587
+        "height": 30.000004967370586
       },
       "boundsMm": {
-        "minX": -21.001458614801436,
-        "minY": -21.001458586337815,
-        "minZ": -1.000000003330669e-07,
-        "maxX": 21.00145861758446,
-        "maxY": 21.001458586337794,
+        "minX": -21.00000754353429,
+        "minY": -21.000007515072877,
+        "minZ": 0.0,
+        "maxX": 21.0000075463172,
+        "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
+      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
     },
     {
       "id": "brown-pawn-e7",
@@ -2879,14 +2879,14 @@
         "axisPhaseDegrees": 34.980122200536755
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\uac08\uc0c9\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "갈색유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\uac08\uc0c9\uc720\uc57d"
+        "accentName": "갈색유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2894,7 +2894,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\uac08\uc0c9\uc720\uc57d",
+            "name": "갈색유약",
             "region": {
               "surface": "all"
             },
@@ -2914,17 +2914,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000005067370587
+        "height": 30.000004967370586
       },
       "boundsMm": {
-        "minX": -21.001458614801436,
-        "minY": -21.001458586337815,
-        "minZ": -1.000000003330669e-07,
-        "maxX": 21.00145861758446,
-        "maxY": 21.001458586337794,
+        "minX": -21.00000754353429,
+        "minY": -21.000007515072877,
+        "minZ": 0.0,
+        "maxX": 21.0000075463172,
+        "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
+      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
     },
     {
       "id": "brown-pawn-f7",
@@ -2959,14 +2959,14 @@
         "axisPhaseDegrees": 34.405784032641975
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\uac08\uc0c9\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "갈색유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\uac08\uc0c9\uc720\uc57d"
+        "accentName": "갈색유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -2974,7 +2974,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\uac08\uc0c9\uc720\uc57d",
+            "name": "갈색유약",
             "region": {
               "surface": "all"
             },
@@ -2994,17 +2994,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000005067370587
+        "height": 30.000004967370586
       },
       "boundsMm": {
-        "minX": -21.001458614801436,
-        "minY": -21.001458586337815,
-        "minZ": -1.000000003330669e-07,
-        "maxX": 21.00145861758446,
-        "maxY": 21.001458586337794,
+        "minX": -21.00000754353429,
+        "minY": -21.000007515072877,
+        "minZ": 0.0,
+        "maxX": 21.0000075463172,
+        "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
+      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
     },
     {
       "id": "brown-pawn-g7",
@@ -3039,14 +3039,14 @@
         "axisPhaseDegrees": 160.49772324947065
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\uac08\uc0c9\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "갈색유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\uac08\uc0c9\uc720\uc57d"
+        "accentName": "갈색유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -3054,7 +3054,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\uac08\uc0c9\uc720\uc57d",
+            "name": "갈색유약",
             "region": {
               "surface": "all"
             },
@@ -3074,17 +3074,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000005067370587
+        "height": 30.000004967370586
       },
       "boundsMm": {
-        "minX": -21.001458614801436,
-        "minY": -21.001458586337815,
-        "minZ": -1.000000003330669e-07,
-        "maxX": 21.00145861758446,
-        "maxY": 21.001458586337794,
+        "minX": -21.00000754353429,
+        "minY": -21.000007515072877,
+        "minZ": 0.0,
+        "maxX": 21.0000075463172,
+        "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
+      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
     },
     {
       "id": "brown-pawn-h7",
@@ -3119,14 +3119,14 @@
         "axisPhaseDegrees": -176.73685698472926
       },
       "glazePreview": {
-        "clayName": "\ubc31\ud1a0",
-        "baseName": "\uac08\uc0c9\uc720\uc57d",
+        "clayName": "백토",
+        "baseName": "갈색유약",
         "clayHex": "#DDD3C4",
         "baseHex": "#542B15",
         "accentHex": "#542B15",
         "roughness": 0.6,
         "clearcoat": 0.05,
-        "accentName": "\uac08\uc0c9\uc720\uc57d"
+        "accentName": "갈색유약"
       },
       "coatings": {
         "status": "reviewed-provisional",
@@ -3134,7 +3134,7 @@
         "roughness": 0.6,
         "layers": [
           {
-            "name": "\uac08\uc0c9\uc720\uc57d",
+            "name": "갈색유약",
             "region": {
               "surface": "all"
             },
@@ -3154,17 +3154,17 @@
       "geometryAssetId": "white-pawn-a2",
       "shapeKind": "feature-solid",
       "dimensionsMm": {
-        "height": 30.000005067370587
+        "height": 30.000004967370586
       },
       "boundsMm": {
-        "minX": -21.001458614801436,
-        "minY": -21.001458586337815,
-        "minZ": -1.000000003330669e-07,
-        "maxX": 21.00145861758446,
-        "maxY": 21.001458586337794,
+        "minX": -21.00000754353429,
+        "minY": -21.000007515072877,
+        "minZ": 0.0,
+        "maxX": 21.0000075463172,
+        "maxY": 21.00000751507269,
         "maxZ": 30.000004967370586
       },
-      "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c"
+      "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6"
     }
   ],
   "renderer": "feature-solids",
@@ -3671,530 +3671,25 @@
       }
     ]
   },
-  "cadPresentation": {
-    "pages": [
-      {
-        "id": "board",
-        "title": "Chessboard",
-        "partIds": [
-          "board"
-        ],
-        "extraScrollVh": 160,
-        "dimensionNotes": [
-          "FINISHED SIZE 580 x 580 x 22 mm | GRID 8 x 8 | CELL 60 x 60 mm",
-          "GROOVE WIDTH 2 mm (0.2 cm) | BORDER 43 mm = (580 - 8 x 60 - 7 x 2) / 2",
-          "GROOVE DEPTH 1 mm: PROVISIONAL | ONE-PIECE SLAB / NO PERIMETER GROOVE"
-        ],
-        "file": "cad-group-board.svg",
-        "pagePx": [
-          1800,
-          1000
-        ],
-        "frontBoxes": {
-          "board": {
-            "cx": 0.17407407407407408,
-            "cy": 0.30525,
-            "width": 0.2992592592592592,
-            "height": 0.02043217579288029,
-            "sourceStepSha256": "8c9593febf5d7403a8d34d01ae7f9c1eaadb56bafc49eca442e197543dc78f3a",
-            "cameraLookAtMm": [
-              0.0,
-              0.0,
-              11.0
-            ]
-          }
-        }
-      },
-      {
-        "id": "pawn-knight-bishop",
-        "title": "Pawn / Knight / Bishop",
-        "partIds": [
-          "pawn",
-          "knight",
-          "bishop"
-        ],
-        "extraScrollVh": 320,
-        "sections": {
-          "knight": [
-            0,
-            0,
-            0.43,
-            1
-          ],
-          "pawn": [
-            0.45,
-            0,
-            0.55,
-            0.48
-          ],
-          "bishop": [
-            0.45,
-            0.52,
-            0.55,
-            0.48
-          ]
-        },
-        "file": "cad-group-pawn-knight-bishop.svg",
-        "pagePx": [
-          1800,
-          1000
-        ],
-        "frontBoxes": {
-          "white-knight-b1": {
-            "cx": 0.11305555555555556,
-            "cy": 0.17383333333333334,
-            "width": 0.06117590968071531,
-            "height": 0.19766666666666668,
-            "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
-            "cameraLookAtMm": [
-              1.2936531845753052e-09,
-              2.3803181647963356e-12,
-              35.00000005000017
-            ]
-          },
-          "white-bishop-c1": {
-            "cx": 0.5402777777777777,
-            "cy": 0.6965,
-            "width": 0.05864444444444442,
-            "height": 0.203,
-            "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
-            "cameraLookAtMm": [
-              0.0,
-              0.0,
-              37.5
-            ]
-          },
-          "white-bishop-f1": {
-            "cx": 0.5402777777777777,
-            "cy": 0.6965,
-            "width": 0.05864444444444442,
-            "height": 0.203,
-            "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
-            "cameraLookAtMm": [
-              0.0,
-              0.0,
-              37.5
-            ]
-          },
-          "white-knight-g1": {
-            "cx": 0.11305555555555556,
-            "cy": 0.17383333333333334,
-            "width": 0.06117590968071531,
-            "height": 0.19766666666666668,
-            "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
-            "cameraLookAtMm": [
-              1.2936531845753052e-09,
-              2.3803181647963356e-12,
-              35.00000005000017
-            ]
-          },
-          "white-pawn-a2": {
-            "cx": 0.5402777777777777,
-            "cy": 0.1765,
-            "width": 0.13166666666666665,
-            "height": 0.16927822793944602,
-            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
-            "cameraLookAtMm": [
-              1.3967724754593291e-09,
-              6.693312570860144e-12,
-              15.000002483681728
-            ]
-          },
-          "white-pawn-b2": {
-            "cx": 0.5402777777777777,
-            "cy": 0.1765,
-            "width": 0.13166666666666665,
-            "height": 0.16927822793944602,
-            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
-            "cameraLookAtMm": [
-              1.3967724754593291e-09,
-              6.693312570860144e-12,
-              15.000002483681728
-            ]
-          },
-          "white-pawn-c2": {
-            "cx": 0.5402777777777777,
-            "cy": 0.1765,
-            "width": 0.13166666666666665,
-            "height": 0.16927822793944602,
-            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
-            "cameraLookAtMm": [
-              1.3967724754593291e-09,
-              6.693312570860144e-12,
-              15.000002483681728
-            ]
-          },
-          "white-pawn-d2": {
-            "cx": 0.5402777777777777,
-            "cy": 0.1765,
-            "width": 0.13166666666666665,
-            "height": 0.16927822793944602,
-            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
-            "cameraLookAtMm": [
-              1.3967724754593291e-09,
-              6.693312570860144e-12,
-              15.000002483681728
-            ]
-          },
-          "white-pawn-e2": {
-            "cx": 0.5402777777777777,
-            "cy": 0.1765,
-            "width": 0.13166666666666665,
-            "height": 0.16927822793944602,
-            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
-            "cameraLookAtMm": [
-              1.3967724754593291e-09,
-              6.693312570860144e-12,
-              15.000002483681728
-            ]
-          },
-          "white-pawn-f2": {
-            "cx": 0.5402777777777777,
-            "cy": 0.1765,
-            "width": 0.13166666666666665,
-            "height": 0.16927822793944602,
-            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
-            "cameraLookAtMm": [
-              1.3967724754593291e-09,
-              6.693312570860144e-12,
-              15.000002483681728
-            ]
-          },
-          "white-pawn-g2": {
-            "cx": 0.5402777777777777,
-            "cy": 0.1765,
-            "width": 0.13166666666666665,
-            "height": 0.16927822793944602,
-            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
-            "cameraLookAtMm": [
-              1.3967724754593291e-09,
-              6.693312570860144e-12,
-              15.000002483681728
-            ]
-          },
-          "white-pawn-h2": {
-            "cx": 0.5402777777777777,
-            "cy": 0.1765,
-            "width": 0.13166666666666665,
-            "height": 0.16927822793944602,
-            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
-            "cameraLookAtMm": [
-              1.3967724754593291e-09,
-              6.693312570860144e-12,
-              15.000002483681728
-            ]
-          },
-          "brown-knight-b8": {
-            "cx": 0.11305555555555556,
-            "cy": 0.17383333333333334,
-            "width": 0.06117590968071531,
-            "height": 0.19766666666666668,
-            "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
-            "cameraLookAtMm": [
-              1.2936531845753052e-09,
-              2.3803181647963356e-12,
-              35.00000005000017
-            ]
-          },
-          "brown-bishop-c8": {
-            "cx": 0.5402777777777777,
-            "cy": 0.6965,
-            "width": 0.05864444444444442,
-            "height": 0.203,
-            "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
-            "cameraLookAtMm": [
-              0.0,
-              0.0,
-              37.5
-            ]
-          },
-          "brown-bishop-f8": {
-            "cx": 0.5402777777777777,
-            "cy": 0.6965,
-            "width": 0.05864444444444442,
-            "height": 0.203,
-            "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
-            "cameraLookAtMm": [
-              0.0,
-              0.0,
-              37.5
-            ]
-          },
-          "brown-knight-g8": {
-            "cx": 0.11305555555555556,
-            "cy": 0.17383333333333334,
-            "width": 0.06117590968071531,
-            "height": 0.19766666666666668,
-            "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
-            "cameraLookAtMm": [
-              1.2936531845753052e-09,
-              2.3803181647963356e-12,
-              35.00000005000017
-            ]
-          },
-          "brown-pawn-a7": {
-            "cx": 0.5402777777777777,
-            "cy": 0.1765,
-            "width": 0.13166666666666665,
-            "height": 0.16927822793944602,
-            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
-            "cameraLookAtMm": [
-              1.3967724754593291e-09,
-              6.693312570860144e-12,
-              15.000002483681728
-            ]
-          },
-          "brown-pawn-b7": {
-            "cx": 0.5402777777777777,
-            "cy": 0.1765,
-            "width": 0.13166666666666665,
-            "height": 0.16927822793944602,
-            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
-            "cameraLookAtMm": [
-              1.3967724754593291e-09,
-              6.693312570860144e-12,
-              15.000002483681728
-            ]
-          },
-          "brown-pawn-c7": {
-            "cx": 0.5402777777777777,
-            "cy": 0.1765,
-            "width": 0.13166666666666665,
-            "height": 0.16927822793944602,
-            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
-            "cameraLookAtMm": [
-              1.3967724754593291e-09,
-              6.693312570860144e-12,
-              15.000002483681728
-            ]
-          },
-          "brown-pawn-d7": {
-            "cx": 0.5402777777777777,
-            "cy": 0.1765,
-            "width": 0.13166666666666665,
-            "height": 0.16927822793944602,
-            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
-            "cameraLookAtMm": [
-              1.3967724754593291e-09,
-              6.693312570860144e-12,
-              15.000002483681728
-            ]
-          },
-          "brown-pawn-e7": {
-            "cx": 0.5402777777777777,
-            "cy": 0.1765,
-            "width": 0.13166666666666665,
-            "height": 0.16927822793944602,
-            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
-            "cameraLookAtMm": [
-              1.3967724754593291e-09,
-              6.693312570860144e-12,
-              15.000002483681728
-            ]
-          },
-          "brown-pawn-f7": {
-            "cx": 0.5402777777777777,
-            "cy": 0.1765,
-            "width": 0.13166666666666665,
-            "height": 0.16927822793944602,
-            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
-            "cameraLookAtMm": [
-              1.3967724754593291e-09,
-              6.693312570860144e-12,
-              15.000002483681728
-            ]
-          },
-          "brown-pawn-g7": {
-            "cx": 0.5402777777777777,
-            "cy": 0.1765,
-            "width": 0.13166666666666665,
-            "height": 0.16927822793944602,
-            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
-            "cameraLookAtMm": [
-              1.3967724754593291e-09,
-              6.693312570860144e-12,
-              15.000002483681728
-            ]
-          },
-          "brown-pawn-h7": {
-            "cx": 0.5402777777777777,
-            "cy": 0.1765,
-            "width": 0.13166666666666665,
-            "height": 0.16927822793944602,
-            "sourceStepSha256": "e82c8b55cdb92bfdb9b4d1f9a9ac9d76784fbbfcaf8d37e67686c1ff3e033c3c",
-            "cameraLookAtMm": [
-              1.3967724754593291e-09,
-              6.693312570860144e-12,
-              15.000002483681728
-            ]
-          }
-        }
-      },
-      {
-        "id": "rook-queen-king",
-        "title": "Rook / Queen / King",
-        "partIds": [
-          "rook",
-          "queen",
-          "king"
-        ],
-        "extraScrollVh": 160,
-        "sections": {
-          "rook": [
-            0,
-            0,
-            0.55,
-            0.48
-          ],
-          "queen": [
-            0,
-            0.52,
-            0.55,
-            0.48
-          ],
-          "king": [
-            0.57,
-            0,
-            0.43,
-            1
-          ]
-        },
-        "file": "cad-group-rook-queen-king.svg",
-        "pagePx": [
-          1800,
-          1000
-        ],
-        "frontBoxes": {
-          "white-rook-a1": {
-            "cx": 0.09027777777777778,
-            "cy": 0.1765,
-            "width": 0.07852253111111102,
-            "height": 0.203,
-            "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
-            "cameraLookAtMm": [
-              1.2938059512634936e-09,
-              1.5489831639570184e-12,
-              28.000002175116695
-            ]
-          },
-          "white-queen-d1": {
-            "cx": 0.09027777777777778,
-            "cy": 0.6965,
-            "width": 0.05570850444444436,
-            "height": 0.203,
-            "sourceStepSha256": "eb29083120bb43c8232655b19fb91c8b4e2d4b41854a1189eef5e0354b170647",
-            "cameraLookAtMm": [
-              1.392715276438139e-09,
-              1.644906433284632e-12,
-              42.5
-            ]
-          },
-          "white-king-e1": {
-            "cx": 0.6830555555555555,
-            "cy": 0.17383333333333334,
-            "width": 0.049286918569604085,
-            "height": 0.19766666666666668,
-            "sourceStepSha256": "4471880e5cfa5a49adfa7b21692cb71584178c687177b8edefe5867deac94a5c",
-            "cameraLookAtMm": [
-              1.4591687858001023e-09,
-              2.220446049250313e-12,
-              49.0
-            ]
-          },
-          "white-rook-h1": {
-            "cx": 0.09027777777777778,
-            "cy": 0.1765,
-            "width": 0.07852253111111102,
-            "height": 0.203,
-            "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
-            "cameraLookAtMm": [
-              1.2938059512634936e-09,
-              1.5489831639570184e-12,
-              28.000002175116695
-            ]
-          },
-          "brown-rook-a8": {
-            "cx": 0.09027777777777778,
-            "cy": 0.1765,
-            "width": 0.07852253111111102,
-            "height": 0.203,
-            "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
-            "cameraLookAtMm": [
-              1.2938059512634936e-09,
-              1.5489831639570184e-12,
-              28.000002175116695
-            ]
-          },
-          "brown-queen-d8": {
-            "cx": 0.09027777777777778,
-            "cy": 0.6965,
-            "width": 0.05570850444444436,
-            "height": 0.203,
-            "sourceStepSha256": "eb29083120bb43c8232655b19fb91c8b4e2d4b41854a1189eef5e0354b170647",
-            "cameraLookAtMm": [
-              1.392715276438139e-09,
-              1.644906433284632e-12,
-              42.5
-            ]
-          },
-          "brown-king-e8": {
-            "cx": 0.6830555555555555,
-            "cy": 0.17383333333333334,
-            "width": 0.049286918569604085,
-            "height": 0.19766666666666668,
-            "sourceStepSha256": "4471880e5cfa5a49adfa7b21692cb71584178c687177b8edefe5867deac94a5c",
-            "cameraLookAtMm": [
-              1.4591687858001023e-09,
-              2.220446049250313e-12,
-              49.0
-            ]
-          },
-          "brown-rook-h8": {
-            "cx": 0.09027777777777778,
-            "cy": 0.1765,
-            "width": 0.07852253111111102,
-            "height": 0.203,
-            "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
-            "cameraLookAtMm": [
-              1.2938059512634936e-09,
-              1.5489831639570184e-12,
-              28.000002175116695
-            ]
-          }
-        }
-      }
-    ],
-    "clickToZoom": true,
-    "handoff": "retain-fronts",
-    "handoffPartIds": [
-      "pawn",
-      "knight",
-      "bishop",
-      "rook",
-      "queen",
-      "king"
-    ],
-    "refreshOrthographicParts": [
-      "pawn"
-    ],
-    "collectionStartFraction": 0.25,
-    "handoffExtraScrollVh": 720
+  "dimensionalDrawing": {
+    "directory": ".poc/ceramic-v2-project-pages/chess-drawing-r2",
+    "extraScrollVh": 480
   },
   "compositionMode": "multiple",
-  "name": "Chess \u2014 three CAD sheets and 32 pieces",
+  "name": "Chess — three CAD sheets and 32 pieces",
   "sheets": {
     "desktop": {
-      "file": "sheet-desktop.svg",
+      "file": "../dimensional-drawing/sheet-desktop.svg",
       "pagePx": [
-        1920,
-        3040
+        5100,
+        3298
       ],
       "frontBoxes": {
         "board": {
-          "cx": 0.13020833333333334,
-          "cy": 0.05082236842105263,
-          "width": 0.21458333333333332,
-          "height": 0.00514065335753176,
+          "cx": 0.22941176470588234,
+          "cy": 0.06215888417222559,
+          "width": 0.03529411764705882,
+          "height": 0.002070220196148141,
           "sourceStepSha256": "8c9593febf5d7403a8d34d01ae7f9c1eaadb56bafc49eca442e197543dc78f3a",
           "cameraLookAtMm": [
             0.0,
@@ -4203,10 +3698,10 @@
           ]
         },
         "white-rook-a1": {
-          "cx": 0.6302083333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.052582055153043435,
-          "height": 0.047697368421052634,
+          "cx": 0.13725490196078433,
+          "cy": 0.4739235900545785,
+          "width": 0.06689546651519036,
+          "height": 0.1485748938750758,
           "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
@@ -4215,10 +3710,10 @@
           ]
         },
         "white-knight-b1": {
-          "cx": 0.6302083333333334,
-          "cy": 0.05082236842105263,
-          "width": 0.04207133643002605,
-          "height": 0.047697368421052634,
+          "cx": 0.47058823529411764,
+          "cy": 0.11673741661613099,
+          "width": 0.05352361502821975,
+          "height": 0.1485748938750758,
           "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
@@ -4227,10 +3722,10 @@
           ]
         },
         "white-bishop-c1": {
-          "cx": 0.13020833333333334,
-          "cy": 0.5508223684210526,
-          "width": 0.03927083333333334,
-          "height": 0.047697368421052634,
+          "cx": 0.47058823529411764,
+          "cy": 0.4739235900545785,
+          "width": 0.049960784313725484,
+          "height": 0.1485748938750758,
           "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
           "cameraLookAtMm": [
             0.0,
@@ -4239,10 +3734,10 @@
           ]
         },
         "white-queen-d1": {
-          "cx": 0.6302083333333334,
-          "cy": 0.5508223684210526,
-          "width": 0.03730480507354397,
-          "height": 0.047697368421052634,
+          "cx": 0.803921568627451,
+          "cy": 0.4739235900545785,
+          "width": 0.04745958162703199,
+          "height": 0.1485748938750758,
           "sourceStepSha256": "eb29083120bb43c8232655b19fb91c8b4e2d4b41854a1189eef5e0354b170647",
           "cameraLookAtMm": [
             1.392715276438139e-09,
@@ -4251,10 +3746,10 @@
           ]
         },
         "white-king-e1": {
-          "cx": 0.13020833333333334,
-          "cy": 0.8008223684210526,
-          "width": 0.03389514862657197,
-          "height": 0.047697368421052634,
+          "cx": 0.13725490196078433,
+          "cy": 0.7953305033353547,
+          "width": 0.043121779348044474,
+          "height": 0.1485748938750758,
           "sourceStepSha256": "4471880e5cfa5a49adfa7b21692cb71584178c687177b8edefe5867deac94a5c",
           "cameraLookAtMm": [
             1.4591687858001023e-09,
@@ -4263,10 +3758,10 @@
           ]
         },
         "white-bishop-f1": {
-          "cx": 0.13020833333333334,
-          "cy": 0.5508223684210526,
-          "width": 0.03927083333333334,
-          "height": 0.047697368421052634,
+          "cx": 0.47058823529411764,
+          "cy": 0.4739235900545785,
+          "width": 0.049960784313725484,
+          "height": 0.1485748938750758,
           "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
           "cameraLookAtMm": [
             0.0,
@@ -4275,10 +3770,10 @@
           ]
         },
         "white-knight-g1": {
-          "cx": 0.6302083333333334,
-          "cy": 0.05082236842105263,
-          "width": 0.04207133643002605,
-          "height": 0.047697368421052634,
+          "cx": 0.47058823529411764,
+          "cy": 0.11673741661613099,
+          "width": 0.05352361502821975,
+          "height": 0.1485748938750758,
           "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
@@ -4287,10 +3782,10 @@
           ]
         },
         "white-rook-h1": {
-          "cx": 0.6302083333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.052582055153043435,
-          "height": 0.047697368421052634,
+          "cx": 0.13725490196078433,
+          "cy": 0.4739235900545785,
+          "width": 0.06689546651519036,
+          "height": 0.1485748938750758,
           "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
@@ -4299,10 +3794,10 @@
           ]
         },
         "white-pawn-a2": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
+          "cx": 0.803921568627451,
+          "cy": 0.11673741661613099,
+          "width": 0.10196078431372549,
+          "height": 0.11262527612794548,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4311,10 +3806,10 @@
           ]
         },
         "white-pawn-b2": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
+          "cx": 0.803921568627451,
+          "cy": 0.11673741661613099,
+          "width": 0.10196078431372549,
+          "height": 0.11262527612794548,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4323,10 +3818,10 @@
           ]
         },
         "white-pawn-c2": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
+          "cx": 0.803921568627451,
+          "cy": 0.11673741661613099,
+          "width": 0.10196078431372549,
+          "height": 0.11262527612794548,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4335,10 +3830,10 @@
           ]
         },
         "white-pawn-d2": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
+          "cx": 0.803921568627451,
+          "cy": 0.11673741661613099,
+          "width": 0.10196078431372549,
+          "height": 0.11262527612794548,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4347,10 +3842,10 @@
           ]
         },
         "white-pawn-e2": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
+          "cx": 0.803921568627451,
+          "cy": 0.11673741661613099,
+          "width": 0.10196078431372549,
+          "height": 0.11262527612794548,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4359,10 +3854,10 @@
           ]
         },
         "white-pawn-f2": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
+          "cx": 0.803921568627451,
+          "cy": 0.11673741661613099,
+          "width": 0.10196078431372549,
+          "height": 0.11262527612794548,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4371,10 +3866,10 @@
           ]
         },
         "white-pawn-g2": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
+          "cx": 0.803921568627451,
+          "cy": 0.11673741661613099,
+          "width": 0.10196078431372549,
+          "height": 0.11262527612794548,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4383,10 +3878,10 @@
           ]
         },
         "white-pawn-h2": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
+          "cx": 0.803921568627451,
+          "cy": 0.11673741661613099,
+          "width": 0.10196078431372549,
+          "height": 0.11262527612794548,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4395,10 +3890,10 @@
           ]
         },
         "brown-rook-a8": {
-          "cx": 0.6302083333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.052582055153043435,
-          "height": 0.047697368421052634,
+          "cx": 0.13725490196078433,
+          "cy": 0.4739235900545785,
+          "width": 0.06689546651519036,
+          "height": 0.1485748938750758,
           "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
@@ -4407,10 +3902,10 @@
           ]
         },
         "brown-knight-b8": {
-          "cx": 0.6302083333333334,
-          "cy": 0.05082236842105263,
-          "width": 0.04207133643002605,
-          "height": 0.047697368421052634,
+          "cx": 0.47058823529411764,
+          "cy": 0.11673741661613099,
+          "width": 0.05352361502821975,
+          "height": 0.1485748938750758,
           "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
@@ -4419,10 +3914,10 @@
           ]
         },
         "brown-bishop-c8": {
-          "cx": 0.13020833333333334,
-          "cy": 0.5508223684210526,
-          "width": 0.03927083333333334,
-          "height": 0.047697368421052634,
+          "cx": 0.47058823529411764,
+          "cy": 0.4739235900545785,
+          "width": 0.049960784313725484,
+          "height": 0.1485748938750758,
           "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
           "cameraLookAtMm": [
             0.0,
@@ -4431,10 +3926,10 @@
           ]
         },
         "brown-queen-d8": {
-          "cx": 0.6302083333333334,
-          "cy": 0.5508223684210526,
-          "width": 0.03730480507354397,
-          "height": 0.047697368421052634,
+          "cx": 0.803921568627451,
+          "cy": 0.4739235900545785,
+          "width": 0.04745958162703199,
+          "height": 0.1485748938750758,
           "sourceStepSha256": "eb29083120bb43c8232655b19fb91c8b4e2d4b41854a1189eef5e0354b170647",
           "cameraLookAtMm": [
             1.392715276438139e-09,
@@ -4443,10 +3938,10 @@
           ]
         },
         "brown-king-e8": {
-          "cx": 0.13020833333333334,
-          "cy": 0.8008223684210526,
-          "width": 0.03389514862657197,
-          "height": 0.047697368421052634,
+          "cx": 0.13725490196078433,
+          "cy": 0.7953305033353547,
+          "width": 0.043121779348044474,
+          "height": 0.1485748938750758,
           "sourceStepSha256": "4471880e5cfa5a49adfa7b21692cb71584178c687177b8edefe5867deac94a5c",
           "cameraLookAtMm": [
             1.4591687858001023e-09,
@@ -4455,10 +3950,10 @@
           ]
         },
         "brown-bishop-f8": {
-          "cx": 0.13020833333333334,
-          "cy": 0.5508223684210526,
-          "width": 0.03927083333333334,
-          "height": 0.047697368421052634,
+          "cx": 0.47058823529411764,
+          "cy": 0.4739235900545785,
+          "width": 0.049960784313725484,
+          "height": 0.1485748938750758,
           "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
           "cameraLookAtMm": [
             0.0,
@@ -4467,10 +3962,10 @@
           ]
         },
         "brown-knight-g8": {
-          "cx": 0.6302083333333334,
-          "cy": 0.05082236842105263,
-          "width": 0.04207133643002605,
-          "height": 0.047697368421052634,
+          "cx": 0.47058823529411764,
+          "cy": 0.11673741661613099,
+          "width": 0.05352361502821975,
+          "height": 0.1485748938750758,
           "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
@@ -4479,10 +3974,10 @@
           ]
         },
         "brown-rook-h8": {
-          "cx": 0.6302083333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.052582055153043435,
-          "height": 0.047697368421052634,
+          "cx": 0.13725490196078433,
+          "cy": 0.4739235900545785,
+          "width": 0.06689546651519036,
+          "height": 0.1485748938750758,
           "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
@@ -4491,10 +3986,10 @@
           ]
         },
         "brown-pawn-a7": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
+          "cx": 0.803921568627451,
+          "cy": 0.11673741661613099,
+          "width": 0.10196078431372549,
+          "height": 0.11262527612794548,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4503,10 +3998,10 @@
           ]
         },
         "brown-pawn-b7": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
+          "cx": 0.803921568627451,
+          "cy": 0.11673741661613099,
+          "width": 0.10196078431372549,
+          "height": 0.11262527612794548,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4515,10 +4010,10 @@
           ]
         },
         "brown-pawn-c7": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
+          "cx": 0.803921568627451,
+          "cy": 0.11673741661613099,
+          "width": 0.10196078431372549,
+          "height": 0.11262527612794548,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4527,10 +4022,10 @@
           ]
         },
         "brown-pawn-d7": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
+          "cx": 0.803921568627451,
+          "cy": 0.11673741661613099,
+          "width": 0.10196078431372549,
+          "height": 0.11262527612794548,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4539,10 +4034,10 @@
           ]
         },
         "brown-pawn-e7": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
+          "cx": 0.803921568627451,
+          "cy": 0.11673741661613099,
+          "width": 0.10196078431372549,
+          "height": 0.11262527612794548,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4551,10 +4046,10 @@
           ]
         },
         "brown-pawn-f7": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
+          "cx": 0.803921568627451,
+          "cy": 0.11673741661613099,
+          "width": 0.10196078431372549,
+          "height": 0.11262527612794548,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4563,10 +4058,10 @@
           ]
         },
         "brown-pawn-g7": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
+          "cx": 0.803921568627451,
+          "cy": 0.11673741661613099,
+          "width": 0.10196078431372549,
+          "height": 0.11262527612794548,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4575,10 +4070,10 @@
           ]
         },
         "brown-pawn-h7": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
+          "cx": 0.803921568627451,
+          "cy": 0.11673741661613099,
+          "width": 0.10196078431372549,
+          "height": 0.11262527612794548,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4589,17 +4084,17 @@
       }
     },
     "mobile": {
-      "file": "sheet-mobile.svg",
+      "file": "../dimensional-drawing/sheet-mobile.svg",
       "pagePx": [
-        720,
-        7350
+        1800,
+        7718
       ],
       "frontBoxes": {
         "board": {
-          "cx": 0.2638888888888889,
-          "cy": 0.02759637188208617,
-          "width": 0.40555555555555556,
-          "height": 0.0015069200093830635,
+          "cx": 0.39444444444444443,
+          "cy": 0.07774034724021767,
+          "width": 0.13333333333333333,
+          "height": 0.0011795087167481332,
           "sourceStepSha256": "8c9593febf5d7403a8d34d01ae7f9c1eaadb56bafc49eca442e197543dc78f3a",
           "cameraLookAtMm": [
             0.0,
@@ -4608,10 +4103,10 @@
           ]
         },
         "white-rook-a1": {
-          "cx": 0.2638888888888889,
-          "cy": 0.45616780045351474,
-          "width": 0.23369802290241523,
-          "height": 0.032879818594104306,
+          "cx": 0.6583333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.20114147074635463,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
@@ -4620,10 +4115,10 @@
           ]
         },
         "white-knight-b1": {
-          "cx": 0.2638888888888889,
-          "cy": 0.170453514739229,
-          "width": 0.18698371746678252,
-          "height": 0.03287981859410431,
+          "cx": 0.6583333333333333,
+          "cy": 0.057009587976159626,
+          "width": 0.16093495130934105,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
@@ -4632,10 +4127,10 @@
           ]
         },
         "white-bishop-c1": {
-          "cx": 0.2638888888888889,
-          "cy": 0.5990249433106576,
-          "width": 0.17453703703703705,
-          "height": 0.03287981859410431,
+          "cx": 0.15833333333333333,
+          "cy": 0.564654055454781,
+          "width": 0.15022222222222228,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
           "cameraLookAtMm": [
             0.0,
@@ -4644,10 +4139,10 @@
           ]
         },
         "white-queen-d1": {
-          "cx": 0.2638888888888889,
-          "cy": 0.7418820861678004,
-          "width": 0.16579913366019544,
-          "height": 0.03287981859410431,
+          "cx": 0.6583333333333333,
+          "cy": 0.564654055454781,
+          "width": 0.14270159917787856,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "eb29083120bb43c8232655b19fb91c8b4e2d4b41854a1189eef5e0354b170647",
           "cameraLookAtMm": [
             1.392715276438139e-09,
@@ -4656,10 +4151,10 @@
           ]
         },
         "white-king-e1": {
-          "cx": 0.2638888888888889,
-          "cy": 0.8847392290249433,
-          "width": 0.15064510500698652,
-          "height": 0.03287981859410431,
+          "cx": 0.15833333333333333,
+          "cy": 0.8108318217154703,
+          "width": 0.1296586834818753,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "4471880e5cfa5a49adfa7b21692cb71584178c687177b8edefe5867deac94a5c",
           "cameraLookAtMm": [
             1.4591687858001023e-09,
@@ -4668,10 +4163,10 @@
           ]
         },
         "white-bishop-f1": {
-          "cx": 0.2638888888888889,
-          "cy": 0.5990249433106576,
-          "width": 0.17453703703703705,
-          "height": 0.03287981859410431,
+          "cx": 0.15833333333333333,
+          "cy": 0.564654055454781,
+          "width": 0.15022222222222228,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
           "cameraLookAtMm": [
             0.0,
@@ -4680,10 +4175,10 @@
           ]
         },
         "white-knight-g1": {
-          "cx": 0.2638888888888889,
-          "cy": 0.170453514739229,
-          "width": 0.18698371746678252,
-          "height": 0.03287981859410431,
+          "cx": 0.6583333333333333,
+          "cy": 0.057009587976159626,
+          "width": 0.16093495130934105,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
@@ -4692,10 +4187,10 @@
           ]
         },
         "white-rook-h1": {
-          "cx": 0.2638888888888889,
-          "cy": 0.45616780045351474,
-          "width": 0.23369802290241523,
-          "height": 0.032879818594104306,
+          "cx": 0.6583333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.20114147074635463,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
@@ -4704,10 +4199,10 @@
           ]
         },
         "white-pawn-a2": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3133106575963719,
-          "width": 0.40555555555555556,
-          "height": 0.02838449323110654,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4716,10 +4211,10 @@
           ]
         },
         "white-pawn-b2": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3133106575963719,
-          "width": 0.40555555555555556,
-          "height": 0.02838449323110654,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4728,10 +4223,10 @@
           ]
         },
         "white-pawn-c2": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3133106575963719,
-          "width": 0.40555555555555556,
-          "height": 0.02838449323110654,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4740,10 +4235,10 @@
           ]
         },
         "white-pawn-d2": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3133106575963719,
-          "width": 0.40555555555555556,
-          "height": 0.02838449323110654,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4752,10 +4247,10 @@
           ]
         },
         "white-pawn-e2": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3133106575963719,
-          "width": 0.40555555555555556,
-          "height": 0.02838449323110654,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4764,10 +4259,10 @@
           ]
         },
         "white-pawn-f2": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3133106575963719,
-          "width": 0.40555555555555556,
-          "height": 0.02838449323110654,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4776,10 +4271,10 @@
           ]
         },
         "white-pawn-g2": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3133106575963719,
-          "width": 0.40555555555555556,
-          "height": 0.02838449323110654,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4788,10 +4283,10 @@
           ]
         },
         "white-pawn-h2": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3133106575963719,
-          "width": 0.40555555555555556,
-          "height": 0.02838449323110654,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4800,10 +4295,10 @@
           ]
         },
         "brown-rook-a8": {
-          "cx": 0.2638888888888889,
-          "cy": 0.45616780045351474,
-          "width": 0.23369802290241523,
-          "height": 0.032879818594104306,
+          "cx": 0.6583333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.20114147074635463,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
@@ -4812,10 +4307,10 @@
           ]
         },
         "brown-knight-b8": {
-          "cx": 0.2638888888888889,
-          "cy": 0.170453514739229,
-          "width": 0.18698371746678252,
-          "height": 0.03287981859410431,
+          "cx": 0.6583333333333333,
+          "cy": 0.057009587976159626,
+          "width": 0.16093495130934105,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
@@ -4824,10 +4319,10 @@
           ]
         },
         "brown-bishop-c8": {
-          "cx": 0.2638888888888889,
-          "cy": 0.5990249433106576,
-          "width": 0.17453703703703705,
-          "height": 0.03287981859410431,
+          "cx": 0.15833333333333333,
+          "cy": 0.564654055454781,
+          "width": 0.15022222222222228,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
           "cameraLookAtMm": [
             0.0,
@@ -4836,10 +4331,10 @@
           ]
         },
         "brown-queen-d8": {
-          "cx": 0.2638888888888889,
-          "cy": 0.7418820861678004,
-          "width": 0.16579913366019544,
-          "height": 0.03287981859410431,
+          "cx": 0.6583333333333333,
+          "cy": 0.564654055454781,
+          "width": 0.14270159917787856,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "eb29083120bb43c8232655b19fb91c8b4e2d4b41854a1189eef5e0354b170647",
           "cameraLookAtMm": [
             1.392715276438139e-09,
@@ -4848,10 +4343,10 @@
           ]
         },
         "brown-king-e8": {
-          "cx": 0.2638888888888889,
-          "cy": 0.8847392290249433,
-          "width": 0.15064510500698652,
-          "height": 0.03287981859410431,
+          "cx": 0.15833333333333333,
+          "cy": 0.8108318217154703,
+          "width": 0.1296586834818753,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "4471880e5cfa5a49adfa7b21692cb71584178c687177b8edefe5867deac94a5c",
           "cameraLookAtMm": [
             1.4591687858001023e-09,
@@ -4860,10 +4355,10 @@
           ]
         },
         "brown-bishop-f8": {
-          "cx": 0.2638888888888889,
-          "cy": 0.5990249433106576,
-          "width": 0.17453703703703705,
-          "height": 0.03287981859410431,
+          "cx": 0.15833333333333333,
+          "cy": 0.564654055454781,
+          "width": 0.15022222222222228,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
           "cameraLookAtMm": [
             0.0,
@@ -4872,10 +4367,10 @@
           ]
         },
         "brown-knight-g8": {
-          "cx": 0.2638888888888889,
-          "cy": 0.170453514739229,
-          "width": 0.18698371746678252,
-          "height": 0.03287981859410431,
+          "cx": 0.6583333333333333,
+          "cy": 0.057009587976159626,
+          "width": 0.16093495130934105,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
@@ -4884,10 +4379,10 @@
           ]
         },
         "brown-rook-h8": {
-          "cx": 0.2638888888888889,
-          "cy": 0.45616780045351474,
-          "width": 0.23369802290241523,
-          "height": 0.032879818594104306,
+          "cx": 0.6583333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.20114147074635463,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
@@ -4896,10 +4391,10 @@
           ]
         },
         "brown-pawn-a7": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3133106575963719,
-          "width": 0.40555555555555556,
-          "height": 0.02838449323110654,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4908,10 +4403,10 @@
           ]
         },
         "brown-pawn-b7": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3133106575963719,
-          "width": 0.40555555555555556,
-          "height": 0.02838449323110654,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4920,10 +4415,10 @@
           ]
         },
         "brown-pawn-c7": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3133106575963719,
-          "width": 0.40555555555555556,
-          "height": 0.02838449323110654,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4932,10 +4427,10 @@
           ]
         },
         "brown-pawn-d7": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3133106575963719,
-          "width": 0.40555555555555556,
-          "height": 0.02838449323110654,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4944,10 +4439,10 @@
           ]
         },
         "brown-pawn-e7": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3133106575963719,
-          "width": 0.40555555555555556,
-          "height": 0.02838449323110654,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4956,10 +4451,10 @@
           ]
         },
         "brown-pawn-f7": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3133106575963719,
-          "width": 0.40555555555555556,
-          "height": 0.02838449323110654,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4968,10 +4463,10 @@
           ]
         },
         "brown-pawn-g7": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3133106575963719,
-          "width": 0.40555555555555556,
-          "height": 0.02838449323110654,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4980,10 +4475,10 @@
           ]
         },
         "brown-pawn-h7": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3133106575963719,
-          "width": 0.40555555555555556,
-          "height": 0.02838449323110654,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -4994,17 +4489,17 @@
       }
     },
     "mobile-short": {
-      "file": "sheet-mobile-short.svg",
+      "file": "../dimensional-drawing/sheet-mobile.svg",
       "pagePx": [
-        720,
-        6300
+        1800,
+        7718
       ],
       "frontBoxes": {
         "board": {
-          "cx": 0.2638888888888889,
-          "cy": 0.02822751322751323,
-          "width": 0.40555555555555556,
-          "height": 0.0017580733442802408,
+          "cx": 0.39444444444444443,
+          "cy": 0.07774034724021767,
+          "width": 0.13333333333333333,
+          "height": 0.0011795087167481332,
           "sourceStepSha256": "8c9593febf5d7403a8d34d01ae7f9c1eaadb56bafc49eca442e197543dc78f3a",
           "cameraLookAtMm": [
             0.0,
@@ -5013,10 +4508,10 @@
           ]
         },
         "white-rook-a1": {
-          "cx": 0.2638888888888889,
-          "cy": 0.4567989417989418,
-          "width": 0.1853467078191569,
-          "height": 0.030423280423280425,
+          "cx": 0.6583333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.20114147074635463,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
@@ -5025,10 +4520,10 @@
           ]
         },
         "white-knight-b1": {
-          "cx": 0.2638888888888889,
-          "cy": 0.17108465608465606,
-          "width": 0.14829743109434473,
-          "height": 0.030423280423280425,
+          "cx": 0.6583333333333333,
+          "cy": 0.057009587976159626,
+          "width": 0.16093495130934105,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
@@ -5037,10 +4532,10 @@
           ]
         },
         "white-bishop-c1": {
-          "cx": 0.2638888888888889,
-          "cy": 0.5996560846560847,
-          "width": 0.13842592592592592,
-          "height": 0.030423280423280425,
+          "cx": 0.15833333333333333,
+          "cy": 0.564654055454781,
+          "width": 0.15022222222222228,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
           "cameraLookAtMm": [
             0.0,
@@ -5049,10 +4544,10 @@
           ]
         },
         "white-queen-d1": {
-          "cx": 0.2638888888888889,
-          "cy": 0.7425132275132275,
-          "width": 0.1314958646270516,
-          "height": 0.030423280423280432,
+          "cx": 0.6583333333333333,
+          "cy": 0.564654055454781,
+          "width": 0.14270159917787856,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "eb29083120bb43c8232655b19fb91c8b4e2d4b41854a1189eef5e0354b170647",
           "cameraLookAtMm": [
             1.392715276438139e-09,
@@ -5061,10 +4556,10 @@
           ]
         },
         "white-king-e1": {
-          "cx": 0.2638888888888889,
-          "cy": 0.8853703703703704,
-          "width": 0.11947715224692036,
-          "height": 0.030423280423280425,
+          "cx": 0.15833333333333333,
+          "cy": 0.8108318217154703,
+          "width": 0.1296586834818753,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "4471880e5cfa5a49adfa7b21692cb71584178c687177b8edefe5867deac94a5c",
           "cameraLookAtMm": [
             1.4591687858001023e-09,
@@ -5073,10 +4568,10 @@
           ]
         },
         "white-bishop-f1": {
-          "cx": 0.2638888888888889,
-          "cy": 0.5996560846560847,
-          "width": 0.13842592592592592,
-          "height": 0.030423280423280425,
+          "cx": 0.15833333333333333,
+          "cy": 0.564654055454781,
+          "width": 0.15022222222222228,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
           "cameraLookAtMm": [
             0.0,
@@ -5085,10 +4580,10 @@
           ]
         },
         "white-knight-g1": {
-          "cx": 0.2638888888888889,
-          "cy": 0.17108465608465606,
-          "width": 0.14829743109434473,
-          "height": 0.030423280423280425,
+          "cx": 0.6583333333333333,
+          "cy": 0.057009587976159626,
+          "width": 0.16093495130934105,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
@@ -5097,10 +4592,10 @@
           ]
         },
         "white-rook-h1": {
-          "cx": 0.2638888888888889,
-          "cy": 0.4567989417989418,
-          "width": 0.1853467078191569,
-          "height": 0.030423280423280425,
+          "cx": 0.6583333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.20114147074635463,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
@@ -5109,10 +4604,10 @@
           ]
         },
         "white-pawn-a2": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3139417989417989,
-          "width": 0.3725876548184431,
-          "height": 0.030423280423280425,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -5121,10 +4616,10 @@
           ]
         },
         "white-pawn-b2": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3139417989417989,
-          "width": 0.3725876548184431,
-          "height": 0.030423280423280425,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -5133,10 +4628,10 @@
           ]
         },
         "white-pawn-c2": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3139417989417989,
-          "width": 0.3725876548184431,
-          "height": 0.030423280423280425,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -5145,10 +4640,10 @@
           ]
         },
         "white-pawn-d2": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3139417989417989,
-          "width": 0.3725876548184431,
-          "height": 0.030423280423280425,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -5157,10 +4652,10 @@
           ]
         },
         "white-pawn-e2": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3139417989417989,
-          "width": 0.3725876548184431,
-          "height": 0.030423280423280425,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -5169,10 +4664,10 @@
           ]
         },
         "white-pawn-f2": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3139417989417989,
-          "width": 0.3725876548184431,
-          "height": 0.030423280423280425,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -5181,10 +4676,10 @@
           ]
         },
         "white-pawn-g2": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3139417989417989,
-          "width": 0.3725876548184431,
-          "height": 0.030423280423280425,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -5193,10 +4688,10 @@
           ]
         },
         "white-pawn-h2": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3139417989417989,
-          "width": 0.3725876548184431,
-          "height": 0.030423280423280425,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -5205,10 +4700,10 @@
           ]
         },
         "brown-rook-a8": {
-          "cx": 0.2638888888888889,
-          "cy": 0.4567989417989418,
-          "width": 0.1853467078191569,
-          "height": 0.030423280423280425,
+          "cx": 0.6583333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.20114147074635463,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
@@ -5217,10 +4712,10 @@
           ]
         },
         "brown-knight-b8": {
-          "cx": 0.2638888888888889,
-          "cy": 0.17108465608465606,
-          "width": 0.14829743109434473,
-          "height": 0.030423280423280425,
+          "cx": 0.6583333333333333,
+          "cy": 0.057009587976159626,
+          "width": 0.16093495130934105,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
@@ -5229,10 +4724,10 @@
           ]
         },
         "brown-bishop-c8": {
-          "cx": 0.2638888888888889,
-          "cy": 0.5996560846560847,
-          "width": 0.13842592592592592,
-          "height": 0.030423280423280425,
+          "cx": 0.15833333333333333,
+          "cy": 0.564654055454781,
+          "width": 0.15022222222222228,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
           "cameraLookAtMm": [
             0.0,
@@ -5241,10 +4736,10 @@
           ]
         },
         "brown-queen-d8": {
-          "cx": 0.2638888888888889,
-          "cy": 0.7425132275132275,
-          "width": 0.1314958646270516,
-          "height": 0.030423280423280432,
+          "cx": 0.6583333333333333,
+          "cy": 0.564654055454781,
+          "width": 0.14270159917787856,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "eb29083120bb43c8232655b19fb91c8b4e2d4b41854a1189eef5e0354b170647",
           "cameraLookAtMm": [
             1.392715276438139e-09,
@@ -5253,10 +4748,10 @@
           ]
         },
         "brown-king-e8": {
-          "cx": 0.2638888888888889,
-          "cy": 0.8853703703703704,
-          "width": 0.11947715224692036,
-          "height": 0.030423280423280425,
+          "cx": 0.15833333333333333,
+          "cy": 0.8108318217154703,
+          "width": 0.1296586834818753,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "4471880e5cfa5a49adfa7b21692cb71584178c687177b8edefe5867deac94a5c",
           "cameraLookAtMm": [
             1.4591687858001023e-09,
@@ -5265,10 +4760,10 @@
           ]
         },
         "brown-bishop-f8": {
-          "cx": 0.2638888888888889,
-          "cy": 0.5996560846560847,
-          "width": 0.13842592592592592,
-          "height": 0.030423280423280425,
+          "cx": 0.15833333333333333,
+          "cy": 0.564654055454781,
+          "width": 0.15022222222222228,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
           "cameraLookAtMm": [
             0.0,
@@ -5277,10 +4772,10 @@
           ]
         },
         "brown-knight-g8": {
-          "cx": 0.2638888888888889,
-          "cy": 0.17108465608465606,
-          "width": 0.14829743109434473,
-          "height": 0.030423280423280425,
+          "cx": 0.6583333333333333,
+          "cy": 0.057009587976159626,
+          "width": 0.16093495130934105,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
           "cameraLookAtMm": [
             1.2936531845753052e-09,
@@ -5289,10 +4784,10 @@
           ]
         },
         "brown-rook-h8": {
-          "cx": 0.2638888888888889,
-          "cy": 0.4567989417989418,
-          "width": 0.1853467078191569,
-          "height": 0.030423280423280425,
+          "cx": 0.6583333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.20114147074635463,
+          "height": 0.06737496760818865,
           "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
           "cameraLookAtMm": [
             1.2938059512634936e-09,
@@ -5301,10 +4796,10 @@
           ]
         },
         "brown-pawn-a7": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3139417989417989,
-          "width": 0.3725876548184431,
-          "height": 0.030423280423280425,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -5313,10 +4808,10 @@
           ]
         },
         "brown-pawn-b7": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3139417989417989,
-          "width": 0.3725876548184431,
-          "height": 0.030423280423280425,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -5325,10 +4820,10 @@
           ]
         },
         "brown-pawn-c7": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3139417989417989,
-          "width": 0.3725876548184431,
-          "height": 0.030423280423280425,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -5337,10 +4832,10 @@
           ]
         },
         "brown-pawn-d7": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3139417989417989,
-          "width": 0.3725876548184431,
-          "height": 0.030423280423280425,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -5349,10 +4844,10 @@
           ]
         },
         "brown-pawn-e7": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3139417989417989,
-          "width": 0.3725876548184431,
-          "height": 0.030423280423280425,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -5361,10 +4856,10 @@
           ]
         },
         "brown-pawn-f7": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3139417989417989,
-          "width": 0.3725876548184431,
-          "height": 0.030423280423280425,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -5373,10 +4868,10 @@
           ]
         },
         "brown-pawn-g7": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3139417989417989,
-          "width": 0.3725876548184431,
-          "height": 0.030423280423280425,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -5385,415 +4880,10 @@
           ]
         },
         "brown-pawn-h7": {
-          "cx": 0.2638888888888889,
-          "cy": 0.3139417989417989,
-          "width": 0.3725876548184431,
-          "height": 0.030423280423280425,
-          "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
-          "cameraLookAtMm": [
-            1.3967724754593291e-09,
-            6.693312570860144e-12,
-            15.000002483681728
-          ]
-        }
-      }
-    },
-    "short": {
-      "file": "sheet-desktop.svg",
-      "pagePx": [
-        1920,
-        3040
-      ],
-      "frontBoxes": {
-        "board": {
-          "cx": 0.13020833333333334,
-          "cy": 0.05082236842105263,
-          "width": 0.21458333333333332,
-          "height": 0.00514065335753176,
-          "sourceStepSha256": "8c9593febf5d7403a8d34d01ae7f9c1eaadb56bafc49eca442e197543dc78f3a",
-          "cameraLookAtMm": [
-            0.0,
-            0.0,
-            11.0
-          ]
-        },
-        "white-rook-a1": {
-          "cx": 0.6302083333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.052582055153043435,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
-          "cameraLookAtMm": [
-            1.2938059512634936e-09,
-            1.5489831639570184e-12,
-            28.000002175116695
-          ]
-        },
-        "white-knight-b1": {
-          "cx": 0.6302083333333334,
-          "cy": 0.05082236842105263,
-          "width": 0.04207133643002605,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
-          "cameraLookAtMm": [
-            1.2936531845753052e-09,
-            2.3803181647963356e-12,
-            35.00000005000017
-          ]
-        },
-        "white-bishop-c1": {
-          "cx": 0.13020833333333334,
-          "cy": 0.5508223684210526,
-          "width": 0.03927083333333334,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
-          "cameraLookAtMm": [
-            0.0,
-            0.0,
-            37.5
-          ]
-        },
-        "white-queen-d1": {
-          "cx": 0.6302083333333334,
-          "cy": 0.5508223684210526,
-          "width": 0.03730480507354397,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "eb29083120bb43c8232655b19fb91c8b4e2d4b41854a1189eef5e0354b170647",
-          "cameraLookAtMm": [
-            1.392715276438139e-09,
-            1.644906433284632e-12,
-            42.5
-          ]
-        },
-        "white-king-e1": {
-          "cx": 0.13020833333333334,
-          "cy": 0.8008223684210526,
-          "width": 0.03389514862657197,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "4471880e5cfa5a49adfa7b21692cb71584178c687177b8edefe5867deac94a5c",
-          "cameraLookAtMm": [
-            1.4591687858001023e-09,
-            2.220446049250313e-12,
-            49.0
-          ]
-        },
-        "white-bishop-f1": {
-          "cx": 0.13020833333333334,
-          "cy": 0.5508223684210526,
-          "width": 0.03927083333333334,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
-          "cameraLookAtMm": [
-            0.0,
-            0.0,
-            37.5
-          ]
-        },
-        "white-knight-g1": {
-          "cx": 0.6302083333333334,
-          "cy": 0.05082236842105263,
-          "width": 0.04207133643002605,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
-          "cameraLookAtMm": [
-            1.2936531845753052e-09,
-            2.3803181647963356e-12,
-            35.00000005000017
-          ]
-        },
-        "white-rook-h1": {
-          "cx": 0.6302083333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.052582055153043435,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
-          "cameraLookAtMm": [
-            1.2938059512634936e-09,
-            1.5489831639570184e-12,
-            28.000002175116695
-          ]
-        },
-        "white-pawn-a2": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
-          "cameraLookAtMm": [
-            1.3967724754593291e-09,
-            6.693312570860144e-12,
-            15.000002483681728
-          ]
-        },
-        "white-pawn-b2": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
-          "cameraLookAtMm": [
-            1.3967724754593291e-09,
-            6.693312570860144e-12,
-            15.000002483681728
-          ]
-        },
-        "white-pawn-c2": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
-          "cameraLookAtMm": [
-            1.3967724754593291e-09,
-            6.693312570860144e-12,
-            15.000002483681728
-          ]
-        },
-        "white-pawn-d2": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
-          "cameraLookAtMm": [
-            1.3967724754593291e-09,
-            6.693312570860144e-12,
-            15.000002483681728
-          ]
-        },
-        "white-pawn-e2": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
-          "cameraLookAtMm": [
-            1.3967724754593291e-09,
-            6.693312570860144e-12,
-            15.000002483681728
-          ]
-        },
-        "white-pawn-f2": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
-          "cameraLookAtMm": [
-            1.3967724754593291e-09,
-            6.693312570860144e-12,
-            15.000002483681728
-          ]
-        },
-        "white-pawn-g2": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
-          "cameraLookAtMm": [
-            1.3967724754593291e-09,
-            6.693312570860144e-12,
-            15.000002483681728
-          ]
-        },
-        "white-pawn-h2": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
-          "cameraLookAtMm": [
-            1.3967724754593291e-09,
-            6.693312570860144e-12,
-            15.000002483681728
-          ]
-        },
-        "brown-rook-a8": {
-          "cx": 0.6302083333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.052582055153043435,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
-          "cameraLookAtMm": [
-            1.2938059512634936e-09,
-            1.5489831639570184e-12,
-            28.000002175116695
-          ]
-        },
-        "brown-knight-b8": {
-          "cx": 0.6302083333333334,
-          "cy": 0.05082236842105263,
-          "width": 0.04207133643002605,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
-          "cameraLookAtMm": [
-            1.2936531845753052e-09,
-            2.3803181647963356e-12,
-            35.00000005000017
-          ]
-        },
-        "brown-bishop-c8": {
-          "cx": 0.13020833333333334,
-          "cy": 0.5508223684210526,
-          "width": 0.03927083333333334,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
-          "cameraLookAtMm": [
-            0.0,
-            0.0,
-            37.5
-          ]
-        },
-        "brown-queen-d8": {
-          "cx": 0.6302083333333334,
-          "cy": 0.5508223684210526,
-          "width": 0.03730480507354397,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "eb29083120bb43c8232655b19fb91c8b4e2d4b41854a1189eef5e0354b170647",
-          "cameraLookAtMm": [
-            1.392715276438139e-09,
-            1.644906433284632e-12,
-            42.5
-          ]
-        },
-        "brown-king-e8": {
-          "cx": 0.13020833333333334,
-          "cy": 0.8008223684210526,
-          "width": 0.03389514862657197,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "4471880e5cfa5a49adfa7b21692cb71584178c687177b8edefe5867deac94a5c",
-          "cameraLookAtMm": [
-            1.4591687858001023e-09,
-            2.220446049250313e-12,
-            49.0
-          ]
-        },
-        "brown-bishop-f8": {
-          "cx": 0.13020833333333334,
-          "cy": 0.5508223684210526,
-          "width": 0.03927083333333334,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "376ddd61b4d079babbefb1cfab16c8251350ac002fa612daa7349c8e0579f346",
-          "cameraLookAtMm": [
-            0.0,
-            0.0,
-            37.5
-          ]
-        },
-        "brown-knight-g8": {
-          "cx": 0.6302083333333334,
-          "cy": 0.05082236842105263,
-          "width": 0.04207133643002605,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "6d629673e51a2fc3196a33fe23740512bb442a9d5943972e9c134ad0cf87d58f",
-          "cameraLookAtMm": [
-            1.2936531845753052e-09,
-            2.3803181647963356e-12,
-            35.00000005000017
-          ]
-        },
-        "brown-rook-h8": {
-          "cx": 0.6302083333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.052582055153043435,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "b80a01ef7c0e06ed2b99fb5b58f29a1680912807e321c6d34b1eaefb0e09b2cc",
-          "cameraLookAtMm": [
-            1.2938059512634936e-09,
-            1.5489831639570184e-12,
-            28.000002175116695
-          ]
-        },
-        "brown-pawn-a7": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
-          "cameraLookAtMm": [
-            1.3967724754593291e-09,
-            6.693312570860144e-12,
-            15.000002483681728
-          ]
-        },
-        "brown-pawn-b7": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
-          "cameraLookAtMm": [
-            1.3967724754593291e-09,
-            6.693312570860144e-12,
-            15.000002483681728
-          ]
-        },
-        "brown-pawn-c7": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
-          "cameraLookAtMm": [
-            1.3967724754593291e-09,
-            6.693312570860144e-12,
-            15.000002483681728
-          ]
-        },
-        "brown-pawn-d7": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
-          "cameraLookAtMm": [
-            1.3967724754593291e-09,
-            6.693312570860144e-12,
-            15.000002483681728
-          ]
-        },
-        "brown-pawn-e7": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
-          "cameraLookAtMm": [
-            1.3967724754593291e-09,
-            6.693312570860144e-12,
-            15.000002483681728
-          ]
-        },
-        "brown-pawn-f7": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
-          "cameraLookAtMm": [
-            1.3967724754593291e-09,
-            6.693312570860144e-12,
-            15.000002483681728
-          ]
-        },
-        "brown-pawn-g7": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
-          "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
-          "cameraLookAtMm": [
-            1.3967724754593291e-09,
-            6.693312570860144e-12,
-            15.000002483681728
-          ]
-        },
-        "brown-pawn-h7": {
-          "cx": 0.13020833333333334,
-          "cy": 0.30082236842105264,
-          "width": 0.10570149772566698,
-          "height": 0.047697368421052634,
+          "cx": 0.15833333333333333,
+          "cy": 0.3184762891940917,
+          "width": 0.2388888888888889,
+          "height": 0.03979668135629115,
           "sourceStepSha256": "77c8eeb81a05a29742edc6ddd6f2d14d42621b4c8486c1d3819ba9a05528ace6",
           "cameraLookAtMm": [
             1.3967724754593291e-09,
@@ -5805,28 +4895,9 @@
     }
   },
   "ending": "photos",
-  "photos": [
-    {
-      "role": "process",
-      "publicPath": "./assets/photo-1.webp",
-      "alt": "\uccb4\uc2a4 \ud3f0 \ud615\ud0dc\ub97c \ubb3c\ub808\ub85c \uc131\ud615\ud558\ub294 \uc81c\uc791 \uacfc\uc815",
-      "sourceSha256": "876a6c7d6665cc70d72140c55877eb863912cec45f8af8e24eaa06b57b1259ea"
-    },
-    {
-      "role": "process",
-      "publicPath": "./assets/photo-2.webp",
-      "alt": "\uccb4\uc2a4\ub9d0 \uc2a4\ucf00\uce58\uc640 \ubb3c\ub808 \uc131\ud615 \uc791\uc5c5 \ud604\uc7a5",
-      "sourceSha256": "84974ab81438490d8a9c1a8c0241a131f6d1beca7cb1d6350915c0af49ee7cbe"
-    },
-    {
-      "role": "process",
-      "publicPath": "./assets/photo-3.webp",
-      "alt": "\ub178\ud2b8\uc5d0 \uadf8\ub9b0 \uccb4\uc2a4\ub9d0 \ud615\ud0dc\uc640 \uce58\uc218 \uc2a4\ucf00\uce58",
-      "sourceSha256": "7b85506b3a237d59ee366172414c417045588d7993be532ab6ab54bd3b5e61e4"
-    }
-  ],
-  "galleryLayout": {
-    "mode": "scatter",
-    "seed": "chess-photos-20261019"
+  "drawingBridge": {
+    "extraScrollVh": 480,
+    "end": 0.1,
+    "cameraKeys": null
   }
 }
