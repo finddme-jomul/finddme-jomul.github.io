@@ -210,94 +210,117 @@
       }
     }
   ],
+  "dimensionalDrawing": {
+    "directory": ".poc/ceramic-v2-vessels/bowls/drawing-r1",
+    "extraScrollVh": 240
+  },
   "compositionMode": "multiple",
   "name": "Rice + soup bowl set",
   "sheets": {
     "desktop": {
-      "file": "sheet-desktop.svg",
+      "file": "../dimensional-drawing/sheet-desktop.svg",
       "pagePx": [
-        1600,
-        1000
+        1700,
+        2120
       ],
       "frontBoxes": {
         "rice-bowl": {
-          "cx": 0.40625,
-          "cy": 0.58075,
-          "width": 0.13775000000000007,
-          "height": 0.1425
+          "cx": 0.4117647058823529,
+          "cy": 0.18160377358490565,
+          "width": 0.3058823529411765,
+          "height": 0.1585881587508133,
+          "sourceStepSha256": "eaa458a24e98d2d33a0f2d8df5f8b72f402fe3b876f168b2e384a586ae746927",
+          "cameraLookAtMm": [
+            0.0,
+            0.0,
+            37.500000000000014
+          ]
         },
         "soup-bowl": {
-          "cx": 0.59375,
-          "cy": 0.57125,
-          "width": 0.1425,
-          "height": 0.1615
+          "cx": 0.4117647058823529,
+          "cy": 0.6816037735849056,
+          "width": 0.3058823529411765,
+          "height": 0.17374213836477992,
+          "sourceStepSha256": "2e3a0f0245bdbebe441918c973205c1114a2267078fee4360f1aacb98bbe8309",
+          "cameraLookAtMm": [
+            2.0961010704922955e-13,
+            0.0,
+            42.5
+          ]
         }
       }
     },
     "mobile": {
-      "file": "sheet-mobile.svg",
+      "file": "../dimensional-drawing/sheet-mobile.svg",
       "pagePx": [
         900,
-        1900
+        3800
       ],
       "frontBoxes": {
         "rice-bowl": {
-          "cx": 0.5,
-          "cy": 0.30394736842105263,
-          "width": 0.38666666666666666,
-          "height": 0.11842105263157894
+          "cx": 0.31666666666666665,
+          "cy": 0.11578947368421053,
+          "width": 0.4777777777777778,
+          "height": 0.07316243194192376,
+          "sourceStepSha256": "eaa458a24e98d2d33a0f2d8df5f8b72f402fe3b876f168b2e384a586ae746927",
+          "cameraLookAtMm": [
+            0.0,
+            0.0,
+            37.500000000000014
+          ]
         },
         "soup-bowl": {
-          "cx": 0.5,
-          "cy": 0.7294956140350877,
-          "width": 0.3888888888888889,
-          "height": 0.13048245614035092
+          "cx": 0.31666666666666665,
+          "cy": 0.6157894736842106,
+          "width": 0.4777777777777778,
+          "height": 0.08015350877192985,
+          "sourceStepSha256": "2e3a0f0245bdbebe441918c973205c1114a2267078fee4360f1aacb98bbe8309",
+          "cameraLookAtMm": [
+            2.0961010704922955e-13,
+            0.0,
+            42.5
+          ]
         }
       }
     },
     "mobile-short": {
-      "file": "sheet-mobile-short.svg",
+      "file": "../dimensional-drawing/sheet-mobile.svg",
       "pagePx": [
         900,
-        1500
+        3800
       ],
       "frontBoxes": {
         "rice-bowl": {
-          "cx": 0.5,
-          "cy": 0.31333333333333335,
-          "width": 0.30933333333333335,
-          "height": 0.12
+          "cx": 0.31666666666666665,
+          "cy": 0.11578947368421053,
+          "width": 0.4777777777777778,
+          "height": 0.07316243194192376,
+          "sourceStepSha256": "eaa458a24e98d2d33a0f2d8df5f8b72f402fe3b876f168b2e384a586ae746927",
+          "cameraLookAtMm": [
+            0.0,
+            0.0,
+            37.500000000000014
+          ]
         },
         "soup-bowl": {
-          "cx": 0.5,
-          "cy": 0.712,
-          "width": 0.32,
-          "height": 0.136
+          "cx": 0.31666666666666665,
+          "cy": 0.6157894736842106,
+          "width": 0.4777777777777778,
+          "height": 0.08015350877192985,
+          "sourceStepSha256": "2e3a0f0245bdbebe441918c973205c1114a2267078fee4360f1aacb98bbe8309",
+          "cameraLookAtMm": [
+            2.0961010704922955e-13,
+            0.0,
+            42.5
+          ]
         }
       }
-    },
-    "short": {
-      "file": "sheet-desktop.svg",
-      "pagePx": [
-        1600,
-        1000
-      ],
-      "frontBoxes": {
-        "rice-bowl": {
-          "cx": 0.40625,
-          "cy": 0.58075,
-          "width": 0.13775000000000007,
-          "height": 0.1425
-        },
-        "soup-bowl": {
-          "cx": 0.59375,
-          "cy": 0.57125,
-          "width": 0.1425,
-          "height": 0.1615
-        }
-      },
-      "reuseOf": "desktop"
     }
   },
-  "ending": "photos"
+  "ending": "photos",
+  "drawingBridge": {
+    "extraScrollVh": 240,
+    "end": 0.1,
+    "cameraKeys": null
+  }
 }

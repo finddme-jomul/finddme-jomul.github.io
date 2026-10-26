@@ -23,10 +23,25 @@ def extent(view):
     return [min(p[0] for p in points),min(p[1] for p in points),max(p[0] for p in points),max(p[1] for p in points)]
 
 
+def validate_sheet_layout(value):
+    if not isinstance(value,dict) or set(value)-{'columns','alignLastRow'}:
+        raise ValueError('Invalid sheetLayout fields')
+    columns=value.get('columns',{})
+    if not isinstance(columns,dict) or set(columns)-{'desktop','mobile'}:
+        raise ValueError('Invalid sheetLayout columns')
+    for layout,count in columns.items():
+        if type(count) is not int or not 1<=count<=(3 if layout=='desktop' else 2):
+            raise ValueError('Invalid sheetLayout column count')
+    if value.get('alignLastRow','start') not in ('start','center'):
+        raise ValueError('Invalid sheetLayout alignment')
+    return value
+
+
 def read_input(path):
     data=json.loads(path.read_text())
     if data.get('schemaVersion')!=1 or data.get('status') not in ('reviewed-provisional','user-confirmed'):
         raise ValueError('Drawing review requires schemaVersion 1 and reviewed status')
+    validate_sheet_layout(data.get('sheetLayout',{}))
     project=(ROOT/data['sourceProject']).resolve()
     config=json.loads((project/'input/config.json').read_text())
     known={p['id']:p for p in config['parts']}
@@ -38,7 +53,11 @@ def read_input(path):
         if pid not in known or not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*',pid) or pid in ids:
             raise ValueError('Unknown, duplicate or invalid drawing part')
         ids.append(pid)
-        if set(p)-{'id','notes','details'}: raise ValueError('Unknown drawing part fields')
+        if set(p)-{'id','notes','details','annotationMode','dimensionOptions','radiusAnnotations','numberedNotes','leaderSides'}: raise ValueError('Unknown drawing part fields')
+        if p.get('annotationMode','ceramic') not in ('ceramic','profile-stations'):
+            raise ValueError('Unknown annotationMode')
+        from drawing_annotations import validate
+        validate(p)
         notes=p.get('notes',[])
         if not isinstance(notes,list) or len(notes)>4 or any(not isinstance(n,str) or len(n)>150 for n in notes):
             raise ValueError('At most four notes of 150 characters')
@@ -109,6 +128,9 @@ def prepare(project,part,record,archive):
             loops.append([[p.X,p.Z] for p in points])
         regions.append(loops)
     views['section']['regions']=regions
+    from drawing_annotations import catalog,bind
+    circles=catalog(cut,sha(target))
+    radii=bind(record,views,circles)
     stations=[]
     for fraction in (.25,.5,.75):
         z=b.min.Z+b.size.Z*fraction
@@ -117,7 +139,11 @@ def prepare(project,part,record,archive):
         bounds=slice_shape.bounding_box()
         stations.append({'code':f'W{round(fraction*100)}','heightMm':z-b.min.Z,
                          'widthMm':bounds.size.X,'endpoints':[[bounds.min.X-c.X,z-c.Z],[bounds.max.X-c.X,z-c.Z]]})
-    details=record.get('details',[])
+    ceramic=None
+    if record.get('annotationMode','ceramic')=='ceramic':
+        from ceramic_annotations import adapt
+        ceramic=adapt(part,archive,{'min':list(b.min),'max':list(b.max)},extent(views['section']))
+    details=record.get('details',[]) or (ceramic['details'] if ceramic else [])
     if not details:
         if b.size.Z/min(b.size.X,b.size.Y)<.3:
             a,y,z,t=extent(views['section']);crop=min((z-a)*.4,(t-y)*2)
@@ -135,10 +161,11 @@ def prepare(project,part,record,archive):
     return {'id':pid,'sourceStepSha256':sha(target),'sourcePath':str(source),
             'boundsMm':{'min':list(b.min),'max':list(b.max)},'cameraLookAtMm':list(c),
             'dimensionsMm':{'W':b.size.X,'H':b.size.Z,'D':b.size.Y},
-            'views':views,'details':details,'stations':stations,'notes':record.get('notes',[])}
+            'cadRadii':circles,'radiusAnnotations':radii,'numberedNotes':record.get('numberedNotes',[]),'dimensionOptions':record.get('dimensionOptions',{}),'leaderSides':record.get('leaderSides',{}),
+            'views':views,'details':details,'stations':stations,'ceramic':ceramic,'notes':record.get('notes',[])}
 
 
-def draw_view(view,rect,title,uid,bounds=None,dimensions=None):
+def draw_view(view,rect,title,uid,bounds=None,dimensions=None,dimension_options=None):
     x,y,w,h=rect;a,b,c,d=bounds or extent(view)
     scale=min((w-100)/max(c-a,1e-8),(h-90)/max(d-b,1e-8))
     cx,cy=x+w/2,y+(h-30)/2
@@ -158,9 +185,10 @@ def draw_view(view,rect,title,uid,bounds=None,dimensions=None):
             coords=' '.join(f'{px:.5f},{py:.5f}' for px,py in map(point,curve))
             out.append(f'<polyline points="{coords}" class="{"outline" if key=="visible" else "hidden"}"/>')
     out.append('</g>')
-    out.extend([kit.text(cx,y+h-12,title,'title','middle'),kit.text(cx,y+h+5,f'{scale:.2f} sheet units / mm','small','middle')])
+    out.append(kit.view_title(cx,y+h-12,title,scale))
     if dimensions:
-        out.extend([kit.dim_h(left,right,top-24,top,dimensions[0]),kit.dim_v(top,bottom,left-25,left,dimensions[1])])
+        options=dimension_options or {}
+        out.extend([kit.dim_h(left,right,top-24,top,dimensions[0],**options.get('horizontal',{})),kit.dim_v(top,bottom,left-25,left,dimensions[1],**options.get('vertical',{}))])
     return ''.join(out),{'cx':cx,'cy':cy,'width':right-left,'height':bottom-top},point
 
 
@@ -182,43 +210,104 @@ def panel(item,layout):
     front=None;transforms={}
     for key,rect in rects.items():
         dims=None
-        if key=='front':dims=(f'W  {item["dimensionsMm"]["W"]:.2f}',f'H  {item["dimensionsMm"]["H"]:.2f}')
-        if key=='plan':dims=(f'W  {item["dimensionsMm"]["W"]:.2f}',f'D  {item["dimensionsMm"]["D"]:.2f}')
-        drawing,box,transform=draw_view(item['views'][key],rect,'SECTION A–A' if key=='section' else key.upper(),item['id']+'-'+key,dimensions=dims)
+        if key=='front':dims=('W','H')
+        if key=='plan':dims=('W','D')
+        drawing,box,transform=draw_view(item['views'][key],rect,'SECTION A–A' if key=='section' else key.upper(),item['id']+'-'+key,dimensions=dims,dimension_options=item.get('dimensionOptions',{}).get(key))
         out.append(f'<g data-view="{key}">{drawing}</g>');transforms[key]=transform
         if key=='front':front=box
     for i,detail in enumerate(item['details']):
         code=chr(65+i);key=detail['view'];a,b,c,d=detail['boundsMm']
-        drawing,box,_=draw_view(item['views'][key],detail_rects[i],f'DETAIL {code} · {detail["label"]}',item['id']+'-detail-'+code,bounds=detail['boundsMm'])
-        out.append(f'<g data-detail="{code}" data-source-view="{key}">{drawing}</g>')
+        drawing,box,detail_transform=draw_view(item['views'][key],detail_rects[i],f'DETAIL {code} · {detail["label"]}',item['id']+'-detail-'+code,bounds=detail['boundsMm'])
+        annotations=[];ceramic=item.get('ceramic')
+        if ceramic and detail.get('semantic'):
+            dim=ceramic['dimensions'];kind=detail['semantic']
+            if kind=='rim':
+                (x1,y),(x2,_)=map(detail_transform,[(dim['openingDiameter']/2-dim['wallThickness'],dim['height']),(dim['openingDiameter']/2,dim['height'])])
+                annotations.append(kit.dim_h(x1,x2,y-18,y,'WT'))
+            elif kind=='foot':
+                foot=dim.get('footHeight',0);x=dim['footDiameter']/2-dim['wallThickness']
+                (px,y1),(_,y2)=map(detail_transform,[(x,foot),(x,foot+dim.get('baseThickness',0))])
+                if dim.get('baseThickness'):annotations.append(kit.dim_v(y1,y2,px-22,px,'BT'))
+                if foot:
+                    (px,y1),(_,y2)=map(detail_transform,[(dim['footDiameter']/2,0),(dim['footDiameter']/2,foot)])
+                    annotations.append(kit.dim_v(y1,y2,px+24,px,'FH'))
+            elif kind=='handle' and ceramic.get('handle'):
+                p=ceramic['handle']['upper'];px,py=detail_transform((p[0],p[2]))
+                direction=item.get('leaderSides',{}).get('handle','right')
+                elbow=detail_rects[i][0]+(100 if direction=='left' else detail_rects[i][2]-100)
+                annotations.append(kit.callout(px,py,elbow,detail_rects[i][1]+30,'HD / J1',direction=direction))
+        out.append(f'<g data-detail="{code}" data-source-view="{key}">{drawing}{"".join(annotations)}</g>')
         transform=transforms[key];cx,cy=transform(((a+c)/2,(b+d)/2));left,top=transform((a,d));right,bottom=transform((c,b))
-        out.append(kit.detail_ref(cx,cy,min(math.hypot(right-left,bottom-top)/2,60),f'DETAIL {code}',right+18,cy))
+        side=item.get('leaderSides',{}).get(code,'right')
+        lx=left-18 if side=='left' else right+18
+        out.append(kit.detail_ref(cx,cy,min(math.hypot(right-left,bottom-top)/2,60),f'DETAIL {code}',lx,cy))
     transform=transforms['front']
-    for station in item['stations'] if front['height']/4>=25 else []:
+    for station in item['stations'] if front['height']/4>=25 and not item.get('ceramic') else []:
         (left,y),(right,_)=map(transform,station['endpoints'])
         out.append(kit.dim_h(left,right,y,y,station['code']))
     rows=[(k,{'W':'Width','H':'Height','D':'Depth'}[k],f'{v:.2f}') for k,v in item['dimensionsMm'].items()]
-    rows.extend((s['code'],f'Z {s["heightMm"]:.2f}',f'{s["widthMm"]:.2f}') for s in item['stations'])
+    ceramic=item.get('ceramic')
+    if ceramic:
+        rows.extend((r['code'],r['name'],f'{r["valueMm"]:.2f}'+('' if r['status']=='user-confirmed' else '*')) for r in ceramic['rows'])
+        dim=ceramic['dimensions'];cx,_,cz=item['cameraLookAtMm']
+        for code,key,z,offset in [('RM','openingDiameter',dim['height'],-45),('FD','footDiameter',0,28)]:
+            r=dim[key]/2;(x1,y),(x2,_)=map(transform,[(-r-cx,z-cz),(r-cx,z-cz)])
+            out.append(kit.dim_h(x1,x2,y+offset,y,code))
+    else:
+        rows.extend((s['code'],f'Z {s["heightMm"]:.2f}',f'{s["widthMm"]:.2f}') for s in item['stations'])
+    for radius in item.get('radiusAnnotations',[]):
+        px,py=transforms['section'](radius['pointMm'])
+        out.append(f'<g data-radius-code="{radius["code"]}">'+kit.radius_leader((px,py),(px+24,py-24),radius['code'])+'</g>')
+        rows.append((radius['code'],'Section radius',f'{radius["radiusMm"]:.2f}'))
+    for i,note in enumerate(item.get('numberedNotes',[]),1):
+        px,py=transforms[note['view']](note['pointMm'])
+        out.append(f'<g data-note-ref="{i}">'+kit.line(px,py,px+18,py-18,'lead')+kit.numbered_badge(px+24,py-24,i)+'</g>')
     out.append(kit.table(tx,ty,'DIMENSIONS',rows,tw))
-    out.append(kit.notes(tx,ty+250,['W/H/D are archived STEP bounds. W25/50/75 are section widths at 25/50/75% height. Z is height from the CAD bottom.','Read dimensions; do not scale from screen.','Detail crops preserve the actual CAD curves.',*item['notes']],width=34 if mobile else 40))
+    notes=([ceramic['legend'],ceramic['formula'],'WT is a radial offset, not normal wall thickness.'] if ceramic else ['W/H/D are archived STEP bounds. W25/50/75 are section widths at 25/50/75% height. Z is height from the CAD bottom.','Read dimensions; do not scale from screen.','Detail crops preserve the actual CAD curves.'])
+    if ceramic and ceramic.get('handle'):notes.append('Handle anchors are construction points, not joint sizes.')
+    notes.append('Screen scale is not print scale. Read mm values.')
+    out.append(kit.notes(tx,ty+max(250,(len(rows)+1)*25+40),notes,width=34 if mobile else 40))
+    # Keep construction instructions separate from general explanatory notes.
+    if item.get('numberedNotes'):
+        import textwrap
+        out.append(kit.text(30,h+22,'FEATURE NOTES','title'));h+=48
+        for i,note in enumerate(item['numberedNotes'],1):
+            out.append(kit.numbered_badge(40,h,i))
+            for j,chunk in enumerate(textwrap.wrap(note['text'],width=85 if mobile else 145)):
+                out.append(kit.text(60,h+4+j*18,chunk,'small'))
+            h+=max(1,len(textwrap.wrap(note['text'],width=85 if mobile else 145)))*18+12
+        h+=16
+    if item['notes']:
+        import textwrap
+        wrap=90 if mobile else 150
+        out.append(kit.notes(30,h+20,item['notes'],width=wrap))
+        h+=40+sum(18*max(1,len(textwrap.wrap(n,width=wrap)))+8 for n in item['notes'])
     if not mobile:
         out.append(kit.notes(30,110,['Front and side are orthographic views.','Section A–A cuts the CAD centre Y plane.','Hatching marks cut material; openings remain clear.','Dashed lines indicate hidden edges.'],width=43))
     out.append('</g>')
     return ''.join(out),front,(w,h)
 
 
-def render(items,out):
+def render(items,out,sheet_layout=None):
+    placement=validate_sheet_layout(sheet_layout if sheet_layout is not None else {})
     layouts={}
     for layout in ('desktop','mobile'):
         panels=[panel(item,layout) for item in items]
-        width,height=panels[0][2];total=height*len(items)
+        columns=(min(3 if layout=='desktop' else 2,math.ceil(math.sqrt(len(panels)))) if len(panels)>=4 else 1)
+        columns=min(len(panels),placement.get('columns',{}).get(layout,columns))
+        panel_width=panels[0][2][0];width=panel_width*columns
+        row_heights=[max(p[2][1] for p in panels[i:i+columns]) for i in range(0,len(panels),columns)]
+        total=sum(row_heights)
         body=[f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{total}" viewBox="0 0 {width} {total}" role="img" aria-label="CAD dimensional drawing review">',f'<style>{kit.CSS}</style>',kit.defs(),f'<rect width="{width}" height="{total}" fill="white"/>']
         boxes={}
         for i,(item,(content,box,size)) in enumerate(zip(items,panels)):
-            body.append(f'<g transform="translate(0 {i*height})">{content}</g>')
-            boxes[item['id']]={**{k:box[k]/(width if k in ('cx','width') else total) for k in box},'cy':(box['cy']+i*height)/total,'sourceStepSha256':item['sourceStepSha256'],'cameraLookAtMm':item['cameraLookAtMm']}
+            height=size[1];x=(i%columns)*panel_width;offset=sum(row_heights[:i//columns])
+            row_count=min(columns,len(panels)-(i//columns)*columns)
+            if placement.get('alignLastRow')=='center':x+=(columns-row_count)*panel_width/2
+            body.append(f'<g transform="translate({x} {offset})">{content}</g>')
+            boxes[item['id']]={**{k:box[k]/(width if k in ('cx','width') else total) for k in box},'cx':(box['cx']+x)/width,'cy':(box['cy']+offset)/total,'sourceStepSha256':item['sourceStepSha256'],'cameraLookAtMm':item['cameraLookAtMm']}
             # Individual sheets make large collections reviewable without shrinking labels.
-            single=f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}"><style>{kit.CSS}</style>{kit.defs()}<rect width="{width}" height="{height}" fill="white"/>{content}</svg>'
+            single=f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {panel_width} {height}"><style>{kit.CSS}</style>{kit.defs()}<rect width="{panel_width}" height="{height}" fill="white"/>{content}</svg>'
             (out/f'{item["id"]}-{layout}.svg').write_text(single)
         body.append('</svg>');filename=f'sheet-{layout}.svg';(out/filename).write_text(''.join(body))
         layouts[layout]={'file':filename,'pagePx':[width,total],'frontBoxes':boxes}
@@ -235,13 +324,11 @@ def build(input_path,output):
         known={p['id']:p for p in config['parts']}
         items=[prepare(project,known[p['id']],p,archive) for p in data['parts']]
         (out/'drawing-plan.json').write_text(json.dumps({'schemaVersion':1,'units':'mm','status':'candidate','parts':items},indent=2)+'\n')
-        layouts=render(items,out)
-        html=['<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>CAD drawing review</title><style>body{margin:0;background:white}picture,img{display:block;width:100%;height:auto}</style>']
-        for item in items:
-            pid=item['id'];html.append(f'<picture><source media="(max-width:700px)" srcset="{pid}-mobile.svg"><img src="{pid}-desktop.svg" alt="{escape(pid)} CAD drawing"></picture>')
-        (out/'index.html').write_text(''.join(html))
+        layouts=render(items,out,data.get('sheetLayout'))
+        from drawing_presentation import reading_page
+        (out/'index.html').write_text(reading_page(data,items,output.name))
         manifest={'schemaVersion':1,'status':'candidate','renderer':'dimensional-drawing-v2','inputSha256':sha(input_path),'runtimeLockSha256':sha(SKILL/'runtime-lock.json'),'layouts':layouts,'parts':[{'id':p['id'],'sourceStepSha256':p['sourceStepSha256']} for p in items],
-                  'limitations':['Standalone drawing review; existing page revisions are not replaced.','Default details are upper/lower profile crops, not inferred manufacturing features.','Dimensions cover CAD bounds and three horizontal section widths; feature-specific manufacturing annotations remain unsupported.'],
+                  'limitations':['Standalone drawing review; existing page revisions are not replaced.','Ceramic semantics require reviewed vessel input; generic feature solids keep profile-region defaults.','Vessel input codes and radial derived values are construction evidence, not manufacturing certification. Arbitrary feature-solid semantic dimensions remain unsupported.'],
                   'files':{p.relative_to(out).as_posix():sha(p) for p in out.rglob('*') if p.is_file()}}
         (out/'drawing-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
         verify(out)

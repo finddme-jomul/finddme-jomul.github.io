@@ -58,6 +58,32 @@ class DrawingReview(unittest.TestCase):
                 self.assertEqual(drawing.sha(project/'geometry'/pid/'model.step'),digest)
                 self.assertEqual(drawing.sha(multi/f'sources/{pid}.step'),digest)
             manifest=drawing.verify(multi)
+            # Long project notes grow only their own panel, without corrupting the
+            # following part's normalized CAD handoff location.
+            noted=root/'noted';noted.mkdir()
+            plan['parts'][0]['notes']=['Reviewed source note ' * 7] * 4
+            layouts=drawing.render(plan['parts'],noted)
+            for layout in ('desktop','mobile'):
+                first=drawing.panel(plan['parts'][0],layout)
+                second=drawing.panel(plan['parts'][1],layout)
+                total=first[2][1]+second[2][1]
+                self.assertEqual(layouts[layout]['pagePx'][1],total)
+                self.assertAlmostEqual(layouts[layout]['frontBoxes']['hollow']['cy'],(first[2][1]+second[1]['cy'])/total)
+            import copy
+            gridparts=[]
+            for i in range(7):
+                item=copy.deepcopy(plan['parts'][i%2]);item['id']=f'part-{i}';gridparts.append(item)
+            grid=root/'grid';grid.mkdir();gridlayouts=drawing.render(gridparts,grid)
+            for layout,columns in [('desktop',3),('mobile',2)]:
+                entry=gridlayouts[layout];width,height=entry['pagePx'];pw=drawing.panel(gridparts[0],layout)[2][0]
+                self.assertEqual(width,pw*columns)
+                self.assertGreater(entry['frontBoxes']['part-1']['cx'],entry['frontBoxes']['part-0']['cx'])
+                self.assertGreater(entry['frontBoxes'][f'part-{columns}']['cy'],entry['frontBoxes']['part-0']['cy'])
+                for i,item in enumerate(gridparts):
+                    panel,box,size=drawing.panel(item,layout)
+                    self.assertAlmostEqual(entry['frontBoxes'][item['id']]['cx']*width,box['cx']+(i%columns)*pw)
+                individual=ET.parse(grid/f'part-0-{layout}.svg').getroot()
+                self.assertEqual(float(individual.get('viewBox').split()[2]),pw)
             for layout in manifest['layouts'].values():
                 self.assertEqual(set(layout['frontBoxes']),set(models))
                 svg=ET.parse(multi/layout['file']).getroot()
@@ -66,6 +92,25 @@ class DrawingReview(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'unused'):drawing.build(input_path,a)
             (multi/'box-desktop.svg').write_text('tampered')
             with self.assertRaisesRegex(ValueError,'changed'):drawing.verify(multi)
+
+    def test_explicit_compact_layout_preserves_handoff_and_individual_sheets(self):
+        from unittest.mock import patch
+        items=[{'id':str(i),'sourceStepSha256':'hash','cameraLookAtMm':[0,0,0]} for i in range(3)]
+        def fake_panel(item,layout):
+            return '<g/>',{'cx':50,'cy':60,'width':20,'height':30},(100,200+int(item['id'])*10)
+        with tempfile.TemporaryDirectory() as tmp, patch.object(drawing,'panel',side_effect=fake_panel):
+            root=Path(tmp);old=root/'old';new=root/'new';old.mkdir();new.mkdir()
+            drawing.render(items,old)
+            layouts=drawing.render(items,new,{'columns':{'desktop':2,'mobile':2},'alignLastRow':'center'})
+            for layout,entry in layouts.items():
+                self.assertEqual(entry['pagePx'],[200,430])
+                for i,x in enumerate([50,150,100]):
+                    box=entry['frontBoxes'][str(i)]
+                    self.assertAlmostEqual(box['cx']*200,x)
+                    self.assertAlmostEqual(box['cy']*430,60+(210 if i==2 else 0))
+                    self.assertEqual((old/f'{i}-{layout}.svg').read_bytes(),(new/f'{i}-{layout}.svg').read_bytes())
+            for bad in [None,{'columns':{'mobile':3}},{'columns':{'desktop':True}},{'columns':{'desktop':0}},{'alignLastRow':'middle'}]:
+                with self.assertRaises(ValueError):drawing.validate_sheet_layout(bad)
 
     def test_unknown_and_duplicate_input_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:

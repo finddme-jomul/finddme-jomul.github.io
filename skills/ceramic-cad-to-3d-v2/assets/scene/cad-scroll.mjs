@@ -7,10 +7,12 @@ export function createCadScroll(spec) {
   const handoffStart = timing.frontMoveStart;
   const handoffEnd = timing.frontFadeStart + timing.frontFadeDuration;
   const handoffExtra = spec.cadPresentation?.handoffExtraScrollVh ?? 0;
-  const boundaries = [...new Set([0, ...pages.map((_, i) => (i + 1) * step),
+  const drawing=spec.drawingBridge;
+  const boundaries = [...new Set([0, ...(drawing?[drawing.end]:[]), ...pages.map((_, i) => (i + 1) * step),
     ...(handoffExtra ? [handoffStart, handoffEnd] : [])])].sort((a, b) => a - b);
   function toScrollVh(progress) {
     let value = progress * base;
+    if(drawing)value+=drawing.extraScrollVh*Math.max(0,Math.min(1,progress/drawing.end));
     pages.forEach((page, i) => {
       value += (page.extraScrollVh ?? 0) * Math.max(0, Math.min(1, (progress - i * step) / step));
     });

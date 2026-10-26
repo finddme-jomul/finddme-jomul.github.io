@@ -19,6 +19,11 @@ def main():
         return
     import preflight
     preflight.verify_package()
+    if remaining and remaining[0] == 'drawing-motion':
+        sys.argv.pop(1)
+        import drawing_motion
+        drawing_motion.main()
+        return
     if remaining and remaining[0] == 'drawing-review':
         sys.argv.pop(1)
         import drawing_review

@@ -16,7 +16,7 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
    const info=await page.evaluate(()=>({end:window.__mugMotion.state.endProgress,photos:window.__mugMotion.pageConfig.ending==='photos'}));
    let step=0;
    for(const p of [0,.43*.72,.56*.72,.685*.72,.79*.72,.895*.72,.72,.79,.9,1,info.end,.79*.72]){
-    await page.evaluate(p=>scrollTo(0,p*(window.__mugMotion.pageConfig.motion.storyHeightVh-100)*innerHeight/100),p);
+    await page.evaluate(p=>scrollTo(0,window.__dimensionalPage?.toScrollYForLegacyVh(p*(window.__mugMotion.pageConfig.motion.storyHeightVh-100))??p*(window.__mugMotion.pageConfig.motion.storyHeightVh-100)*innerHeight/100),p);
     await page.waitForFunction(p=>Math.abs(window.__mugMotion.state.pageProgress-p)<.002,{},p);await new Promise(r=>setTimeout(r,step===10?1800:120));
     const state=await page.evaluate(()=>{
      const m=window.__mugMotion,q=m.camera.position.clone();let minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity,uncoated=0,vertices=0;

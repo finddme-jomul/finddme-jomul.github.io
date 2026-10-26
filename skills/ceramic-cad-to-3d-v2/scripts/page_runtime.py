@@ -21,3 +21,23 @@ def install(output):
     html = output / 'index.html'
     html.write_text(document_with_runtime(html.read_text()))
     shutil.copy2(ASSETS / 'render-loop.mjs', output / 'render-loop.mjs')
+
+
+def refresh_lifecycle(document):
+    """Refresh only the early lifecycle UI in an already-generated host export."""
+    import re
+    pattern = r'<script>// Inlined in the head by the generator,[\s\S]*?</script>'
+    matches = list(re.finditer(pattern, document))
+    if len(matches) != 1:
+        raise ValueError('Expected one existing viewer lifecycle bootstrap')
+    match = matches[0]
+    return document[:match.start()] + '<script>' + (ASSETS / 'viewer-lifecycle.js').read_text() + '</script>' + document[match.end():]
+
+
+if __name__ == '__main__':
+    import argparse
+    from pathlib import Path
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--refresh-lifecycle', type=Path, required=True)
+    page = parser.parse_args().refresh_lifecycle
+    page.write_text(refresh_lifecycle(page.read_text()))

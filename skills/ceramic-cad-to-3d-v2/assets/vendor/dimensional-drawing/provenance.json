@@ -17,7 +17,32 @@
       "upstreamPath": "skills/dimensional-drawing/examples/dialog-sheet.html",
       "localFile": "dialog-sheet.html",
       "sha256": "6a407cf4f827c4e1996c09eceedc592c8952a4b5a48d0ecef63440a334308ff2"
+    },
+    {
+      "upstreamPath": "skills/dimensional-drawing-motion/templates/scene-dialog.js",
+      "localFile": "motion/scene-dialog.js",
+      "sha256": "bfdea8e98e4b38c22fc334ea7e68ddacd10588d01edc142ae953cf7950d256c9"
+    },
+    {
+      "upstreamPath": "skills/dimensional-drawing-motion/templates/base.css",
+      "localFile": "motion/base.css",
+      "sha256": "a0da0401a61fba49b28acef9936a39fab1aeccb174111cc03354669ecd4e89c2"
+    },
+    {
+      "upstreamPath": "skills/dimensional-drawing-motion/adapters/headless/player.html",
+      "localFile": "motion/player.html",
+      "sha256": "a669fb52bfaa382e641ccb0a1cf97c8afb8addebc2af6f43e0d86ec83f360d1c"
+    },
+    {
+      "upstreamPath": "skills/dimensional-drawing-motion/SKILL.md",
+      "localFile": "motion/SKILL.md",
+      "sha256": "51f8b4a500cce6220d8c3375ee2c691ed8153dfb02385b854a685c81fe241e6d"
+    },
+    {
+      "upstreamPath": "skills/dimensional-drawing/examples/card-sheet.html",
+      "localFile": "card-sheet.html",
+      "sha256": "197b7ef3b9deb7e7698c8bbb88812ec446536bcadc4b8d2e07084ac222776fab"
     }
   ],
-  "adaptation": "scripts/dimensional_kit.py ports dimension, leader, detail-reference and table conventions; drawing_review.py adapts composition to CAD-derived curves. No upstream UI geometry is used as ceramic geometry."
+  "adaptation": "scripts/dimensional_kit.py ports dimension, leader, detail-reference and table conventions; drawing_review.py adapts composition to CAD-derived curves. No upstream UI geometry is used as ceramic geometry. Ceramic annotation adapter maps source-backed vessel dimensions to code tables, explicit formulas and rim/foot/handle details. The upstream callout dot/leader/shoulder helper is now ported. Motion renderer adapts upstream normalized stroke reveal, faded dashed/text/hatched elements, quantized DOM updates and logarithmic camera interpolation to archived ceramic SVGs. UI-specific geometry and exploded layer morphs are not used. Source-backed title metadata and horizontal reading surface adapt card-sheet titleBlock/CSS; bidirectional leader alignment and explicit target camera keys adapt card-sheet helpers and DW_CAM. No UI example geometry is used."
 }
