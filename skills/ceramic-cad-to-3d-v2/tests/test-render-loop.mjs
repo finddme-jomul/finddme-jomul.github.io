@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {createRenderLoop} from '../assets/render-loop.mjs';
+const queued=[];
+globalThis.requestAnimationFrame=callback=>queued.push(callback);
+let renders=0;
+const loop=createRenderLoop(()=>renders++);
+for(let i=0;i<100;i++)loop.request();
+assert.equal(queued.length,1,'input bursts coalesce');
+queued.shift()();
+assert.equal(renders,1);
+assert.equal(queued.length,0,'idle does not schedule another frame');
+loop.request();queued.shift()();
+assert.equal(renders,2,'new input renders after an idle period');
+assert.equal(loop.stats.frames,2);
+console.log('RENDER_LOOP_OK');

@@ -1,0 +1,920 @@
+{
+  "schemaVersion": 1,
+  "skill": "ceramic-cad-to-3d-v2",
+  "sources": {
+    "scripts/project.py": {
+      "source": "scripts/jomul-project-assets.py",
+      "sourceSha256": "f9708bae60442e1e7df07a313894f0c359651e881cc8744ae298a30341184c3d"
+    },
+    "scripts/jomul_intake.py": {
+      "source": "scripts/jomul_intake.py",
+      "sourceSha256": "80df7110e443064604452cb0b80dbbb1a1ca4f3abdbcebe0204b58059cfee8ba"
+    },
+    "scripts/jomul_handled_solid.py": {
+      "source": "scripts/jomul_handled_solid.py",
+      "sourceSha256": "9d67a23a980d372bf06ce6ca75bb4f0db083d9ee70e62b58b52a9e46c8d2db57"
+    },
+    "scripts/jomul_common_cad_baseline.py": {
+      "source": "scripts/jomul_common_cad_baseline.py",
+      "sourceSha256": "e47fce420dcd673eb6cfc94f0824c026e85c22f2708b5a57d8ae2704039f7261"
+    },
+    "scripts/shared_sheet_poc.py": {
+      "source": "docs/artifacts/cad-style/shared_sheet_poc.py",
+      "sourceSha256": "d5ce71442dcf0787dda5e76e78d4ba38e75a65a04be5cf16293414f7674775cf"
+    },
+    "scripts/check_shared_sheet_poc.py": {
+      "source": "docs/artifacts/cad-style/check_shared_sheet_poc.py",
+      "sourceSha256": "50c1cf9190a8c1b5aa89de46412f71039bc4f91c80c4cf2bea47170c7d870ca8"
+    },
+    "scripts/handled_geometry.py": {
+      "source": "docs/artifacts/cad-style/handled_geometry.py",
+      "sourceSha256": "f2b4e12dba72a5a2bea0d40bfd33a8acd086f324b4469709375b053345100138"
+    },
+    "scripts/isometric_geometry.py": {
+      "source": "docs/artifacts/cad-style/isometric_geometry.py",
+      "sourceSha256": "15a1d76e783d6a4f2c5def3e760eaa575064a1f00747ef45ce9c45d6d551166e"
+    },
+    "scripts/cad_density_geometry.py": {
+      "source": "docs/artifacts/cad-style/cad_density_geometry.py",
+      "sourceSha256": "924ecb20da2385e48d831ba5bd618394aa1f2bb23ebf0d43b9f760743fd0b7ac"
+    },
+    "scripts/workflow.py": {
+      "source": "docs/artifacts/p1-sketch-structure/workflow.py",
+      "sourceSha256": "71b150febab7dbb74d6d26dd2ba65eae2c56cfd60accafe973120bc8ae2c3389"
+    },
+    "scripts/spec_handoff.py": {
+      "source": "docs/artifacts/p1-sketch-structure/spec_handoff.py",
+      "sourceSha256": "6b3a0d5fdb29bc05a8564aa37c17f4180bbf5e8aee24e34db5693f9425561904"
+    },
+    "scripts/validate.py": {
+      "source": "docs/artifacts/p1-sketch-structure/validate.py",
+      "sourceSha256": "be3b8e8a0d2bab48a3347f96c971de25db1c8a92b77faa681e1aee8a00d8b975"
+    },
+    "scripts/motion.py": {
+      "source": "docs/artifacts/axis-motion-shared-study/build_project.py",
+      "sourceSha256": "f084ccc8441b7ab54451c1fd1af3b88f13eab152ce2444b66c768a326e6addda"
+    },
+    "scripts/prepare_handled.py": {
+      "source": "docs/artifacts/mug-validation/browser-handoff/build.py",
+      "sourceSha256": "a9956f8e08c76a88eef04e982ba2799dd4f3ed57bc893b9dde12aed5f7534841"
+    },
+    "assets/motion/index.html": {
+      "source": "docs/artifacts/mug-validation/moon-motion/index.html",
+      "sourceSha256": "01e0c1e5c1545b5724d7a3eb788492c939caca5a2a17412d369850e0fe5ae476"
+    },
+    "assets/motion/viewer.js": {
+      "source": "docs/artifacts/mug-validation/moon-motion/viewer.js",
+      "sourceSha256": "fbc0bf7f8f117572afe84acfb472e6ba36bb6fca9c4f2d4eb62c11fc7b032818"
+    },
+    "scripts/check-motion.cjs": {
+      "source": "docs/artifacts/mug-validation/moon-motion/check-browser.cjs",
+      "sourceSha256": "0d3614e4b8ac76734921c8234537f2292fe4db534399c958f8a4403a86bb5a46"
+    },
+    "assets/motion/axis-motion.mjs": {
+      "source": "docs/artifacts/page-components/axis-motion.mjs",
+      "sourceSha256": "71511810da9eb151894f8b8c5cf84d1ca1c51fe412ecba37bfc04943dc0dce67"
+    },
+    "assets/gallery/gallery.js": {
+      "source": "docs/artifacts/page-components/gallery.js",
+      "sourceSha256": "d64da585e8c08260d0c47a3f9d10d50ff41314cd13de9d35f87a8e07439f2eb1"
+    },
+    "assets/gallery/gallery.css": {
+      "source": "docs/artifacts/page-components/gallery.css",
+      "sourceSha256": "d797241de568dba32eb093143aeca7203b85a8336e1ec61ed61b68df9e307d3d"
+    },
+    "scripts/gallery_markup.py": {
+      "source": "docs/artifacts/page-components/gallery_markup.py",
+      "sourceSha256": "caea1ed7fafe27eb4e5fde5ba70c296ce91ef0e5a8bcb34c4cd0073b616cff1b"
+    },
+    "scripts/gallery_profile.py": {
+      "source": "docs/artifacts/page-components/gallery_profile.py",
+      "sourceSha256": "a1a5eebdf4cdb2c272f809c3a702fe1388186e43e0b650ae92eb32c742d4e23f"
+    },
+    "assets/scene/background-transition.mjs": {
+      "source": "docs/artifacts/configured-scroll-poc/background-transition.mjs",
+      "sourceSha256": "7023122b744c7b5897df30207c14472c84dae90fb5e501cb3a54da651fad9fb4"
+    },
+    "assets/scene/glaze-motion.mjs": {
+      "source": "docs/artifacts/configured-scroll-poc/glaze-motion.mjs",
+      "sourceSha256": "28d97856c5772f5bab5dbe83fcc6441dcf97990ad14b33f5ed562c761d20e449"
+    },
+    "assets/scene/composition-framing.mjs": {
+      "source": "docs/artifacts/configured-scroll-poc/composition-framing.mjs",
+      "sourceSha256": "c168b28f84dbd27a7ab75d0248d27b315911b5f31a40a1584117ab5163984736"
+    },
+    "tests/test-background.mjs": {
+      "source": "docs/artifacts/configured-scroll-poc/test-background.mjs",
+      "sourceSha256": "8920e1c03e59b78ecc761d144c7fff25d84de5e35fac33960e94e1e3866f7ca6"
+    },
+    "tests/test-glaze-motion.mjs": {
+      "source": "docs/artifacts/configured-scroll-poc/test-glaze-motion.mjs",
+      "sourceSha256": "57e6d4af78cc17915f24f58478c6076bebb1e9d25c6c69657d662d12c949993a"
+    },
+    "assets/baselines/cad-common-accepted.json": {
+      "source": "scripts/baselines/cad-common-accepted.json",
+      "sourceSha256": "5b61aba85d0749da4e5a759d46956916696c1f33359dc4050e7c3b221cf0a351"
+    },
+    "assets/baselines/cad-density-accepted.json": {
+      "source": "scripts/baselines/cad-density-accepted.json",
+      "sourceSha256": "bcf11c6339fc35cdbf23b941ce3b5b16d4a3e5c447979ab278a33083af24a2eb"
+    },
+    "assets/baselines/cad-density-accepted/current-desktop.svg": {
+      "source": "scripts/baselines/cad-density-accepted/current-desktop.svg",
+      "sourceSha256": "7559011dfa458b540991d5f51ef23aa26b0218adca640fecf99d7b10d7fa86c1"
+    },
+    "assets/baselines/cad-density-accepted/current-mobile.svg": {
+      "source": "scripts/baselines/cad-density-accepted/current-mobile.svg",
+      "sourceSha256": "1e816fd8c71ca89cad3b5d46cc1763b879e690a4fd9be44198fb9c2b8598fda2"
+    },
+    "assets/baselines/cad-density-accepted/current-mobile-short.svg": {
+      "source": "scripts/baselines/cad-density-accepted/current-mobile-short.svg",
+      "sourceSha256": "0f5a6e9785d9396ccb795fe3cb720ac6806e7e65b1f958872c8b01995c11e690"
+    },
+    "assets/baselines/cad-density-accepted/manifest.json": {
+      "source": "scripts/baselines/cad-density-accepted/manifest.json",
+      "sourceSha256": "5b11e25d983cebbb356b1a9534e3f437b9a13427a274345624dca2547d6e5fba"
+    },
+    "assets/baselines/cad-density-accepted/moon-jar-density.pdf": {
+      "source": "scripts/baselines/cad-density-accepted/moon-jar-density.pdf",
+      "sourceSha256": "75dd5a39c34e98eaff99b3088d38f75c929a50775b2e8594c3cc4aaa0bb048df"
+    },
+    "assets/baselines/cad-density-accepted/density-mobile-short.svg": {
+      "source": "scripts/baselines/cad-density-accepted/density-mobile-short.svg",
+      "sourceSha256": "0f5a6e9785d9396ccb795fe3cb720ac6806e7e65b1f958872c8b01995c11e690"
+    },
+    "assets/baselines/cad-density-accepted/moon-current.png": {
+      "source": "scripts/baselines/cad-density-accepted/moon-current.png",
+      "sourceSha256": "8aca196e98a0fdf8d8235a555402bd8d191e3e2b9bfe796eeac691dbc49825cb"
+    },
+    "assets/baselines/cad-density-accepted/index.html": {
+      "source": "scripts/baselines/cad-density-accepted/index.html",
+      "sourceSha256": "59618227ab696278354bad2df33d097f7efab66e9426d1dee3f5c66af1fc02c7"
+    },
+    "assets/baselines/cad-density-accepted/density-mobile.svg": {
+      "source": "scripts/baselines/cad-density-accepted/density-mobile.svg",
+      "sourceSha256": "1e816fd8c71ca89cad3b5d46cc1763b879e690a4fd9be44198fb9c2b8598fda2"
+    },
+    "assets/baselines/cad-density-accepted/density-desktop.svg": {
+      "source": "scripts/baselines/cad-density-accepted/density-desktop.svg",
+      "sourceSha256": "0055a2a6740f3f486670c88c96b80a10302b0e24f98073d5261163e4d1488469"
+    },
+    "assets/baselines/cad-density-accepted/moon-jar-density.png": {
+      "source": "scripts/baselines/cad-density-accepted/moon-jar-density.png",
+      "sourceSha256": "5818c4bd66a42345917c205f740fb3463e6108fbb5b4431062664c293ebdc49a"
+    },
+    "assets/baselines/cad-density-accepted/density-short.svg": {
+      "source": "scripts/baselines/cad-density-accepted/density-short.svg",
+      "sourceSha256": "66b2127c4b15c7e23e8fe29885cc68c64274b2327f6fa337120013715a2d859c"
+    },
+    "assets/baselines/cad-density-accepted/current-short.svg": {
+      "source": "scripts/baselines/cad-density-accepted/current-short.svg",
+      "sourceSha256": "66b2127c4b15c7e23e8fe29885cc68c64274b2327f6fa337120013715a2d859c"
+    },
+    "assets/baselines/cad-common-accepted/bowl-set/sheet-desktop.svg": {
+      "source": "scripts/baselines/cad-common-accepted/bowl-set/sheet-desktop.svg",
+      "sourceSha256": "35231a1cc41a67dade6294a8124c45c9924939e2f6c5c087eba00056d5b5209d"
+    },
+    "assets/baselines/cad-common-accepted/bowl-set/manifest.json": {
+      "source": "scripts/baselines/cad-common-accepted/bowl-set/manifest.json",
+      "sourceSha256": "b13c00fc8f5ce427cb583c0dedd0b127c34d202a37f9ade47a7af18ba147ade2"
+    },
+    "assets/baselines/cad-common-accepted/bowl-set/sheet-mobile.svg": {
+      "source": "scripts/baselines/cad-common-accepted/bowl-set/sheet-mobile.svg",
+      "sourceSha256": "9d8b268c6e6a177ee9438bcd667629f3ad77b694e99943d12719b23d823f882a"
+    },
+    "assets/baselines/cad-common-accepted/bowl-set/sheet-mobile-short.svg": {
+      "source": "scripts/baselines/cad-common-accepted/bowl-set/sheet-mobile-short.svg",
+      "sourceSha256": "126dd8540ccb608da137105c10aabe5a1fbe1e70d87efe97e02e905bc49fb02b"
+    },
+    "assets/baselines/cad-common-accepted/moon-jar/sheet-desktop.svg": {
+      "source": "scripts/baselines/cad-common-accepted/moon-jar/sheet-desktop.svg",
+      "sourceSha256": "ed73faa3f2b284650d67cd26c971adbf9b361dec8f7936a7f6583113a300d6fa"
+    },
+    "assets/baselines/cad-common-accepted/moon-jar/manifest.json": {
+      "source": "scripts/baselines/cad-common-accepted/moon-jar/manifest.json",
+      "sourceSha256": "fa522e88a033da8180e783d5cfd3048234aefb47f2672800567cb5f39722834f"
+    },
+    "assets/baselines/cad-common-accepted/moon-jar/sheet-mobile.svg": {
+      "source": "scripts/baselines/cad-common-accepted/moon-jar/sheet-mobile.svg",
+      "sourceSha256": "c2ce11598fe6ca72fbc66060c122f5a39b0eaad1daca9acdd863b9b861f0d2a3"
+    },
+    "assets/baselines/cad-common-accepted/moon-jar/sheet-mobile-short.svg": {
+      "source": "scripts/baselines/cad-common-accepted/moon-jar/sheet-mobile-short.svg",
+      "sourceSha256": "6d46f325cd5e51dbd4385d32e82ddf6d58f6dde29ab1715108fa2f510bd48b01"
+    },
+    "assets/baselines/pages/moonGalleryHtml.html": {
+      "source": ".poc/moon-jar-gallery-type-study/index.html",
+      "sourceSha256": "1c166fc2e6a963d7109e18de2e18dca06cd89567297f6593704443f1819696da"
+    },
+    "assets/baselines/pages/moonGalleryJs.js": {
+      "source": ".poc/moon-jar-gallery-type-study/viewer.js",
+      "sourceSha256": "ecda921f15920507fb2b15455d2ba08ca39d00ba1137dd639f37f1550297cf9c"
+    },
+    "assets/baselines/pages/bowlHandoffHtml.html": {
+      "source": ".poc/bowl-set-configured-photo-handoff/index.html",
+      "sourceSha256": "31ee30798c3a3a75328e40212d6b8d7dc518a51accba92a2fa076f2585946ac2"
+    },
+    "assets/baselines/pages/bowlHandoffJs.js": {
+      "source": ".poc/bowl-set-configured-photo-handoff/preview.js",
+      "sourceSha256": "850b8567b6b5e8afc2e6e2c22e96c309d56d33a40d2cda47df3b9f8c6a8c2313"
+    },
+    "scripts/clay-shrinkage.mjs": {
+      "source": "scripts/clay-shrinkage.mjs",
+      "sourceSha256": "4ba0d8705badc3c3b84aa7070d9a51e5e4f44dff3d282a85c46d8d59b51f8bb7"
+    }
+  },
+  "excluded": {
+    "configured/full-page viewers": "full scene parity with adopted moon remains unapproved",
+    "multi-photo equal grid": "user requires varied sizes and asymmetric positions",
+    "historical PoC dispatchers": "experiments are not alternate production runtimes",
+    "camera-only mug inspection": "selected project motion uses body-spin/tilt/axis-precession"
+  },
+  "pending": [
+    "new-project finished-page assembly with approved scene parity",
+    "new-project end-to-end evaluation"
+  ],
+  "profileSource": {
+    "path": "scripts/jomul-design-profile.json",
+    "sha256": "7d2c6db7f856456c99940767577e2ea7551d79ebc3cf23a9d9faf73c00d37c04"
+  },
+  "decisions": [
+    {
+      "id": "input-evidence",
+      "state": "implemented",
+      "rule": "Keep source hashes, source regions, ranges, real verbatim replies and unresolved fields; do not promote assumptions to manufacturing confirmations.",
+      "consumer": [
+        "scripts/jomul_intake.py",
+        "scripts/workflow.py",
+        "scripts/spec_handoff.py"
+      ],
+      "verification": {
+        "suites": [
+          "runtime"
+        ],
+        "scope": "P1 answer ranges, source provenance and rejecting repeated confirmations"
+      }
+    },
+    {
+      "id": "shrinkage",
+      "state": "implemented-explicit-input",
+      "rule": "Use explicit source-backed shrinkage; preserve dimension intervals and confirmation provenance; no generic clay-based rate inference.",
+      "consumer": [
+        "scripts/clay-shrinkage.mjs"
+      ],
+      "verification": {
+        "suites": [
+          "shrinkage"
+        ],
+        "scope": "Explicit shrinkage conversion and intervals"
+      }
+    },
+    {
+      "id": "composition",
+      "state": "implemented",
+      "rule": "One vessel including its handle is one part; nonempty part lists share one CAD generator and source-derived STEP/GLB export. Explicit rotational footHeight separates a hollow raised foot from baseThickness; omitted footHeight preserves legacy geometry. Reviewed radial offsets and underside shape remain previews, not manufacturing approval.",
+      "consumer": [
+        "scripts/project.py",
+        "scripts/shared_sheet_poc.py",
+        "scripts/jomul_handled_solid.py",
+        "scripts/rotational_section.py",
+        "scripts/layered_review.py",
+        "assets/scene/layered-vessels.mjs",
+        "scripts/assembly_geometry.py"
+      ],
+      "verification": {
+        "suites": [
+          "runtime",
+          "rotational-solid",
+          "layered-vessels",
+          "multiple-page-input"
+        ],
+        "scope": "One/two-part unchanged CAD sheets, source-derived STEP/GLB bounds and roundtrip, per-part placement, solid reuse on drawing changes, analytic cavity/floor checks; full-page framing pending; raised-foot open underside, separate one-mm floor, connected flared solid and shared CAD section; explicit layered single/multiple regions and sequential assembly input, browser and CAD collision evidence separate"
+      }
+    },
+    {
+      "id": "cad-style",
+      "state": "implemented",
+      "profile": "cad",
+      "rule": "White borderless technical dense sheet with selected views, English labels except clay/glaze, profile-based isometric rings, one sheet for all parts.",
+      "consumer": [
+        "scripts/shared_sheet_poc.py",
+        "scripts/isometric_geometry.py",
+        "scripts/check_shared_sheet_poc.py"
+      ],
+      "verification": {
+        "suites": [
+          "runtime"
+        ],
+        "scope": "Six regenerated single/multiple SVGs equal selected baselines; CAD contract verification; list-driven 3/5-part CAD and solids, all part frontBoxes and no-op resume, five-part pending intake; selected 1/2 layouts unchanged"
+      }
+    },
+    {
+      "id": "handled-geometry",
+      "state": "implemented",
+      "rule": "One hollow fused solid, smooth shape-preserving handle path, both joint volumes and cavity clearance, STEP roundtrip, CAD-sourced wire; explicit provisional status.",
+      "consumer": [
+        "scripts/handled_geometry.py",
+        "scripts/jomul_handled_solid.py",
+        "scripts/prepare_handled.py"
+      ],
+      "verification": {
+        "suites": [
+          "runtime"
+        ],
+        "scope": "Synthetic hollow handled solid, STEP roundtrip and geometry checks"
+      }
+    },
+    {
+      "id": "axis-motion",
+      "state": "implemented-for-single-handled",
+      "profile": "motion.axisRig",
+      "rule": "Body spin under tilt under axis precession; minimum complete body and axis turns; no camera-only orbit substitution.",
+      "consumer": [
+        "scripts/motion.py",
+        "assets/motion/axis-motion.mjs",
+        "assets/motion/viewer.js"
+      ],
+      "verification": {
+        "suites": [
+          "axis"
+        ],
+        "scope": "Pose and group rotation behavior across six progress points; not rendered clipping",
+        "browserCheck": "scripts/check-motion.cjs (four viewports / 24 scenes via motion-preview)"
+      }
+    },
+    {
+      "id": "single-framing",
+      "state": "selected-requirement-full-page-pending",
+      "profile": "motion.singleFraming",
+      "rule": "Model-relative framing and viewport occupancy; study-only-no-zoom is not the selected presentation.",
+      "verification": {
+        "suites": [],
+        "scope": "Full-page vessel occupancy",
+        "pendingReason": "Not covered by this runner; full-page/new-project implementation or browser evidence required."
+      }
+    },
+    {
+      "id": "page-composition",
+      "state": "implemented-for-handled-preview-full-page-pending",
+      "profile": "page",
+      "rule": "Contain full CAD at viewport maximum; no visible narration/header/badge/footer; preserve CAD annotations.",
+      "verification": {
+        "suites": [],
+        "scope": "Rendered CAD sizing and visible page text",
+        "pendingReason": "Not covered by this runner; full-page/new-project implementation or browser evidence required.",
+        "browserCheck": "scripts/check-motion.cjs (four viewports / 24 scenes via motion-preview)"
+      }
+    },
+    {
+      "id": "scene-background",
+      "state": "component-verified-full-page-pending",
+      "profile": "motion.backgroundBaseline",
+      "rule": "White CAD, dark studio, light photo handoff.",
+      "consumer": [
+        "assets/scene/background-transition.mjs"
+      ],
+      "verification": {
+        "suites": [
+          "background"
+        ],
+        "scope": "Background component sampled timeline; not assembled page"
+      }
+    },
+    {
+      "id": "glaze-motion",
+      "state": "component-verified-full-page-pending",
+      "profile": "motion.glazeDirection",
+      "rule": "Foot-to-rim reveal with continuing spin and axis through coating.",
+      "consumer": [
+        "assets/scene/glaze-motion.mjs"
+      ],
+      "verification": {
+        "suites": [
+          "glaze"
+        ],
+        "scope": "Bottom-up reveal, continuing spin/axis component behavior; not rendered material"
+      }
+    },
+    {
+      "id": "photo-provenance",
+      "state": "implemented",
+      "rule": "Distinct final-fired/process roles, source hashes, EXIF-free export; never duplicate a source as distinct final photos.",
+      "consumer": [
+        "scripts/photos.py"
+      ],
+      "verification": {
+        "suites": [
+          "runtime"
+        ],
+        "scope": "Photo roles, hashes, omission and rejection of unadopted layouts"
+      }
+    },
+    {
+      "id": "gallery-selected",
+      "state": "implemented-component",
+      "profile": "gallery",
+      "rule": "Preserve hero/process or explicitly seeded scatter placement, shadows and pointer response. New outputs have zero photo border and a CAD-style dialog (Enlarge/Fit to window/Close, aspect-preserving zoom, Escape/backdrop dismissal and scroll/focus restoration). Zero photos omit gallery. Historical exact replay remains frozen.",
+      "consumer": [
+        "scripts/gallery_markup.py",
+        "scripts/gallery_profile.py",
+        "assets/gallery/gallery.css",
+        "assets/gallery/gallery.js"
+      ],
+      "verification": {
+        "suites": [
+          "runtime",
+          "gallery-presentation"
+        ],
+        "scope": "Current generated 0/1/2/3 photo components and dialog interaction; historical pixel parity applies only to frozen replay.",
+        "browserCheck": "tests/check-gallery-dialog.cjs (current generated outputs); tests/check-gallery-parity.cjs only for historical replay"
+      }
+    },
+    {
+      "id": "gallery-general-multiple",
+      "state": "implemented-user-adopted",
+      "rule": "Explicit adopted scatter for 2–8 photos: distinct bounded sizes/asymmetric placement, stable seed and responsive placements stored in output manifest; photo role does not select placement. Default selected hero/process pair remains unchanged. User adopted photo sizes/positions on 2026-10-18; no CAD/wire/landing approval implied.",
+      "verification": {
+        "suites": [
+          "gallery-layout",
+          "runtime"
+        ],
+        "scope": "2–8 placement bounds/nonoverlap/determinism and role independence; three-photo component generation/repeat/source validation",
+        "browserCheck": "tests/check-scatter.cjs (separate browser run; visual adoption recorded in gallery.scatterAdoption)"
+      },
+      "consumer": [
+        "scripts/gallery_layout.py",
+        "scripts/gallery_markup.py",
+        "scripts/photos.py"
+      ]
+    },
+    {
+      "id": "photo-handoff",
+      "state": "selected-requirement-full-page-pending",
+      "profile": "motion.photoHandoff",
+      "rule": "3D exits before gallery entry; no separate photo-only scrolling segment; reverse-scroll behavior must be verified in assembled page.",
+      "verification": {
+        "suites": [],
+        "scope": "Assembled page 3D exit, gallery entry and reverse scroll",
+        "pendingReason": "Not covered by this runner; full-page/new-project implementation or browser evidence required.",
+        "browserCheck": "Withdrawn candidate evidence; selected whole-page replay is checked by tests/check-selected-page.cjs"
+      },
+      "consumer": [
+        "scripts/page.py"
+      ]
+    },
+    {
+      "id": "revision",
+      "state": "implemented",
+      "rule": "Snapshot input/state/output before mutation, verify hashes, restore exact selected snapshot; CAD rebuild invalidates dependent motion.",
+      "consumer": [
+        "scripts/project.py"
+      ],
+      "verification": {
+        "suites": [
+          "runtime",
+          "motion-recovery"
+        ],
+        "scope": "Exact rollback, CAD selective rebuild, failed motion retry and previous-output retention"
+      }
+    },
+    {
+      "id": "evaluation",
+      "state": "preserved",
+      "rule": "Moon development, mug single validation, bowls multiple validation; chess reserved for final E2E.",
+      "verification": {
+        "suites": [],
+        "scope": "New-project final evaluation; reserved chess input is not exercised",
+        "pendingReason": "Not covered by this runner; full-page/new-project implementation or browser evidence required."
+      }
+    },
+    {
+      "id": "execution-stage-state",
+      "state": "implemented-supported-stage-boundaries",
+      "rule": "Read-only fresh stage status; preserve legacy state and exact rollback; gallery preparation independent of CAD; report transitive change scope without claiming full-page scheduling. Separate geometry/material/drawing/runtime inputs; reuse intact unchanged outputs and handled solid bytes for material/drawing-only changes; retain reviewed motion input on invalidation. Automatically rebuild existing reviewed motion after CAD changes, publish only after browser verification, and retain CAD/input for explicit resume retry after failure. Registered page-review uses selected-page only; recheck CAD/photo/review/runtime/output dependencies on resume, and rebuild after CAD or gallery changes. Publish immutable verified page revisions via atomic state reference; preserve previous page and reviewed input on failure/interruption. Never auto-migrate withdrawn scene inputs.",
+      "consumer": [
+        "scripts/stages.py",
+        "scripts/project.py",
+        "scripts/rebuild.py",
+        "scripts/page.py",
+        "scripts/page_scheduler.py"
+      ],
+      "verification": {
+        "suites": [
+          "runtime",
+          "motion-recovery",
+          "page-recovery"
+        ],
+        "scope": "Stage readiness/dependency changes, read-only planning, independent photos, motion retry",
+        "browserCheck": "Withdrawn candidate evidence; selected whole-page replay is checked by tests/check-selected-page.cjs"
+      }
+    },
+    {
+      "id": "selected-whole-page",
+      "state": "user-selected-exact-input-replay",
+      "rule": "The entire ceramic-integration-gallery page is authoritative, not only its final gallery. Preserve CAD display, camera sizing, dense wire, timing, 390-degree body / 360-degree axis turns, lighting, GLB material and clipped glaze. Reject the previous full-page-study-derived renderer. Exact replay does not establish new-CAD generation.",
+      "consumer": [
+        "scripts/selected_page.py",
+        "assets/selected-page/viewer.js",
+        "scripts/page.py",
+        "scripts/selected_cad.py",
+        "scripts/selected_sheet.py",
+        "scripts/selected_surface.py",
+        "scripts/selected_surface_blender.py",
+        "scripts/blender_environment.py",
+        "scripts/page_review.py",
+        "assets/page-viewer.js",
+        "scripts/multiple_page.py",
+        "assets/multiple-scene.mjs",
+        "scripts/handled_page.py",
+        "assets/motion/handled-scene.mjs",
+        "scripts/prepare_handled.py"
+      ],
+      "verification": {
+        "suites": [
+          "runtime",
+          "selected-cad",
+          "rotational-solid",
+          "blender-install",
+          "new-page-input",
+          "multiple-page-input",
+          "handled-page-input"
+        ],
+        "scope": "Reject unselected candidate generation; exact source manifest verification and full-scene browser parity are separate checks; CAD front extraction equality/source sensitivity and incompatible geometry rejection; regenerated selected sheet PNG byte equality and CAD-derived front-box equality; selected visual surface GLB byte equality; exact-floor CAD remains default; pinned Blender installation integrity; explicit new single review inputs and adaptive sheet bounds; shared runtime viewer preserves selected photo scene and supports explicit empty-photo glaze ending (candidate); wide single-vessel front fit and rotation-safe camera, candidate only; two-part review contracts and source-derived surfaces (browser evidence separate); dense handled body CAD rings (stride4/72 segments) and 12 full meridians, superseding sparse preview body",
+        "browserCheck": "tests/check-selected-page.cjs: four viewports, 12 timeline positions including reverse scroll; exact pixels and scene state; tests/check-new-page.cjs separately verifies new single inputs, not visual adoption; tests/check-multiple-page.cjs: two-vessel source/rotation/ordered coatings/0-or-1-photo review, not bowl pixel adoption; tests/check-handled-page.cjs: all handled meshes, CAD alignment, handle bounds, complete glaze, photo ending and reverse scroll (candidate)"
+      }
+    },
+    {
+      "id": "wire-spatial-readability",
+      "state": "user-adopted-handled-wire-entry-and-motion",
+      "rule": "Preserve the user-adopted first handled wire depth and turning volume from page-wire-entry-depth: exact CAD alignment, elevated initial wire view, and sustained wire visibility during rotation. Reject earlier spreadsheet-like entry or early clay occlusion. Preserve accurate geometry; do not apply the mug camera numbers blindly to other shapes.",
+      "consumer": [
+        "assets/accepted-profile.json",
+        "scripts/prepare_handled.py",
+        "assets/motion/handled-scene.mjs"
+      ],
+      "verification": {
+        "suites": [
+          "handled-page-input"
+        ],
+        "scope": "Moving wire-dominant interval on desktop/mobile against selected reference; density and later solid rotations are insufficient",
+        "browserCheck": "tests/check-handled-page.cjs and scripts/check-motion.cjs: first wire elevation/projected ring area, quarter/half turn wire opacity, CAD handoff and frame bounds. Browser checks run separately; visual acceptance is the recorded user feedback."
+      },
+      "acceptance": {
+        "date": "2026-10-17",
+        "userMessage": "응 이런 느낌이 계속 나왔으면 좋겠어 스킬에 반영된거야?",
+        "reference": ".poc/handled-page-development/page-wire-entry-depth",
+        "scope": "First handled wire depth and volumetric wire rotation; preserve this feel on subsequent generation. Does not approve provisional glaze colour, handle manufacturing dimensions or full skill release.",
+        "referenceSha256": {
+          "handled-scene.mjs": "47f70b64f978e5f30a6c01f9bc9573c577dff0c148ca5ab23a8e3dc3961a6c51",
+          "wire-guide.json": "1f56b24dfe1f3f3efe553c8c0ddf5450caa3730ccd84f8f31cf86c374ce3d8e3",
+          "browser-parity/report.json": "948fcf6d07d55ea691d0aad61489de2c4b69f38cc2cae37ccb537600db9b1210"
+        }
+      }
+    },
+    {
+      "id": "wire-colour",
+      "state": "implemented",
+      "profile": "wire3d.defaultColor",
+      "rule": "Common warm grey #6E6A68 for newly generated outputs; optional motion.wireColor #RRGGBB override. Existing generated pages and reference fixtures are not migrated.",
+      "consumer": [
+        "scripts/wire_color.py",
+        "scripts/selected_page.py",
+        "scripts/motion.py",
+        "assets/page-viewer.js",
+        "assets/multiple-scene.mjs",
+        "assets/motion/handled-scene.mjs"
+      ],
+      "verification": {
+        "suites": [],
+        "scope": "Default/override resolution and invalid-value rejection checked in isolation; no existing project regenerated.",
+        "pendingReason": "Resolver/output-module checks passed locally; automated decision suite and browser colour coverage remain pending."
+      }
+    },
+    {
+      "id": "feature-shape-input",
+      "state": "implemented-geometry-stage-only",
+      "rule": "Reviewed solid or uniform-offset hollow feature data: revolve, loft, box, sphere, union and cut. Hollow requires positive thickness, one extremal planar opening and an emptied cavity probe; never substitute a rotational vessel. Reviewed imported construction preserves a hash-bound single-solid STEP with explicit expected mm bounds and solid/hollow intent; one-coat pages reuse the shared renderer. Imported partial-coating surface classification and mesh formats remain unsupported.",
+      "consumer": [
+        "scripts/feature_shape.py",
+        "scripts/feature_step.py",
+        "scripts/run.py"
+      ],
+      "verification": {
+        "suites": [
+          "feature-shape"
+        ],
+        "scope": "Analytic volumes, loft fusion, disconnected/no-op feature rejection, solid/hollow distinction, analytic hollow wall/floor volume and curved hollow opening; CLI lifecycle exports checked separately."
+      }
+    },
+    {
+      "id": "feature-project-lifecycle",
+      "state": "implemented-geometry-stage-only",
+      "rule": "Manual feature-solid parts use existing project commands and snapshots; geometry-ready never implies CAD sheet or page readiness. Keep previous output on generation failure; reject mixed vessel/feature projects.",
+      "consumer": [
+        "scripts/feature_project.py",
+        "scripts/project.py",
+        "scripts/rebuild.py",
+        "scripts/stages.py"
+      ],
+      "verification": {
+        "suites": [
+          "feature-project"
+        ],
+        "scope": "Real CLI single-to-multiple, source changes, no-op resume, material-only reuse, invalid-shape recovery, exact rollback, tamper detection and page rejection."
+      }
+    },
+    {
+      "id": "feature-drawing-guide",
+      "state": "user-adopted-within-reviewed-feature-page-scope",
+      "profile": "wire3d.featureSections",
+      "rule": "One BRep supplies orthographic CAD views, part frontBoxes and actual plane-section wire curves. User adopted CAD/wire presentation in revision 1ba00fb8db46437ba9c318edc6250376; preserve existing adopted vessel rendering and review new geometries separately.",
+      "consumer": [
+        "scripts/feature_drawing.py",
+        "scripts/feature_project.py"
+      ],
+      "verification": {
+        "suites": [
+          "feature-drawing",
+          "feature-project"
+        ],
+        "scope": "Sphere section surface/plane checks, SVG part mapping/frontBox coordinates, axis conversion and project revision lifecycle. Static browser gate is separate; motion not connected.",
+        "browserCheck": "tests/check-feature-drawing.cjs"
+      }
+    },
+    {
+      "id": "feature-axis-motion",
+      "state": "implemented-per-part-review-candidate",
+      "rule": "Reuse handled-scene axis/motion renderer for selected feature part; centre actual mesh and BRep guides together, fit camera-space transformed bounds. Single/multiple feature page candidates and upright placement are supported through shared renderers.",
+      "consumer": [
+        "scripts/prepare_feature_motion.py",
+        "scripts/motion.py",
+        "assets/motion/handled-scene.mjs",
+        "scripts/project.py",
+        "scripts/stages.py"
+      ],
+      "verification": {
+        "suites": [
+          "motion-recovery",
+          "feature-project"
+        ],
+        "scope": "Lifecycle/recovery plus separate real browser evidence for smooth and offset faceted development inputs; four viewports x six points and reverse scroll. Not final-page adoption.",
+        "browserCheck": "scripts/check-motion.cjs"
+      },
+      "consumers": []
+    },
+    {
+      "id": "scene-defaults",
+      "state": "implemented",
+      "profile": "sceneDefaults",
+      "rule": "Freeze central renderer colour/light/camera defaults and handled transition timing into each output. Preserve prior numeric values; wireColor remains project-overridable. Old outputs untouched.",
+      "consumer": [
+        "scripts/wire_color.py",
+        "assets/page-viewer.js",
+        "assets/multiple-scene.mjs",
+        "assets/motion/handled-scene.mjs"
+      ],
+      "verification": {
+        "suites": [],
+        "scope": "Isolated moon parity and handled before/after screenshot comparison; config packaging checked by preflight.",
+        "pendingReason": "Browser evidence is separate from decision suite; not all algorithmic constants are editable settings."
+      }
+    },
+    {
+      "id": "feature-single-page",
+      "state": "implemented-review-candidate",
+      "rule": "Single explicit feature solid uses shared handled whole-page renderer, reviewed named clay/glaze and photo roles; preserve failed revisions and dependency-driven resume. Multiple feature pages use their explicit feature-solids review schema.",
+      "consumer": [
+        "scripts/feature_page.py",
+        "scripts/handled_page.py",
+        "scripts/selected_page.py",
+        "scripts/page_scheduler.py",
+        "assets/page-viewer.js"
+      ],
+      "verification": {
+        "suites": [
+          "feature-project",
+          "page-recovery"
+        ],
+        "scope": "Shared scheduler recovery and single-feature browser development checks; not visual adoption or release.",
+        "browserCheck": "tests/check-handled-page.cjs"
+      }
+    },
+    {
+      "id": "feature-multiple-page",
+      "state": "implemented-review-candidate",
+      "rule": "Homogeneous feature-solid lists use the shared multiple renderer, source BRep guides, explicit one-coat or reviewed two-layer exterior/full-surface or explicit CAD XY planar rectangle materials and optional upright sequential placement. Explicit layered feature-solids reviews also support one part. No instance-count-specific scripts. Explicit instances retain source CAD identity and select archived material variants; all-surface single-pass instances may share a page with two-pass parts. Every instance has an explicit assembly target. User-requested optional landscape CAD groups partition source IDs into at most three pages, with click/keyboard zoom. Shared repeated-material paint and on-demand rendering preserve motion; performance must be measured separately from geometry checks. Grouped CAD handoff emits one source front, not one per instance. Explicit radial-drop framing and azimuth preserve a fixed descent envelope while avoiding empty box corners.",
+      "consumer": [
+        "scripts/feature_multiple.py",
+        "scripts/feature_surface.py",
+        "assets/scene/layered-vessels.mjs",
+        "assets/page-viewer.js",
+        "scripts/feature_assembly.py",
+        "scripts/multiple_page.py",
+        "assets/multiple-scene.mjs",
+        "scripts/layered_review.py",
+        "scripts/feature_instances.py",
+        "scripts/cad_pages.py",
+        "assets/scene/cad-pages.mjs",
+        "assets/scene/cad-scroll.mjs",
+        "assets/scene/oriented-framing.mjs",
+        "assets/scene/drop-pose.mjs",
+        "scripts/drop_pose.py"
+      ],
+      "verification": {
+        "suites": [
+          "feature-assembly",
+          "multiple-page-input",
+          "page-recovery",
+          "planar-coatings-contract",
+          "planar-coatings-mesh",
+          "feature-instances",
+          "cad-pages",
+          "cad-scroll",
+          "oriented-framing",
+          "drop-pose"
+        ],
+        "scope": "CAD sampled collisions and shared review/recovery contracts; separate browser development evidence required. Not continuous collision or visual adoption. Planar region bounds, hard-edge triangle areas, translated CAD coordinates and non-top exclusions; actual board browser verification remains separate.",
+        "browserCheck": "tests/check-multiple-page.cjs"
+      }
+    },
+    {
+      "id": "feature-direct-drop",
+      "state": "implemented-requested-candidate",
+      "rule": "Optional direct-drop uses target X/Z airborne staging and ordered vertical descent: foundation first, upper parts afterward; no floor lineup and later lift/place. Existing lift-place remains unchanged.",
+      "consumer": [
+        "assets/multiple-scene.mjs",
+        "assets/scene/layered-vessels.mjs",
+        "scripts/layered_review.py",
+        "scripts/assembly_geometry.py",
+        "scripts/feature_assembly.py"
+      ],
+      "verification": {
+        "suites": [
+          "feature-assembly",
+          "multiple-page-input"
+        ],
+        "scope": "Vertical monotonic path, order, collision samples and browser direct-drop assertions; provisional timing/heights, not physical simulation.",
+        "browserCheck": "tests/check-multiple-page.cjs"
+      }
+    },
+    {
+      "id": "feature-soft-spin-landing",
+      "state": "implemented-requested-candidate",
+      "rule": "Optional direct-drop soft-spin continues body/axis yaw until each landing, smoothly reduces angular speed, and uses zero endpoint velocity/acceleration vertical easing. CAD collision samples include actual yaw.",
+      "consumer": [
+        "assets/multiple-scene.mjs",
+        "assets/scene/layered-vessels.mjs",
+        "scripts/assembly_geometry.py",
+        "scripts/feature_assembly.py"
+      ],
+      "verification": {
+        "suites": [
+          "feature-assembly",
+          "layered-vessels"
+        ],
+        "scope": "Landing easing, rotation continuation and CAD/browser sampled paths; not physical simulation.",
+        "browserCheck": "tests/check-multiple-page.cjs"
+      }
+    },
+    {
+      "id": "feature-overlapping-drop",
+      "state": "implemented-requested-candidate",
+      "rule": "Explicit direct-drop overlap permits upper parts to descend together while preserving departure and landing order. Per-part easing/spin and sampled collision gate remain active.",
+      "consumer": [
+        "scripts/layered_review.py",
+        "assets/multiple-scene.mjs",
+        "scripts/feature_assembly.py"
+      ],
+      "verification": {
+        "suites": [
+          "feature-assembly"
+        ],
+        "scope": "Overlap opt-in and ordered endpoints; actual browser poses and rotating CAD samples for the reviewed composition.",
+        "browserCheck": "tests/check-multiple-page.cjs"
+      }
+    },
+    {
+      "id": "adopted-gentle-staggered-drop",
+      "state": "user-adopted-within-feature-direct-drop-scope",
+      "profile": "assembly.gentleStaggeredDrop",
+      "rule": "Use gentle-staggered for sequential drops: resolve soft-spin and overlap, reject conflicting modes and excessive upper-part landing gaps. Preserve approved reference and adapt geometric clearances separately. User adopted corrected framing in revision 1ba00fb8db46437ba9c318edc6250376: finish camera staging in initial CAD-to-3D descent, hold fixed from glaze completion through landing; retain soft spin and short gaps.",
+      "consumer": [
+        "scripts/layered_review.py",
+        "scripts/feature_multiple.py",
+        "assets/multiple-scene.mjs"
+      ],
+      "verification": {
+        "suites": [
+          "feature-assembly"
+        ],
+        "scope": "Preset/gap regression plus separately checked four-viewport full glaze-completion-to-landing trajectory and reverse scroll. Adopted corrected reference 1ba00fb8db46437ba9c318edc6250376. No blanket shape/material/manufacturing approval."
+      }
+    },
+    {
+      "id": "cad-production-sections",
+      "state": "implemented",
+      "rule": "Grouped feature CAD displays source-instance totals and reviewed clay/glaze quantities. Optional nonoverlapping normalized sections support asymmetric layouts while retaining six views, dimension notes and source-mapped CAD front boxes. Chess presentation remains a visual candidate until reviewed. Optional retain-fronts handoff keeps earlier source representatives through the last-page transition; explicit source IDs select participants. Axisymmetric CAD exterior meridians supplement missing HLR outlines without changing geometry. Optional collectionStartFraction and handoffExtraScrollVh spread retained-front travel and CAD-to-wire merge over more physical scroll without altering later motion lengths.",
+      "consumer": [
+        "scripts/cad_pages.py",
+        "scripts/multiple_page.py",
+        "assets/scene/cad-handoff.mjs",
+        "assets/scene/cad-scroll.mjs"
+      ],
+      "verification": {
+        "suites": [
+          "cad-pages",
+          "cad-handoff",
+          "feature-projection",
+          "cad-scroll"
+        ],
+        "scope": "Rectangle validation, derived glaze quantities, retained six views and updated alias front boxes; browser review checks current chess sheets."
+      }
+    },
+    {
+      "id": "viewer-readiness-and-demand-rendering",
+      "state": "implemented-within-generated-page-scope",
+      "rule": "Generated full pages and motion previews lock initial scroll until scene initialization and first render settle; expose versioned loading/ready/error status. Render single and handled scenes only on scroll, resize and image/gallery invalidation, preserving approved motion and materials. Historical outputs are not rewritten.",
+      "consumer": [
+        "scripts/page_runtime.py",
+        "assets/viewer-lifecycle.js",
+        "assets/render-loop.mjs",
+        "assets/page-viewer.js",
+        "assets/motion/handled-scene.mjs",
+        "scripts/selected_page.py",
+        "scripts/motion.py"
+      ],
+      "verification": {
+        "suites": [
+          "render-loop"
+        ],
+        "scope": "Coalesced scheduling and no idle WebGL scene frames. Separately checked generated moon/handled/two-vessel pages for loading/ready/error in desktop/mobile direct/iframe use and scene gates. Gallery pointer RAF remains separate; not a hardware FPS guarantee."
+      }
+    },
+    {
+      "id": "scroll-projection-and-gallery-scheduling",
+      "state": "implemented-within-tested-page-scope",
+      "rule": "Preserve full mesh and approved appearance; combine projection matrices and cache exact unchanged bounds, read CAD layout once before writes, reuse height-based glaze reveal values, and schedule gallery animation only while active and changing. Validate CAD handoff as well as later motion; a 100ms regression ceiling is not smoothness evidence.",
+      "consumer": [
+        "assets/multiple-scene.mjs",
+        "assets/scene/projected-bounds.mjs",
+        "assets/gallery/gallery.js"
+      ],
+      "verification": {
+        "suites": [
+          "projected-bounds",
+          "gallery-scheduler"
+        ],
+        "scope": "Exact full-vertex projection versus Three.js, cache invalidation and reverse motion; 22 desktop/mobile before/after pixel-identical samples, six native gallery dialog cases, legacy host photo dialogs, and 48 maintained generated-page checks. Actual public chess runtime adopted separately; software CPU samples do not establish hardware FPS."
+      }
+    },
+    {
+      "id": "coating-identical-input-groups",
+      "state": "implemented-within-tested-page-scope",
+      "rule": "Group identical height and coating palette inputs without quantization; preserve original Float32 vertex colors and material/motion behavior.",
+      "consumer": [
+        "assets/scene/coating-colors.mjs",
+        "assets/multiple-scene.mjs"
+      ],
+      "verification": {
+        "suites": [
+          "coating-colors"
+        ],
+        "scope": "Exact Float32 parity for layer/region/height inputs and reverse progress; 22 desktop/mobile pixel-identical public-chess comparisons, 48 maintained generated-page checks. Actual public chess runtime separately adopted; hardware FPS not established."
+      }
+    },
+    {
+      "id": "gallery-physical-document-end",
+      "state": "implemented-pending-device-confirmation",
+      "rule": "Final gallery also activates at the physical scrolling element end, with one CSS pixel rounding tolerance; preserve normal timeline activation and reverse scrolling.",
+      "consumer": [
+        "assets/gallery/gallery.js"
+      ],
+      "verification": {
+        "suites": [
+          "gallery-scheduler"
+        ],
+        "scope": "End-of-document rounding, no-scroll guard, calculated endpoint mismatch, reverse scrolling; actual Samsung browser confirmation remains required."
+      }
+    },
+    {
+      "id": "dimensional-drawing-review",
+      "state": "implemented-candidate",
+      "rule": "Opt-in STEP-derived drawing reviews with upstream MIT drawing primitives, part-list layout, actual section hatching and source hashes. Existing page outputs remain unchanged.",
+      "consumer": [
+        "scripts/drawing_review.py",
+        "scripts/dimensional_kit.py",
+        "scripts/run.py"
+      ],
+      "verification": {
+        "suites": [
+          "dimensional-drawing"
+        ],
+        "scope": "STEP-derived drawing review: source preservation, deterministic single/multiple output, actual sections and input/tamper checks. No full-page handoff or visual adoption.",
+        "browserCheck": "tests/check-dimensional-drawing.cjs"
+      }
+    }
+  ],
+  "sourceRepositoryCommit": "c84daff",
+  "integrationDate": "2026-10-15",
+  "scope": "Selected whole-page restoration and supported CAD/components; new-CAD page rendering blocked until selected-scene parity is implemented"
+}

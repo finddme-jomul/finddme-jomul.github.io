@@ -1,0 +1,17 @@
+{
+  "name": "Synthetic handled vessel geometry test",
+  "style": "technical-dense",
+  "compositionMode": "single",
+  "parts": [
+    {
+      "id": "synthetic-mug",
+      "name": "Synthetic mug",
+      "shapeKind": "handled-vessel",
+      "profile": "synthetic-mug-profile.json",
+      "dimensions": "synthetic-mug-dimensions.json",
+      "material": "synthetic-mug-material.json",
+      "materialFormat": "single",
+      "handle": "synthetic-mug-handle.json"
+    }
+  ]
+}

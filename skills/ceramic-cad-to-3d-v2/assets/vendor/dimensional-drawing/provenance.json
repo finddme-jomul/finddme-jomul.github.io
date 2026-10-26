@@ -1,0 +1,23 @@
+{
+  "repository": "https://github.com/enesozturk/dimensional-drawing",
+  "commit": "5c457437c8c83524308aad3b7443e81adcc13153",
+  "license": "MIT",
+  "files": [
+    {
+      "upstreamPath": "LICENSE",
+      "localFile": "LICENSE",
+      "sha256": "968f8742d25c4982289e8aa65ccc0910e9bf5e40c55f635e81bafbb8e566c207"
+    },
+    {
+      "upstreamPath": "skills/dimensional-drawing/SKILL.md",
+      "localFile": "SKILL.md",
+      "sha256": "b4fce1c4556d22734a13f949da9d914df0436d5f2170191f6ec78a879d0ac5ba"
+    },
+    {
+      "upstreamPath": "skills/dimensional-drawing/examples/dialog-sheet.html",
+      "localFile": "dialog-sheet.html",
+      "sha256": "6a407cf4f827c4e1996c09eceedc592c8952a4b5a48d0ecef63440a334308ff2"
+    }
+  ],
+  "adaptation": "scripts/dimensional_kit.py ports dimension, leader, detail-reference and table conventions; drawing_review.py adapts composition to CAD-derived curves. No upstream UI geometry is used as ceramic geometry."
+}
