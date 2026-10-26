@@ -11,6 +11,8 @@ For source-derived dimensional drawing candidates, read [the drawing-review cont
 
 For time-driven CAD drawing playback, use [drawing-motion](references/drawing-motion.md): `drawing-motion --drawing REVIEW_DIR --output UNUSED_DIR`. It reuses verified SVGs, supports per-part view/detail camera keys via --camera, reversible seeking, full-size reading and reduced motion, and remains a standalone review rather than a page/3D handoff.
 
+For multi-part mobile sheets that become tall and narrow, use `sheetLayout.mobilePanel: "landscape"` to reuse complete desktop technical panels with mobile row/column placement. Preserve all views, dimensions, sections, details, tables and notes on the mobile sheet itself; a separate reader is not a substitute for missing information. Compare desktop/mobile panel bytes and the full page handoff before adoption.
+
 For full-page integration, use the opt-in [dimensional page bridge](references/dimensional-page.md) in the existing page-review input; source verification and whole-page browser gates are required.
 
 V2 development fork of the v1 package. Read [v2 development scope](references/v2-development.md) first. The standalone dimensional-drawing review stage is implemented; opt-in page handoff is available for verified drawing sources; visual adoption and general release remain separate. Inherited v1 approval records do not certify v2 outputs.

@@ -19,7 +19,7 @@
     "scripts/drawing_camera.py": "98c8d10c15cfe052945021219ce60d7a30890d30e21a2efa1d20342a932e467d",
     "scripts/drawing_motion.py": "9ed8eb3e95468e88a347a9aee795bb0ad9b17c880020e64abb55ef0a29018356",
     "scripts/drawing_presentation.py": "6646e1c50d7caf912d68d4e50390d6f4692b262a79f16f350546aab2cc4c3271",
-    "scripts/drawing_review.py": "08e52ff0abd3f70a5a6f1d87384e82062857a8270ad4ec38cf18eb95f03cd7f9",
+    "scripts/drawing_review.py": "b5c8e8fb41f5afc52e258bd3ef3db5de32fca6de16ea8bd5a3f6a7d8899f5e37",
     "scripts/drop_pose.py": "d5a1de324beba4e3ab57704b9a16243be0f147ccd138f9a8fff04e091158dcf0",
     "scripts/environment_check.py": "5dac0801136675c705977a244924c18f5da67be5e457bc21419af0b99d225780",
     "scripts/feature_assembly.py": "b1cc4ac631b77a81e0f762033fbef462a897f312d16fd40e3fe301260aa0c2c3",

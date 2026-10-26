@@ -24,8 +24,10 @@ def extent(view):
 
 
 def validate_sheet_layout(value):
-    if not isinstance(value,dict) or set(value)-{'columns','alignLastRow'}:
+    if not isinstance(value,dict) or set(value)-{'columns','alignLastRow','mobilePanel'}:
         raise ValueError('Invalid sheetLayout fields')
+    if value.get('mobilePanel','portrait') not in ('portrait','landscape'):
+        raise ValueError('Invalid sheetLayout mobilePanel')
     columns=value.get('columns',{})
     if not isinstance(columns,dict) or set(columns)-{'desktop','mobile'}:
         raise ValueError('Invalid sheetLayout columns')
@@ -292,7 +294,8 @@ def render(items,out,sheet_layout=None):
     placement=validate_sheet_layout(sheet_layout if sheet_layout is not None else {})
     layouts={}
     for layout in ('desktop','mobile'):
-        panels=[panel(item,layout) for item in items]
+        panel_layout='desktop' if layout=='mobile' and placement.get('mobilePanel')=='landscape' else layout
+        panels=[panel(item,panel_layout) for item in items]
         columns=(min(3 if layout=='desktop' else 2,math.ceil(math.sqrt(len(panels)))) if len(panels)>=4 else 1)
         columns=min(len(panels),placement.get('columns',{}).get(layout,columns))
         panel_width=panels[0][2][0];width=panel_width*columns
