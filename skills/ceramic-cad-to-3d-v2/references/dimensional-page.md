@@ -53,7 +53,9 @@ instances, materials and placements remain intact. To adopt this layout, explici
 remove the legacy grouping from the new review; preserve any manufacturing notes
 in the drawing input. Never silently drop a grouping or scene instance.
 
-Read drawing opens the packaged minimum-width reader and source title blocks.
+View drawing details opens the packaged minimum-width reader and source title blocks.
+The borderless link is hidden on the completed-CAD entry preview and appears
+after the initial scroll, within the existing drawing introduction interval.
 The link disappears after the introduction and does not add any section after
 the final photo gallery. Original drawing outputs and old page revisions remain
 immutable.

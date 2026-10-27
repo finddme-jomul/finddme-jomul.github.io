@@ -833,7 +833,7 @@
     {
       "id": "viewer-readiness-and-demand-rendering",
       "state": "implemented-within-generated-page-scope",
-      "rule": "Generated full pages and motion previews lock initial scroll until scene initialization and first render settle; expose versioned loading/ready/error status and visible loading text, then a static downward Scroll affordance until initial scroll. Render single and handled scenes only on scroll, resize and image/gallery invalidation, preserving approved motion and materials. Historical outputs are not rewritten.",
+      "rule": "Generated pages lock initial scroll until initialization and first render settle; show a centered loading spinner, then Scroll to explore over a blurred complete responsive CAD image. Only the decorative preview fades over the first 72 physical scroll pixels; drawing and 3D timing stay unchanged. The borderless View drawing details link appears after initial scroll within its existing drawing interval. Loading/error and reduced motion remain supported; no perpetual JS render loop. Historical revisions remain unchanged.",
       "consumer": [
         "scripts/page_runtime.py",
         "assets/viewer-lifecycle.js",
@@ -847,7 +847,8 @@
         "suites": [
           "render-loop"
         ],
-        "scope": "Coalesced scheduling and no idle WebGL scene frames. Separately checked generated moon/handled/two-vessel pages for loading/ready/error in desktop/mobile direct/iframe use and scene gates. Gallery pointer RAF remains separate; not a hardware FPS guarantee."
+        "scope": "Coalesced rendering and no idle WebGL frames. Browser gate checks five host projects on desktop/mobile: matching complete CAD source, centered cue, preview dismissal and reverse restoration, reader timing, original motion endpoint/reversal, photos, reduced motion and loading/error states.",
+        "browserCheck": "tests/check-entry-preview.cjs"
       }
     },
     {

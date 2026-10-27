@@ -98,6 +98,6 @@ def install(binding,prepared,stage):
     config_path.write_text(json.dumps(config,ensure_ascii=False,indent=2)+'\n')
     shutil.copy2(SKILL/'assets/drawing-motion/motion.mjs',stage/'drawing-motion.mjs')
     doc=(stage/'index.html').read_text()
-    doc=doc.replace('</head>','<style>.drawing-reader-link{position:absolute;right:16px;top:16px;z-index:3;padding:12px;background:white;color:#222;font:14px Arial;border:1px solid #777}</style></head>')
-    doc=doc.replace('<div class="stage">','<div class="stage"><a class="drawing-reader-link" href="./dimensional-drawing/index.html">Read drawing</a>')
+    doc=doc.replace('</head>','<style>.drawing-reader-link{position:absolute;right:16px;top:16px;z-index:3;padding:12px;background:transparent;color:#35332f;font:12px Arial;border:0}</style></head>')
+    doc=doc.replace('<div class="stage">','<div class="stage"><a class="drawing-reader-link" href="./dimensional-drawing/index.html">View drawing details</a>')
     (stage/'index.html').write_text(doc)

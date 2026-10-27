@@ -427,3 +427,9 @@ well as WebP. Verify the rendered photo count, not only the static HTML buttons.
 ## Loading indicator parity with main — 2026-10-26
 
 The shared viewer lifecycle shows a centered 26px circular CSS spinner (1.1s linear rotation, main overlay colors) while loading. Loading text is screen-reader-only; reduced-motion users see a static ring with the status label. Ready hides the loading status/animation and retains the centered Scroll cue; error hides the spinner and exposes retry. Keep scroll locking and renderer coalescing unchanged. Apply through page_runtime/exporter to existing page exports without regenerating geometry.
+
+## Completed-CAD entry preview — 2026-10-27
+
+After viewer readiness, show the active full CAD sheet as a low-opacity, lightly blurred decorative background behind the centered Scroll to explore cue. Fade the preview over the first 72 physical scroll pixels, hide the cue after 24px, and restore both when returning to the top. Preserve all drawing content and the existing drawing/3D timeline; do not advance or rescale progress to create the preview. Reuse the loaded responsive sheet URL and update it on image load/resize. Loading still shows the spinner; errors show retry. No perpetual JS animation loop.
+
+The borderless View drawing details link remains hidden (also from keyboard focus) until scroll passes 24px, then follows the existing drawing-intro visibility interval. Keep the reader contents unchanged. Apply lifecycle presentation refresh to existing exports and retain exact model/photo/config hashes; validate preview/scroll/reverse/reduced-motion and idle rendering in browser.

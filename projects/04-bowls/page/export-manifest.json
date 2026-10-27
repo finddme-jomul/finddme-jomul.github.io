@@ -31,7 +31,7 @@
     "gallery.css": "abf4347d2f2b13f50e75fb02931794079dc3ccc15050c03bb7f0041bbcf8c89d",
     "gallery.js": "6443223cedd7016e072ee9893e67a0fc12e8a23c2a0a31a13b341890c28c979c",
     "handled-scene.mjs": "a683b5b0837fd42fda1c3c4ac421e70ea1e07c535ecf35ff9c97dd3747cf37ce",
-    "index.html": "7771b45cd873a47ce0d04f9698bafc588ae78f75ac8bcba8484d951638ba985e",
+    "index.html": "bf070efde701310261c28482273b1b01244325c17c06d63e5a5da6e5c010db8f",
     "multiple-scene.mjs": "946b7a5b190855104f4602307b2fed1625a38af8c370cf5f41d2f083c65042cb",
     "render-loop.mjs": "e0fb243338723049b9bfbdae7c8d39151b524d4e6f9776d08080ac4dd6ddd00e",
     "scene/axis-motion.mjs": "71511810da9eb151894f8b8c5cf84d1ca1c51fe412ecba37bfc04943dc0dce67",
@@ -52,6 +52,6 @@
   },
   "lifecyclePresentation": {
     "source": "skills/ceramic-cad-to-3d-v2/assets/viewer-lifecycle.js",
-    "sha256": "76cf88389f4d2692df818c3b05f10baf72b29b2e6ea5789ec7cdd7b15d74b3eb"
+    "sha256": "03cde3ee002b3e75cdda539f9e7a525b3b334f5067e86c92f317f477198a044a"
   }
 }
