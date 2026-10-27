@@ -26,6 +26,15 @@ class PageBinding(unittest.TestCase):
      self.assertIn(str((source/'drawing-manifest.json').relative_to(root)),prepared['inputsSha256'])
      target=root/f'front{count}.svg';bridge.extract_front(source/'one-desktop.svg',target)
      self.assertIn('data-geometry',target.read_text());self.assertNotIn('>W<',target.read_text())
+     original=(source/'one-desktop.svg').read_bytes()
+     bridge.extract_front(source/'one-desktop.svg',target,.55)
+     self.assertIn('.outline{stroke-width:0.55}',target.read_text())
+     self.assertEqual(original,(source/'one-desktop.svg').read_bytes())
+     tuned=json.loads(json.dumps(review));tuned['dimensionalDrawing']['frontOutlineWidthByPart']={'one':.55}
+     self.assertEqual(bridge.prepare(project,prepared,tuned)['frontOutlineWidthByPart'],{'one':.55})
+     for values in ({'missing':.5},{'one':0},{'one':True},{'one':float('nan')}):
+      tuned['dimensionalDrawing']['frontOutlineWidthByPart']=values
+      with self.assertRaises(ValueError):bridge.prepare(project,prepared,tuned)
      bad=json.loads(json.dumps(review));bad['dimensionalDrawing']['extraScrollVh']=float('nan')
      with self.assertRaises(ValueError):bridge.prepare(project,prepared,bad)
      if count==2:

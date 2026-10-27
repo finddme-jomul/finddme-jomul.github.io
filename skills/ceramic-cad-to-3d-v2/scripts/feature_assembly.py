@@ -33,7 +33,11 @@ def check(parts,spec,motion=None):
                 angles=(angle,0,0,0)
                 m=p['appearance']['motion']
                 if m.get('fixedOrientation'):angles=(0,0,0,0)
-                elif m.get('varyingDropAxis'):angles=drop_pose(m,motion['glaze'],motion['timing'],spec,steps[p['id']],spec['start']+spec['duration']*t)
+                elif m.get('varyingDropAxis'):
+                    now=spec['start']+spec['duration']*t
+                    timing=motion['timing']
+                    settle=smooth((now-timing['settleStart']-m['dropDelay'])/timing['settleDuration']) if spec.get('phase')=='during-glaze' else 1
+                    angles=drop_pose(m,motion['glaze'],timing,spec,steps[p['id']],now,settle=settle)
                 corners=[transform(px,py,pz,angles) for px in (-width/2,width/2) for py in (-depth/2,depth/2) for pz in (-height/2,height/2)]
                 offset=(x,-z,y+height/2)
                 poses.append((*offset,angles));boxes.append(tuple(tuple(offset[k]+fn(q[k] for q in corners) for k in range(3)) for fn in (min,max)))

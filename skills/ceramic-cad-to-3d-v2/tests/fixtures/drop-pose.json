@@ -598,5 +598,635 @@
       23.439629846990304,
       -26.752725641656177
     ]
+  },
+  {
+    "m": {
+      "dropDelay": 0.016224531785864492,
+      "entryXDesktop": -0.2240986394903263,
+      "entryXMobile": -0.2240986394903263,
+      "finalXDesktop": -0.217,
+      "finalXMobile": -0.217,
+      "axisTiltDegrees": 15.80358576421163,
+      "axisDriftZDegrees": -3.720846072438876,
+      "axisDriftXDegrees": -7.704871078190234,
+      "turns": 1,
+      "provenance": {
+        "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
+      },
+      "cadToWireScale": 1.4,
+      "cadToWireScaleMobile": 1.2,
+      "orbitTurns": 1,
+      "settledScale": 1,
+      "varyingDropAxis": true,
+      "dropDurationScale": 1.0636139182160804,
+      "entryYOffset": 0.07666531023984133,
+      "entryZ": 0.21978396533060934,
+      "spinPhaseDegrees": -132.07689069456,
+      "axisPhaseDegrees": 97.31164749361886
+    },
+    "g": {
+      "direction": "bottom-up",
+      "spinTurns": 1,
+      "provenance": "shared continuing axis/spin; preview values",
+      "axisPrecessionTurns": 1,
+      "axisRetainFraction": 0.35,
+      "maxAxisTiltDegrees": 6
+    },
+    "timing": {
+      "baseGlazeStart": 0.385,
+      "baseGlazeDuration": 0.08,
+      "accentGlazeStart": 0.48,
+      "accentGlazeDuration": 0.15,
+      "settleStart": 0.42,
+      "settleDuration": 0.12
+    },
+    "assembly": {
+      "start": 0.47,
+      "duration": 0.48,
+      "phase": "during-glaze"
+    },
+    "step": {
+      "start": 0.02,
+      "duration": 0.75
+    },
+    "time": 0.385,
+    "drop": 1,
+    "settle": 0,
+    "angles": [
+      227.92310930544,
+      457.31164749361886,
+      -9.435745703748685e-16,
+      10.27233074673756
+    ],
+    "point": [
+      3.5801018606564483,
+      -42.651600728494756,
+      19.420591469923494
+    ],
+    "transformed": [
+      -21.00828318639325,
+      -39.97311973478976,
+      13.035999513107685
+    ]
+  },
+  {
+    "m": {
+      "dropDelay": 0.016224531785864492,
+      "entryXDesktop": -0.2240986394903263,
+      "entryXMobile": -0.2240986394903263,
+      "finalXDesktop": -0.217,
+      "finalXMobile": -0.217,
+      "axisTiltDegrees": 15.80358576421163,
+      "axisDriftZDegrees": -3.720846072438876,
+      "axisDriftXDegrees": -7.704871078190234,
+      "turns": 1,
+      "provenance": {
+        "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
+      },
+      "cadToWireScale": 1.4,
+      "cadToWireScaleMobile": 1.2,
+      "orbitTurns": 1,
+      "settledScale": 1,
+      "varyingDropAxis": true,
+      "dropDurationScale": 1.0636139182160804,
+      "entryYOffset": 0.07666531023984133,
+      "entryZ": 0.21978396533060934,
+      "spinPhaseDegrees": -132.07689069456,
+      "axisPhaseDegrees": 97.31164749361886
+    },
+    "g": {
+      "direction": "bottom-up",
+      "spinTurns": 1,
+      "provenance": "shared continuing axis/spin; preview values",
+      "axisPrecessionTurns": 1,
+      "axisRetainFraction": 0.35,
+      "maxAxisTiltDegrees": 6
+    },
+    "timing": {
+      "baseGlazeStart": 0.385,
+      "baseGlazeDuration": 0.08,
+      "accentGlazeStart": 0.48,
+      "accentGlazeDuration": 0.15,
+      "settleStart": 0.42,
+      "settleDuration": 0.12
+    },
+    "assembly": {
+      "start": 0.47,
+      "duration": 0.48,
+      "phase": "during-glaze"
+    },
+    "step": {
+      "start": 0.02,
+      "duration": 0.75
+    },
+    "time": 0.47,
+    "drop": 1,
+    "settle": 0.19306753567921622,
+    "angles": [
+      273.09976744641733,
+      481.4285733708871,
+      -8.516402063250318e-16,
+      9.810398223578538
+    ],
+    "point": [
+      3.5801018606564483,
+      -42.651600728494756,
+      19.420591469923494
+    ],
+    "transformed": [
+      28.527155541495606,
+      -35.40367278638363,
+      11.912887854054151
+    ]
+  },
+  {
+    "m": {
+      "dropDelay": 0.016224531785864492,
+      "entryXDesktop": -0.2240986394903263,
+      "entryXMobile": -0.2240986394903263,
+      "finalXDesktop": -0.217,
+      "finalXMobile": -0.217,
+      "axisTiltDegrees": 15.80358576421163,
+      "axisDriftZDegrees": -3.720846072438876,
+      "axisDriftXDegrees": -7.704871078190234,
+      "turns": 1,
+      "provenance": {
+        "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
+      },
+      "cadToWireScale": 1.4,
+      "cadToWireScaleMobile": 1.2,
+      "orbitTurns": 1,
+      "settledScale": 1,
+      "varyingDropAxis": true,
+      "dropDurationScale": 1.0636139182160804,
+      "entryYOffset": 0.07666531023984133,
+      "entryZ": 0.21978396533060934,
+      "spinPhaseDegrees": -132.07689069456,
+      "axisPhaseDegrees": 97.31164749361886
+    },
+    "g": {
+      "direction": "bottom-up",
+      "spinTurns": 1,
+      "provenance": "shared continuing axis/spin; preview values",
+      "axisPrecessionTurns": 1,
+      "axisRetainFraction": 0.35,
+      "maxAxisTiltDegrees": 6
+    },
+    "timing": {
+      "baseGlazeStart": 0.385,
+      "baseGlazeDuration": 0.08,
+      "accentGlazeStart": 0.48,
+      "accentGlazeDuration": 0.15,
+      "settleStart": 0.42,
+      "settleDuration": 0.12
+    },
+    "assembly": {
+      "start": 0.47,
+      "duration": 0.48,
+      "phase": "during-glaze"
+    },
+    "step": {
+      "start": 0.02,
+      "duration": 0.75
+    },
+    "time": 0.4796,
+    "drop": 1,
+    "settle": 0.2975111836044328,
+    "angles": [
+      282.9806673062852,
+      486.70335329766965,
+      -7.427143841107355e-16,
+      9.26309058282143
+    ],
+    "point": [
+      3.5801018606564483,
+      -42.651600728494756,
+      19.420591469923494
+    ],
+    "transformed": [
+      36.388385621171565,
+      -26.946103562497992,
+      12.60668242486193
+    ]
+  },
+  {
+    "m": {
+      "dropDelay": 0.016224531785864492,
+      "entryXDesktop": -0.2240986394903263,
+      "entryXMobile": -0.2240986394903263,
+      "finalXDesktop": -0.217,
+      "finalXMobile": -0.217,
+      "axisTiltDegrees": 15.80358576421163,
+      "axisDriftZDegrees": -3.720846072438876,
+      "axisDriftXDegrees": -7.704871078190234,
+      "turns": 1,
+      "provenance": {
+        "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
+      },
+      "cadToWireScale": 1.4,
+      "cadToWireScaleMobile": 1.2,
+      "orbitTurns": 1,
+      "settledScale": 1,
+      "varyingDropAxis": true,
+      "dropDurationScale": 1.0636139182160804,
+      "entryYOffset": 0.07666531023984133,
+      "entryZ": 0.21978396533060934,
+      "spinPhaseDegrees": -132.07689069456,
+      "axisPhaseDegrees": 97.31164749361886
+    },
+    "g": {
+      "direction": "bottom-up",
+      "spinTurns": 1,
+      "provenance": "shared continuing axis/spin; preview values",
+      "axisPrecessionTurns": 1,
+      "axisRetainFraction": 0.35,
+      "maxAxisTiltDegrees": 6
+    },
+    "timing": {
+      "baseGlazeStart": 0.385,
+      "baseGlazeDuration": 0.08,
+      "accentGlazeStart": 0.48,
+      "accentGlazeDuration": 0.15,
+      "settleStart": 0.42,
+      "settleDuration": 0.12
+    },
+    "assembly": {
+      "start": 0.47,
+      "duration": 0.48,
+      "phase": "during-glaze"
+    },
+    "step": {
+      "start": 0.02,
+      "duration": 0.75
+    },
+    "time": 0.55,
+    "drop": 1,
+    "settle": 0.9922072973869968,
+    "angles": [
+      375.3406262911496,
+      536.0084231395914,
+      -1.7100609467827871e-19,
+      5.377956124120159
+    ],
+    "point": [
+      3.5801018606564483,
+      -42.651600728494756,
+      19.420591469923494
+    ],
+    "transformed": [
+      -10.02282178980325,
+      40.98188342263966,
+      20.71626948995144
+    ]
+  },
+  {
+    "m": {
+      "dropDelay": 0.016224531785864492,
+      "entryXDesktop": -0.2240986394903263,
+      "entryXMobile": -0.2240986394903263,
+      "finalXDesktop": -0.217,
+      "finalXMobile": -0.217,
+      "axisTiltDegrees": 15.80358576421163,
+      "axisDriftZDegrees": -3.720846072438876,
+      "axisDriftXDegrees": -7.704871078190234,
+      "turns": 1,
+      "provenance": {
+        "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
+      },
+      "cadToWireScale": 1.4,
+      "cadToWireScaleMobile": 1.2,
+      "orbitTurns": 1,
+      "settledScale": 1,
+      "varyingDropAxis": true,
+      "dropDurationScale": 1.0636139182160804,
+      "entryYOffset": 0.07666531023984133,
+      "entryZ": 0.21978396533060934,
+      "spinPhaseDegrees": -132.07689069456,
+      "axisPhaseDegrees": 97.31164749361886
+    },
+    "g": {
+      "direction": "bottom-up",
+      "spinTurns": 1,
+      "provenance": "shared continuing axis/spin; preview values",
+      "axisPrecessionTurns": 1,
+      "axisRetainFraction": 0.35,
+      "maxAxisTiltDegrees": 6
+    },
+    "timing": {
+      "baseGlazeStart": 0.385,
+      "baseGlazeDuration": 0.08,
+      "accentGlazeStart": 0.48,
+      "accentGlazeDuration": 0.15,
+      "settleStart": 0.42,
+      "settleDuration": 0.12
+    },
+    "assembly": {
+      "start": 0.47,
+      "duration": 0.48,
+      "phase": "during-glaze"
+    },
+    "step": {
+      "start": 0.02,
+      "duration": 0.75
+    },
+    "time": 0.63,
+    "drop": 1,
+    "settle": 1,
+    "angles": [
+      502.6422281104134,
+      603.966599363077,
+      -0.0,
+      3.7594883281153995
+    ],
+    "point": [
+      3.5801018606564483,
+      -42.651600728494756,
+      19.420591469923494
+    ],
+    "transformed": [
+      22.885067949776293,
+      -35.34193274971125,
+      20.88915990475167
+    ]
+  },
+  {
+    "m": {
+      "dropDelay": 0.016224531785864492,
+      "entryXDesktop": -0.2240986394903263,
+      "entryXMobile": -0.2240986394903263,
+      "finalXDesktop": -0.217,
+      "finalXMobile": -0.217,
+      "axisTiltDegrees": 15.80358576421163,
+      "axisDriftZDegrees": -3.720846072438876,
+      "axisDriftXDegrees": -7.704871078190234,
+      "turns": 1,
+      "provenance": {
+        "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
+      },
+      "cadToWireScale": 1.4,
+      "cadToWireScaleMobile": 1.2,
+      "orbitTurns": 1,
+      "settledScale": 1,
+      "varyingDropAxis": true,
+      "dropDurationScale": 1.0636139182160804,
+      "entryYOffset": 0.07666531023984133,
+      "entryZ": 0.21978396533060934,
+      "spinPhaseDegrees": -132.07689069456,
+      "axisPhaseDegrees": 97.31164749361886
+    },
+    "g": {
+      "direction": "bottom-up",
+      "spinTurns": 1,
+      "provenance": "shared continuing axis/spin; preview values",
+      "axisPrecessionTurns": 1,
+      "axisRetainFraction": 0.35,
+      "maxAxisTiltDegrees": 6
+    },
+    "timing": {
+      "baseGlazeStart": 0.385,
+      "baseGlazeDuration": 0.08,
+      "accentGlazeStart": 0.48,
+      "accentGlazeDuration": 0.15,
+      "settleStart": 0.42,
+      "settleDuration": 0.12
+    },
+    "assembly": {
+      "start": 0.47,
+      "duration": 0.48,
+      "phase": "during-glaze"
+    },
+    "step": {
+      "start": 0.02,
+      "duration": 0.75
+    },
+    "time": 0.8,
+    "drop": 1,
+    "settle": 1,
+    "angles": [
+      709.4487730338335,
+      714.3673753409737,
+      -0.0,
+      0.01835503460897605
+    ],
+    "point": [
+      3.5801018606564483,
+      -42.651600728494756,
+      19.420591469923494
+    ],
+    "transformed": [
+      -8.45583373127214,
+      -41.95865195881801,
+      19.419215967312724
+    ]
+  },
+  {
+    "m": {
+      "dropDelay": 0.016224531785864492,
+      "entryXDesktop": -0.2240986394903263,
+      "entryXMobile": -0.2240986394903263,
+      "finalXDesktop": -0.217,
+      "finalXMobile": -0.217,
+      "axisTiltDegrees": 15.80358576421163,
+      "axisDriftZDegrees": -3.720846072438876,
+      "axisDriftXDegrees": -7.704871078190234,
+      "turns": 1,
+      "provenance": {
+        "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
+      },
+      "cadToWireScale": 1.4,
+      "cadToWireScaleMobile": 1.2,
+      "orbitTurns": 1,
+      "settledScale": 1,
+      "varyingDropAxis": true,
+      "dropDurationScale": 1.0636139182160804,
+      "entryYOffset": 0.07666531023984133,
+      "entryZ": 0.21978396533060934,
+      "spinPhaseDegrees": -132.07689069456,
+      "axisPhaseDegrees": 97.31164749361886
+    },
+    "g": {
+      "direction": "bottom-up",
+      "spinTurns": 1,
+      "provenance": "shared continuing axis/spin; preview values",
+      "axisPrecessionTurns": 1,
+      "axisRetainFraction": 0.35,
+      "maxAxisTiltDegrees": 6
+    },
+    "timing": {
+      "baseGlazeStart": 0.385,
+      "baseGlazeDuration": 0.08,
+      "accentGlazeStart": 0.48,
+      "accentGlazeDuration": 0.15,
+      "settleStart": 0.42,
+      "settleDuration": 0.12
+    },
+    "assembly": {
+      "start": 0.47,
+      "duration": 0.48,
+      "phase": "during-glaze"
+    },
+    "step": {
+      "start": 0.02,
+      "duration": 0.75
+    },
+    "time": 0.8396,
+    "drop": 1,
+    "settle": 1,
+    "angles": [
+      720.0,
+      720.0,
+      -0.0,
+      0.0
+    ],
+    "point": [
+      3.5801018606564483,
+      -42.651600728494756,
+      19.420591469923494
+    ],
+    "transformed": [
+      3.5801018606564066,
+      -42.651600728494756,
+      19.420591469923494
+    ]
+  },
+  {
+    "m": {
+      "dropDelay": 0.016224531785864492,
+      "entryXDesktop": -0.2240986394903263,
+      "entryXMobile": -0.2240986394903263,
+      "finalXDesktop": -0.217,
+      "finalXMobile": -0.217,
+      "axisTiltDegrees": 15.80358576421163,
+      "axisDriftZDegrees": -3.720846072438876,
+      "axisDriftXDegrees": -7.704871078190234,
+      "turns": 1,
+      "provenance": {
+        "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
+      },
+      "cadToWireScale": 1.4,
+      "cadToWireScaleMobile": 1.2,
+      "orbitTurns": 1,
+      "settledScale": 1,
+      "varyingDropAxis": true,
+      "dropDurationScale": 1.0636139182160804,
+      "entryYOffset": 0.07666531023984133,
+      "entryZ": 0.21978396533060934,
+      "spinPhaseDegrees": -132.07689069456,
+      "axisPhaseDegrees": 97.31164749361886
+    },
+    "g": {
+      "direction": "bottom-up",
+      "spinTurns": 1,
+      "provenance": "shared continuing axis/spin; preview values",
+      "axisPrecessionTurns": 1,
+      "axisRetainFraction": 0.35,
+      "maxAxisTiltDegrees": 6
+    },
+    "timing": {
+      "baseGlazeStart": 0.385,
+      "baseGlazeDuration": 0.08,
+      "accentGlazeStart": 0.48,
+      "accentGlazeDuration": 0.15,
+      "settleStart": 0.42,
+      "settleDuration": 0.12
+    },
+    "assembly": {
+      "start": 0.47,
+      "duration": 0.48,
+      "phase": "during-glaze"
+    },
+    "step": {
+      "start": 0.02,
+      "duration": 0.75
+    },
+    "time": 0.95,
+    "drop": 1,
+    "settle": 1,
+    "angles": [
+      720.0,
+      720.0,
+      -0.0,
+      0.0
+    ],
+    "point": [
+      3.5801018606564483,
+      -42.651600728494756,
+      19.420591469923494
+    ],
+    "transformed": [
+      3.5801018606564066,
+      -42.651600728494756,
+      19.420591469923494
+    ]
+  },
+  {
+    "m": {
+      "dropDelay": 0.016224531785864492,
+      "entryXDesktop": -0.2240986394903263,
+      "entryXMobile": -0.2240986394903263,
+      "finalXDesktop": -0.217,
+      "finalXMobile": -0.217,
+      "axisTiltDegrees": 15.80358576421163,
+      "axisDriftZDegrees": -3.720846072438876,
+      "axisDriftXDegrees": -7.704871078190234,
+      "turns": 1,
+      "provenance": {
+        "source": "User-approved planar feature extension; actual board integration, provisional palette and motion"
+      },
+      "cadToWireScale": 1.4,
+      "cadToWireScaleMobile": 1.2,
+      "orbitTurns": 1,
+      "settledScale": 1,
+      "varyingDropAxis": true,
+      "dropDurationScale": 1.0636139182160804,
+      "entryYOffset": 0.07666531023984133,
+      "entryZ": 0.21978396533060934,
+      "spinPhaseDegrees": -132.07689069456,
+      "axisPhaseDegrees": 97.31164749361886
+    },
+    "g": {
+      "direction": "bottom-up",
+      "spinTurns": 1,
+      "provenance": "shared continuing axis/spin; preview values",
+      "axisPrecessionTurns": 1,
+      "axisRetainFraction": 0.35,
+      "maxAxisTiltDegrees": 6
+    },
+    "timing": {
+      "baseGlazeStart": 0.385,
+      "baseGlazeDuration": 0.08,
+      "accentGlazeStart": 0.48,
+      "accentGlazeDuration": 0.15,
+      "settleStart": 0.42,
+      "settleDuration": 0.12
+    },
+    "assembly": {
+      "start": 0.47,
+      "duration": 0.48,
+      "phase": "during-glaze"
+    },
+    "step": {
+      "start": 0.02,
+      "duration": 0.75
+    },
+    "time": 0.55,
+    "drop": 1,
+    "settle": 0.9922072973869968,
+    "angles": [
+      375.3406262911496,
+      536.0084231395914,
+      -1.7100609467827871e-19,
+      5.377956124120159
+    ],
+    "point": [
+      3.5801018606564483,
+      -42.651600728494756,
+      19.420591469923494
+    ],
+    "transformed": [
+      -10.02282178980325,
+      40.98188342263966,
+      20.71626948995144
+    ]
   }
 ]
