@@ -23,9 +23,9 @@
       "clayStart": 0.29,
       "clayDuration": 0.12,
       "baseGlazeStart": 0.45,
-      "baseGlazeDuration": 0.1,
-      "accentGlazeStart": 0.58,
-      "accentGlazeDuration": 0.12,
+      "baseGlazeDuration": 0.14,
+      "accentGlazeStart": 0.6,
+      "accentGlazeDuration": 0.13,
       "settleStart": 0.42,
       "settleDuration": 0.12,
       "cameraFocusStart": 0.28,
@@ -48,7 +48,7 @@
       "desktopEntryY": 0.16,
       "mobileEntryY": 0.29,
       "entryZ": -0.24,
-      "dropBounceY": 0.007,
+      "dropBounceY": 0,
       "photoScaleStart": 0.94,
       "photoTopPercent": 48
     },
@@ -89,7 +89,7 @@
       "spinTurns": 1,
       "provenance": "shared continuing axis/spin; preview values",
       "axisPrecessionTurns": 1,
-      "axisRetainFraction": 0.35,
+      "axisRetainFraction": 0,
       "maxAxisTiltDegrees": 8
     },
     "photoHandoff": {
@@ -125,7 +125,8 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true
       },
       "glazePreview": {
         "clayHex": "#a79b89",
@@ -204,7 +205,8 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true
       },
       "glazePreview": {
         "clayHex": "#a79b89",
@@ -283,7 +285,8 @@
         "cadToWireScale": 1.4,
         "cadToWireScaleMobile": 1.2,
         "orbitTurns": 1,
-        "settledScale": 1
+        "settledScale": 1,
+        "varyingDropAxis": true
       },
       "glazePreview": {
         "clayHex": "#a79b89",
@@ -342,9 +345,9 @@
   "renderer": "layered-vessels",
   "assembly": {
     "status": "reviewed-provisional",
-    "provenance": "User requested three nested plates; targets based on modeled 10mm foot + 1mm floor with .5mm preview clearance, not manufacturing fit",
-    "start": 0.74,
-    "duration": 0.2,
+    "provenance": "User requested three nested plates; targets based on modeled 10mm foot + 1mm floor with .5mm preview clearance, not manufacturing fit User requested downward landing like chess; preserve nested targets and geometry.",
+    "start": 0.47,
+    "duration": 0.48,
     "steps": [
       {
         "partId": "plate-large",
@@ -354,8 +357,10 @@
           0
         ],
         "start": 0,
-        "duration": 0.12,
-        "liftMm": 0
+        "duration": 0.66,
+        "dropHeightMm": 65,
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "plate-medium",
@@ -364,9 +369,11 @@
           11.5,
           0
         ],
-        "start": 0.12,
-        "duration": 0.44,
-        "liftMm": 100
+        "start": 0.08,
+        "duration": 0.74,
+        "dropHeightMm": 160,
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "plate-small",
@@ -375,11 +382,17 @@
           23,
           0
         ],
-        "start": 0.56,
-        "duration": 0.44,
-        "liftMm": 100
+        "start": 0.16,
+        "duration": 0.8,
+        "dropHeightMm": 250,
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       }
-    ]
+    ],
+    "mode": "direct-drop",
+    "landing": "soft-spin",
+    "phase": "during-glaze",
+    "overlap": true
   },
   "dimensionalDrawing": {
     "directory": ".poc/ceramic-v2-vessels/plates/drawing-r2",

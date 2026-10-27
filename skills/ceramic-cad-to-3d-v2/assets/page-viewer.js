@@ -3,6 +3,7 @@ import {createRenderLoop} from './render-loop.mjs';
 import {sceneDefaults} from './scene-defaults.mjs';
 const defaults=sceneDefaults.rotational;
 import {wireColor} from './wire-color.mjs';
+import {glazeCompletionHeight} from './scene/glaze-motion.mjs';
 import { installGallery } from './gallery.js';
 import { galleryProfile } from './gallery-config.js';
 import * as THREE from 'three';
@@ -76,6 +77,8 @@ const tiltRig = new THREE.Group(); orbitRig.add(tiltRig);
 const root = new THREE.Group(); root.position.y = -(bounds.min.y + bounds.max.y) / 2; tiltRig.add(root);
 const tiltChoices = {right: ['rotateZ', -1], left: ['rotateZ', 1], forward: ['rotateX', 1], backward: ['rotateX', -1], none: ['rotateZ', 0]};
 const chosen = tiltChoices[config.motion.tiltDirection] || tiltChoices.right;
+const finalTilt=chosen[1]*config.motion.tiltDegrees*Math.PI/180;
+const completeGlazeExtent=Math.max(glazeExtent,glazeCompletionHeight(geometry.attributes.position.array,(bounds.min.y+bounds.max.y)/2,chosen[0]==='rotateX'?finalTilt:0,chosen[0]==='rotateZ'?finalTilt:0,390*Math.PI/180));
 const clayMaterial = new THREE.MeshStandardMaterial({
   color: config.clayColor, roughness: defaults.clayRoughness, transparent: true, opacity: 0,
   depthWrite: false, side: THREE.DoubleSide
@@ -171,7 +174,7 @@ const timeline = createTimeline({autoplay: false, defaults: {ease: 'linear'}})
   .add(tiltRig, {[chosen[0]]: [0, chosen[1] * config.motion.tiltDegrees], duration: 200, ease: 'inOutSine'}, 500)
   .add(wireMaterial, {opacity: [1, 0], duration: 140}, 620)
   .add(clayMaterial, {opacity: [0, 1], duration: 130}, 620)
-  .add(clip, {constant: [-glazeExtent, glazeExtent], duration: 200}, 780)
+  .add(clip, {constant: [-glazeExtent, completeGlazeExtent], duration: 200}, 780)
   .add('body', {backgroundColor: ['#fff', '#202023'], duration: 240}, 680)
 ;
 if (hasPhotos) timeline

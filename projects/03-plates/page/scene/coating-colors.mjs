@@ -1,6 +1,9 @@
 // Group exactly identical coating inputs, without quantizing height or colour.
 // Float64 keeps the original arithmetic; conversion to Float32 happens only
 // when copying the final result into the original vertex-colour buffer.
+export function forkPaintState(template){
+  return {...template,colours:null,stamp:'',baseReveal:template.baseReveal.slice(),accentReveal:template.accentReveal.slice()};
+}
 export function createCoatingColors(values, palettes, clay) {
   const lookup = new Map(), groups = [], indices = new Uint32Array(values.length);
   for (let i = 0; i < values.length; i++) {
