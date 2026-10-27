@@ -22,9 +22,9 @@
       "dropDuration": 0.36,
       "clayStart": 0.29,
       "clayDuration": 0.08,
-      "baseGlazeStart": 0.385,
-      "baseGlazeDuration": 0.08,
-      "accentGlazeStart": 0.48,
+      "baseGlazeStart": 0.465,
+      "baseGlazeDuration": 0.2,
+      "accentGlazeStart": 0.68,
       "accentGlazeDuration": 0.15,
       "settleStart": 0.42,
       "settleDuration": 0.12,
@@ -3170,18 +3170,18 @@
   "renderer": "feature-solids",
   "assembly": {
     "status": "reviewed-provisional",
-    "provenance": "User requested standard32 pieces. Standard square centers; board-first soft-spin with small landing gaps.",
+    "provenance": "User requested standard32 pieces. Standard square centers; board-first soft-spin with small landing gaps. User requested descent during glazing with slower contact; preserve final positions and early CAD motion. User correction: one-layer pieces must visibly glaze during descent; retain approved staging and extend final deceleration.",
     "preset": "gentle-staggered",
     "mode": "direct-drop",
     "landing": "soft-spin",
     "overlap": true,
-    "start": 0.65,
-    "duration": 0.3,
+    "start": 0.47,
+    "duration": 0.48,
     "steps": [
       {
         "partId": "board",
-        "start": 0,
-        "duration": 0.5,
+        "start": 0.0,
+        "duration": 0.4166666666666668,
         "targetPositionMm": [
           0,
           0,
@@ -3191,8 +3191,8 @@
       },
       {
         "partId": "white-queen-d1",
-        "start": 0.2,
-        "duration": 0.43,
+        "start": 0.020833333333333353,
+        "duration": 0.7479166666666667,
         "targetPositionMm": [
           -31,
           22,
@@ -3202,12 +3202,14 @@
         "approachOffsetMm": [
           13.815339699125401,
           20.363190302587192
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "brown-pawn-e7",
-        "start": 0.20806451612903226,
-        "duration": 0.4316129032258064,
+        "start": 0.024193548387096746,
+        "duration": 0.7506048387096775,
         "targetPositionMm": [
           31,
           22,
@@ -3217,12 +3219,14 @@
         "approachOffsetMm": [
           -25.51425163164245,
           -25.794918140317467
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "brown-bishop-f8",
-        "start": 0.2161290322580645,
-        "duration": 0.43322580645161296,
+        "start": 0.027553763440860253,
+        "duration": 0.7532930107526883,
         "targetPositionMm": [
           93,
           22,
@@ -3232,12 +3236,14 @@
         "approachOffsetMm": [
           -18.389827048247703,
           -28.96937307597608
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "white-pawn-d2",
-        "start": 0.2241935483870968,
-        "duration": 0.43483870967741933,
+        "start": 0.030913978494623642,
+        "duration": 0.7559811827956991,
         "targetPositionMm": [
           -31,
           22,
@@ -3247,12 +3253,14 @@
         "approachOffsetMm": [
           21.098853598133722,
           18.56157763567513
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "brown-pawn-b7",
-        "start": 0.23225806451612904,
-        "duration": 0.43645161290322576,
+        "start": 0.03427419354838715,
+        "duration": 0.7586693548387099,
         "targetPositionMm": [
           -155,
           22,
@@ -3262,12 +3270,14 @@
         "approachOffsetMm": [
           -13.04536147105325,
           -30.405859179294673
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "white-pawn-e2",
-        "start": 0.2403225806451613,
-        "duration": 0.4380645161290322,
+        "start": 0.037634408602150546,
+        "duration": 0.7613575268817204,
         "targetPositionMm": [
           31,
           22,
@@ -3277,12 +3287,14 @@
         "approachOffsetMm": [
           24.704478206391776,
           28.073993676980884
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "white-pawn-h2",
-        "start": 0.24838709677419357,
-        "duration": 0.4396774193548387,
+        "start": 0.04099462365591405,
+        "duration": 0.7640456989247312,
         "targetPositionMm": [
           217,
           22,
@@ -3292,12 +3304,14 @@
         "approachOffsetMm": [
           14.13587805173916,
           21.668380611575834
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "white-pawn-g2",
-        "start": 0.2564516129032258,
-        "duration": 0.44129032258064516,
+        "start": 0.04435483870967744,
+        "duration": 0.766733870967742,
         "targetPositionMm": [
           155,
           22,
@@ -3307,12 +3321,14 @@
         "approachOffsetMm": [
           15.146783932356215,
           28.828557797547123
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "brown-pawn-f7",
-        "start": 0.2645161290322581,
-        "duration": 0.4429032258064516,
+        "start": 0.04771505376344083,
+        "duration": 0.7694220430107529,
         "targetPositionMm": [
           93,
           22,
@@ -3322,12 +3338,14 @@
         "approachOffsetMm": [
           -25.02484983683361,
           -22.324540750424948
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "brown-pawn-d7",
-        "start": 0.2725806451612903,
-        "duration": 0.444516129032258,
+        "start": 0.05107526881720434,
+        "duration": 0.7721102150537634,
         "targetPositionMm": [
           -31,
           22,
@@ -3337,12 +3355,14 @@
         "approachOffsetMm": [
           -16.888265590295234,
           -26.861856372982082
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "white-bishop-f1",
-        "start": 0.2806451612903226,
-        "duration": 0.44612903225806455,
+        "start": 0.054435483870967735,
+        "duration": 0.7747983870967743,
         "targetPositionMm": [
           93,
           22,
@@ -3352,12 +3372,14 @@
         "approachOffsetMm": [
           13.627213613807672,
           29.279914901814216
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "brown-pawn-a7",
-        "start": 0.2887096774193548,
-        "duration": 0.447741935483871,
+        "start": 0.05779569892473124,
+        "duration": 0.777486559139785,
         "targetPositionMm": [
           -217,
           22,
@@ -3367,12 +3389,14 @@
         "approachOffsetMm": [
           -13.598971290887505,
           -27.9262719617168
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "brown-knight-b8",
-        "start": 0.2967741935483871,
-        "duration": 0.4493548387096774,
+        "start": 0.06115591397849463,
+        "duration": 0.7801747311827959,
         "targetPositionMm": [
           -155,
           22,
@@ -3382,12 +3406,14 @@
         "approachOffsetMm": [
           -22.89846615086574,
           -24.481422927196096
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "brown-king-e8",
-        "start": 0.3048387096774194,
-        "duration": 0.4509677419354839,
+        "start": 0.06451612903225815,
+        "duration": 0.7828629032258065,
         "targetPositionMm": [
           31,
           22,
@@ -3397,12 +3423,14 @@
         "approachOffsetMm": [
           -13.504919782972305,
           -26.13758231157378
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "white-rook-a1",
-        "start": 0.31290322580645163,
-        "duration": 0.4525806451612903,
+        "start": 0.06787634408602153,
+        "duration": 0.7855510752688174,
         "targetPositionMm": [
           -217,
           22,
@@ -3412,12 +3440,14 @@
         "approachOffsetMm": [
           15.172306154518829,
           20.702454536584707
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "white-pawn-f2",
-        "start": 0.3209677419354839,
-        "duration": 0.45419354838709675,
+        "start": 0.07123655913978492,
+        "duration": 0.788239247311828,
         "targetPositionMm": [
           93,
           22,
@@ -3427,12 +3457,14 @@
         "approachOffsetMm": [
           14.170731174110806,
           19.41645479418439
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "white-knight-g1",
-        "start": 0.32903225806451614,
-        "duration": 0.4558064516129033,
+        "start": 0.07459677419354832,
+        "duration": 0.7909274193548389,
         "targetPositionMm": [
           155,
           22,
@@ -3442,12 +3474,14 @@
         "approachOffsetMm": [
           14.883431982201316,
           22.69472050738827
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "white-bishop-c1",
-        "start": 0.3370967741935484,
-        "duration": 0.4574193548387096,
+        "start": 0.07795698924731194,
+        "duration": 0.7936155913978493,
         "targetPositionMm": [
           -93,
           22,
@@ -3457,12 +3491,14 @@
         "approachOffsetMm": [
           19.323323287400356,
           25.640542494677717
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "white-knight-b1",
-        "start": 0.3451612903225807,
-        "duration": 0.4590322580645161,
+        "start": 0.08131720430107534,
+        "duration": 0.7963037634408602,
         "targetPositionMm": [
           -155,
           22,
@@ -3472,12 +3508,14 @@
         "approachOffsetMm": [
           21.991798018952657,
           27.834485071090487
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "brown-rook-a8",
-        "start": 0.35322580645161294,
-        "duration": 0.4606451612903225,
+        "start": 0.08467741935483872,
+        "duration": 0.798991935483871,
         "targetPositionMm": [
           -217,
           22,
@@ -3487,12 +3525,14 @@
         "approachOffsetMm": [
           -14.975090328818611,
           -17.526571775564776
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "white-pawn-c2",
-        "start": 0.3612903225806452,
-        "duration": 0.46225806451612894,
+        "start": 0.08803763440860211,
+        "duration": 0.8016801075268819,
         "targetPositionMm": [
           -93,
           22,
@@ -3502,12 +3542,14 @@
         "approachOffsetMm": [
           17.437012624418863,
           24.56623908795264
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "brown-knight-g8",
-        "start": 0.36935483870967745,
-        "duration": 0.4638709677419355,
+        "start": 0.09139784946236573,
+        "duration": 0.8043682795698924,
         "targetPositionMm": [
           155,
           22,
@@ -3517,12 +3559,14 @@
         "approachOffsetMm": [
           -14.111564547205383,
           -22.55648011917212
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "brown-bishop-c8",
-        "start": 0.3774193548387097,
-        "duration": 0.4654838709677419,
+        "start": 0.09475806451612913,
+        "duration": 0.8070564516129033,
         "targetPositionMm": [
           -93,
           22,
@@ -3532,12 +3576,14 @@
         "approachOffsetMm": [
           -23.286149592027712,
           -18.783314640824194
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "brown-queen-d8",
-        "start": 0.38548387096774195,
-        "duration": 0.46709677419354834,
+        "start": 0.09811827956989252,
+        "duration": 0.8097446236559142,
         "targetPositionMm": [
           -31,
           22,
@@ -3547,12 +3593,14 @@
         "approachOffsetMm": [
           -24.24715488609768,
           -19.1886436439949
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "brown-rook-h8",
-        "start": 0.3935483870967742,
-        "duration": 0.4687096774193549,
+        "start": 0.10147849462365591,
+        "duration": 0.812432795698925,
         "targetPositionMm": [
           217,
           22,
@@ -3562,12 +3610,14 @@
         "approachOffsetMm": [
           -20.9405330090515,
           -29.00668552101938
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "brown-pawn-h7",
-        "start": 0.40161290322580645,
-        "duration": 0.4703225806451613,
+        "start": 0.1048387096774193,
+        "duration": 0.8151209677419357,
         "targetPositionMm": [
           217,
           22,
@@ -3577,12 +3627,14 @@
         "approachOffsetMm": [
           -15.552028812847196,
           -23.115722082791677
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "white-pawn-b2",
-        "start": 0.4096774193548387,
-        "duration": 0.47193548387096773,
+        "start": 0.10819892473118292,
+        "duration": 0.8178091397849461,
         "targetPositionMm": [
           -155,
           22,
@@ -3592,12 +3644,14 @@
         "approachOffsetMm": [
           22.33289394133973,
           20.808441233749523
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "white-pawn-a2",
-        "start": 0.41774193548387095,
-        "duration": 0.47354838709677427,
+        "start": 0.11155913978494632,
+        "duration": 0.8204973118279569,
         "targetPositionMm": [
           -217,
           22,
@@ -3607,12 +3661,14 @@
         "approachOffsetMm": [
           23.65920468321141,
           25.593397643729105
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "brown-pawn-g7",
-        "start": 0.4258064516129032,
-        "duration": 0.4751612903225807,
+        "start": 0.11491935483870971,
+        "duration": 0.8231854838709678,
         "targetPositionMm": [
           155,
           22,
@@ -3622,12 +3678,14 @@
         "approachOffsetMm": [
           -21.16508896467929,
           -23.05534928591546
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "white-rook-h1",
-        "start": 0.43387096774193545,
-        "duration": 0.4767741935483871,
+        "start": 0.1182795698924731,
+        "duration": 0.8258736559139787,
         "targetPositionMm": [
           217,
           22,
@@ -3637,12 +3695,14 @@
         "approachOffsetMm": [
           15.556318692068649,
           18.277658051539156
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "white-king-e1",
-        "start": 0.44193548387096776,
-        "duration": 0.4783870967741936,
+        "start": 0.12163978494623649,
+        "duration": 0.8285618279569894,
         "targetPositionMm": [
           31,
           22,
@@ -3652,12 +3712,14 @@
         "approachOffsetMm": [
           16.344648286655158,
           21.276577244657446
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       },
       {
         "partId": "brown-pawn-c7",
-        "start": 0.45,
-        "duration": 0.4799999999999999,
+        "start": 0.1250000000000001,
+        "duration": 0.83125,
         "targetPositionMm": [
           -93,
           22,
@@ -3667,13 +3729,19 @@
         "approachOffsetMm": [
           -20.081707548831666,
           -26.47328385716274
-        ]
+        ],
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
       }
-    ]
+    ],
+    "phase": "during-glaze"
   },
   "dimensionalDrawing": {
     "directory": ".poc/ceramic-v2-chess-full-layout/drawing-r1",
-    "extraScrollVh": 480
+    "extraScrollVh": 480,
+    "frontOutlineWidthByPart": {
+      "board": 0.55
+    }
   },
   "compositionMode": "multiple",
   "name": "Chess — three CAD sheets and 32 pieces",

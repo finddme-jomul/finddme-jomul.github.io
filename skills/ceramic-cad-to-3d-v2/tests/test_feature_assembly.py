@@ -10,6 +10,42 @@ from assembly_geometry import position, landing_ease
 from layered_review import assembly, apply_assembly_preset
 
 class FeatureAssembly(unittest.TestCase):
+    def test_glaze_overlap_is_explicit_and_has_continuous_entry(self):
+        timing={'baseGlazeStart':.385,'baseGlazeDuration':.2,'accentGlazeStart':.68,'accentGlazeDuration':.15,'photoStart':.97,'dropStart':.045,'dropDuration':.36}
+        parts=[{'id':'piece','motion':{'dropDelay':.05,'settledScale':1,'varyingDropAxis':True}}]
+        spec={'status':'reviewed-provisional','provenance':'test','phase':'during-glaze','mode':'direct-drop','landing':'soft-spin','start':.47,'duration':.48,'steps':[{'partId':'piece','start':0,'duration':.9,'dropHeightMm':100,'targetPositionMm':[0,0,0]}]}
+        assembly(spec,parts,timing)
+        with self.assertRaisesRegex(ValueError,'actual coating'):assembly(spec,parts,{**timing,'baseGlazeDuration':.08})
+        for changes in ({'phase':'unknown'},{'phase':'after-glaze'},{'start':.4},{'start':.64},{'mode':'lift-place'},{'duration':.6}):
+            with self.assertRaises(ValueError):assembly({**spec,**changes},parts,timing)
+        with self.assertRaisesRegex(ValueError,'varyingDropAxis'):assembly(spec,[{'id':'piece','motion':{'dropDelay':.05,'settledScale':1}}],timing)
+        step=spec['steps'][0]
+        self.assertEqual(position([0,100,0],step,0,'direct-drop','soft-spin'),[0,100,0])
+        self.assertLess(position([0,100,0],step,(.63-.47)/.48,'direct-drop','soft-spin')[1],90)
+
+    def test_contact_linked_glaze_uses_actual_contact_and_rejects_bad_leads(self):
+        timing={'baseGlazeStart':.465,'baseGlazeDuration':.2,'accentGlazeStart':.68,'accentGlazeDuration':.15,'photoStart':.97,'dropStart':.045,'dropDuration':.36}
+        parts=[{'id':'piece','coatings':{'layers':[{}]},'motion':{'dropDelay':.05,'settledScale':1,'varyingDropAxis':True}}]
+        spec={'status':'reviewed-provisional','provenance':'test','phase':'during-glaze','mode':'direct-drop','landing':'soft-spin','start':.47,'duration':.48,'steps':[{'partId':'piece','start':.1,'duration':.8,'dropHeightMm':100,'targetPositionMm':[0,0,0],'glazeFinishBeforeContact':.025}]}
+        assembly(spec,parts,timing)
+        for lead in (0,-.1,True,float('nan'),.5):
+            bad=copy.deepcopy(spec);bad['steps'][0]['glazeFinishBeforeContact']=lead
+            with self.assertRaises(ValueError):assembly(bad,parts,timing)
+        bad=copy.deepcopy(parts);bad[0]['coatings']['layers']=[{},{}]
+        with self.assertRaises(ValueError):assembly(spec,bad,timing)
+
+    def test_extended_deceleration_preserves_endpoints_and_slows_contact(self):
+        profile='extended-deceleration'
+        self.assertEqual(landing_ease(0,profile),0)
+        self.assertEqual(landing_ease(1,profile),1)
+        self.assertAlmostEqual(landing_ease(.5,profile),.65625)
+        values=[landing_ease(i/100,profile) for i in range(101)]
+        self.assertTrue(all(a<=b for a,b in zip(values,values[1:])))
+        for t in (.8,.9,.99):
+            speed=(landing_ease(t+.00001,profile)-landing_ease(t,profile))/.00001
+            old=(landing_ease(t+.00001)-landing_ease(t))/.00001
+            self.assertLess(speed,old)
+
     def test_offset_converges_only_during_descent(self):
         step={'start':.2,'duration':.6,'targetPositionMm':[30,9,-10],'dropHeightMm':100,'approachOffsetMm':[20,-30]}
         at=lambda t:position([0,0,0],step,t,'direct-drop','soft-spin')

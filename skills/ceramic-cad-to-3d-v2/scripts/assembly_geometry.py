@@ -13,15 +13,15 @@ def smooth(t):
     t=max(0,min(1,t));return t*t*(3-2*t)
 
 
-def landing_ease(t):
-    t=max(0,min(1,t));return t*t*t*(10+t*(-15+6*t))
+def landing_ease(t,profile=None):
+    t=max(0,min(1,t));return t*t*t*(20+t*(-45+t*(36-10*t))) if profile=='extended-deceleration' else t*t*t*(10+t*(-15+6*t))
 
 
 def position(start, step, progress, mode='lift-place', landing=None):
     p=max(0,min(1,(progress-step['start'])/step['duration']))
     target=step['targetPositionMm']
     if mode=='direct-drop':
-        remaining=1-(landing_ease(p) if landing=='soft-spin' else smooth(p));dx,dz=step.get('approachOffsetMm',[0,0])
+        remaining=1-(landing_ease(p,step.get('landingProfile')) if landing=='soft-spin' else smooth(p));dx,dz=step.get('approachOffsetMm',[0,0])
         return [target[0]+dx*remaining,target[1]+step['dropHeightMm']*remaining,target[2]+dz*remaining]
     top=max(start[1],target[1])+step['liftMm']
     if p<1/3:return [start[0],start[1]+(top-start[1])*smooth(p*3),start[2]]

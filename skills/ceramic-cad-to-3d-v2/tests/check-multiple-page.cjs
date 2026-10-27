@@ -33,7 +33,7 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
        }
        const colours=v.geometry.attributes.color.array;
        let materialCheck=null;
-       if(v.part.coatings&&(v.state.accent>.999||v.state.base>.999&&v.state.accent===0)){
+       if(v.part.coatings&&(v.part.coatings.layers.length===1?v.state.base===1:(v.state.accent>.999||v.state.base>.999&&v.state.accent===0))){
          const coat=v.part.coatings,linear=h=>{const n=parseInt(h,16)/255;return n<=.04045?n/12.92:((n+.055)/1.055)**2.4};
          let maxError=0,inside=0,outside=0;
          for(let i=0;i<v.values.length;i++){
@@ -52,13 +52,14 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
       })};
     });
     assert.deepEqual(state.parts.map(p=>p.id),info.ids);
+    for(const v of state.parts){const s=info.assembly?.steps.find(s=>s.partId===v.id);if(s?.glazeFinishBeforeContact!==undefined){const end=info.assembly.start+info.assembly.duration*(s.start+s.duration)-s.glazeFinishBeforeContact,now=(state.progress-info.cad)/(1-info.cad),q=Math.max(0,Math.min(1,(now-info.timing.baseGlazeStart)/(end-info.timing.baseGlazeStart)));assert(Math.abs(v.base-q*q*(3-2*q))<1e-8,'glaze must follow individual contact timing');const coat=info.parts.find(p=>p.id===v.id).coatings;assert(Math.abs(v.roughness-(.9+(coat.roughness-.9)*v.base))<1e-8,'single-layer finish follows its own glaze');}}
     for(const v of state.parts){assert(v.minX>=-1.001&&v.maxX<=1.001&&v.minY>=-1.001&&v.maxY<=1.001,`${layout}/${step}/${v.id}: clipped`);assert(Math.abs(v.height-v.expectedHeight)<.001);assert(v.colourFinite&&v.frontLoaded);}
     for(const v of state.parts)if(v.materialCheck){assert(v.materialCheck.maxError<.00002,`${layout}/${step}/${v.id}: material region/order mismatch ${v.materialCheck.maxError}`);if(!v.materialCheck.feature)assert((v.materialCheck.featureRegion||v.materialCheck.inside>0)&&v.materialCheck.outside>0);}
-    if(info.feature)for(const v of state.parts){assert(v.wireVertices>0);if(v.base>.999){const part=info.parts.find(p=>p.id===v.id),g={...part.glazePreview,roughness:part.coatings?.roughness??part.glazePreview.roughness};assert(Math.abs(v.roughness-g.roughness)<1e-8&&Math.abs(v.clearcoat-g.clearcoat)<1e-8);}}
+    if(info.feature)for(const v of state.parts){assert(v.wireVertices>0);if(v.base===1){const part=info.parts.find(p=>p.id===v.id),g={...part.glazePreview,roughness:part.coatings?.roughness??part.glazePreview.roughness};assert(Math.abs(v.roughness-g.roughness)<1e-8&&Math.abs(v.clearcoat-g.clearcoat)<1e-8);}}
     if(info.feature&&!info.layered&&step===3)for(const v of state.parts)assert(v.wireOpacity>.99&&v.clay===0,'feature pure wire must remain visible');
-    if(step===6)for(const v of state.parts){assert(v.base>.8);assert.equal(v.accent,0);}
-    if(info.assembly?.mode==='direct-drop'&&step===8)for(const v of state.parts){const s=info.assembly.steps.find(s=>s.partId===v.id);const expected=[s.targetPositionMm[0]+(s.approachOffsetMm?.[0]??0),s.targetPositionMm[1]+s.dropHeightMm,s.targetPositionMm[2]+(s.approachOffsetMm?.[1]??0)];expected.forEach((n,i)=>assert(Math.abs(n-v.footPositionMm[i])<.001,'parts must retain their reviewed approach positions until descent'));}
-    if(step===8)for(const v of state.parts){assert(v.base>.999);assert(info.feature&&!info.layered?v.accent===0:v.accent>.5);if(info.parts.find(p=>p.id===v.id).motion.fixedOrientation){assert.equal(v.body,0);assert.equal(v.axis,0);assert.equal(v.tiltX,0);assert.equal(v.tiltZ,0)}else assert(v.body>2*Math.PI&&v.axis>2*Math.PI,'both rotations continue during glaze');}
+    if(step===6)for(const v of state.parts){if(info.assembly?.steps.find(s=>s.partId===v.id)?.glazeFinishBeforeContact===undefined)assert(v.base>.8);assert.equal(v.accent,0);}
+    if(info.assembly?.mode==='direct-drop'&&step===8)for(const v of state.parts){const s=info.assembly.steps.find(s=>s.partId===v.id);const now=(state.progress-info.cad)/(1-info.cad),q=info.assembly.phase==='during-glaze'?Math.max(0,Math.min(1,((now-info.assembly.start)/info.assembly.duration-s.start)/s.duration)):0,remaining=1-(s.landingProfile==='extended-deceleration'?q*q*q*(20+q*(-45+q*(36-10*q))):q*q*q*(10+q*(-15+6*q)));const expected=[s.targetPositionMm[0]+(s.approachOffsetMm?.[0]??0)*remaining,s.targetPositionMm[1]+s.dropHeightMm*remaining,s.targetPositionMm[2]+(s.approachOffsetMm?.[1]??0)*remaining];expected.forEach((n,i)=>assert(Math.abs(n-v.footPositionMm[i])<.001,'parts must follow the reviewed glaze/landing phase'));}
+    if(step===8)for(const v of state.parts){if(info.assembly?.steps.find(s=>s.partId===v.id)?.glazeFinishBeforeContact===undefined)assert(v.base>.999);assert(info.feature&&!info.layered?v.accent===0:v.accent>.5);if(info.parts.find(p=>p.id===v.id).motion.fixedOrientation){assert.equal(v.body,0);assert.equal(v.axis,0);assert.equal(v.tiltX,0);assert.equal(v.tiltZ,0)}else assert(v.body>2*Math.PI&&v.axis>2*Math.PI,'both rotations continue during glaze');}
     if(step===10){
      assert.equal(state.gallery,info.photos);assert.equal(state.exit,info.photos?1:0);assert(state.atBottom);
      if(info.assembly){for(const v of state.parts){const target=info.assembly.steps.find(s=>s.partId===v.id).targetPositionMm;target.forEach((n,i)=>assert(Math.abs(n-v.footPositionMm[i])<.001,'assembly target mismatch'));}}
@@ -69,6 +70,18 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
     }
     if(step===11){assert(!state.gallery);assert(state.exit<.001);}
     await page.screenshot({path:path.join(report,`${layout}-${step}.png`)});checks.push({layout,step:step++,state});
+   }
+   if(info.assembly?.phase==='during-glaze'){
+    const single=info.parts.filter(p=>p.coatings?.layers.length===1);
+    if(single.length){
+     const latest=Math.max(...single.map(p=>{const s=info.assembly.steps.find(s=>s.partId===p.id);return info.assembly.start+info.assembly.duration*s.start}));
+     const probe=(latest+info.timing.baseGlazeStart+info.timing.baseGlazeDuration)/2,progress=mp(probe);
+     await page.evaluate(p=>scrollTo(0,window.__multiplePage.scrollVhAt(p)*innerHeight/100),progress);
+     await page.waitForFunction(p=>Math.abs(window.__multiplePage.progress-p)<.002,{},progress);
+     const actual=await page.evaluate(()=>window.__multiplePage.vessels.filter(v=>v.part.coatings?.layers.length===1).map(v=>({id:v.id,base:v.state.base,foot:(v.main.position.y-v.height/2)*1000})));
+     for(const v of actual){const step=info.assembly.steps.find(s=>s.partId===v.id);assert(v.base>0&&v.base<1,'single-layer glaze must still be filling');assert((step.targetPositionMm[1]+step.dropHeightMm-v.foot)/step.dropHeightMm>.02,'visible descent must overlap actual single-layer glaze');}
+     assemblyChecks.push({layout,scope:'single-layer-glaze-overlap',motionProgress:probe,parts:actual});
+    }
    }
    if(info.assembly){
     // Each sampled scene checks every instance. CAD separately samples all motion knots.
@@ -85,7 +98,7 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
       return {id:v.id,position:v.main.position.toArray(),body:v.spin.rotation.y,axis:v.orbit.rotation.y,height:v.height,assemblyProgress:v.state.assembly??0,motionProgress:Math.max(0,Math.min(1,(window.__multiplePage.progress-window.__multiplePage.spec.motion.timing.cadEnd)/(1-window.__multiplePage.spec.motion.timing.cadEnd))),clipped};
      }));
      assert(result.every(p=>!p.clipped),'assembly motion clipped');
-     if(info.assembly.mode==='direct-drop')for(const v of result){const s=info.assembly.steps.find(s=>s.partId===v.id),t=Math.max(0,Math.min(1,(v.assemblyProgress-s.start)/s.duration)),ease=info.assembly.landing==='soft-spin'?t*t*t*(10+t*(-15+6*t)):t*t*(3-2*t);const expected=[(s.targetPositionMm[0]+(s.approachOffsetMm?.[0]??0)*(1-ease))/1000,(s.targetPositionMm[1]+s.dropHeightMm*(1-ease))/1000+v.height/2,(s.targetPositionMm[2]+(s.approachOffsetMm?.[1]??0)*(1-ease))/1000];expected.forEach((n,i)=>assert(Math.abs(n-v.position[i])<1e-6,'direct drop order/trajectory mismatch'));if(info.assembly.landing==='soft-spin'){const input={part:info.parts.find(p=>p.id===v.id),glaze:info.glaze};const now=v.motionProgress,end=info.assembly.start+info.assembly.duration*(s.start+s.duration),q=Math.max(0,Math.min(1,(now-info.timing.baseGlazeStart)/(end-info.timing.baseGlazeStart))),legacy=q*q*(3-2*q);const m=input.part.motion,ss=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x)},begin=info.assembly.start+info.assembly.duration*s.start,f=m.varyingDropAxis?.65*ss((now-info.timing.baseGlazeStart)/(begin-info.timing.baseGlazeStart))+.35*ss((now-begin)/(end-begin)):legacy,phase=m.varyingDropAxis?1-f:0,body=m.fixedOrientation?0:(m.turns+f*input.glaze.spinTurns)*2*Math.PI+(m.spinPhaseDegrees??0)*Math.PI/180*phase,axis=m.fixedOrientation?0:(m.orbitTurns+f*input.glaze.axisPrecessionTurns)*2*Math.PI+(m.axisPhaseDegrees??0)*Math.PI/180*phase;assert(Math.abs(v.body-body)<1e-6,'body must follow reviewed spin/phase until landing');assert(Math.abs(v.axis-axis)<1e-6,'axis must follow reviewed precession/phase until landing');}}
+     if(info.assembly.mode==='direct-drop')for(const v of result){const s=info.assembly.steps.find(s=>s.partId===v.id),t=Math.max(0,Math.min(1,(v.assemblyProgress-s.start)/s.duration)),ease=info.assembly.landing==='soft-spin'?(s.landingProfile==='extended-deceleration'?t*t*t*(20+t*(-45+t*(36-10*t))):t*t*t*(10+t*(-15+6*t))):t*t*(3-2*t);const expected=[(s.targetPositionMm[0]+(s.approachOffsetMm?.[0]??0)*(1-ease))/1000,(s.targetPositionMm[1]+s.dropHeightMm*(1-ease))/1000+v.height/2,(s.targetPositionMm[2]+(s.approachOffsetMm?.[1]??0)*(1-ease))/1000];expected.forEach((n,i)=>assert(Math.abs(n-v.position[i])<1e-6,'direct drop order/trajectory mismatch'));if(info.assembly.landing==='soft-spin'){const input={part:info.parts.find(p=>p.id===v.id),glaze:info.glaze};const now=v.motionProgress,end=info.assembly.start+info.assembly.duration*(s.start+s.duration),q=Math.max(0,Math.min(1,(now-info.timing.baseGlazeStart)/(end-info.timing.baseGlazeStart))),legacy=q*q*(3-2*q);const m=input.part.motion,ss=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x)},begin=info.assembly.start+info.assembly.duration*s.start,f=m.varyingDropAxis&&info.assembly.phase!=='during-glaze'?.65*ss((now-info.timing.baseGlazeStart)/(begin-info.timing.baseGlazeStart))+.35*ss((now-begin)/(end-begin)):legacy,phase=m.varyingDropAxis?1-f:0,body=m.fixedOrientation?0:(m.turns+f*input.glaze.spinTurns)*2*Math.PI+(m.spinPhaseDegrees??0)*Math.PI/180*phase,axis=m.fixedOrientation?0:(m.orbitTurns+f*input.glaze.axisPrecessionTurns)*2*Math.PI+(m.axisPhaseDegrees??0)*Math.PI/180*phase;assert(Math.abs(v.body-body)<1e-6,'body must follow reviewed spin/phase until landing');assert(Math.abs(v.axis-axis)<1e-6,'axis must follow reviewed precession/phase until landing');}}
      if(ap===.55){if(reverseReference)assert.deepEqual(result,reverseReference,'assembly reverse scroll drift');else reverseReference=result;}
      assemblyChecks.push({layout,progress:ap,parts:result});
     }

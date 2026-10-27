@@ -10,7 +10,7 @@ NS='{http://www.w3.org/2000/svg}'
 def prepare(project,prepared,review):
     option=review.get('dimensionalDrawing')
     if option is None:return None
-    if not isinstance(option,dict) or set(option)-{'directory','extraScrollVh','camera'}:raise ValueError('Invalid dimensionalDrawing fields')
+    if not isinstance(option,dict) or set(option)-{'directory','extraScrollVh','camera','frontOutlineWidthByPart'}:raise ValueError('Invalid dimensionalDrawing fields')
     if review.get('cadPresentation'):raise ValueError('Dimensional drawing cannot combine with grouped legacy CAD pages')
     directory=(ROOT/option['directory']).resolve()
     if not directory.is_relative_to(ROOT):raise ValueError('Drawing must be in workspace')
@@ -26,6 +26,8 @@ def prepare(project,prepared,review):
                 archived=directory/'sources'/name
                 if archived.exists() and sha(archived)!=sha(current):raise ValueError('Drawing source input is stale: '+key)
     ids=[p['id'] for p in json.loads((project/'input/config.json').read_text())['parts']]
+    widths=option.get('frontOutlineWidthByPart',{})
+    if not isinstance(widths,dict) or any(k not in ids or isinstance(v,bool) or not isinstance(v,(int,float)) or not math.isfinite(v) or not .1<=v<=3 for k,v in widths.items()):raise ValueError('Invalid front outline widths')
     if [p['id'] for p in plan['parts']]!=ids:raise ValueError('Drawing part order must match page CAD')
     parts=prepared.get('parts',[])
     if parts and {p.get('sourcePartId',p['id']) for p in parts}!=set(ids):
@@ -54,15 +56,17 @@ def prepare(project,prepared,review):
     elif mode=='multiple':
         t=review['motion']['timing'];end=min(t['frontMoveStart'],t['sheetFadeStart'])
     else:end=100/1200
-    return {'directory':directory,'manifest':manifest,'plan':plan,'extraScrollVh':extra,'end':end,'cameraKeys':camera}
+    return {'directory':directory,'manifest':manifest,'plan':plan,'extraScrollVh':extra,'end':end,'cameraKeys':camera,'frontOutlineWidthByPart':widths}
 
-def extract_front(source,target):
+def extract_front(source,target,outline_width=None):
     root=ET.parse(source).getroot()
     front=next(e for e in root.iter() if e.get('data-view')=='front')
     geo=next(e for e in front.iter() if e.get('data-geometry'))
     rect=next(e for e in front.iter(NS+'rect'))
     out=ET.Element(NS+'svg',{'viewBox':' '.join(rect.get(k) for k in ('x','y','width','height'))})
     for style in root.findall(NS+'style'):out.append(copy.deepcopy(style))
+    if outline_width is not None:
+        ET.SubElement(out,NS+'style').text=f'.outline{{stroke-width:{outline_width}}}'
     for defs in root.iter(NS+'defs'):out.append(copy.deepcopy(defs))
     out.append(copy.deepcopy(geo));ET.ElementTree(out).write(target,encoding='unicode')
 
@@ -79,7 +83,7 @@ def install(binding,prepared,stage):
         settings_path=stage/'review-input.json';settings=json.loads(settings_path.read_text())
         settings['layouts']={k:{'file':'dimensional-drawing/'+v['file'],'frontBox':v['frontBoxes'][ids[0]]} for k,v in layouts.items()}
         settings_path.write_text(json.dumps(settings,indent=2)+'\n')
-        extract_front(directory/f'{ids[0]}-desktop.svg',stage/'front-view.svg')
+        extract_front(directory/f'{ids[0]}-desktop.svg',stage/'front-view.svg',binding.get('frontOutlineWidthByPart',{}).get(ids[0]))
     elif mode=='multiple':
         for entry in layouts.values():entry['file']='../dimensional-drawing/'+entry['file']
         from feature_instances import alias_sheet
@@ -90,11 +94,11 @@ def install(binding,prepared,stage):
             if asset in installed:continue
             installed.add(asset)
             source=part.get('sourcePartId',part['id'])
-            extract_front(directory/f'{source}-desktop.svg',stage/'assets'/asset/'front-view.svg')
+            extract_front(directory/f'{source}-desktop.svg',stage/'assets'/asset/'front-view.svg',binding.get('frontOutlineWidthByPart',{}).get(source))
     else:
         config['drawingLayouts']=layouts
         config['sheetFrontBox']=layouts['desktop']['frontBoxes'][ids[0]]
-        extract_front(directory/f'{ids[0]}-desktop.svg',stage/'assets/front-view.svg')
+        extract_front(directory/f'{ids[0]}-desktop.svg',stage/'assets/front-view.svg',binding.get('frontOutlineWidthByPart',{}).get(ids[0]))
     config_path.write_text(json.dumps(config,ensure_ascii=False,indent=2)+'\n')
     shutil.copy2(SKILL/'assets/drawing-motion/motion.mjs',stage/'drawing-motion.mjs')
     doc=(stage/'index.html').read_text()

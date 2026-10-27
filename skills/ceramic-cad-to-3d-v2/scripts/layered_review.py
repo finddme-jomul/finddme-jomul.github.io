@@ -57,7 +57,17 @@ def assembly(spec, parts, timing):
     if mode not in ('lift-place','direct-drop'):raise ValueError('Unsupported assembly mode')
     if spec.get('landing') not in (None,'soft-spin') or spec.get('landing') and mode!='direct-drop':raise ValueError('Soft spin requires direct-drop')
     coat_end = (timing['baseGlazeStart'] + timing['baseGlazeDuration'] if timing['accentGlazeStart'] is None else timing['accentGlazeStart'] + timing['accentGlazeDuration'])
-    if not coat_end < spec['start'] < spec['start']+spec['duration'] < timing['photoStart']:
+    phase=spec.get('phase','after-glaze')
+    if phase not in ('after-glaze','during-glaze'):raise ValueError('Unsupported assembly phase')
+    if phase=='during-glaze':
+        if mode!='direct-drop' or spec.get('landing')!='soft-spin':raise ValueError('Glaze overlap requires direct-drop soft-spin')
+        if any(not (p['motion'].get('varyingDropAxis') or p['motion'].get('fixedOrientation')) for p in parts):
+            raise ValueError('Glaze overlap requires varyingDropAxis or fixedOrientation for every part')
+        entry_end=max(timing['dropStart']+p['motion']['dropDelay']+timing['dropDuration']*p['motion'].get('dropDurationScale',1) for p in parts)
+        if not max(entry_end,timing['baseGlazeStart']) <= spec['start'] < coat_end:
+            raise ValueError('Glaze overlap must start after entry drops and during coating')
+    lower=timing['baseGlazeStart'] if phase=='during-glaze' else coat_end
+    if not lower < spec['start'] < spec['start']+spec['duration'] < timing['photoStart']:
         raise ValueError('Assembly must follow coatings and finish before handoff')
     if len(spec['steps']) != len(parts) or {s['partId'] for s in spec['steps']} != {p['id'] for p in parts}:
         raise ValueError('Assembly must reference each part exactly once')
@@ -66,6 +76,20 @@ def assembly(spec, parts, timing):
     end = 0
     previous_start = 0
     for step in spec['steps']:
+        if step.get('landingProfile') not in (None,'extended-deceleration') or step.get('landingProfile') and spec.get('landing')!='soft-spin':
+            raise ValueError('Extended deceleration requires soft-spin')
+        if phase=='during-glaze':
+            part=next(p for p in parts if p['id']==step['partId'])
+            layers=part.get('coatings',{}).get('layers',[])
+            part_end=coat_end if len(layers)>1 or not layers and part.get('accentEnabled',False) else timing['baseGlazeStart']+timing['baseGlazeDuration']
+            if 'glazeFinishBeforeContact' in step:
+                lead=step['glazeFinishBeforeContact']
+                if len(layers)!=1 or isinstance(lead,bool) or not isinstance(lead,(int,float)) or not math.isfinite(lead) or lead<=0:raise ValueError('Contact-linked glaze requires one layer and a positive lead')
+                part_end=spec['start']+spec['duration']*(step['start']+step['duration'])-lead
+                if part_end<=timing['baseGlazeStart']:raise ValueError('Contact-linked glaze must start before completion')
+            if spec['start']+spec['duration']*step['start']>=part_end:
+                raise ValueError('Descent must overlap each part actual coating, including single-layer parts')
+        elif 'glazeFinishBeforeContact' in step:raise ValueError('Contact-linked glaze requires during-glaze phase')
         if not (previous_start if overlap else end) <= step['start'] < step['start']+step['duration'] <= 1 or (overlap and step['start']+step['duration']<end):
             raise ValueError('Assembly steps must preserve departure and landing order within the stage')
         previous_start = step['start']

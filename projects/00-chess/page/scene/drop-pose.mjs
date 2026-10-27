@@ -6,7 +6,9 @@ export function dropPose(m,g,timing,assembly,step,t,drop,settle,axisFade=1){
   const landingStart=assembly.start+assembly.duration*step.start;
   const last=timing.accentGlazeStart===null?timing.baseGlazeStart+timing.baseGlazeDuration:timing.accentGlazeStart+timing.accentGlazeDuration;
   const landing=smooth((t-landingStart)/(end-landingStart));
-  const spin=.65*smooth((t-timing.baseGlazeStart)/(landingStart-timing.baseGlazeStart))+.35*landing;
+  const spin=assembly.phase==='during-glaze'
+    ?smooth((t-timing.baseGlazeStart)/(end-timing.baseGlazeStart))
+    :.65*smooth((t-timing.baseGlazeStart)/(landingStart-timing.baseGlazeStart))+.35*landing;
   const axis=continuingAxis(m.axisTiltDegrees,m.axisDriftZDegrees,m.axisDriftXDegrees,drop,settle,smooth((t-landingStart)/(end-landingStart)),g.axisRetainFraction,g.maxAxisTiltDegrees);
   const rad=Math.PI/180;
   return {bodyY:(360*(drop*m.turns+spin*g.spinTurns)+(m.spinPhaseDegrees??0)*(1-spin))*rad,
