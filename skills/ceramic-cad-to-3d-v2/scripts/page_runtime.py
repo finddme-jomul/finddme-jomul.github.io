@@ -31,7 +31,8 @@ def refresh_lifecycle(document):
     if len(matches) != 1:
         raise ValueError('Expected one existing viewer lifecycle bootstrap')
     match = matches[0]
-    return document[:match.start()] + '<script>' + (ASSETS / 'viewer-lifecycle.js').read_text() + '</script>' + document[match.end():]
+    refreshed = document[:match.start()] + '<script>' + (ASSETS / 'viewer-lifecycle.js').read_text() + '</script>' + document[match.end():]
+    return re.sub(r'(<a\b[^>]*class="drawing-reader-link"[^>]*>)[^<]*(</a>)', r'\g<1>View drawing details\g<2>', refreshed)
 
 
 if __name__ == '__main__':

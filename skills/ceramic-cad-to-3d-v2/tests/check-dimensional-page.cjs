@@ -43,6 +43,8 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
    assert.equal(await page.evaluate(()=> (window.__mugMotion||window.__multiplePage||window.__moonJar).renderStats.frames),count);
    await seek(0);
    assert.equal(await page.$eval('.drawing-reader-link',e=>e.hidden),false);
+   assert.equal(await page.$eval('.drawing-reader-link',e=>getComputedStyle(e).visibility),'hidden');
+   await seek(.55);
    await page.click('.drawing-reader-link');await page.waitForSelector('.sheet');
    assert(await page.$('dl'));
    assert.deepEqual(errors,[]);checks.push({layout,reverse:true,idle:true,reader:true,endpoint:true});await page.close();
