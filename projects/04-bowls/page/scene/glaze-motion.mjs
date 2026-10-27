@@ -1,5 +1,19 @@
 export const clamp = (value, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, value));
 export const smooth = value => { const t = clamp(value); return t * t * (3 - 2 * t); };
+export function dropEnvelopeReach(radius,halfHeight,maxDegrees){
+  const angle=Math.min(Math.PI/2,Math.abs(maxDegrees)*Math.PI/180),horizontal=Math.min(angle,Math.atan2(halfHeight,radius)),vertical=Math.min(angle,Math.atan2(radius,halfHeight));
+  return {horizontal:radius*Math.cos(horizontal)+halfHeight*Math.sin(horizontal),vertical:halfHeight*Math.cos(vertical)+radius*Math.sin(vertical)};
+}
+// Highest coated vertex at the final pose; evaluated once, not per frame.
+export function glazeCompletionHeight(positions,centerY,tiltX,tiltZ,bodyAngle,scale=1.003){
+  const cb=Math.cos(bodyAngle),sb=Math.sin(bodyAngle),cx=Math.cos(tiltX),sx=Math.sin(tiltX),cz=Math.cos(tiltZ),sz=Math.sin(tiltZ);
+  let top=-Infinity;
+  for(let i=0;i<positions.length;i+=3){
+    const x=(cb*positions[i]+sb*positions[i+2])*scale,z=(-sb*positions[i]+cb*positions[i+2])*scale,y=positions[i+1]*scale-centerY;
+    top=Math.max(top,cx*(sz*x+cz*y)-sx*z);
+  }
+  return top+.0005;
+}
 export const angularDistance = (a, b) => Math.atan2(Math.sin(a - b), Math.cos(a - b));
 export function driftingAxis(startDegrees, driftZDegrees, driftXDegrees, dropProgress, settleProgress) {
   const fall = clamp(dropProgress);

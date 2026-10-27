@@ -12,7 +12,7 @@ import {wireColor} from './wire-color.mjs';
 import * as THREE from 'three';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
-import {smooth,clamp,continuingAxis,glazeRevealAt,glazeSpinAt,sprayCoverage} from './scene/glaze-motion.mjs';
+import {smooth,clamp,dropEnvelopeReach,continuingAxis,glazeRevealAt,glazeSpinAt,sprayCoverage} from './scene/glaze-motion.mjs';
 import {applyAxisPose} from './scene/axis-motion.mjs';
 import {fitOrientedPoints,radialEnvelopePoints} from './scene/oriented-framing.mjs';
 import {fitComposition} from './scene/composition-framing.mjs';
@@ -165,12 +165,18 @@ export async function startMultiple(spec) {
   // Cover every upright yaw and height of the drop with one camera envelope.
   // Fitting only the current moving meshes makes landed pieces appear to rise.
   const dropBounds=directDrop?vessels.map(v=>{
-    const step=assembly.steps.find(s=>s.partId===v.id),a=v.geometry.attributes.position;
+    const step=assembly.steps.find(s=>s.partId===v.id),a=v.geometry.attributes.position,visualScale=v.part.motion.settledScale;
     let radius=0;for(let i=0;i<a.count;i++)radius=Math.max(radius,Math.hypot(a.getX(i),a.getZ(i)));
-    if(v.part.motion.varyingDropAxis)radius+=v.height/2*Math.sin(THREE.MathUtils.degToRad(glazeMotion.maxAxisTiltDegrees));
+    radius*=visualScale;
+    let verticalMargin=0;
+    if(!v.feature){
+      const angle=v.part.motion.fixedOrientation?0:Math.max(Math.abs(v.part.motion.axisTiltDegrees)*.65,glazeMotion.maxAxisTiltDegrees);
+      const reach=dropEnvelopeReach(radius,v.height*visualScale/2,angle);
+      radius=reach.horizontal;verticalMargin=reach.vertical-v.height*visualScale/2;
+    }else if(v.part.motion.varyingDropAxis)radius+=v.height*visualScale/2*Math.sin(THREE.MathUtils.degToRad(glazeMotion.maxAxisTiltDegrees));
     const [x,y,z]=step.targetPositionMm.map(n=>n/1000);
     const [dx,dz]=(step.approachOffsetMm??[0,0]).map(n=>n/1000);
-    return {bounds:{min:{x:Math.min(x,x+dx)-radius,y,z:Math.min(z,z+dz)-radius},max:{x:Math.max(x,x+dx)+radius,y:y+step.dropHeightMm/1000+v.height,z:Math.max(z,z+dz)+radius}},position:{x:0,y:0,z:0},scale:1};
+    return {bounds:{min:{x:Math.min(x,x+dx)-radius,y:y-verticalMargin,z:Math.min(z,z+dz)-radius},max:{x:Math.max(x,x+dx)+radius,y:y+step.dropHeightMm/1000+v.height*visualScale+verticalMargin,z:Math.max(z,z+dz)+radius}},position:{x:0,y:0,z:0},scale:1};
   }):null;
   const cadPages=installCadPages({spec,sheet,image,requestFrame});
   const frontSources=new Set(),frontRepresentatives=new Set();
@@ -185,8 +191,8 @@ export async function startMultiple(spec) {
         max:{x:b.max.x-Math.max(0,dx)+k*dx,y:b.max.y,z:b.max.z-Math.max(0,dz)+k*dz}}})));
     }
     if(!v.part.motion.fixedOrientation)return radialEnvelopePoints([dropBounds[i]]);
-    const b=v.geometry.boundingBox,s=assembly.steps.find(s=>s.partId===v.id),[x,y,z]=s.targetPositionMm.map(n=>n/1000),points=[];
-    for(const px of [b.min.x,b.max.x])for(const pz of [b.min.z,b.max.z])for(const py of [0,v.height+s.dropHeightMm/1000])points.push([x+px,y+py,z+pz]);
+    const b=v.geometry.boundingBox,s=assembly.steps.find(s=>s.partId===v.id),scale=v.part.motion.settledScale,[x,y,z]=s.targetPositionMm.map(n=>n/1000),points=[];
+    for(const px of [b.min.x,b.max.x])for(const pz of [b.min.z,b.max.z])for(const py of [0,v.height*scale+s.dropHeightMm/1000])points.push([x+px*scale,y+py,z+pz*scale]);
     return points;
   }):null;
   const viewProjection=new THREE.Matrix4(),frontProjection=new THREE.Matrix4();
@@ -249,13 +255,15 @@ export async function startMultiple(spec) {
       applyAxisPose(v,{bodyY:(drop*m.turns+turns)*2*Math.PI,orbitY:(drop*m.orbitTurns+spinAt(glazeMotion.axisPrecessionTurns))*2*Math.PI,tiltX:THREE.MathUtils.degToRad(axis.xDegrees)*axisFade,tiltZ:THREE.MathUtils.degToRad(axis.zDegrees)*axisFade});
       if(m.fixedOrientation)applyAxisPose(v,{bodyY:0,orbitY:0,tiltX:0,tiltZ:0});
       else if(directDrop&&m.varyingDropAxis)applyAxisPose(v,dropPose(m,glazeMotion,timing,assembly,step,motionP,drop,settle,axisFade));
-      const baseDuration=step?.glazeFinishBeforeContact!==undefined?assembly.start+assembly.duration*(step.start+step.duration)-step.glazeFinishBeforeContact-timing.baseGlazeStart:timing.baseGlazeDuration;
-      const clay=smooth((motionP-timing.clayStart-m.dropDelay)/timing.clayDuration),base=smooth((motionP-timing.baseGlazeStart)/baseDuration),accent=timing.accentGlazeStart===null?0:smooth((motionP-timing.accentGlazeStart)/timing.accentGlazeDuration);
+      const finalPassIsBase=v.part.coatings?v.part.coatings.layers.length===1:!v.part.accentEnabled;
+      const coatEnd=step?.glazeFinishBeforeContact!==undefined?assembly.start+assembly.duration*(step.start+step.duration)-step.glazeFinishBeforeContact:null;
+      const baseDuration=coatEnd!==null&&finalPassIsBase?coatEnd-timing.baseGlazeStart:timing.baseGlazeDuration,accentDuration=coatEnd!==null&&!finalPassIsBase?coatEnd-timing.accentGlazeStart:timing.accentGlazeDuration;
+      const clay=smooth((motionP-timing.clayStart-m.dropDelay)/timing.clayDuration),base=smooth((motionP-timing.baseGlazeStart)/baseDuration),accent=timing.accentGlazeStart===null?0:smooth((motionP-timing.accentGlazeStart)/accentDuration);
       v.material.opacity=clay;v.material.depthWrite=clay>.98;v.wireMaterial.opacity=(1-clay)*smooth((p-timing.wireFadeStart)/timing.wireFadeDuration);v.material.visible=clay>0;v.wireMaterial.visible=v.wireMaterial.opacity>0;if(clay>0)v.paint(base,accent);v.state={drop,clay,base,accent,turns};
       if(assembly&&motionP>=assembly.start){
         const step=assembly.steps.find(s=>s.partId===v.id),ap=clamp((motionP-assembly.start)/assembly.duration);
-        const start=[v.main.position.x,v.main.position.y-v.height/2,v.main.position.z];
-        const [x,y,z]=assemblyPosition(start,step,ap,assembly.mode,assembly.landing);v.main.position.set(x,y+v.height/2,z);v.state.assembly=ap;
+        const start=[v.main.position.x,v.main.position.y-v.height*m.settledScale/2,v.main.position.z];
+        const [x,y,z]=assemblyPosition(start,step,ap,assembly.mode,assembly.landing);v.main.position.set(x,y+v.height*m.settledScale/2,z);v.state.assembly=ap;
       }
       v.spin.updateWorldMatrix(true,false);const b=v.geometry.boundingBox.clone().applyMatrix4(v.spin.matrixWorld);
       bounds.push({bounds:b,position:{x:0,y:0,z:0},scale:1});
@@ -267,6 +275,7 @@ export async function startMultiple(spec) {
     const cameraBounds=directDrop?bounds.map((item,i)=>{
       const b={min:{},max:{}};
       for(const edge of ['min','max'])for(const axis of ['x','y','z'])b[edge][axis]=item.bounds[edge][axis]*(1-lockCamera)+dropBounds[i].bounds[edge][axis]*lockCamera;
+      if(!vessels[i].feature&&lockCamera<1)for(const axis of ['x','y','z']){b.min[axis]=Math.min(b.min[axis],item.bounds.min[axis]);b.max[axis]=Math.max(b.max[axis],item.bounds.max[axis]);}
       return {bounds:b,position:{x:0,y:0,z:0},scale:1};
     }):bounds;
     const fit=fitComposition(cameraBounds,{fovDegrees:camera.fov,aspect:camera.aspect,widthFraction:small?f.mobileWidthFraction:f.desktopWidthFraction,heightFraction:small?f.mobileHeightFraction:f.desktopHeightFraction,minDistance:f.minDistance});

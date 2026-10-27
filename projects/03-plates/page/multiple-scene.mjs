@@ -1,5 +1,5 @@
 import {installDimensionalPage,drawingPace} from './dimensional-page.mjs';
-import {createCoatingColors} from './scene/coating-colors.mjs';
+import {createCoatingColors,forkPaintState} from './scene/coating-colors.mjs';
 import {createProjectedBounds} from './scene/projected-bounds.mjs';
 import {retainedFront} from './scene/cad-handoff.mjs';
 import {dropPose} from './scene/drop-pose.mjs';
@@ -12,7 +12,7 @@ import {wireColor} from './wire-color.mjs';
 import * as THREE from 'three';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
-import {smooth,clamp,continuingAxis,glazeRevealAt,glazeSpinAt,sprayCoverage} from './scene/glaze-motion.mjs';
+import {smooth,clamp,dropEnvelopeReach,continuingAxis,glazeRevealAt,glazeSpinAt,sprayCoverage} from './scene/glaze-motion.mjs';
 import {applyAxisPose} from './scene/axis-motion.mjs';
 import {fitOrientedPoints,radialEnvelopePoints} from './scene/oriented-framing.mjs';
 import {fitComposition} from './scene/composition-framing.mjs';
@@ -49,7 +49,7 @@ export async function startMultiple(spec) {
     requestFrame();
   }
   addEventListener('resize',resize);resize();await image.decode();
-  const assetCache=new Map(),paintCache=new Map();
+  const assetCache=new Map(),paintCache=new Map(),paintTemplates=new Map();
   const cached=(key,load)=>{if(!assetCache.has(key))assetCache.set(key,load());return assetCache.get(key)};
   const vessels=await Promise.all(spec.parts.map(async part=>{
     const feature=part.shapeKind==='feature-solid',assetId=part.geometryAssetId||part.id;
@@ -81,10 +81,13 @@ export async function startMultiple(spec) {
     const main=new THREE.Group(),orbit=new THREE.Group(),tilt=new THREE.Group(),spin=new THREE.Group();
     scene.add(main);main.add(orbit);orbit.add(tilt);tilt.add(spin);spin.position.y=-(geometry.boundingBox.min.y+geometry.boundingBox.max.y)/2;
     const g=part.glazePreview,clay=new THREE.Color(g.clayHex),base=new THREE.Color(g.baseHex),warm=new THREE.Color(g.baseWarmHex||g.baseHex),accent=new THREE.Color(g.accentHex),accentWarm=new THREE.Color(g.accentWarmHex||g.accentHex);
-    const paintKey=JSON.stringify([assetId,g,part.coatings,part.accentEnabled,part.accentCenterAngle,part.accentWidthScale]);
-    const sharedPaint=paintCache.get(paintKey)||{values:[],stamp:''};
+    const materialPaintKey=JSON.stringify([assetId,g,part.coatings,part.accentEnabled,part.accentCenterAngle,part.accentWidthScale]);
+    const coatingStep=assembly?.steps.find(s=>s.partId===part.id);
+    const coatingEnd=coatingStep?.glazeFinishBeforeContact===undefined?null:assembly.start+assembly.duration*(coatingStep.start+coatingStep.duration)-coatingStep.glazeFinishBeforeContact;
+    const paintKey=JSON.stringify([materialPaintKey,coatingEnd]),template=paintTemplates.get(materialPaintKey);
+    const sharedPaint=paintCache.get(paintKey)||(template?forkPaintState(template):{values:[],stamp:''});
     const positions=geometry.attributes.position,values=sharedPaint.values;
-    if(!paintCache.has(paintKey))for(let i=0;i<positions.count;i++){
+    if(!template&&!paintCache.has(paintKey))for(let i=0;i<positions.count;i++){
       const fraction=clamp(positions.getY(i)/height),angle=Math.atan2(positions.getZ(i),positions.getX(i));
       values.push({surface:surfaces?.[i],fraction,heightMm:positions.getY(i)*1000,exterior:feature?(part.surfaceRegions?exteriorFlags[i]:true):exteriorAt(profile,Math.hypot(positions.getX(i),positions.getZ(i))*1000,positions.getY(i)*1000),coverage:sprayCoverage(angle,fraction,part.accentCenterAngle,part.accentWidthScale),base:base.clone().lerp(warm,.2+.09*Math.sin(angle*5+fraction*12)),accent:accent.clone().lerp(accentWarm,g.accentWarmMix||0)});
     }
@@ -104,6 +107,7 @@ export async function startMultiple(spec) {
       sharedPaint.palettes=values.map(v=>{const finish=inRegion(coat.fired.region,v.exterior,v.heightMm,v.surface)?coat.fired.regionHex:coat.fired.baseHex;return {first:inRegion(coat.layers[0].region,v.exterior,v.heightMm,v.surface),second:!!coat.layers[1]&&inRegion(coat.layers[1].region,v.exterior,v.heightMm,v.surface),firstRGB:rgb(coat.layers.length===1?finish:coat.layers[0].previewHex),lastRGB:rgb(finish)}});
     }
     if(part.coatings&&!sharedPaint.coatingColors)sharedPaint.coatingColors=createCoatingColors(values,sharedPaint.palettes,clay);
+    if(!template)paintTemplates.set(materialPaintKey,sharedPaint);
     const material=new (feature?THREE.MeshPhysicalMaterial:THREE.MeshStandardMaterial)({vertexColors:true,roughness:.9,side:THREE.DoubleSide,transparent:true,opacity:0,...(feature?{clearcoat:g.clearcoat||0}:{})});
     // Optional per-part direct-light reduction; other materials keep the selected lighting exactly.
     if(lighting.softPartIds?.includes(part.id)){
@@ -152,7 +156,7 @@ export async function startMultiple(spec) {
       }
       material.roughness=.9-.57*baseP;
       if(feature){material.roughness=.9+(g.roughness-.9)*baseP;material.clearcoat=g.clearcoat>0?Math.max(1e-8,g.clearcoat*baseP):0;}
-      if(part.coatings)material.roughness=.9+(part.coatings.roughness-.9)*Math.max(baseP,accentP);
+      if(part.coatings)material.roughness=.9+(part.coatings.roughness-.9)*(part.coatings.layers.length===1?baseP:Math.max(baseP,accentP));
     }
     const front=document.querySelector(`[data-part="${part.id}"]`);await front.querySelector('img').decode();
     const projectedBounds=feature?createProjectedBounds(geometry.attributes.position.array):null;
@@ -161,12 +165,18 @@ export async function startMultiple(spec) {
   // Cover every upright yaw and height of the drop with one camera envelope.
   // Fitting only the current moving meshes makes landed pieces appear to rise.
   const dropBounds=directDrop?vessels.map(v=>{
-    const step=assembly.steps.find(s=>s.partId===v.id),a=v.geometry.attributes.position;
+    const step=assembly.steps.find(s=>s.partId===v.id),a=v.geometry.attributes.position,visualScale=v.part.motion.settledScale;
     let radius=0;for(let i=0;i<a.count;i++)radius=Math.max(radius,Math.hypot(a.getX(i),a.getZ(i)));
-    if(v.part.motion.varyingDropAxis)radius+=v.height/2*Math.sin(THREE.MathUtils.degToRad(glazeMotion.maxAxisTiltDegrees));
+    radius*=visualScale;
+    let verticalMargin=0;
+    if(!v.feature){
+      const angle=v.part.motion.fixedOrientation?0:Math.max(Math.abs(v.part.motion.axisTiltDegrees)*.65,glazeMotion.maxAxisTiltDegrees);
+      const reach=dropEnvelopeReach(radius,v.height*visualScale/2,angle);
+      radius=reach.horizontal;verticalMargin=reach.vertical-v.height*visualScale/2;
+    }else if(v.part.motion.varyingDropAxis)radius+=v.height*visualScale/2*Math.sin(THREE.MathUtils.degToRad(glazeMotion.maxAxisTiltDegrees));
     const [x,y,z]=step.targetPositionMm.map(n=>n/1000);
     const [dx,dz]=(step.approachOffsetMm??[0,0]).map(n=>n/1000);
-    return {bounds:{min:{x:Math.min(x,x+dx)-radius,y,z:Math.min(z,z+dz)-radius},max:{x:Math.max(x,x+dx)+radius,y:y+step.dropHeightMm/1000+v.height,z:Math.max(z,z+dz)+radius}},position:{x:0,y:0,z:0},scale:1};
+    return {bounds:{min:{x:Math.min(x,x+dx)-radius,y:y-verticalMargin,z:Math.min(z,z+dz)-radius},max:{x:Math.max(x,x+dx)+radius,y:y+step.dropHeightMm/1000+v.height*visualScale+verticalMargin,z:Math.max(z,z+dz)+radius}},position:{x:0,y:0,z:0},scale:1};
   }):null;
   const cadPages=installCadPages({spec,sheet,image,requestFrame});
   const frontSources=new Set(),frontRepresentatives=new Set();
@@ -181,8 +191,8 @@ export async function startMultiple(spec) {
         max:{x:b.max.x-Math.max(0,dx)+k*dx,y:b.max.y,z:b.max.z-Math.max(0,dz)+k*dz}}})));
     }
     if(!v.part.motion.fixedOrientation)return radialEnvelopePoints([dropBounds[i]]);
-    const b=v.geometry.boundingBox,s=assembly.steps.find(s=>s.partId===v.id),[x,y,z]=s.targetPositionMm.map(n=>n/1000),points=[];
-    for(const px of [b.min.x,b.max.x])for(const pz of [b.min.z,b.max.z])for(const py of [0,v.height+s.dropHeightMm/1000])points.push([x+px,y+py,z+pz]);
+    const b=v.geometry.boundingBox,s=assembly.steps.find(s=>s.partId===v.id),scale=v.part.motion.settledScale,[x,y,z]=s.targetPositionMm.map(n=>n/1000),points=[];
+    for(const px of [b.min.x,b.max.x])for(const pz of [b.min.z,b.max.z])for(const py of [0,v.height*scale+s.dropHeightMm/1000])points.push([x+px*scale,y+py,z+pz*scale]);
     return points;
   }):null;
   const viewProjection=new THREE.Matrix4(),frontProjection=new THREE.Matrix4();
@@ -245,12 +255,15 @@ export async function startMultiple(spec) {
       applyAxisPose(v,{bodyY:(drop*m.turns+turns)*2*Math.PI,orbitY:(drop*m.orbitTurns+spinAt(glazeMotion.axisPrecessionTurns))*2*Math.PI,tiltX:THREE.MathUtils.degToRad(axis.xDegrees)*axisFade,tiltZ:THREE.MathUtils.degToRad(axis.zDegrees)*axisFade});
       if(m.fixedOrientation)applyAxisPose(v,{bodyY:0,orbitY:0,tiltX:0,tiltZ:0});
       else if(directDrop&&m.varyingDropAxis)applyAxisPose(v,dropPose(m,glazeMotion,timing,assembly,step,motionP,drop,settle,axisFade));
-      const clay=smooth((motionP-timing.clayStart-m.dropDelay)/timing.clayDuration),base=smooth((motionP-timing.baseGlazeStart)/timing.baseGlazeDuration),accent=timing.accentGlazeStart===null?0:smooth((motionP-timing.accentGlazeStart)/timing.accentGlazeDuration);
+      const finalPassIsBase=v.part.coatings?v.part.coatings.layers.length===1:!v.part.accentEnabled;
+      const coatEnd=step?.glazeFinishBeforeContact!==undefined?assembly.start+assembly.duration*(step.start+step.duration)-step.glazeFinishBeforeContact:null;
+      const baseDuration=coatEnd!==null&&finalPassIsBase?coatEnd-timing.baseGlazeStart:timing.baseGlazeDuration,accentDuration=coatEnd!==null&&!finalPassIsBase?coatEnd-timing.accentGlazeStart:timing.accentGlazeDuration;
+      const clay=smooth((motionP-timing.clayStart-m.dropDelay)/timing.clayDuration),base=smooth((motionP-timing.baseGlazeStart)/baseDuration),accent=timing.accentGlazeStart===null?0:smooth((motionP-timing.accentGlazeStart)/accentDuration);
       v.material.opacity=clay;v.material.depthWrite=clay>.98;v.wireMaterial.opacity=(1-clay)*smooth((p-timing.wireFadeStart)/timing.wireFadeDuration);v.material.visible=clay>0;v.wireMaterial.visible=v.wireMaterial.opacity>0;if(clay>0)v.paint(base,accent);v.state={drop,clay,base,accent,turns};
       if(assembly&&motionP>=assembly.start){
         const step=assembly.steps.find(s=>s.partId===v.id),ap=clamp((motionP-assembly.start)/assembly.duration);
-        const start=[v.main.position.x,v.main.position.y-v.height/2,v.main.position.z];
-        const [x,y,z]=assemblyPosition(start,step,ap,assembly.mode,assembly.landing);v.main.position.set(x,y+v.height/2,z);v.state.assembly=ap;
+        const start=[v.main.position.x,v.main.position.y-v.height*m.settledScale/2,v.main.position.z];
+        const [x,y,z]=assemblyPosition(start,step,ap,assembly.mode,assembly.landing);v.main.position.set(x,y+v.height*m.settledScale/2,z);v.state.assembly=ap;
       }
       v.spin.updateWorldMatrix(true,false);const b=v.geometry.boundingBox.clone().applyMatrix4(v.spin.matrixWorld);
       bounds.push({bounds:b,position:{x:0,y:0,z:0},scale:1});
@@ -262,6 +275,7 @@ export async function startMultiple(spec) {
     const cameraBounds=directDrop?bounds.map((item,i)=>{
       const b={min:{},max:{}};
       for(const edge of ['min','max'])for(const axis of ['x','y','z'])b[edge][axis]=item.bounds[edge][axis]*(1-lockCamera)+dropBounds[i].bounds[edge][axis]*lockCamera;
+      if(!vessels[i].feature&&lockCamera<1)for(const axis of ['x','y','z']){b.min[axis]=Math.min(b.min[axis],item.bounds.min[axis]);b.max[axis]=Math.max(b.max[axis],item.bounds.max[axis]);}
       return {bounds:b,position:{x:0,y:0,z:0},scale:1};
     }):bounds;
     const fit=fitComposition(cameraBounds,{fovDegrees:camera.fov,aspect:camera.aspect,widthFraction:small?f.mobileWidthFraction:f.desktopWidthFraction,heightFraction:small?f.mobileHeightFraction:f.desktopHeightFraction,minDistance:f.minDistance});

@@ -32,7 +32,7 @@ const puppeteer=require('/home/pptruser/node_modules/puppeteer');
     assert((hasPhotos?state.images.length>0:state.images.length===0)&&state.images.every(i=>i.loaded&&!/actual-photo|process-photo/.test(i.src)),'new photo inputs');
     assert.equal(state.gallery,hasPhotos&&time===1080,'gallery handoff/reverse');
     if(!hasPhotos&&time===1000){assert(state.atBottom,'glaze ending must be actual page end');assert.equal(state.hostHidden,'false');assert.equal(state.hostOpacity,1);assert(state.glaze>=state.height/2-.00001,'fully glazed ending');assert(Math.abs(state.body-390*Math.PI/180)<.001);assert(Math.abs(state.axis-2*Math.PI)<.001);assert.equal(await page.$('dialog'),null);}
-    if(time>=990&&state.dims.maxDiameter>state.dims.height)assert(state.glaze>=state.maxWorldY,'wide tilted surface must be fully revealed');
+    if(time>=990)assert(state.glaze>=state.maxWorldY,'wide tilted surface must be fully revealed');
     if(time===750){assert(state.clay>.99);assert(Math.abs(state.wire-1/14)<.005,'selected wire fade ends at 760, not 750');}
     if(time===970){assert(state.body>6);assert(state.axis>5);assert(state.glaze>0);}
     if(time===1080){await page.click('.gallery-photo');await page.waitForFunction(()=>document.querySelector('dialog').open);await page.keyboard.press('Escape');}

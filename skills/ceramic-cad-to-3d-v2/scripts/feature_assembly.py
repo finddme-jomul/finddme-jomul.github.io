@@ -10,9 +10,10 @@ def check(parts,spec,motion=None):
     steps={s['partId']:s for s in spec['steps']}
     solids=[];dimensions=[];cache={}
     for p in parts:
-        key=str(p['step'])
+        scale=p['appearance']['motion'].get('settledScale',1)
+        key=(str(p['step']),scale)
         if key not in cache:
-            solid=import_step(p['step']);b=solid.bounding_box()
+            solid=import_step(p['step']).scale(scale);b=solid.bounding_box()
             cache[key]=(solid.translate(Vector(-b.center().X,-b.center().Y,-b.min.Z)),(b.size.X,b.size.Y,b.size.Z))
         solid,size=cache[key];solids.append(solid);dimensions.append(size)
     checks=0;intersections=0;final=[]

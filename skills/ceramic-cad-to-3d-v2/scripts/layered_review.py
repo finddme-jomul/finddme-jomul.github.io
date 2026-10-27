@@ -84,9 +84,10 @@ def assembly(spec, parts, timing):
             part_end=coat_end if len(layers)>1 or not layers and part.get('accentEnabled',False) else timing['baseGlazeStart']+timing['baseGlazeDuration']
             if 'glazeFinishBeforeContact' in step:
                 lead=step['glazeFinishBeforeContact']
-                if len(layers)!=1 or isinstance(lead,bool) or not isinstance(lead,(int,float)) or not math.isfinite(lead) or lead<=0:raise ValueError('Contact-linked glaze requires one layer and a positive lead')
+                if isinstance(lead,bool) or not isinstance(lead,(int,float)) or not math.isfinite(lead) or lead<=0:raise ValueError('Contact-linked glaze requires a positive lead')
                 part_end=spec['start']+spec['duration']*(step['start']+step['duration'])-lead
-                if part_end<=timing['baseGlazeStart']:raise ValueError('Contact-linked glaze must start before completion')
+                final_start=timing['accentGlazeStart'] if len(layers)>1 or not layers and part.get('accentEnabled',False) else timing['baseGlazeStart']
+                if final_start is None or part_end<=final_start:raise ValueError('Contact-linked glaze must start before completion')
             if spec['start']+spec['duration']*step['start']>=part_end:
                 raise ValueError('Descent must overlap each part actual coating, including single-layer parts')
         elif 'glazeFinishBeforeContact' in step:raise ValueError('Contact-linked glaze requires during-glaze phase')
@@ -103,7 +104,7 @@ def assembly(spec, parts, timing):
             v=step.get('dropHeightMm')
             if isinstance(v,bool) or not isinstance(v,(int,float)) or not math.isfinite(v) or not 0<v<=1000:raise ValueError('Explicit positive dropHeightMm required')
         elif not 0 <= step['liftMm'] <= 1000: raise ValueError('Invalid assembly lift')
-    if any(p['motion']['settledScale'] != 1 for p in parts):
+    if mode!='direct-drop' and any(p['motion']['settledScale'] != 1 for p in parts):
         raise ValueError('Assembly currently requires physical scale 1')
 
 

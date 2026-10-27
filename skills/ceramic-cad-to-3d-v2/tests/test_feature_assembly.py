@@ -32,7 +32,9 @@ class FeatureAssembly(unittest.TestCase):
             bad=copy.deepcopy(spec);bad['steps'][0]['glazeFinishBeforeContact']=lead
             with self.assertRaises(ValueError):assembly(bad,parts,timing)
         bad=copy.deepcopy(parts);bad[0]['coatings']['layers']=[{},{}]
-        with self.assertRaises(ValueError):assembly(spec,bad,timing)
+        assembly(spec,bad,timing)
+        invalid=copy.deepcopy(spec);invalid['steps'][0]['glazeFinishBeforeContact']=.25
+        with self.assertRaises(ValueError):assembly(invalid,bad,timing)
 
     def test_extended_deceleration_preserves_endpoints_and_slows_contact(self):
         profile='extended-deceleration'
@@ -54,6 +56,15 @@ class FeatureAssembly(unittest.TestCase):
         for actual,expected in zip(at(.5),[40,59,-25]):self.assertAlmostEqual(actual,expected)
         self.assertEqual([30,9,-10],at(1))
         self.assertGreater(at(.79)[0],30)
+
+    def test_direct_drop_clearance_consumes_reviewed_visual_scale(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path=Path(tmp)/'cube.step';export_step(Box(10,10,10),path)
+            parts=[{'id':str(i),'step':path,'appearance':{'motion':{'finalXDesktop':0,'finalXMobile':0,'settledScale':1}}} for i in range(2)]
+            spec={'mode':'direct-drop','steps':[{'partId':str(i),'start':0,'duration':1,'targetPositionMm':[-7.5+15*i,0,0],'dropHeightMm':100} for i in range(2)]}
+            check(parts,spec)
+            for p in parts:p['appearance']['motion']['settledScale']=2
+            with self.assertRaisesRegex(ValueError,'collision'):check(parts,spec)
 
     def test_lateral_approach_collision_between_clear_endpoints(self):
         with tempfile.TemporaryDirectory() as tmp:

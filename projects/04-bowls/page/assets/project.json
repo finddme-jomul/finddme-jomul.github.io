@@ -20,10 +20,10 @@
       "dropDuration": 0.36,
       "clayStart": 0.36,
       "clayDuration": 0.16,
-      "baseGlazeStart": 0.59,
-      "baseGlazeDuration": 0.1,
-      "accentGlazeStart": 0.75,
-      "accentGlazeDuration": 0.14,
+      "baseGlazeStart": 0.5,
+      "baseGlazeDuration": 0.16,
+      "accentGlazeStart": 0.67,
+      "accentGlazeDuration": 0.2,
       "settleStart": 0.42,
       "settleDuration": 0.12,
       "cameraFocusStart": 0.28,
@@ -45,7 +45,7 @@
       "desktopEntryY": 0.16,
       "mobileEntryY": 0.29,
       "entryZ": -0.24,
-      "dropBounceY": 0.007,
+      "dropBounceY": 0,
       "photoScaleStart": 0.94,
       "photoTopPercent": 48
     },
@@ -126,7 +126,8 @@
         "cadToWireScale": 2.15,
         "cadToWireScaleMobile": 1.75,
         "orbitTurns": 1,
-        "settledScale": 1.15
+        "settledScale": 1.15,
+        "varyingDropAxis": true
       },
       "glazePreview": {
         "status": "user-confirmed-order-and-left-side-application-colors-approximate",
@@ -178,7 +179,8 @@
         "cadToWireScale": 2.15,
         "cadToWireScaleMobile": 1.75,
         "orbitTurns": 1,
-        "settledScale": 1.15
+        "settledScale": 1.15,
+        "varyingDropAxis": true
       },
       "glazePreview": {
         "status": "user-confirmed-order-colors-and-area-approximate",
@@ -213,6 +215,44 @@
   "dimensionalDrawing": {
     "directory": ".poc/ceramic-v2-vessels/bowls/drawing-r1",
     "extraScrollVh": 240
+  },
+  "assembly": {
+    "status": "reviewed-provisional",
+    "provenance": "User requested downward landing like chess; preserve side-by-side arrangement, visual scale, colours and geometry.",
+    "mode": "direct-drop",
+    "landing": "soft-spin",
+    "phase": "during-glaze",
+    "overlap": true,
+    "start": 0.52,
+    "duration": 0.39,
+    "steps": [
+      {
+        "partId": "rice-bowl",
+        "targetPositionMm": [
+          -85.0,
+          0,
+          0
+        ],
+        "start": 0,
+        "duration": 0.85,
+        "dropHeightMm": 125,
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
+      },
+      {
+        "partId": "soup-bowl",
+        "targetPositionMm": [
+          85.0,
+          0,
+          0
+        ],
+        "start": 0.1,
+        "duration": 0.85,
+        "dropHeightMm": 165,
+        "landingProfile": "extended-deceleration",
+        "glazeFinishBeforeContact": 0.025
+      }
+    ]
   },
   "compositionMode": "multiple",
   "name": "Rice + soup bowl set",

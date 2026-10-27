@@ -38,8 +38,6 @@ def validate(review, ids):
         t=review['motion']['timing']
         if t['accentGlazeStart'] is None or t['baseGlazeStart']+t['baseGlazeDuration'] > t['accentGlazeStart']:
             raise ValueError('Reviewed coating passes must be sequential')
-    if (review.get('assembly') or {}).get('mode')=='direct-drop' and review.get('renderer')!='feature-solids':
-        raise ValueError('Direct drop currently requires feature-solids renderer')
     from layered_review import assembly
     assembly(review.get('assembly'), review['parts'], review['motion']['timing'])
     if not 0 <= review['motion']['camera'].get('elevationDegrees',0) <= 35:
@@ -138,8 +136,17 @@ def prepare(project, review):
     for entry in manifest['layouts'].values(): files.add(project/'cad'/entry['file'])
     photo=(ROOT/review['photos']).resolve();files.add(photo)
     for item in load_photos(photo): files.add((ROOT/item['source']).resolve())
-    from assembly_geometry import check as check_assembly
-    assembly_check=check_assembly(parts,review.get('assembly'))
+    if (review.get('assembly') or {}).get('mode')=='direct-drop':
+        from feature_assembly import check as check_assembly
+        solid_parts=[]
+        for p in parts:
+            step=project/'cad/solid'/p['id']/'model.step'
+            if not step.is_file():raise ValueError('Direct-drop requires archived STEP for every rotational part')
+            files.add(step);solid_parts.append({**p,'step':step})
+        assembly_check=check_assembly(solid_parts,review['assembly'],review['motion'])
+    else:
+        from assembly_geometry import check as check_assembly
+        assembly_check=check_assembly(parts,review.get('assembly'))
     return {'mode':'multiple','project':str(project.relative_to(ROOT)),'name':config['name'],'review':copy.deepcopy(review),'parts':parts,'sheetManifest':manifest,'assemblyCheck':assembly_check,
             'inputsSha256':{str(p.relative_to(ROOT)):sha(p) for p in sorted(files)}}
 

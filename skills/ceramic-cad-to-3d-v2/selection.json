@@ -779,7 +779,7 @@
     {
       "id": "feature-overlapping-drop",
       "state": "implemented-requested-candidate",
-      "rule": "Explicit direct-drop overlap permits upper parts to descend together while preserving departure and landing order. Per-part easing/spin and sampled collision gate remain active. Optional assembly.phase=during-glaze starts after entry drops but before coating ends, with continuous varying-axis rotation through contact; CAD clearance uses the same settling progress as the renderer. after-glaze remains the default. Check overlap per actual part coating (single versus multiple layers); optional step.landingProfile=extended-deceleration brakes earlier with a longer contact tail, shared by browser and CAD position functions.",
+      "rule": "Explicit direct-drop overlap permits upper parts to descend together while preserving departure and landing order. Per-part easing/spin and sampled collision gate remain active. Optional assembly.phase=during-glaze starts after entry drops but before coating ends, with continuous varying-axis rotation through contact; CAD clearance uses the same settling progress as the renderer. after-glaze remains the default. Archived rotational STEP sources also use the actual-solid gate, including reviewed visual scale; contact-linked completion targets the actual final coating pass. Check overlap per actual part coating (single versus multiple layers); optional step.landingProfile=extended-deceleration brakes earlier with a longer contact tail, shared by browser and CAD position functions.",
       "consumer": [
         "scripts/layered_review.py",
         "assets/multiple-scene.mjs",
