@@ -1,6 +1,10 @@
 // Host-site photo viewer: match the CAD dialog without changing gallery motion.
 const dialog = document.querySelector('#photo-lightbox');
-if (dialog && !dialog.dataset.cadStyle) {
+// Current skill exports own their controls, viewport and event handlers.
+// Only upgrade legacy markup; wrapping a current dialog pushes its image
+// below the original empty viewport and installs competing zoom handlers.
+const ownsPhotoDialog = dialog?.querySelector('.photo-zoom') && dialog.querySelector('.photo-zoom-scroll');
+if (dialog && !ownsPhotoDialog && !dialog.dataset.cadStyle) {
   dialog.dataset.cadStyle = 'true';
   const image = dialog.querySelector('img');
   const close = dialog.querySelector('.lightbox-close');
