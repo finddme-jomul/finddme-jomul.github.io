@@ -2,6 +2,7 @@ import { readdirSync, readFileSync, existsSync, cpSync, mkdirSync, statSync, cre
 import { join, resolve, sep, extname } from 'node:path';
 import { preparePhotos } from './project-photos.mjs';
 import { extractGallery } from './main-gallery.mjs';
+import { excludeCoverPhotos } from './main-gallery-dedup.mjs';
 
 export function readProjects(root = process.cwd()) {
   const base = join(root, 'projects');
@@ -37,7 +38,24 @@ export function projectCataloguePlugin() {
       if (!ids.some(name => id === '\0' + name)) return;
       const records = readProjects(config.root);
       for (const r of records) { this.addWatchFile(join(r.directory,'project.json')); this.addWatchFile(join(r.page,'index.html')); }
-      if (id === '\0virtual:main-gallery') return `export default ${JSON.stringify(Object.fromEntries(await Promise.all(records.map(async r => [r.metadata.slug, extractGallery((await preparePhotos(r)).html,r.metadata.slug)]))))}`;
+      if (id === '\0virtual:main-gallery') {
+        const entries=await Promise.all(records.map(async r => {
+          const prepared=await preparePhotos(r), cover=r.asset(r.metadata.cover);
+          this.addWatchFile(cover);
+          const photos=await excludeCoverPhotos(extractGallery(prepared.html,r.metadata.slug),readFileSync(cover),photo=>{
+            const prefix=`/projects/${r.metadata.slug}/`;
+            if(!photo.src.startsWith(prefix))throw new Error(`Non-project photo: ${photo.src}`);
+            const relative=decodeURIComponent(photo.src.slice(prefix.length));
+            if(prepared.generated.has(relative))return prepared.generated.get(relative);
+            const file=resolve(r.page,relative);
+            if(!file.startsWith(r.page+sep))throw new Error(`Invalid photo: ${photo.src}`);
+            this.addWatchFile(file);
+            return readFileSync(file);
+          },error=>this.warn(`Keep uncertain main-gallery photo (${r.metadata.slug}): ${error.message}`));
+          return [r.metadata.slug,photos];
+        }));
+        return `export default ${JSON.stringify(Object.fromEntries(entries))}`;
+      }
       const imports = [], values = records.map((r,i) => {
         const value = structuredClone(r.metadata);
         const image = (relative, suffix) => { const name=`image${i}_${suffix}`; imports.push(`import ${name} from ${JSON.stringify(r.asset(relative))};`); return name; };
