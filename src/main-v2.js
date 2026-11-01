@@ -10,8 +10,6 @@ window.addEventListener('pageshow', event => {
 const projectOverlay = createProjectOverlay();
 import { projects } from 'virtual:projects';
 
-import galleryPhotos from 'virtual:main-gallery';
-
 const gallery = document.querySelector('#v2-gallery');
 const titleTrack = document.querySelector('#v2-title-track');
 const entries = [];
@@ -69,49 +67,42 @@ for (const source of projects) {
   const element = document.createElement('article');
   element.className = 'v2-work';
   element.setAttribute('aria-label', project.title);
-  const slug = project.href.split('/')[2];
-  // Home previews show at most three supporting photos; detail galleries keep all.
-  const photos = [{ src: project.cover, alt: project.coverAlt || project.assets?.photo?.[0]?.alt || project.title }, ...(galleryPhotos[slug] || []).slice(0, 3)];
-  const projectFrames = [];
-  photos.forEach((photo, index) => {
-    const frameElement = document.createElement('div');
-    frameElement.className = 'v2-frame' + (index ? ' v2-supporting' : '');
-    const button = document.createElement('button');
-    button.className = 'v2-image-button';
-    button.type = 'button';
-    button.setAttribute('aria-haspopup', 'dialog');
-    button.setAttribute('aria-label', `${project.title} 상세 보기`);
-    const img = document.createElement('img');
-    img.alt = photo.alt;
-    img.decoding = 'async';
-    // Keep image geometry stable before interaction; the catalogue is a small set.
-    const sizeImage = () => {
-      if (!img.naturalWidth) return;
-      frameElement.style.setProperty('--v2-ratio', img.naturalWidth / img.naturalHeight);
-      img.width = img.naturalWidth;
-      img.height = img.naturalHeight;
-      scheduleCurrent();
-    };
-    img.addEventListener('load', sizeImage);
-    img.addEventListener('error', () => frameElement.classList.add('is-missing'));
-    img.src = photo.src;
-    if (img.complete) sizeImage();
-    button.append(img);
-    frameElement.append(button);
-    element.append(frameElement);
-    const frameEntry = { project, element: frameElement, button };
-    projectFrames.push(frameEntry);
-    button.addEventListener('click', event => {
-      if (activeIndex !== projectIndex) {
-        centerImage(frameElement);
-        return;
-      }
-      projectOverlay.open(project, button, event);
-    });
-    button.addEventListener('focus', () => {
-      if (!projectOverlay.isRestoring && button.matches(':focus-visible')) button.scrollIntoView({ block: 'center', behavior: 'instant' });
-      scheduleCurrent();
-    });
+  // The home page shows only each project's cover.
+  const frameElement = document.createElement('div');
+  frameElement.className = 'v2-frame';
+  const button = document.createElement('button');
+  button.className = 'v2-image-button';
+  button.type = 'button';
+  button.setAttribute('aria-haspopup', 'dialog');
+  button.setAttribute('aria-label', `${project.title} 상세 보기`);
+  const img = document.createElement('img');
+  img.alt = project.coverAlt || project.assets?.photo?.[0]?.alt || project.title;
+  img.decoding = 'async';
+  // Keep image geometry stable before interaction; the catalogue is a small set.
+  const sizeImage = () => {
+    if (!img.naturalWidth) return;
+    frameElement.style.setProperty('--v2-ratio', img.naturalWidth / img.naturalHeight);
+    img.width = img.naturalWidth;
+    img.height = img.naturalHeight;
+    scheduleCurrent();
+  };
+  img.addEventListener('load', sizeImage);
+  img.addEventListener('error', () => frameElement.classList.add('is-missing'));
+  img.src = project.cover;
+  if (img.complete) sizeImage();
+  button.append(img);
+  frameElement.append(button);
+  element.append(frameElement);
+  button.addEventListener('click', event => {
+    if (activeIndex !== projectIndex) {
+      centerImage(frameElement);
+      return;
+    }
+    projectOverlay.open(project, button, event);
+  });
+  button.addEventListener('focus', () => {
+    if (!projectOverlay.isRestoring && button.matches(':focus-visible')) button.scrollIntoView({ block: 'center', behavior: 'instant' });
+    scheduleCurrent();
   });
   const titleLink = document.createElement('a');
   titleLink.className = 'v2-project-title';
@@ -126,12 +117,12 @@ for (const source of projects) {
   titleLink.append(number, title);
   titleTrack.append(titleLink);
   gallery.append(element);
-  const entry = { project, element, button: projectFrames[0].button, titleLink };
+  const entry = { project, element, button, titleLink };
   titleLink.addEventListener('click', event => {
     // Keep modified clicks available for opening the actual project in a new tab.
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
     event.preventDefault();
-    if (activeIndex !== projectIndex) centerImage(projectFrames[0].element);
+    if (activeIndex !== projectIndex) centerImage(frameElement);
     else projectOverlay.open(project, titleLink, event);
   });
   titleLink.addEventListener('focus', () => {

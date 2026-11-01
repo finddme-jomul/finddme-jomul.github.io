@@ -36,8 +36,6 @@ html::-webkit-scrollbar-thumb { background: ButtonText; border-color: Canvas; }
 @media(max-width:700px){.v2-header{padding:18px 16px}.v2-header nav{gap:16px}.v2-header>a{font-size:11px}.v2-page main{padding-top:var(--v2-start-offset,calc(50svh - 91.5px))}.v2-gallery{padding:0 12px}.v2-frame{width:183px;transition-duration:400ms}.v2-title-track{gap:14px}.v2-project-title{min-width:150px}.v2-project-title .v2-title{font-size:12px}}
 @media(prefers-reduced-motion:reduce){.v2-frame,.v2-title-track{transition:none}}
 
-.v2-supporting img{opacity:.42;filter:blur(.35px);transition:opacity 400ms ease,filter 400ms ease}
-@media(prefers-reduced-motion:reduce){.v2-supporting img{transition:none}}
 /* Project pages run unchanged in an independent, same-origin viewport. */
 .project-overlay{position:fixed;inset:56px 0 0;width:84vw;max-width:1600px;height:calc(100svh - 56px);height:calc(100dvh - 56px);max-height:none;margin:0 auto;padding:0;border:0;background:var(--v2-paper);color:var(--v2-ink);overflow:hidden;box-shadow:none}
 .project-overlay::backdrop{background:var(--v2-backdrop)}
