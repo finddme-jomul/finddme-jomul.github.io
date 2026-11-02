@@ -29,3 +29,5 @@ for (const source of projects) {
   link.append(frame, number, title);
   list.append(link);
 }
+
+import './site-footer.js';
