@@ -142,3 +142,5 @@ const observer = new ResizeObserver(scheduleCurrent);
 entries.forEach(({ element }) => observer.observe(element));
 updateCurrent();
 document.fonts.ready.then(scheduleCurrent);
+
+import './site-footer.js';
